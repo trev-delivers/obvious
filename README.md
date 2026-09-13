@@ -177,6 +177,56 @@ spectrum and `t-check-badge` keeps its green: the first is a fixed material
 that should look the same everywhere it appears, and the second is a success
 signal, which stops being readable at a glance if it changes colour per app.
 
+## Is it actually being used?
+
+`--check` proves the vendored copy is current. That is a different question
+from whether anything uses it: an app can carry the whole system and still be
+built entirely out of hard-coded hexes.
+
+```sh
+npm run audit ../app-one ../app-two   # from here, across checkouts
+node scripts/audit-ds.mjs             # or from inside one app
+node scripts/audit-ds.mjs --detail    # every finding, with file:line
+node scripts/audit-ds.mjs --max 60    # exit 1 over budget, for CI
+```
+
+It counts two things. **Adoption**: which tokens and components an app
+references, and which theme it imports. **Bypass**: the values that went
+around the system anyway — literal colours, durations, easing curves and font
+stacks. Bypass is the number that matters.
+
+It is not meant to reach zero. Icons need literal fills, a one-off texture is
+a one-off decision, and Brookwood's whole point is that it does not take the
+interaction layer. The target is a number that is small, known, and going
+down. `--max` exists so it can be ratcheted rather than watched.
+
+Where a file is genuinely outside the system's remit, say so in the app's
+`.ds-audit.json` rather than letting it sit in the count forever:
+
+```json
+{ "ignore": ["tools/"], "note": "a standalone preview harness, not the app" }
+```
+
+Exceptions suppress bypass findings only, never adoption. A file can be
+outside the remit and still use the tokens — Ritual's `palette.ts` writes
+every `--ds-color-*` there is — and hiding that would understate adoption to
+flatter the bypass number, which is the wrong trade.
+
+### Where it stood when the audit was written
+
+| App | Tokens | Components | Bypass |
+| --- | --- | --- | --- |
+| designedbytrev | 18 | 6/8 | 92 |
+| condiment-gallery | 24 | 1/8 | 44 |
+| daily-routine | 21 | 0/8 | 99 |
+| brookwood-hunt | 17 | 0/8 | 97 |
+| time-dissonance | 14 | 0/8 | 67 |
+| trev-delivers | 11 | — | 8 |
+
+The portfolio is the only app really using the interaction layer, which is
+worth saying plainly: right now this is a token system with a component layer
+that mostly travels unused.
+
 ## Not here yet
 
 shadcn/ui, through a registry served from this repo, for the structural

@@ -21,6 +21,7 @@
   "scripts": {
     "build": "node scripts/build.mjs && node docs/build-docs.mjs",
     "check": "node scripts/build.mjs && git diff --exit-code -- dist",
-    "docs": "node docs/build-docs.mjs"
+    "docs": "node docs/build-docs.mjs",
+    "audit": "node scripts/audit-ds.mjs"
   }
 }
