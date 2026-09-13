@@ -139,12 +139,12 @@
   },
 
   "shadow": {
-    "$comment": "Shape is shared; the colour comes from the theme's --ds-shadow-color, which is why brookwood's shadows are brown and condimental's are black without either app overriding a shadow.",
-    "sm": "0 1px 3px var(--ds-shadow-color)",
-    "md": "0 2px 8px -2px var(--ds-shadow-color)",
-    "lg": "0 8px 24px -6px var(--ds-shadow-color)",
-    "xl": "0 20px 48px -12px var(--ds-shadow-color)",
-    "inset-hairline": "inset 0 1px 0 var(--ds-shadow-highlight)"
+    "$comment": "Shape is shared; the colour comes from the theme's --ds-color-shadow-color, which is why Brookwood's shadows are brown and the gallery's are not, without either app overriding a shadow. Note the --ds-color- prefix: the shadow colour is a theme colour like any other, and referencing it as --ds-shadow-color (which nothing defines) is what made every one of these resolve to nothing.",
+    "sm": "0 1px 3px var(--ds-color-shadow-color)",
+    "md": "0 2px 8px -2px var(--ds-color-shadow-color)",
+    "lg": "0 8px 24px -6px var(--ds-color-shadow-color)",
+    "xl": "0 20px 48px -12px var(--ds-color-shadow-color)",
+    "inset-hairline": "inset 0 1px 0 var(--ds-color-shadow-highlight)"
   },
 
   "control": {
