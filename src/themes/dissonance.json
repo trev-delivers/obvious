@@ -2,6 +2,7 @@
   "name": "dissonance",
   "label": "Dissonance",
   "description": "Time Dissonance. Deep night-sky navy with a low amber lamp — the same dark-with-one-warm-accent shape as Condimental, tuned cold instead of hot.",
+  "family": true,
   "dial": { "radius-base": "8px", "density": "1" },
   "font": {
     "display": "'Bricolage Grotesque', system-ui, sans-serif",

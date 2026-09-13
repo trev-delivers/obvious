@@ -2,6 +2,7 @@
   "name": "routine",
   "label": "Routine",
   "description": "Daily Routine. The family's light, untextured theme: warm off-white paper, ink-blue text, one green accent for a completed thing. Deliberately the plainest of the five — a habit tracker earns nothing from atmosphere.",
+  "family": true,
   "dial": { "radius-base": "12px", "density": "0.95" },
   "font": {
     "display": "'Bricolage Grotesque', system-ui, sans-serif",

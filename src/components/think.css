@@ -1,0 +1,67 @@
+/* t-think — the thinking shimmer.
+ *
+ * A loading beat that reads as deliberation rather than a spinner: a line of
+ * text with a highlight sweeping through it, swapping phrases by sliding out,
+ * changing while off-screen, and releasing back in.
+ *
+ * The sizer is the trick. It is an invisible copy of the widest phrase in the
+ * pool, holding the box open so nothing reflows or clips mid-cycle while the
+ * real text is absolutely positioned on top of it.
+ *
+ * Greys, not the theme accent, so the line reads as flat material rather than
+ * a glowing brand element. That is the component's own register and it is
+ * worth keeping even on a site with a strong accent colour.
+ */
+
+.t-think{
+  --think-swap:150ms; --think-distance:8px; --think-blur:2px;
+  --think-shimmer:2000ms; --think-base:#9A9A9A; --think-highlight:#F5F5F5;
+  --think-ease:ease-in-out; --think-hold:750ms; --think-gap:50ms;
+}
+
+.t-think-container{position:relative;display:inline-block;text-align:left;font:inherit}
+.t-think-sizer{display:block;visibility:hidden;white-space:nowrap}
+
+.t-think-text{
+  position:absolute;top:0;left:0;right:0;display:block;
+  color:var(--think-base);
+  white-space:nowrap;
+  transform:translateY(0);filter:blur(0);opacity:1;
+  transition:
+    transform var(--think-swap) var(--think-ease),
+    filter var(--think-swap) var(--think-ease),
+    opacity var(--think-swap) var(--think-ease);
+  will-change:transform,filter,opacity;
+}
+
+/* The shimmer is a second copy of the text drawn from data-text and clipped
+   to the glyphs, so the sweep travels through the letterforms rather than
+   over a box behind them. Keep data-text in sync with textContent. */
+.t-think-text::before{
+  content:attr(data-text);
+  position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(90deg,
+    transparent 0%,transparent 40%,
+    var(--think-highlight) 50%,
+    transparent 60%,transparent 100%);
+  background-size:400% 100%;background-repeat:no-repeat;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+  animation:t-think-shimmer var(--think-shimmer) linear infinite;
+}
+@keyframes t-think-shimmer{
+  0%{background-position:100% 0}
+  100%{background-position:0% 0}
+}
+
+.t-think-text.is-exit{
+  transform:translateY(calc(var(--think-distance) * -1));
+  filter:blur(var(--think-blur));
+  opacity:0;
+}
+.t-think-text.is-enter-start{
+  transition:none;
+  transform:translateY(var(--think-distance));
+  filter:blur(var(--think-blur));
+  opacity:0;
+}

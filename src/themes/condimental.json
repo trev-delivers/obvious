@@ -2,6 +2,7 @@
   "name": "condimental",
   "label": "Condimental",
   "description": "Condiment Gallery. Dark and glassy, with a mustard-to-ketchup gradient doing the work a single accent does elsewhere. Rounder than anything else in the family.",
+  "family": true,
   "dial": { "radius-base": "16px", "density": "1" },
   "font": {
     "display": "var(--font-geist-sans), system-ui, sans-serif",

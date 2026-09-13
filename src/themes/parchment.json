@@ -2,6 +2,8 @@
   "name": "parchment",
   "label": "Parchment",
   "description": "Brookwood Hunt. Aged paper, brown ink, an oxblood seal, and one candlelit warning colour. The only light theme with texture; nothing in it is allowed to glow except the lamp.",
+  "family": false,
+  "familyNote": "Stands apart on purpose. Brookwood Hunt is the one app built for people who have never seen any of the others, so it takes the primitives (spacing, type scale, motion, focus) and none of the shared interaction layer \u2014 no gradient text, no Pro button, no thinking shimmer. Those would make it read as part of a portfolio instead of as a thing found in a village.",
   "dial": { "radius-base": "4px", "density": "1" },
   "font": {
     "display": "var(--font-fell), Georgia, serif",

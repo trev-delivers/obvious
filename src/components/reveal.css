@@ -1,0 +1,41 @@
+/* Scroll and load reveals.
+ *
+ * Two names because they mean different things: .t-stagger is a group whose
+ * children arrive one after another, .t-seq is a single element arriving on
+ * its own. Both start hidden in CSS and are released by adding .in, so a
+ * failure in the observer leaves content invisible — which is why
+ * revealOnScroll() in the behaviours module releases everything immediately
+ * when IntersectionObserver is missing.
+ *
+ * Words in a heading use .t-word. .t-word--tail is for punctuation that
+ * followed the previous word with no space: kept inline rather than
+ * inline-block so the browser applies line-breaking rules (which forbid a
+ * break before it) instead of treating it as an atomic box it can strand at
+ * the start of a line.
+ */
+
+.t-stagger,
+.t-seq{opacity:0;transform:translateY(10px)}
+
+.t-stagger.in{
+  opacity:1;transform:none;
+  transition:opacity var(--ds-duration-slower) var(--ds-ease-out),transform var(--ds-duration-slower) var(--ds-ease-out);
+}
+.t-seq.in{
+  opacity:1;transform:none;
+  transition:opacity .7s var(--ds-ease-out),transform .7s var(--ds-ease-out);
+}
+
+.t-word{display:inline-block;opacity:0;transform:translateY(12px);filter:blur(3px)}
+.t-word--tail{display:inline;transform:none}
+.t-word.in{
+  opacity:1;transform:none;filter:none;
+  transition:
+    opacity var(--ds-duration-slower) var(--ds-ease-out),
+    transform var(--ds-duration-slower) var(--ds-ease-out),
+    filter var(--ds-duration-slower) var(--ds-ease-out);
+}
+
+@media (prefers-reduced-motion:reduce){
+  .t-stagger,.t-seq,.t-word{opacity:1;transform:none;filter:none}
+}

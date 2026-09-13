@@ -8,7 +8,7 @@
  * semantic keys as every other, so an app can never quietly drop a token and
  * inherit whatever the previous theme happened to leave behind.
  */
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, cpSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execSync } from "node:child_process";
@@ -83,6 +83,7 @@ const primitiveVars = [
   ["--ds-measure", primitives.measure],
   ["--ds-container", primitives.container],
   ...vars(primitives.text, "--ds-text"),
+  ...vars(primitives.type, "--ds-type"),
   ...vars(primitives.leading, "--ds-leading"),
   ...vars(primitives.tracking, "--ds-tracking"),
   ...vars(primitives.weight, "--ds-weight"),
@@ -174,6 +175,34 @@ writeFileSync(
     block("@theme inline", tw),
 );
 
+/* Components. The interaction layer the family shares: the field assembly,
+   the spinner-to-check morph, the gradient text, the thinking shimmer, the
+   boot ring, the house link. Each ships as its own file so an app can take
+   only what it uses, plus a bundle for the common case. Brookwood takes none
+   of these on purpose — see README. */
+mkdirSync(join(dist, "css", "components"), { recursive: true });
+const components = readdirSync(join(src, "components"))
+  .filter((f) => f.endsWith(".css"))
+  .sort();
+
+for (const file of components) {
+  const body = readFileSync(join(src, "components", file), "utf8");
+  const [, lead = "", rest = body] = body.match(/^(\/\*[\s\S]*?\*\/\n+)([\s\S]*)$/) ?? [];
+  writeFileSync(
+    join(dist, "css", "components", file),
+    stamp(lead.replace(/^\/\*\s*|\s*\*\/$/g, "").trim().split("\n")[0]) + rest,
+  );
+}
+
+writeFileSync(
+  join(dist, "css", "components.css"),
+  stamp("trev-ds components — the shared interaction layer. Import after primitives, a theme and base.") +
+    components.map((f) => `@import "./components/${f}";`).join("\n") +
+    "\n",
+);
+
+cpSync(join(src, "js", "behaviours.js"), join(dist, "js", "behaviours.js"));
+
 /* JS export, for the things that cannot read a stylesheet: the profile
    README's card.svg generator, OG image builders, canvas and WebGL code. */
 const jsTokens = {
@@ -192,5 +221,6 @@ writeFileSync(
 
 console.log(
   `trev-ds v${pkg.version} (${sha}): ${primitiveVars.length} primitives, ` +
-    `${themes.length} themes x ${themeVars(reference).length} semantic tokens.`,
+    `${themes.length} themes x ${themeVars(reference).length} semantic tokens, ` +
+    `${components.length} components.`,
 );

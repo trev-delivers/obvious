@@ -1,0 +1,49 @@
+/* t-boot-ring — a retro-futurist loader.
+ *
+ * Chunky pixel LEDs in a ring, sequenced like an '80s machine powering on: a
+ * beat's pause, each LED lighting in turn around the ring, then settling into
+ * a continuous chasing shimmer. The negative animation-delay per dot phase-
+ * offsets the breathe loop so it starts mid-cycle rather than snapping into
+ * sync with its neighbours.
+ *
+ * Flat greys, no bloom or shadow anywhere. Pairs with t-think.
+ *
+ * The dots are created by mountBootRing() in the DS behaviours module: the
+ * trig positions cannot be computed in CSS with usable browser support today.
+ *
+ * Animations are scoped to .is-running rather than applied on sight, so the
+ * power-on sequence starts when the loader is actually revealed. Otherwise a
+ * ring built at page load has long since finished booting by the time anyone
+ * sees it, and the boot-up — the entire point — is never witnessed.
+ */
+
+.t-boot-ring{
+  position:relative;flex:none;width:64px;height:64px;
+  --boot-radius:22px; --boot-dot:6px; --boot-count:12;
+  --boot-step:60ms; --boot-lead:500ms; --boot-cycle:2400ms;
+  --boot-base:#3A3A3E; --boot-active:#B8B8C2;
+}
+.t-boot-ring i{
+  position:absolute;top:50%;left:50%;
+  width:var(--boot-dot);height:var(--boot-dot);
+  margin:calc(var(--boot-dot) / -2);
+  background:var(--boot-base);
+  border-radius:1.5px;
+  transform:translate(var(--x),var(--y));
+}
+.t-boot-ring.is-running i{
+  animation:
+    t-boot-on .3s ease-out var(--boot-delay) both,
+    t-boot-breathe var(--boot-cycle) ease-in-out calc(var(--boot-delay) * -1) infinite;
+}
+@keyframes t-boot-on{
+  from{background:var(--boot-base)}
+  to{background:var(--boot-active)}
+}
+@keyframes t-boot-breathe{
+  0%,100%{opacity:1}
+  50%{opacity:.4}
+}
+@media (prefers-reduced-motion:reduce){
+  .t-boot-ring i{animation:none!important;background:var(--boot-active)}
+}
