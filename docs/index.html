@@ -1,0 +1,2165 @@
+<title>Obvious</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&family=Bricolage+Grotesque:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=IM+Fell+English&family=Instrument+Serif&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@500&family=Geist:wght@400;500;600&family=Geist+Mono&family=Libre+Baskerville:ital@0;1&family=DM+Mono:wght@300;400&display=swap">
+
+<style>
+/* ── The system itself, generated. Everything in this block is inlined
+      verbatim from dist/ so this page cannot describe a version of the
+      system that does not exist. ─────────────────────────────────────── */
+
+/* The variables next/font supplies in the real apps. Declared here so the
+   parchment and condimental themes resolve to the faces they actually use
+   rather than silently falling back to Georgia. */
+:root{
+  --font-fell:'IM Fell English';
+  --font-instrument:'Instrument Serif';
+  --font-plex-mono:'IBM Plex Mono';
+  --font-caveat:'Caveat';
+  --font-geist-sans:'Geist';
+  --font-geist-mono:'Geist Mono';
+}
+
+:root {
+  --ds-space-3xs: 2px;
+  --ds-space-2xs: 4px;
+  --ds-space-xs: 8px;
+  --ds-space-sm: 12px;
+  --ds-space-md: 16px;
+  --ds-space-lg: 24px;
+  --ds-space-xl: 32px;
+  --ds-space-2xl: 48px;
+  --ds-space-3xl: 64px;
+  --ds-space-4xl: 96px;
+  --ds-space-5xl: 128px;
+  --ds-space-fluid-s: clamp(16px, 4vw, 22px);
+  --ds-space-fluid-m: clamp(22px, 5.5vw, 32px);
+  --ds-space-fluid-l: clamp(36px, 8vw, 56px);
+  --ds-space-fluid-xl: clamp(56px, 11vw, 88px);
+  --ds-gutter: clamp(20px, 5vw, 64px);
+  --ds-measure: 68ch;
+  --ds-container: 1140px;
+  --ds-text-micro: 11px;
+  --ds-text-mono: 12.5px;
+  --ds-text-xs: 13px;
+  --ds-text-sm: 14px;
+  --ds-text-md: 15px;
+  --ds-text-base: 17px;
+  --ds-text-lead: clamp(16px, 1.7vw, 19px);
+  --ds-text-h3: clamp(20px, 2.4vw, 28px);
+  --ds-text-h2: clamp(30px, 4.4vw, 52px);
+  --ds-text-h1: clamp(34px, 6.6vw, 78px);
+  --ds-type-h1-size: var(--ds-text-h1);
+  --ds-type-h1-leading: 1.06;
+  --ds-type-h1-tracking: -0.03em;
+  --ds-type-h1-weight: 600;
+  --ds-type-h2-size: var(--ds-text-h2);
+  --ds-type-h2-leading: 1.1;
+  --ds-type-h2-tracking: -0.025em;
+  --ds-type-h2-weight: 600;
+  --ds-type-h3-size: var(--ds-text-h3);
+  --ds-type-h3-leading: 1.2;
+  --ds-type-h3-tracking: -0.015em;
+  --ds-type-h3-weight: 600;
+  --ds-type-lead-size: var(--ds-text-lead);
+  --ds-type-lead-leading: 1.5;
+  --ds-type-lead-tracking: 0;
+  --ds-type-lead-weight: 400;
+  --ds-type-body-size: var(--ds-text-base);
+  --ds-type-body-leading: 1.6;
+  --ds-type-body-tracking: 0;
+  --ds-type-body-weight: 400;
+  --ds-type-ui-size: var(--ds-text-md);
+  --ds-type-ui-leading: 1.4;
+  --ds-type-ui-tracking: 0;
+  --ds-type-ui-weight: 500;
+  --ds-type-mono-size: var(--ds-text-mono);
+  --ds-type-mono-leading: 1.4;
+  --ds-type-mono-tracking: 0.04em;
+  --ds-type-mono-weight: 400;
+  --ds-leading-tight: 1.06;
+  --ds-leading-snug: 1.1;
+  --ds-leading-normal: 1.4;
+  --ds-leading-body: 1.5;
+  --ds-leading-relaxed: 1.6;
+  --ds-tracking-tightest: -0.03em;
+  --ds-tracking-tighter: -0.025em;
+  --ds-tracking-tight: -0.015em;
+  --ds-tracking-normal: 0;
+  --ds-tracking-wide: 0.04em;
+  --ds-tracking-wider: 0.08em;
+  --ds-weight-regular: 400;
+  --ds-weight-medium: 500;
+  --ds-weight-semibold: 600;
+  --ds-weight-bold: 700;
+  --ds-radius-xs: calc(var(--ds-radius-base) * 0.25);
+  --ds-radius-sm: calc(var(--ds-radius-base) * 0.5);
+  --ds-radius-md: var(--ds-radius-base);
+  --ds-radius-lg: calc(var(--ds-radius-base) * 1.5);
+  --ds-radius-xl: calc(var(--ds-radius-base) * 2.5);
+  --ds-radius-full: 999px;
+  --ds-border-hairline: 1px;
+  --ds-border-thick: 1.5px;
+  --ds-border-heavy: 2px;
+  --ds-focus-width: 2px;
+  --ds-focus-offset: 3px;
+  --ds-focus-style: solid;
+  --ds-duration-instant: 100ms;
+  --ds-duration-fast: 150ms;
+  --ds-duration-base: 250ms;
+  --ds-duration-slow: 400ms;
+  --ds-duration-slower: 700ms;
+  --ds-duration-slowest: 900ms;
+  --ds-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ds-ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  --ds-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ds-ease-spring: linear(0, 0.006, 0.025, 0.101, 0.539, 0.816, 0.934, 0.988, 1.007, 1.011, 1.005, 1);
+  --ds-shadow-sm: 0 1px 3px var(--ds-shadow-color);
+  --ds-shadow-md: 0 2px 8px -2px var(--ds-shadow-color);
+  --ds-shadow-lg: 0 8px 24px -6px var(--ds-shadow-color);
+  --ds-shadow-xl: 0 20px 48px -12px var(--ds-shadow-color);
+  --ds-shadow-inset-hairline: inset 0 1px 0 var(--ds-shadow-highlight);
+  --ds-control-height-sm: calc(32px * var(--ds-density));
+  --ds-control-height-md: calc(40px * var(--ds-density));
+  --ds-control-height-lg: calc(48px * var(--ds-density));
+  --ds-control-tap-min: 44px;
+  --ds-control-pad-x-sm: calc(10px * var(--ds-density));
+  --ds-control-pad-x-md: calc(14px * var(--ds-density));
+  --ds-control-pad-x-lg: calc(20px * var(--ds-density));
+  --ds-z-base: 0;
+  --ds-z-raised: 1;
+  --ds-z-sticky: 10;
+  --ds-z-nav: 40;
+  --ds-z-overlay: 50;
+  --ds-z-modal: 60;
+  --ds-z-toast: 70;
+}
+
+[data-ds-theme="condimental"] {
+  --ds-radius-base: 16px;
+  --ds-density: 1;
+  --ds-font-display: var(--font-geist-sans), system-ui, sans-serif;
+  --ds-font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --ds-font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --ds-font-script: var(--font-geist-sans), system-ui, sans-serif;
+  --ds-color-bg: #faf5ee;
+  --ds-color-bg-alt: #f4ead2;
+  --ds-color-surface: #ffffff;
+  --ds-color-surface-raised: #ffffff;
+  --ds-color-surface-hover: #f5eee2;
+  --ds-color-border-subtle: rgba(37, 26, 12, 0.08);
+  --ds-color-border: rgba(37, 26, 12, 0.08);
+  --ds-color-border-strong: rgba(37, 26, 12, 0.16);
+  --ds-color-text: #241a10;
+  --ds-color-text-dim: #4a3a28;
+  --ds-color-text-muted: #8c8071;
+  --ds-color-text-inverse: #fff8f0;
+  --ds-color-accent: #e14e3b;
+  --ds-color-accent-hover: #c93f2e;
+  --ds-color-accent-contrast: #fff8f0;
+  --ds-color-accent-alt: #f5b841;
+  --ds-color-accent-gradient: linear-gradient(135deg, #f5b841 0%, #e97a3a 45%, #e14e3b 100%);
+  --ds-color-success: #3f7d4f;
+  --ds-color-warning: #b07a16;
+  --ds-color-danger: #c93f2e;
+  --ds-color-info: #4a6b8a;
+  --ds-color-shadow-color: rgba(37, 26, 12, 0.14);
+  --ds-color-shadow-highlight: rgba(255, 255, 255, 0.90);
+  --ds-color-selection-bg: #f5b841;
+  --ds-color-selection-text: #241a10;
+}
+
+[data-ds-theme="core"] {
+  --ds-radius-base: 8px;
+  --ds-density: 1;
+  --ds-font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --ds-font-sans: 'Inter', system-ui, sans-serif;
+  --ds-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --ds-font-script: 'Inter', system-ui, sans-serif;
+  --ds-color-bg: #0A0B0C;
+  --ds-color-bg-alt: #0F1113;
+  --ds-color-surface: #16181B;
+  --ds-color-surface-raised: #171A1E;
+  --ds-color-surface-hover: rgba(255, 255, 255, 0.05);
+  --ds-color-border-subtle: rgba(255, 255, 255, 0.06);
+  --ds-color-border: rgba(255, 255, 255, 0.10);
+  --ds-color-border-strong: rgba(255, 255, 255, 0.18);
+  --ds-color-text: #ECEDEE;
+  --ds-color-text-dim: #C4C8CB;
+  --ds-color-text-muted: #8A8F94;
+  --ds-color-text-inverse: #0A0B0C;
+  --ds-color-accent: #5B7FE8;
+  --ds-color-accent-hover: #7C9AFF;
+  --ds-color-accent-contrast: #FFFFFF;
+  --ds-color-accent-alt: #7C9AFF;
+  --ds-color-accent-gradient: linear-gradient(135deg, #5B7FE8 0%, #7C9AFF 100%);
+  --ds-color-success: #3FA97A;
+  --ds-color-warning: #D9A03C;
+  --ds-color-danger: #E05252;
+  --ds-color-info: #5B7FE8;
+  --ds-color-shadow-color: rgba(0, 0, 0, 0.55);
+  --ds-color-shadow-highlight: rgba(255, 255, 255, 0.08);
+  --ds-color-selection-bg: #5B7FE8;
+  --ds-color-selection-text: #FFFFFF;
+}
+
+[data-ds-theme="dissonance"] {
+  --ds-radius-base: 8px;
+  --ds-density: 1;
+  --ds-font-display: 'Libre Baskerville', Georgia, serif;
+  --ds-font-sans: 'Libre Baskerville', Georgia, serif;
+  --ds-font-mono: 'DM Mono', ui-monospace, monospace;
+  --ds-font-script: 'Libre Baskerville', Georgia, serif;
+  --ds-color-bg: #04060d;
+  --ds-color-bg-alt: #080e1a;
+  --ds-color-surface: #0d1526;
+  --ds-color-surface-raised: #121e33;
+  --ds-color-surface-hover: #16223a;
+  --ds-color-border-subtle: rgba(30, 48, 80, 0.6);
+  --ds-color-border: #1e3050;
+  --ds-color-border-strong: #2e4868;
+  --ds-color-text: #dde8f2;
+  --ds-color-text-dim: #9db5cc;
+  --ds-color-text-muted: #6a8aaa;
+  --ds-color-text-inverse: #04060d;
+  --ds-color-accent: #d4853a;
+  --ds-color-accent-hover: #f0a050;
+  --ds-color-accent-contrast: #04060d;
+  --ds-color-accent-alt: #c9a227;
+  --ds-color-accent-gradient: linear-gradient(135deg, #c9a227 0%, #d4853a 100%);
+  --ds-color-success: #4ab07a;
+  --ds-color-warning: #c9a227;
+  --ds-color-danger: #ff4444;
+  --ds-color-info: #5aabcf;
+  --ds-color-shadow-color: rgba(0, 0, 0, 0.65);
+  --ds-color-shadow-highlight: rgba(157, 181, 204, 0.08);
+  --ds-color-selection-bg: #d4853a;
+  --ds-color-selection-text: #04060d;
+}
+
+[data-ds-theme="parchment"] {
+  --ds-radius-base: 4px;
+  --ds-density: 1;
+  --ds-font-display: var(--font-fell), Georgia, serif;
+  --ds-font-sans: var(--font-instrument), system-ui, sans-serif;
+  --ds-font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --ds-font-script: var(--font-caveat), 'Segoe Print', 'Bradley Hand', cursive;
+  --ds-color-bg: #e8dcbe;
+  --ds-color-bg-alt: #e2d4b2;
+  --ds-color-surface: #efe4ca;
+  --ds-color-surface-raised: #f4ebd6;
+  --ds-color-surface-hover: #e6d9ba;
+  --ds-color-border-subtle: rgba(185, 162, 121, 0.35);
+  --ds-color-border: rgba(185, 162, 121, 0.50);
+  --ds-color-border-strong: #a48f66;
+  --ds-color-text: #2b1f10;
+  --ds-color-text-dim: #574126;
+  --ds-color-text-muted: #7d6a48;
+  --ds-color-text-inverse: #efe4ca;
+  --ds-color-accent: #8f2f10;
+  --ds-color-accent-hover: #a8471f;
+  --ds-color-accent-contrast: #efe4ca;
+  --ds-color-accent-alt: #d08a2c;
+  --ds-color-accent-gradient: linear-gradient(135deg, #8f2f10 0%, #d08a2c 100%);
+  --ds-color-success: #4a6b3a;
+  --ds-color-warning: #d08a2c;
+  --ds-color-danger: #8f2f10;
+  --ds-color-info: #3f5d78;
+  --ds-color-shadow-color: rgba(43, 31, 16, 0.20);
+  --ds-color-shadow-highlight: rgba(255, 255, 255, 0.50);
+  --ds-color-selection-bg: #d08a2c;
+  --ds-color-selection-text: #2b1f10;
+}
+
+[data-ds-theme="routine"] {
+  --ds-radius-base: 12px;
+  --ds-density: 0.95;
+  --ds-font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --ds-font-sans: 'Inter', system-ui, sans-serif;
+  --ds-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --ds-font-script: 'Inter', system-ui, sans-serif;
+  --ds-color-bg: #FAF9F7;
+  --ds-color-bg-alt: #F2F0EC;
+  --ds-color-surface: #FFFFFF;
+  --ds-color-surface-raised: #FFFFFF;
+  --ds-color-surface-hover: #F2F0EC;
+  --ds-color-border-subtle: rgba(26, 32, 44, 0.06);
+  --ds-color-border: rgba(26, 32, 44, 0.12);
+  --ds-color-border-strong: rgba(26, 32, 44, 0.22);
+  --ds-color-text: #161A20;
+  --ds-color-text-dim: #434A56;
+  --ds-color-text-muted: #727A88;
+  --ds-color-text-inverse: #FAF9F7;
+  --ds-color-accent: #2F7D5A;
+  --ds-color-accent-hover: #39956B;
+  --ds-color-accent-contrast: #FFFFFF;
+  --ds-color-accent-alt: #5B7FE8;
+  --ds-color-accent-gradient: linear-gradient(135deg, #2F7D5A 0%, #5B7FE8 100%);
+  --ds-color-success: #2F7D5A;
+  --ds-color-warning: #B07A16;
+  --ds-color-danger: #C03A3A;
+  --ds-color-info: #5B7FE8;
+  --ds-color-shadow-color: rgba(26, 32, 44, 0.10);
+  --ds-color-shadow-highlight: rgba(255, 255, 255, 0.90);
+  --ds-color-selection-bg: #2F7D5A;
+  --ds-color-selection-text: #FFFFFF;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Headings balance across their lines instead of stranding a last word;
+   body copy uses the paragraph-tuned variant that only guards the final
+   line. Both are native and degrade to normal wrapping where unsupported. */
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* One focus treatment, everywhere. The ring takes its colour from the
+   theme's accent, so it is recognisably the same ring on parchment as it
+   is on near-black. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: var(--ds-focus-width) var(--ds-focus-style) var(--ds-color-accent);
+  outline-offset: var(--ds-focus-offset);
+}
+
+::selection {
+  background: var(--ds-color-selection-bg);
+  color: var(--ds-color-selection-text);
+}
+
+/* Duration alone is not enough. Staggered entrances lean on delay, and
+   zeroing only the duration leaves someone who asked for less motion
+   staring at an empty screen until the delay elapses. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* t-boot-ring — a retro-futurist loader.
+ * Generated by obvious v0.1.0. Do not edit by hand:
+ * change src/ in trev-delivers/obvious and re-run `npm run build`.
+ */
+
+.t-boot-ring{
+  position:relative;flex:none;width:64px;height:64px;
+  --boot-radius:22px; --boot-dot:6px; --boot-count:12;
+  --boot-step:60ms; --boot-lead:500ms; --boot-cycle:2400ms;
+  --boot-base:#3A3A3E; --boot-active:#B8B8C2;
+}
+.t-boot-ring i{
+  position:absolute;top:50%;left:50%;
+  width:var(--boot-dot);height:var(--boot-dot);
+  margin:calc(var(--boot-dot) / -2);
+  background:var(--boot-base);
+  border-radius:1.5px;
+  transform:translate(var(--x),var(--y));
+}
+.t-boot-ring.is-running i{
+  animation:
+    t-boot-on .3s ease-out var(--boot-delay) both,
+    t-boot-breathe var(--boot-cycle) ease-in-out calc(var(--boot-delay) * -1) infinite;
+}
+@keyframes t-boot-on{
+  from{background:var(--boot-base)}
+  to{background:var(--boot-active)}
+}
+@keyframes t-boot-breathe{
+  0%,100%{opacity:1}
+  50%{opacity:.4}
+}
+@media (prefers-reduced-motion:reduce){
+  .t-boot-ring i{animation:none!important;background:var(--boot-active)}
+}
+
+/* t-check-badge — transitions.dev's spinner-to-check morph.
+ * Generated by obvious v0.1.0. Do not edit by hand:
+ * change src/ in trev-delivers/obvious and re-run `npm run build`.
+ */
+
+.t-check-blur-wrap{
+  display:inline-flex;filter:blur(0);
+  transition:filter var(--check-revert-dur,250ms) var(--check-revert-ease,cubic-bezier(0.22,1,0.36,1));
+  will-change:filter;
+}
+/* Ties in specificity with the UA's [hidden]{display:none} and, being later,
+   would otherwise win — leaving the spinner visibly running (its animation is
+   not gated by [hidden]) before anything had been submitted. */
+.t-check-blur-wrap[hidden]{display:none}
+.t-check-blur-wrap.is-crossing{
+  filter:blur(var(--check-blur,.5px));
+  transition:filter calc(var(--check-fill-dur,350ms) * 0.45) var(--check-fill-ease,cubic-bezier(0.34,1.35,0.64,1));
+}
+
+.t-check-badge{
+  position:relative;width:22px;height:22px;flex:0 0 22px;
+  scale:1;
+  transition:scale var(--check-revert-dur,250ms) var(--check-revert-ease,cubic-bezier(0.22,1,0.36,1));
+  will-change:scale,transform;
+  --check-spin-dur:900ms; --check-ring-w:2.5px;
+  --check-hop:3px; --check-up-dur:250ms; --check-up-ease:cubic-bezier(0.34,1.35,0.64,1);
+  --check-down-dur:300ms; --check-down-ease:cubic-bezier(0.14,2.56,0.94,1);
+  --check-pop-scale:1.09; --check-pop-dur:350ms; --check-pop-ease:cubic-bezier(0.34,1.96,0.94,1);
+  --check-fill-dur:350ms; --check-fill-ease:cubic-bezier(0.34,1.35,0.64,1);
+  --check-blur:.5px;
+  --check-draw-dur:600ms; --check-draw-delay:80ms; --check-draw-ease:var(--ds-ease-out);
+  --check-mark-w:2;
+  --check-revert-dur:250ms; --check-revert-ease:var(--ds-ease-out);
+  --check-green:#35ba00;
+}
+
+.t-check-badge[data-state="done"]{
+  scale:var(--check-pop-scale);
+  transition:scale var(--check-pop-dur) var(--check-pop-ease);
+  animation-name:t-check-pop-up,t-check-pop-down;
+  animation-duration:var(--check-up-dur),var(--check-down-dur);
+  animation-timing-function:var(--check-up-ease),var(--check-down-ease);
+  animation-delay:0ms,var(--check-up-dur);
+  animation-fill-mode:forwards,forwards;
+}
+@keyframes t-check-pop-up{from{transform:translateY(0)}to{transform:translateY(calc(var(--check-hop,3px) * -1))}}
+@keyframes t-check-pop-down{from{transform:translateY(calc(var(--check-hop,3px) * -1))}to{transform:translateY(0)}}
+
+.t-check-ring{
+  position:absolute;inset:0;border-radius:var(--ds-radius-full);
+  border:var(--check-ring-w) solid rgba(255,255,255,.35);
+  transition:opacity var(--check-revert-dur) ease,filter var(--check-revert-dur) ease;
+}
+.t-check-badge[data-state="done"] .t-check-ring{opacity:0;transition:opacity calc(var(--check-fill-dur) * 0.7) ease}
+
+.t-check-fill{
+  position:absolute;inset:-1px;border-radius:var(--ds-radius-full);
+  background:var(--check-green);
+  opacity:0;
+  transition:opacity var(--check-revert-dur) var(--check-revert-ease);
+  will-change:opacity;
+}
+.t-check-badge[data-state="done"] .t-check-fill{opacity:1;transition:opacity var(--check-fill-dur) var(--check-fill-ease)}
+
+.t-check-arc{
+  position:absolute;inset:0;border-radius:var(--ds-radius-full);
+  border:var(--check-ring-w) solid transparent;
+  border-top-color:#fff;
+  animation-name:t-check-spin;
+  animation-duration:var(--check-spin-dur);
+  animation-timing-function:linear;
+  animation-iteration-count:infinite;
+  transition:opacity var(--check-revert-dur) var(--check-revert-ease);
+  will-change:transform;
+}
+@keyframes t-check-spin{to{transform:rotate(360deg)}}
+.t-check-badge[data-state="done"] .t-check-arc{
+  opacity:0;animation-play-state:paused;
+  transition:opacity calc(var(--check-fill-dur) * 0.5) ease;
+}
+
+.t-check-disc{position:absolute;inset:0;display:grid;place-items:center}
+.t-check-disc svg{display:block;width:100%;height:100%}
+.t-check-mark{
+  fill:none;stroke:#fff;stroke-width:var(--check-mark-w);
+  stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:var(--check-mark-len,20);
+  stroke-dashoffset:var(--check-mark-len,20);
+  transition:stroke-dashoffset var(--check-revert-dur) var(--check-revert-ease);
+}
+.t-check-badge[data-state="done"] .t-check-mark{
+  stroke-dashoffset:0;
+  transition:stroke-dashoffset var(--check-draw-dur) var(--check-draw-ease)
+    calc(var(--check-fill-dur) + var(--check-draw-delay) - 200ms);
+}
+@media (prefers-reduced-motion:reduce){
+  .t-check-badge[data-state="done"] .t-check-mark{stroke-dashoffset:0}
+}
+
+/* t-input — the password field assembly.
+ * Generated by obvious v0.1.0. Do not edit by hand:
+ * change src/ in trev-delivers/obvious and re-run `npm run build`.
+ */
+
+.t-input-wrap{--revert-hold:3000ms; --revert-dur:280ms}
+
+.t-input{
+  display:flex;align-items:center;gap:4px;
+  border:var(--ds-border-hairline) solid var(--ds-color-border);
+  border-radius:var(--ds-radius-lg);
+  padding-right:5px;
+  background:linear-gradient(180deg,var(--ds-color-bg-alt),var(--ds-color-surface-raised));
+  box-shadow:
+    inset 0 2px 5px var(--ds-shadow-color),
+    inset 0 -1px 0 var(--ds-shadow-highlight);
+  transition:border-color var(--ds-duration-fast) ease-out;
+  will-change:transform;
+  --t-input-error:var(--ds-color-accent-hover);
+  --shake-distance:6px; --shake-overshoot:4px;
+  --shake-dur-a:80ms; --shake-dur-b:60ms;
+  --shake-ease:var(--ds-ease-out);
+}
+
+.t-input:focus-within{border-color:var(--ds-color-accent)}
+
+.t-input.is-error,
+.t-input.is-error:focus-within{
+  border-color:var(--t-input-error);
+  transition:border-color var(--revert-dur,280ms) ease-out;
+}
+
+/* 16px minimum, or iOS zooms the viewport on focus. */
+.t-input input{
+  flex:1;min-width:0;padding:13px 14px;
+  color:var(--ds-color-text);
+  font-family:var(--ds-font-sans);
+  font-size:16px;
+  border:0;background:transparent;outline:none;
+}
+
+/* visibility rather than display, so the message can fade rather than
+   pop, and 0s-delayed visibility so it is not focusable while hidden. */
+.t-error-msg{
+  margin:6px 0 0;
+  color:var(--t-input-error,var(--ds-color-accent-hover));
+  opacity:0;visibility:hidden;
+  transition:
+    opacity var(--revert-dur,280ms) ease-out,
+    visibility 0s linear var(--revert-dur,280ms);
+}
+.t-input-wrap.is-error .t-error-msg{
+  opacity:1;visibility:visible;
+  transition:
+    opacity var(--revert-dur,280ms) ease-out,
+    visibility 0s linear 0s;
+}
+
+.t-input.is-shaking{
+  animation:t-input-shake calc(var(--shake-dur-a) * 2 + var(--shake-dur-b) * 2) linear;
+}
+@keyframes t-input-shake{
+  0%     {transform:translateX(0);                               animation-timing-function:var(--shake-ease)}
+  28.57% {transform:translateX(var(--shake-distance));            animation-timing-function:var(--shake-ease)}
+  57.14% {transform:translateX(calc(var(--shake-distance) * -1)); animation-timing-function:var(--shake-ease)}
+  78.57% {transform:translateX(var(--shake-overshoot));           animation-timing-function:var(--shake-ease)}
+  100%   {transform:translateX(0)}
+}
+
+/* t-gradient-text — transitions.dev's Pro gradient text.
+ * Generated by obvious v0.1.0. Do not edit by hand:
+ * change src/ in trev-delivers/obvious and re-run `npm run build`.
+ */
+
+.t-gradient-text{--gradient-text-hue-dur:4000ms; --gradient-text-drift-dur:5000ms}
+.t-gradient-text{
+  background-image:
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 67 42' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='0.88'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(0.34726 -1.3118e-7 8.6482e-7 0.89585 33.5 21)'><stop stop-color='rgba(0,110,245,1)' offset='0'/><stop stop-color='rgba(0,110,245,0)' offset='1'/></radialGradient></defs></svg>"),
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 67 42' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='0.5'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-1.3 0.25 -1.2633 -2.7471 33.5 21)'><stop stop-color='rgba(0,110,245,1)' offset='0'/><stop stop-color='rgba(0,110,245,0)' offset='1'/></radialGradient></defs></svg>"),
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 67 42' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='0.4'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(1.05 -0.8 0.46018 3.6184 33.5 21)'><stop stop-color='rgba(204,0,167,1)' offset='0'/><stop stop-color='rgba(170,0,204,0)' offset='0.71709'/></radialGradient></defs></svg>"),
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 67 42' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-0.51067 -3.3275e-16 -4.3352e-14 -1.1396 33.5 21)'><stop stop-color='rgba(204,0,167,1)' offset='0'/><stop stop-color='rgba(170,0,204,0)' offset='1'/></radialGradient></defs></svg>"),
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 67 42' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-0.45 -0.75 1.9052 -0.7091 33.5 21)'><stop stop-color='rgba(255,173,85,1)' offset='0'/><stop stop-color='rgba(255,173,85,0)' offset='1'/></radialGradient></defs></svg>"),
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 67 42' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(1.25 -0.35 -0.4013 3.5959 33.5 21)'><stop stop-color='rgba(0,204,68,1)' offset='0'/><stop stop-color='rgba(0,196,102,0.75)' offset='0.25'/><stop stop-color='rgba(0,187,136,0.5)' offset='0.5'/><stop stop-color='rgba(0,170,204,0)' offset='1'/></radialGradient></defs></svg>"),
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 67 42' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-0.87391 0.73043 -4.1482 -1.9503 33.5 21)'><stop stop-color='rgba(0,170,204,1)' offset='0'/><stop stop-color='rgba(0,170,204,0)' offset='1'/></radialGradient></defs></svg>"),
+    linear-gradient(rgb(108,108,108) 0%, rgb(216,216,216) 100%);
+  background-size:180% 180%,180% 180%,180% 180%,180% 180%,180% 180%,180% 180%,180% 180%,100% 100%;
+  background-repeat:no-repeat;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:
+    t-gradient-hue var(--gradient-text-hue-dur) linear infinite,
+    t-gradient-drift var(--gradient-text-drift-dur) ease-in-out infinite;
+}
+@keyframes t-gradient-hue{
+  from{filter:hue-rotate(0deg) saturate(1.3)}
+  to{filter:hue-rotate(-360deg) saturate(1.3)}
+}
+@keyframes t-gradient-drift{
+  0%,100%{background-position:100% 0%,0% 50%,100% 50%,0% 100%,0% 0%,50% 0%,50% 100%,0 0}
+  25%{background-position:100% 100%,50% 0%,50% 100%,0% 0%,100% 0%,100% 50%,0% 50%,0 0}
+  50%{background-position:0% 100%,100% 50%,0% 50%,100% 0%,100% 100%,50% 100%,50% 0%,0 0}
+  75%{background-position:0% 0%,50% 100%,50% 0%,100% 100%,0% 100%,0% 50%,100% 50%,0 0}
+}
+@media (prefers-reduced-motion:reduce){
+  .t-gradient-text{animation:none}
+}
+
+/* t-link — the house text link.
+ * Generated by obvious v0.1.0. Do not edit by hand:
+ * change src/ in trev-delivers/obvious and re-run `npm run build`.
+ */
+
+.t-link{
+  color:var(--ds-color-text-muted);
+  border-bottom:var(--ds-border-hairline) solid var(--ds-color-border);
+  padding-bottom:1px;
+  text-decoration:none;
+  transition:color var(--ds-duration-base) ease,border-color var(--ds-duration-base) ease;
+}
+.t-link:hover{
+  color:var(--ds-color-accent);
+  border-bottom-color:var(--ds-color-accent);
+}
+
+.t-link--loud{color:var(--ds-color-text)}
+
+/* A .t-link carrying .t-gradient-text: the text is clipped to the gradient,
+   so its own colour must stay transparent in both states or the flat colour
+   paints over the spectrum on hover. The rule underneath still moves. */
+.t-link.t-gradient-text,
+.t-link.t-gradient-text:hover{color:transparent}
+
+/* t-pro-btn — transitions.dev's Get Pro button.
+ * Generated by obvious v0.1.0. Do not edit by hand:
+ * change src/ in trev-delivers/obvious and re-run `npm run build`.
+ */
+
+.t-pro-btn{
+  position:relative;
+  display:inline-flex;align-items:center;gap:8px;
+  height:44px;padding:0 20px;
+  border:0;cursor:pointer;
+  background:var(--probtn-bg,#fff);
+  border-radius:var(--ds-radius-full);
+  font-family:var(--ds-font-mono);font-weight:var(--ds-weight-medium);
+  font-size:var(--ds-text-xs);letter-spacing:.02em;
+  line-height:1.4;
+  color:var(--probtn-fg,#0f0f0f);
+  white-space:nowrap;
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+  box-shadow:
+    0 1px 3px 0 rgba(0,0,0,.04),
+    inset 0 0 0 1px rgba(0,0,0,.06),
+    inset 0 -1px 0 0 rgba(0,0,0,.1),
+    inset 0 0 0 1px rgba(196,196,196,.1);
+  --probtn-strength:.7; --probtn-core:50%; --probtn-core-blur:150%;
+  --probtn-blur:6px; --probtn-hue-dur:4000ms; --probtn-drift-dur:5000ms;
+}
+/* Docked inside a .t-field, where there is only room for an icon. */
+.t-pro-btn--icon{
+  flex:none;width:36px;height:36px;padding:0;
+  border-radius:var(--ds-radius-full);justify-content:center;gap:0;
+}
+.t-pro-btn:disabled{cursor:default;opacity:.9}
+.t-pro-btn-label{position:relative;z-index:var(--ds-z-raised)}
+/* Inline SVGs reserve space below themselves for text descenders, which
+   nudges an icon-only label up off true centre. display:block drops that
+   gap, and is harmless for a text label. */
+.t-pro-btn-label svg{display:block}
+.t-pro-btn .t-check-blur-wrap{position:relative;z-index:var(--ds-z-raised)}
+.t-pro-btn::before{
+  content:"";
+  position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 67 42' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='0.88'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(0.34726 -1.3118e-7 8.6482e-7 0.89585 33.5 21)'><stop stop-color='rgba(0,110,245,1)' offset='0'/><stop stop-color='rgba(0,110,245,0)' offset='1'/></radialGradient></defs></svg>"),
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 67 42' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='0.5'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-1.3 0.25 -1.2633 -2.7471 33.5 21)'><stop stop-color='rgba(0,110,245,1)' offset='0'/><stop stop-color='rgba(0,110,245,0)' offset='1'/></radialGradient></defs></svg>"),
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 67 42' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='0.4'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(1.05 -0.8 0.46018 3.6184 33.5 21)'><stop stop-color='rgba(204,0,167,1)' offset='0'/><stop stop-color='rgba(170,0,204,0)' offset='0.71709'/></radialGradient></defs></svg>"),
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 67 42' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-0.51067 -3.3275e-16 -4.3352e-14 -1.1396 33.5 21)'><stop stop-color='rgba(204,0,167,1)' offset='0'/><stop stop-color='rgba(170,0,204,0)' offset='1'/></radialGradient></defs></svg>"),
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 67 42' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-0.45 -0.75 1.9052 -0.7091 33.5 21)'><stop stop-color='rgba(255,173,85,1)' offset='0'/><stop stop-color='rgba(255,173,85,0)' offset='1'/></radialGradient></defs></svg>"),
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 67 42' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(1.25 -0.35 -0.4013 3.5959 33.5 21)'><stop stop-color='rgba(0,204,68,1)' offset='0'/><stop stop-color='rgba(0,196,102,0.75)' offset='0.25'/><stop stop-color='rgba(0,187,136,0.5)' offset='0.5'/><stop stop-color='rgba(0,170,204,0)' offset='1'/></radialGradient></defs></svg>"),
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 67 42' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(-0.87391 0.73043 -4.1482 -1.9503 33.5 21)'><stop stop-color='rgba(0,170,204,1)' offset='0'/><stop stop-color='rgba(0,170,204,0)' offset='1'/></radialGradient></defs></svg>");
+  background-size:180% 180%,180% 180%,180% 180%,180% 180%,180% 180%,180% 180%,180% 180%;
+  background-repeat:no-repeat;
+  -webkit-mask-image:radial-gradient(ellipse 46% 46% at 50% 50%,transparent var(--probtn-core),black calc(var(--probtn-core) + var(--probtn-core-blur)));
+  mask-image:radial-gradient(ellipse 46% 46% at 50% 50%,transparent var(--probtn-core),black calc(var(--probtn-core) + var(--probtn-core-blur)));
+  opacity:var(--probtn-strength);
+  animation:
+    t-pro-btn-hue var(--probtn-hue-dur) linear infinite,
+    t-pro-btn-drift var(--probtn-drift-dur) ease-in-out infinite;
+}
+@keyframes t-pro-btn-hue{
+  from{filter:hue-rotate(0deg) saturate(1.3) blur(var(--probtn-blur))}
+  to{filter:hue-rotate(-360deg) saturate(1.3) blur(var(--probtn-blur))}
+}
+@keyframes t-pro-btn-drift{
+  0%,100%{background-position:100% 0%,0% 50%,100% 50%,0% 100%,0% 0%,50% 0%,50% 100%}
+  25%{background-position:100% 100%,50% 0%,50% 100%,0% 0%,100% 0%,100% 50%,0% 50%}
+  50%{background-position:0% 100%,100% 0%,0% 100%,100% 0%,100% 100%,100% 100%,0% 0%}
+  75%{background-position:0% 0%,100% 100%,0% 0%,100% 100%,50% 100%,0% 100%,100% 50%}
+}
+@media (prefers-reduced-motion:reduce){
+  .t-pro-btn::before{animation:none}
+}
+
+/* Scroll and load reveals.
+ * Generated by obvious v0.1.0. Do not edit by hand:
+ * change src/ in trev-delivers/obvious and re-run `npm run build`.
+ */
+
+.t-reveal,
+.t-reveal--seq{opacity:0;transform:translateY(10px)}
+
+.t-reveal.in{
+  opacity:1;transform:none;
+  transition:opacity var(--ds-duration-slower) var(--ds-ease-out),transform var(--ds-duration-slower) var(--ds-ease-out);
+}
+.t-reveal--seq.in{
+  opacity:1;transform:none;
+  transition:opacity .7s var(--ds-ease-out),transform .7s var(--ds-ease-out);
+}
+
+.t-word{display:inline-block;opacity:0;transform:translateY(12px);filter:blur(3px)}
+.t-word--tail{display:inline;transform:none}
+.t-word.in{
+  opacity:1;transform:none;filter:none;
+  transition:
+    opacity var(--ds-duration-slower) var(--ds-ease-out),
+    transform var(--ds-duration-slower) var(--ds-ease-out),
+    filter var(--ds-duration-slower) var(--ds-ease-out);
+}
+
+@media (prefers-reduced-motion:reduce){
+  .t-reveal,.t-reveal--seq,.t-word{opacity:1;transform:none;filter:none}
+}
+
+/* t-think — the thinking shimmer.
+ * Generated by obvious v0.1.0. Do not edit by hand:
+ * change src/ in trev-delivers/obvious and re-run `npm run build`.
+ */
+
+/* Defaults sit on the component itself, so an ancestor that wants to retime
+   or recolour a particular instance just redeclares them and they inherit
+   down. Nothing needs to know where the overrides came from. */
+.t-think{
+  position:relative;display:inline-block;text-align:left;font:inherit;
+  --think-swap:150ms; --think-distance:8px; --think-blur:2px;
+  --think-shimmer:2000ms; --think-base:#9A9A9A; --think-highlight:#F5F5F5;
+  --think-ease:ease-in-out; --think-hold:750ms; --think-gap:50ms;
+}
+.t-think-sizer{display:block;visibility:hidden;white-space:nowrap}
+
+.t-think-text{
+  position:absolute;top:0;left:0;right:0;display:block;
+  color:var(--think-base);
+  white-space:nowrap;
+  transform:translateY(0);filter:blur(0);opacity:1;
+  transition:
+    transform var(--think-swap) var(--think-ease),
+    filter var(--think-swap) var(--think-ease),
+    opacity var(--think-swap) var(--think-ease);
+  will-change:transform,filter,opacity;
+}
+
+/* The shimmer is a second copy of the text drawn from data-text and clipped
+   to the glyphs, so the sweep travels through the letterforms rather than
+   over a box behind them. Keep data-text in sync with textContent. */
+.t-think-text::before{
+  content:attr(data-text);
+  position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(90deg,
+    transparent 0%,transparent 40%,
+    var(--think-highlight) 50%,
+    transparent 60%,transparent 100%);
+  background-size:400% 100%;background-repeat:no-repeat;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;
+  animation:t-think-shimmer var(--think-shimmer) linear infinite;
+}
+@keyframes t-think-shimmer{
+  0%{background-position:100% 0}
+  100%{background-position:0% 0}
+}
+
+.t-think-text.is-exit{
+  transform:translateY(calc(var(--think-distance) * -1));
+  filter:blur(var(--think-blur));
+  opacity:0;
+}
+.t-think-text.is-enter-start{
+  transition:none;
+  transform:translateY(var(--think-distance));
+  filter:blur(var(--think-blur));
+  opacity:0;
+}
+
+
+/* ── The workbench. Deliberately achromatic: five opinions are already on
+      this page and a sixth from the chrome would fight all of them. The
+      only colour up here is whichever accent is currently selected. ───── */
+
+:root{
+  --w-bg:#FAF9F6;
+  --w-panel:#FFFFFF;
+  --w-ink:#1A1815;
+  --w-ink-2:#4A453E;
+  --w-mute:#7A736A;
+  --w-rule:rgba(26,24,21,.13);
+  --w-rule-soft:rgba(26,24,21,.07);
+  --w-inset:rgba(26,24,21,.04);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --w-bg:#131211;
+    --w-panel:#1B1A18;
+    --w-ink:#EFEDE8;
+    --w-ink-2:#BDB8B0;
+    --w-mute:#8C867D;
+    --w-rule:rgba(239,237,232,.15);
+    --w-rule-soft:rgba(239,237,232,.07);
+    --w-inset:rgba(239,237,232,.04);
+  }
+}
+:root[data-theme="dark"]{
+  --w-bg:#131211;
+  --w-panel:#1B1A18;
+  --w-ink:#EFEDE8;
+  --w-ink-2:#BDB8B0;
+  --w-mute:#8C867D;
+  --w-rule:rgba(239,237,232,.15);
+  --w-rule-soft:rgba(239,237,232,.07);
+  --w-inset:rgba(239,237,232,.04);
+}
+
+body{
+  background:var(--w-bg);
+  color:var(--w-ink);
+  font-family:'Archivo',system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.55;
+}
+
+.page{
+  max-width:1080px;
+  margin:0 auto;
+  padding-inline:20px;
+  padding-block:40px 96px;
+}
+
+/* Chrome typography ------------------------------------------------- */
+.lab{
+  font-family:'Azeret Mono',ui-monospace,monospace;
+  font-size:10.5px;
+  font-weight:500;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--w-mute);
+}
+.val{
+  font-family:'Azeret Mono',ui-monospace,monospace;
+  font-size:11.5px;
+  color:var(--w-mute);
+  font-variant-numeric:tabular-nums;
+}
+h1.wordmark{
+  font-family:'Archivo',system-ui,sans-serif;
+  font-weight:700;
+  font-size:clamp(38px,9vw,64px);
+  letter-spacing:-.045em;
+  line-height:.95;
+  margin:0;
+}
+.standfirst{
+  max-width:62ch;
+  color:var(--w-ink-2);
+  font-size:clamp(15px,2.4vw,17px);
+  margin:18px 0 0;
+}
+.standfirst b{font-weight:600;color:var(--w-ink)}
+
+h2.sec{
+  font-family:'Archivo',system-ui,sans-serif;
+  font-weight:600;
+  font-size:clamp(20px,3.4vw,25px);
+  letter-spacing:-.02em;
+  margin:0;
+}
+.sec-note{color:var(--w-mute);font-size:14px;max-width:58ch;margin:6px 0 0}
+
+header.top{display:flex;flex-direction:column;gap:0}
+.meta-line{display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:14px}
+
+/* Sections ------------------------------------------------------------ */
+main{display:flex;flex-direction:column;gap:56px;margin-top:52px}
+section{display:flex;flex-direction:column;gap:18px}
+.sec-head{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--w-rule);padding-top:14px}
+.sec-index{display:flex;align-items:baseline;gap:12px}
+
+/* Theme switcher ------------------------------------------------------ */
+.switcher{
+  position:sticky;top:0;z-index:20;
+  margin-top:28px;
+  padding-block:12px;
+  background:color-mix(in srgb,var(--w-bg) 92%,transparent);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--w-rule-soft);
+}
+.chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--w-rule);
+  background:var(--w-panel);
+  color:var(--w-ink-2);
+  border-radius:999px;
+  padding:7px 14px 7px 10px;
+  font-family:'Azeret Mono',ui-monospace,monospace;
+  font-size:11.5px;
+  letter-spacing:.02em;
+  cursor:pointer;
+  transition:border-color 160ms ease,color 160ms ease,background 160ms ease;
+}
+.chip:hover{color:var(--w-ink)}
+.chip .dot{
+  width:11px;height:11px;border-radius:3px;flex:none;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.18);
+}
+.chip[aria-pressed="true"]{
+  color:var(--w-ink);
+  border-color:currentColor;
+  background:var(--w-inset);
+}
+.chip-split{
+  align-self:stretch;width:1px;background:var(--w-rule);margin-inline:6px;
+}
+.outsider{font-size:10.5px}
+
+/* The stage: anything painted in the system's own colours ------------- */
+.stage{
+  background:var(--ds-color-bg);
+  color:var(--ds-color-text);
+  border:1px solid var(--ds-color-border-strong);
+  border-radius:var(--ds-radius-lg);
+  padding:clamp(18px,4vw,32px);
+  overflow:hidden;
+}
+
+/* Voice panel --------------------------------------------------------- */
+.voice{display:grid;gap:22px}
+.voice-name{
+  font-family:var(--ds-font-display);
+  font-size:var(--ds-type-h2-size);
+  line-height:var(--ds-type-h2-leading);
+  letter-spacing:var(--ds-type-h2-tracking);
+  font-weight:var(--ds-type-h2-weight);
+  margin:0;
+}
+.voice-desc{
+  font-family:var(--ds-font-sans);
+  font-size:var(--ds-type-lead-size);
+  line-height:var(--ds-type-lead-leading);
+  color:var(--ds-color-text-dim);
+  max-width:60ch;margin:0;
+}
+.dials{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px;
+  background:var(--ds-color-border);
+  border:1px solid var(--ds-color-border);
+  border-radius:var(--ds-radius-md);
+  overflow:hidden;
+}
+.dial{background:var(--ds-color-surface);padding:14px 16px;display:flex;flex-direction:column;gap:5px}
+.dial dt{
+  font-family:var(--ds-font-mono);
+  font-size:var(--ds-text-micro);
+  letter-spacing:var(--ds-tracking-wide);
+  text-transform:uppercase;
+  color:var(--ds-color-text-muted);
+}
+.dial dd{margin:0;font-family:var(--ds-font-sans);font-size:15px;color:var(--ds-color-text)}
+.dial dd.face{font-size:18px}
+
+/* Swatches ------------------------------------------------------------ */
+.swatch-group{display:flex;flex-direction:column;gap:10px}
+.swatch-group + .swatch-group{margin-top:22px}
+.group-name{
+  font-family:var(--ds-font-mono);
+  font-size:var(--ds-text-micro);
+  letter-spacing:var(--ds-tracking-wide);
+  text-transform:uppercase;
+  color:var(--ds-color-text-muted);
+}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(146px,1fr));gap:10px}
+.swatch{
+  border:1px solid var(--ds-color-border);
+  border-radius:var(--ds-radius-sm);
+  overflow:hidden;
+  background:var(--ds-color-surface);
+}
+.swatch .fill{height:46px;display:block}
+.swatch .cap{padding:8px 10px;display:flex;flex-direction:column;gap:2px}
+.swatch .name{
+  font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text);
+  overflow-wrap:anywhere;
+}
+.swatch .hex{
+  font-family:var(--ds-font-mono);font-size:10.5px;color:var(--ds-color-text-muted);
+  overflow-wrap:anywhere;
+}
+
+/* Type specimen ------------------------------------------------------- */
+.specimens{display:flex;flex-direction:column}
+.spec{
+  display:flex;flex-direction:column;gap:6px;
+  padding-block:18px;
+  border-top:1px solid var(--ds-color-border-subtle);
+}
+.spec:first-child{border-top:0;padding-top:0}
+.spec-meta{display:flex;flex-wrap:wrap;gap:4px 14px}
+.spec-meta span{
+  font-family:var(--ds-font-mono);
+  font-size:var(--ds-text-micro);
+  letter-spacing:var(--ds-tracking-wide);
+  color:var(--ds-color-text-muted);
+  text-transform:uppercase;
+}
+.spec-sample{margin:0;color:var(--ds-color-text);overflow-wrap:break-word}
+.sp-h1{font-family:var(--ds-font-display);font-size:var(--ds-type-h1-size);line-height:var(--ds-type-h1-leading);letter-spacing:var(--ds-type-h1-tracking);font-weight:var(--ds-type-h1-weight)}
+.sp-h2{font-family:var(--ds-font-display);font-size:var(--ds-type-h2-size);line-height:var(--ds-type-h2-leading);letter-spacing:var(--ds-type-h2-tracking);font-weight:var(--ds-type-h2-weight)}
+.sp-h3{font-family:var(--ds-font-display);font-size:var(--ds-type-h3-size);line-height:var(--ds-type-h3-leading);letter-spacing:var(--ds-type-h3-tracking);font-weight:var(--ds-type-h3-weight)}
+.sp-lead{font-family:var(--ds-font-sans);font-size:var(--ds-type-lead-size);line-height:var(--ds-type-lead-leading);color:var(--ds-color-text-dim);max-width:56ch}
+.sp-body{font-family:var(--ds-font-sans);font-size:var(--ds-type-body-size);line-height:var(--ds-type-body-leading);max-width:62ch}
+.sp-ui{font-family:var(--ds-font-sans);font-size:var(--ds-type-ui-size);line-height:var(--ds-type-ui-leading);font-weight:var(--ds-type-ui-weight)}
+.sp-mono{font-family:var(--ds-font-mono);font-size:var(--ds-type-mono-size);line-height:var(--ds-type-mono-leading);letter-spacing:var(--ds-type-mono-tracking);color:var(--ds-color-text-muted)}
+
+/* Scales -------------------------------------------------------------- */
+.scale-row{display:flex;align-items:center;gap:12px;padding-block:5px}
+.scale-row .key{
+  flex:none;width:52px;
+  font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text-muted);
+}
+.scale-row .bar{height:12px;border-radius:2px;background:var(--ds-color-accent);flex:none;max-width:100%}
+.scale-row .px{font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text-muted);font-variant-numeric:tabular-nums}
+
+.radii{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+.radius{display:flex;flex-direction:column;gap:7px;align-items:center}
+.radius .box{
+  width:66px;height:66px;
+  background:var(--ds-color-surface-raised);
+  border:1px solid var(--ds-color-border-strong);
+}
+.radius .key{font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text-muted)}
+
+/* Motion -------------------------------------------------------------- */
+.eases{display:flex;flex-direction:column;gap:2px}
+.ease-row{display:grid;grid-template-columns:76px 1fr;gap:12px;align-items:center;padding-block:9px;border-top:1px solid var(--ds-color-border-subtle)}
+.ease-row:first-child{border-top:0}
+.ease-row .key{font-family:var(--ds-font-mono);font-size:11.5px;color:var(--ds-color-text)}
+.track{
+  position:relative;height:14px;border-radius:999px;
+  background:var(--ds-color-surface-raised);
+  border:1px solid var(--ds-color-border);
+}
+.puck{
+  position:absolute;top:50%;left:2px;width:10px;height:10px;margin-top:-5px;
+  border-radius:2px;background:var(--ds-color-accent);
+  transform:translateX(0);
+}
+.is-running .puck{transform:translateX(calc(100cqw - 100% - 6px));}
+.track{container-type:inline-size}
+
+/* Component bench ----------------------------------------------------- */
+.bench{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:1px;background:var(--ds-color-border);border:1px solid var(--ds-color-border);border-radius:var(--ds-radius-md);overflow:hidden}
+.cell{background:var(--ds-color-bg);padding:20px 18px;display:flex;flex-direction:column;gap:14px;min-height:170px}
+.cell-head{display:flex;flex-direction:column;gap:3px}
+.cell-name{font-family:var(--ds-font-mono);font-size:12px;color:var(--ds-color-text)}
+.cell-what{font-family:var(--ds-font-sans);font-size:13px;line-height:1.45;color:var(--ds-color-text-muted)}
+.cell-demo{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto}
+.cell--wide{grid-column:1/-1}
+
+.gate-demo{width:100%;max-width:330px}
+.gate-demo .t-error-msg{font-family:var(--ds-font-mono);font-size:12px}
+.hint{font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text-muted);margin:8px 0 0}
+
+.grad-demo{
+  font-family:var(--ds-font-display);
+  font-size:clamp(26px,5.5vw,40px);
+  line-height:1.1;letter-spacing:-.02em;font-weight:600;
+}
+.think-demo{font-family:var(--ds-font-sans);font-size:14px}
+
+.reveal-demo{display:flex;flex-direction:column;gap:7px}
+.reveal-demo .t-reveal{
+  font-family:var(--ds-font-sans);font-size:14px;
+  padding:9px 12px;border-radius:var(--ds-radius-sm);
+  background:var(--ds-color-surface);border:1px solid var(--ds-color-border);
+}
+
+.mini-btn{
+  font-family:var(--ds-font-mono);font-size:11px;
+  color:var(--ds-color-text-dim);
+  background:var(--ds-color-surface);
+  border:1px solid var(--ds-color-border-strong);
+  border-radius:var(--ds-radius-sm);
+  padding:6px 11px;cursor:pointer;
+  transition:color 150ms ease,border-color 150ms ease;
+}
+.mini-btn:hover{color:var(--ds-color-accent);border-color:var(--ds-color-accent)}
+
+.outside-note{
+  display:none;
+  gap:10px;align-items:flex-start;
+  border:1px dashed var(--ds-color-border-strong);
+  border-radius:var(--ds-radius-md);
+  padding:14px 16px;
+  font-family:var(--ds-font-sans);font-size:14px;line-height:1.5;
+  color:var(--ds-color-text-dim);
+  margin-bottom:16px;
+}
+[data-ds-theme="parchment"] .outside-note{display:flex}
+[data-ds-theme="parchment"] .bench{opacity:.62}
+
+/* Footer -------------------------------------------------------------- */
+footer{
+  margin-top:64px;padding-top:20px;border-top:1px solid var(--w-rule);
+  display:flex;flex-direction:column;gap:14px;
+}
+pre.cmd{
+  margin:0;overflow-x:auto;
+  background:var(--w-panel);border:1px solid var(--w-rule);
+  border-radius:8px;padding:13px 15px;
+  font-family:'Azeret Mono',ui-monospace,monospace;font-size:12px;
+  color:var(--w-ink-2);line-height:1.7;
+}
+footer a{color:var(--w-ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--w-rule)}
+footer a:hover{text-decoration-color:currentColor}
+
+@media (max-width:560px){
+  .swatches{grid-template-columns:repeat(auto-fill,minmax(128px,1fr))}
+  .radius .box{width:54px;height:54px}
+  .ease-row{grid-template-columns:64px 1fr}
+}
+</style>
+
+<div class="page">
+
+<header class="top">
+  <div class="meta-line">
+    <span class="lab">Design system</span>
+    <span class="lab">v0.1.0</span>
+    <span class="lab">trev-delivers/obvious</span>
+  </div>
+  <h1 class="wordmark">obvious</h1>
+  <p class="standfirst">
+    Six apps on four different stacks. What they share is not a component library,
+    because no component library spans a static site, a Vite app that styles itself
+    from a template string, two Tailwind&nbsp;v4 Next apps and a README card
+    generator. What they share is <b>a set of invariants and four dials</b>.
+    Spacing, type scale, motion curves and focus geometry are identical everywhere.
+    Palette, typeface, <code class="val">--ds-radius-base</code> and
+    <code class="val">--ds-density</code> are what an app is allowed to differ on.
+  </p>
+</header>
+
+<div class="switcher">
+  <div class="chips" id="chips" role="group" aria-label="Theme"></div>
+</div>
+
+<main>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-index"><h2 class="sec">The voice</h2><span class="lab" id="voice-app"></span></div>
+      <p class="sec-note">Everything below this line is painted in the selected theme. The four dials are the only things it is allowed to change.</p>
+    </div>
+    <div class="stage">
+      <div class="voice">
+        <div>
+          <h3 class="voice-name" id="voice-label"></h3>
+          <p class="voice-desc" id="voice-desc"></p>
+        </div>
+        <dl class="dials" id="dials"></dl>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-index"><h2 class="sec">Colour</h2><span class="lab">31 semantic tokens</span></div>
+      <p class="sec-note">Every theme declares exactly this set. The build refuses to emit if one of them diverges, so a theme cannot quietly drop a token and inherit a stale value from whatever ran before it.</p>
+    </div>
+    <div class="stage" id="colour"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-index"><h2 class="sec">Type</h2><span class="lab">Roles, not sizes</span></div>
+      <p class="sec-note">Lifted verbatim from designedbytrev, which is the type authority. Size, leading and tracking travel together as roles because a heading that takes h1's size and body's 1.6 leading is the most common way a page stops matching its siblings.</p>
+    </div>
+    <div class="stage">
+      <div class="specimens">
+        <div class="spec">
+          <div class="spec-meta"><span>h1</span><span id="m-h1"></span></div>
+          <p class="spec-sample sp-h1">I make complicated products feel obvious.</p>
+        </div>
+        <div class="spec">
+          <div class="spec-meta"><span>h2</span><span id="m-h2"></span></div>
+          <p class="spec-sample sp-h2">How much of your time has quietly gone missing?</p>
+        </div>
+        <div class="spec">
+          <div class="spec-meta"><span>h3</span><span id="m-h3"></span></div>
+          <p class="spec-sample sp-h3">A gallery of good taste</p>
+        </div>
+        <div class="spec">
+          <div class="spec-meta"><span>lead</span><span id="m-lead"></span></div>
+          <p class="spec-sample sp-lead">Case studies, side projects, the design-systems work. Twelve years across fintech, broadcast and consumer apps.</p>
+        </div>
+        <div class="spec">
+          <div class="spec-meta"><span>body</span><span id="m-body"></span></div>
+          <p class="spec-sample sp-body">A calculator and a field guide to the hours that policy, physics and space weather have taken from you. Daylight saving takes an hour each spring and gives most of it back each autumn; relativity takes considerably less, and never gives any of it back at all.</p>
+        </div>
+        <div class="spec">
+          <div class="spec-meta"><span>ui</span><span id="m-ui"></span></div>
+          <p class="spec-sample sp-ui">Rate this condiment</p>
+        </div>
+        <div class="spec">
+          <div class="spec-meta"><span>mono</span><span id="m-mono"></span></div>
+          <p class="spec-sample sp-mono">CURRENT STREAK 41 DAYS · LONGEST 118</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-index"><h2 class="sec">Space and radius</h2><span class="lab">One dial moves the set</span></div>
+      <p class="sec-note">Spacing never changes between apps. Radius always does: every step derives from <code class="val">--ds-radius-base</code>, so switching theme moves the whole set at once and the ratio between a small and a large corner stays put. Watch the squares as you change theme.</p>
+    </div>
+    <div class="stage">
+      <div class="group-name" style="margin-bottom:10px">Spacing · identical in all six apps</div>
+      <div id="spacing"></div>
+      <div class="group-name" style="margin:26px 0 14px">Radius · derived from <span id="radius-base"></span></div>
+      <div class="radii" id="radii"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-index"><h2 class="sec">Motion</h2><span class="lab">Shared, never themed</span></div>
+      <p class="sec-note">Four curves. <code class="val">out</code> is the house glide, taken from the portfolio. <code class="val">spring</code> is Brookwood's overshoot, kept because a settle is a different gesture from a glide and both belong in the family.</p>
+    </div>
+    <div class="stage">
+      <div class="eases" id="eases"></div>
+      <div style="margin-top:16px"><button class="mini-btn" id="replay-ease" type="button">Run all four</button></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-index"><h2 class="sec">The interaction layer</h2><span class="lab">Live, not screenshots</span></div>
+      <p class="sec-note">Lifted out of the portfolio's stylesheet so the rest of the family can use it. These keep the <code class="val">t-</code> prefix they were written with, which marks where they came from and meant adopting them was a deletion rather than a rename across three files.</p>
+    </div>
+    <div class="stage">
+      <div class="outside-note">
+        <span>Brookwood Hunt takes none of this. It is the one app built for people who have never seen any of the others, and a drifting gradient would make it read as part of a portfolio rather than as something found in a village. It shares the engineering and none of the voice.</span>
+      </div>
+      <div class="bench">
+
+        <div class="cell cell--wide">
+          <div class="cell-head">
+            <span class="cell-name">t-input · t-check-badge · t-pro-btn</span>
+            <span class="cell-what">The gate field. Border tween on focus, shake and a hot border on a wrong answer that reverts after three seconds, and a spinner that morphs into a check in the button rather than somewhere else on the page.</span>
+          </div>
+          <div class="cell-demo">
+            <form class="gate-demo t-input-wrap" id="gateWrap" autocomplete="off">
+              <div class="t-input" id="gateField">
+                <input id="gatePw" type="password" placeholder="Password" aria-label="Demo password" autocomplete="off" spellcheck="false">
+                <button type="submit" class="t-pro-btn t-pro-btn--icon" id="gateBtn" aria-label="Enter">
+                  <span class="t-pro-btn-label" id="gateArrow">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </span>
+                  <span class="t-check-blur-wrap" id="gateBlur" hidden>
+                    <span class="t-check-badge" id="gateBadge" data-state="spinning" role="img" aria-label="Checking">
+                      <span class="t-check-ring" aria-hidden="true"></span>
+                      <span class="t-check-arc" aria-hidden="true"></span>
+                      <span class="t-check-fill" aria-hidden="true"></span>
+                      <span class="t-check-disc" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path class="t-check-mark" d="M8 12.5L10.8 15.5L16.4 9.5"></path></svg>
+                      </span>
+                    </span>
+                  </span>
+                </button>
+              </div>
+              <p class="t-error-msg" id="gateErr">Not that one.</p>
+              <p class="hint">try anything · then try &ldquo;obvious&rdquo;</p>
+            </form>
+          </div>
+        </div>
+
+        <div class="cell">
+          <div class="cell-head">
+            <span class="cell-name">t-pro-btn</span>
+            <span class="cell-what">A white pill whose rim glows with the Pro colour system. Fixed white on purpose, so it reads the same wherever it lands.</span>
+          </div>
+          <div class="cell-demo">
+            <button class="t-pro-btn" type="button"><span class="t-pro-btn-label">Get in touch</span></button>
+          </div>
+        </div>
+
+        <div class="cell">
+          <div class="cell-head">
+            <span class="cell-name">t-link</span>
+            <span class="cell-what">Muted label on a hairline rule, both taking the accent on hover. A border-bottom rather than an underline, so it clears the descenders.</span>
+          </div>
+          <div class="cell-demo" style="gap:22px">
+            <a class="t-link" href="#colour">LinkedIn</a>
+            <a class="t-link t-gradient-text" href="#colour">LinkedIn</a>
+          </div>
+        </div>
+
+        <div class="cell">
+          <div class="cell-head">
+            <span class="cell-name">t-check-badge</span>
+            <span class="cell-what">On its own. A verifying spin that resolves into a filled check. The green and the white are fixed: a success signal that changes colour per app stops being readable at a glance.</span>
+          </div>
+          <div class="cell-demo" style="gap:16px">
+            <span class="t-check-blur-wrap" id="soloBlur">
+              <span class="t-check-badge" id="soloBadge" data-state="spinning" role="img" aria-label="Checking" style="width:32px;height:32px;flex:0 0 32px">
+                <span class="t-check-ring" aria-hidden="true"></span>
+                <span class="t-check-arc" aria-hidden="true"></span>
+                <span class="t-check-fill" aria-hidden="true"></span>
+                <span class="t-check-disc" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path class="t-check-mark" d="M8 12.5L10.8 15.5L16.4 9.5"></path></svg>
+                </span>
+              </span>
+            </span>
+            <button class="mini-btn" id="replay-check" type="button">Resolve</button>
+          </div>
+        </div>
+
+        <div class="cell">
+          <div class="cell-head">
+            <span class="cell-name">t-think</span>
+            <span class="cell-what">A loading beat that reads as deliberation rather than a spinner. Greys, not the accent, so it stays flat material.</span>
+          </div>
+          <div class="cell-demo think-demo">
+            <span class="t-think" id="think" role="status">
+              <span class="t-think-sizer" aria-hidden="true">Second-guessing&hellip;</span>
+              <span class="t-think-text" data-text="Thinking&hellip;">Thinking&hellip;</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="cell">
+          <div class="cell-head">
+            <span class="cell-name">t-boot-ring</span>
+            <span class="cell-what">Pixel LEDs powering on in sequence, then settling into a chase. Positions are computed in JS because there is no usable calc(sin()) yet.</span>
+          </div>
+          <div class="cell-demo" style="gap:16px">
+            <div class="t-boot-ring is-running" id="boot" aria-hidden="true"></div>
+            <button class="mini-btn" id="replay-boot" type="button">Power cycle</button>
+          </div>
+        </div>
+
+        <div class="cell">
+          <div class="cell-head">
+            <span class="cell-name">t-reveal</span>
+            <span class="cell-what">Scroll and load reveals. Fails open: with no IntersectionObserver everything is shown at once rather than left invisible.</span>
+          </div>
+          <div class="cell-demo">
+            <div class="reveal-demo" style="width:100%">
+              <span class="t-reveal in">Ketchup</span>
+              <span class="t-reveal in">Kewpie mayonnaise</span>
+              <span class="t-reveal in">Henderson&rsquo;s Relish</span>
+              <button class="mini-btn" id="replay-reveal" type="button" style="align-self:flex-start;margin-top:4px">Replay</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cell cell--wide">
+          <div class="cell-head">
+            <span class="cell-name">t-gradient-text</span>
+            <span class="cell-what">Seven rotated radial washes drifting over a grey ramp while a full hue rotation cycles the palette. Deliberately not tokenised: it is fixed material, the same spectrum wherever it appears, not a restatement of the local accent. One or two things per page.</span>
+          </div>
+          <div class="cell-demo">
+            <p class="grad-demo" style="margin:0">I make complicated products feel <span class="t-gradient-text">obvious</span>.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="lab">Using it</span>
+  <p class="sec-note" style="max-width:64ch">Tokens are vendored rather than installed. Four consumers are private repos and two are not npm-built at all, so a dependency would mean deploy-key auth in every build for the sake of a few KB of CSS. Each app carries a copy of the sync script and a generated <code class="val">ds/</code> folder instead, with <code class="val">ds/.version</code> standing in for a lockfile.</p>
+  <pre class="cmd">node scripts/sync-ds.mjs             # pull main into ds/
+node scripts/sync-ds.mjs --ref v0.2.0  # pin a tag
+node scripts/sync-ds.mjs --check     # CI: fail if ds/ is stale</pre>
+  <p class="sec-note"><a href="https://github.com/trev-delivers/obvious">github.com/trev-delivers/obvious</a> · this page is generated from <code class="val">dist/</code>, so it cannot describe a version of the system that does not exist.</p>
+</footer>
+
+</div>
+
+<script type="module">
+/**
+ * Behaviours for the components that cannot be done in CSS alone.
+ *
+ * Dependency-free ES modules, no framework. Each one takes a DOM element and
+ * returns either a teardown function or a small control object, which is
+ * exactly the shape a React effect wants:
+ *
+ *   useEffect(() => mountBootRing(ref.current), []);
+ *
+ * Every function reads its timing from the component's own CSS custom
+ * properties rather than hard-coding it, so retiming a component is still a
+ * CSS change and the two can never disagree.
+ */
+
+/** Parses a CSS time value ("250ms", "0.4s") into milliseconds. */
+function cssMs(value, fallback) {
+  const n = parseFloat(value);
+  if (Number.isNaN(n)) return fallback;
+  return /ms\s*$/.test(String(value).trim()) ? n : n * 1000;
+}
+
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+/**
+ * Builds a t-boot-ring's dots and starts the power-on sequence.
+ *
+ * Positions are computed here because there is no calc(sin()/cos()) to lean
+ * on yet. Call it as soon as the element exists; pass { start: false } if the
+ * ring is hidden and should not begin booting until you reveal it, then call
+ * the returned start().
+ */
+function mountBootRing(el, { start = true } = {}) {
+  if (!el) return { start() {}, destroy() {} };
+  const cs = getComputedStyle(el);
+  const count = parseInt(cs.getPropertyValue("--boot-count"), 10) || 12;
+  const radius = parseFloat(cs.getPropertyValue("--boot-radius")) || 22;
+  const step = cssMs(cs.getPropertyValue("--boot-step"), 60);
+  const lead = cssMs(cs.getPropertyValue("--boot-lead"), 500);
+
+  el.replaceChildren();
+  for (let i = 0; i < count; i++) {
+    const angle = (i / count) * Math.PI * 2 - Math.PI / 2;
+    const dot = document.createElement("i");
+    dot.style.setProperty("--x", `${(Math.cos(angle) * radius).toFixed(2)}px`);
+    dot.style.setProperty("--y", `${(Math.sin(angle) * radius).toFixed(2)}px`);
+    dot.style.setProperty("--boot-delay", `${(lead + i * step).toFixed(0)}ms`);
+    el.appendChild(dot);
+  }
+
+  const begin = () => el.classList.add("is-running");
+  if (start) begin();
+  return { start: begin, destroy: () => el.replaceChildren() };
+}
+
+/**
+ * Drives a t-check-badge between its spinning and done states.
+ *
+ * done(hold) resolves to the check and, unless hold is 0, reverts to spinning
+ * after that many ms. The re-entry dance in done() is deliberate: setting
+ * data-state to done while it is already done would not restart the pop
+ * animation, so it is knocked back to spinning and reflowed first.
+ */
+function checkMorph(badge, blurWrap) {
+  if (!badge) return { done() {}, spin() {}, destroy() {} };
+  const mark = badge.querySelector(".t-check-mark");
+  let blurTimer;
+  let revertTimer;
+
+  if (mark) badge.style.setProperty("--check-mark-len", String(Math.ceil(mark.getTotalLength())));
+
+  function crossBlur() {
+    if (!blurWrap) return;
+    clearTimeout(blurTimer);
+    blurWrap.classList.add("is-crossing");
+    const fillDur = cssMs(getComputedStyle(badge).getPropertyValue("--check-fill-dur"), 350);
+    blurTimer = setTimeout(() => blurWrap.classList.remove("is-crossing"), fillDur * 0.45);
+  }
+
+  function spin() {
+    clearTimeout(revertTimer);
+    crossBlur();
+    badge.setAttribute("data-state", "spinning");
+  }
+
+  function done(hold = 2000) {
+    clearTimeout(revertTimer);
+    if (badge.getAttribute("data-state") === "done") {
+      badge.setAttribute("data-state", "spinning");
+      void badge.offsetWidth;
+    }
+    badge.setAttribute("data-state", "done");
+    crossBlur();
+    if (hold > 0) revertTimer = setTimeout(spin, hold);
+  }
+
+  return {
+    done,
+    spin,
+    destroy() {
+      clearTimeout(blurTimer);
+      clearTimeout(revertTimer);
+    },
+  };
+}
+
+/**
+ * Plays the error shake on a .t-input, and schedules the revert.
+ *
+ * The remove/reflow/add is what lets two wrong answers in a row each get their
+ * own shake rather than the second being swallowed by the first.
+ */
+function shake(field, wrap) {
+  if (!field) return;
+  const target = wrap ?? field.closest(".t-input-wrap") ?? field.parentElement;
+
+  target?.classList.add("is-error");
+  field.classList.add("is-error");
+
+  if (!prefersReducedMotion()) {
+    field.classList.remove("is-shaking");
+    void field.offsetWidth;
+    field.classList.add("is-shaking");
+  }
+
+  const hold = cssMs(getComputedStyle(target ?? field).getPropertyValue("--revert-hold"), 3000);
+  clearTimeout(field._revertTimer);
+  field._revertTimer = setTimeout(() => {
+    target?.classList.remove("is-error");
+    field.classList.remove("is-error");
+  }, hold);
+}
+
+/**
+ * Cycles a t-think through a list of phrases and returns a stop function.
+ *
+ * Sizes the hidden sizer to the widest phrase in the pool rather than the
+ * widest of the ones being shown, so a later shuffle can never clip.
+ */
+function cycleThink(container, phrases, { pool = phrases } = {}) {
+  const textEl = container?.querySelector(".t-think-text");
+  const sizerEl = container?.querySelector(".t-think-sizer");
+  if (sizerEl && pool?.length) {
+    sizerEl.textContent = pool.reduce((a, b) => (b.length > a.length ? b : a));
+  }
+  if (!textEl || !phrases || phrases.length < 1) return () => {};
+
+  const setText = (s) => {
+    textEl.textContent = s;
+    textEl.setAttribute("data-text", s);
+  };
+  setText(phrases[0]);
+  if (phrases.length < 2) return () => {};
+
+  const cs = getComputedStyle(container);
+  const hold = cssMs(cs.getPropertyValue("--think-hold"), 750);
+  const swap = cssMs(cs.getPropertyValue("--think-swap"), 150);
+  const gap = cssMs(cs.getPropertyValue("--think-gap"), 50);
+
+  let i = 0;
+  let timer;
+  function advance() {
+    i = (i + 1) % phrases.length;
+    const next = phrases[i];
+    textEl.classList.add("is-exit");
+    timer = setTimeout(() => {
+      setText(next);
+      textEl.classList.remove("is-exit");
+      textEl.classList.add("is-enter-start");
+      void textEl.offsetWidth;
+      textEl.classList.remove("is-enter-start");
+      timer = setTimeout(advance, hold);
+    }, swap + gap);
+  }
+  timer = setTimeout(advance, hold);
+  return () => clearTimeout(timer);
+}
+
+/** Fisher-Yates, for phrase pools that should not repeat their order. */
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/**
+ * Releases .t-reveal elements as they scroll into view.
+ *
+ * Fails open: with no IntersectionObserver, everything is revealed at once
+ * rather than left invisible, because the CSS starts these hidden.
+ */
+function revealOnScroll(root = document, { selector = ".t-reveal, .t-reveal--seq", threshold = 0.2, step = 90 } = {}) {
+  const els = [...root.querySelectorAll(selector)];
+  if (!els.length) return () => {};
+
+  if (typeof IntersectionObserver === "undefined" || prefersReducedMotion()) {
+    els.forEach((el) => el.classList.add("in"));
+    return () => {};
+  }
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const siblings = [...(entry.target.parentElement?.children ?? [])].filter((n) => els.includes(n));
+        const index = Math.max(0, siblings.indexOf(entry.target));
+        setTimeout(() => entry.target.classList.add("in"), index * step);
+        io.unobserve(entry.target);
+      });
+    },
+    { threshold },
+  );
+  els.forEach((el) => io.observe(el));
+  return () => io.disconnect();
+}
+
+/**
+ * Wraps a heading's words in .t-word spans so they can arrive one at a time.
+ *
+ * Punctuation that followed a word with no space is marked --tail and stays
+ * inline, so the browser's line-breaking rules keep it attached rather than
+ * stranding it at the start of the next line.
+ */
+function splitWords(el, { tail = /^[.,;:!?'’”)\]]+$/ } = {}) {
+  if (!el) return [];
+  const words = el.textContent.split(/(\s+)/);
+  el.replaceChildren();
+  const spans = [];
+  for (const part of words) {
+    if (/^\s+$/.test(part)) {
+      el.appendChild(document.createTextNode(part));
+      continue;
+    }
+    const span = document.createElement("span");
+    span.className = tail.test(part) ? "t-word t-word--tail" : "t-word";
+    span.textContent = part;
+    el.appendChild(span);
+    spans.push(span);
+  }
+  return spans;
+}
+
+/** Reveals split words in sequence. Returns a cancel function. */
+function revealWords(spans, { step = 55, delay = 0 } = {}) {
+  if (prefersReducedMotion()) {
+    spans.forEach((s) => s.classList.add("in"));
+    return () => {};
+  }
+  const timers = spans.map((span, i) => setTimeout(() => span.classList.add("in"), delay + i * step));
+  return () => timers.forEach(clearTimeout);
+}
+
+
+const THEMES = [
+  {
+    "name": "core",
+    "label": "Core",
+    "description": "The reference theme: designedbytrev. Dark, near-black, one blue accent. When a new app has no reason to be particular, it starts here.",
+    "family": true,
+    "app": "designedbytrev",
+    "dial": {
+      "radius-base": "8px",
+      "density": "1"
+    },
+    "color": {
+      "bg": "#0A0B0C",
+      "bg-alt": "#0F1113",
+      "surface": "#16181B",
+      "surface-raised": "#171A1E",
+      "surface-hover": "rgba(255, 255, 255, 0.05)",
+      "border-subtle": "rgba(255, 255, 255, 0.06)",
+      "border": "rgba(255, 255, 255, 0.10)",
+      "border-strong": "rgba(255, 255, 255, 0.18)",
+      "text": "#ECEDEE",
+      "text-dim": "#C4C8CB",
+      "text-muted": "#8A8F94",
+      "text-inverse": "#0A0B0C",
+      "accent": "#5B7FE8",
+      "accent-hover": "#7C9AFF",
+      "accent-contrast": "#FFFFFF",
+      "accent-alt": "#7C9AFF",
+      "accent-gradient": "linear-gradient(135deg, #5B7FE8 0%, #7C9AFF 100%)",
+      "success": "#3FA97A",
+      "warning": "#D9A03C",
+      "danger": "#E05252",
+      "info": "#5B7FE8",
+      "shadow-color": "rgba(0, 0, 0, 0.55)",
+      "shadow-highlight": "rgba(255, 255, 255, 0.08)",
+      "selection-bg": "#5B7FE8",
+      "selection-text": "#FFFFFF"
+    },
+    "fontName": {
+      "display": "Bricolage Grotesque",
+      "sans": "Inter",
+      "mono": "JetBrains Mono",
+      "script": "Inter"
+    }
+  },
+  {
+    "name": "condimental",
+    "label": "condimental",
+    "description": "Condiment Gallery. Warm paper, brown ink and a ketchup accent with mustard behind it. Light like Brookwood's parchment but not aged: this one is a clean sheet on a shelf, not something found in a drawer. The roundest theme in the family — cards at 24px against the portfolio's 12.",
+    "family": true,
+    "app": "condiment-gallery",
+    "dial": {
+      "radius-base": "16px",
+      "density": "1"
+    },
+    "color": {
+      "bg": "#faf5ee",
+      "bg-alt": "#f4ead2",
+      "surface": "#ffffff",
+      "surface-raised": "#ffffff",
+      "surface-hover": "#f5eee2",
+      "border-subtle": "rgba(37, 26, 12, 0.08)",
+      "border": "rgba(37, 26, 12, 0.08)",
+      "border-strong": "rgba(37, 26, 12, 0.16)",
+      "text": "#241a10",
+      "text-dim": "#4a3a28",
+      "text-muted": "#8c8071",
+      "text-inverse": "#fff8f0",
+      "accent": "#e14e3b",
+      "accent-hover": "#c93f2e",
+      "accent-contrast": "#fff8f0",
+      "accent-alt": "#f5b841",
+      "accent-gradient": "linear-gradient(135deg, #f5b841 0%, #e97a3a 45%, #e14e3b 100%)",
+      "success": "#3f7d4f",
+      "warning": "#b07a16",
+      "danger": "#c93f2e",
+      "info": "#4a6b8a",
+      "shadow-color": "rgba(37, 26, 12, 0.14)",
+      "shadow-highlight": "rgba(255, 255, 255, 0.90)",
+      "selection-bg": "#f5b841",
+      "selection-text": "#241a10"
+    },
+    "fontName": {
+      "display": "Geist",
+      "sans": "Geist",
+      "mono": "Geist Mono",
+      "script": "Geist"
+    }
+  },
+  {
+    "name": "dissonance",
+    "label": "Dissonance",
+    "description": "Time Dissonance. Deep night-sky navy with a low amber lamp — the same dark-with-one-warm-accent shape as Condimental, tuned cold instead of hot. Keeps its own serif voice: the subject is slipping time, and a Baskerville italic says that in a way a grotesk cannot.",
+    "family": true,
+    "app": "time-dissonance",
+    "dial": {
+      "radius-base": "8px",
+      "density": "1"
+    },
+    "color": {
+      "bg": "#04060d",
+      "bg-alt": "#080e1a",
+      "surface": "#0d1526",
+      "surface-raised": "#121e33",
+      "surface-hover": "#16223a",
+      "border-subtle": "rgba(30, 48, 80, 0.6)",
+      "border": "#1e3050",
+      "border-strong": "#2e4868",
+      "text": "#dde8f2",
+      "text-dim": "#9db5cc",
+      "text-muted": "#6a8aaa",
+      "text-inverse": "#04060d",
+      "accent": "#d4853a",
+      "accent-hover": "#f0a050",
+      "accent-contrast": "#04060d",
+      "accent-alt": "#c9a227",
+      "accent-gradient": "linear-gradient(135deg, #c9a227 0%, #d4853a 100%)",
+      "success": "#4ab07a",
+      "warning": "#c9a227",
+      "danger": "#ff4444",
+      "info": "#5aabcf",
+      "shadow-color": "rgba(0, 0, 0, 0.65)",
+      "shadow-highlight": "rgba(157, 181, 204, 0.08)",
+      "selection-bg": "#d4853a",
+      "selection-text": "#04060d"
+    },
+    "fontName": {
+      "display": "Libre Baskerville",
+      "sans": "Libre Baskerville",
+      "mono": "DM Mono",
+      "script": "Libre Baskerville"
+    }
+  },
+  {
+    "name": "routine",
+    "label": "Routine",
+    "description": "Daily Routine. The family's light, untextured theme: warm off-white paper, ink-blue text, one green accent for a completed thing. Deliberately the plainest of the five — a habit tracker earns nothing from atmosphere.",
+    "family": true,
+    "app": "daily-routine",
+    "dial": {
+      "radius-base": "12px",
+      "density": "0.95"
+    },
+    "color": {
+      "bg": "#FAF9F7",
+      "bg-alt": "#F2F0EC",
+      "surface": "#FFFFFF",
+      "surface-raised": "#FFFFFF",
+      "surface-hover": "#F2F0EC",
+      "border-subtle": "rgba(26, 32, 44, 0.06)",
+      "border": "rgba(26, 32, 44, 0.12)",
+      "border-strong": "rgba(26, 32, 44, 0.22)",
+      "text": "#161A20",
+      "text-dim": "#434A56",
+      "text-muted": "#727A88",
+      "text-inverse": "#FAF9F7",
+      "accent": "#2F7D5A",
+      "accent-hover": "#39956B",
+      "accent-contrast": "#FFFFFF",
+      "accent-alt": "#5B7FE8",
+      "accent-gradient": "linear-gradient(135deg, #2F7D5A 0%, #5B7FE8 100%)",
+      "success": "#2F7D5A",
+      "warning": "#B07A16",
+      "danger": "#C03A3A",
+      "info": "#5B7FE8",
+      "shadow-color": "rgba(26, 32, 44, 0.10)",
+      "shadow-highlight": "rgba(255, 255, 255, 0.90)",
+      "selection-bg": "#2F7D5A",
+      "selection-text": "#FFFFFF"
+    },
+    "fontName": {
+      "display": "Bricolage Grotesque",
+      "sans": "Inter",
+      "mono": "JetBrains Mono",
+      "script": "Inter"
+    }
+  },
+  {
+    "name": "parchment",
+    "label": "Parchment",
+    "description": "Brookwood Hunt. Aged paper, brown ink, an oxblood seal, and one candlelit warning colour. The only light theme with texture; nothing in it is allowed to glow except the lamp.",
+    "family": false,
+    "app": "brookwood-hunt",
+    "dial": {
+      "radius-base": "4px",
+      "density": "1"
+    },
+    "color": {
+      "bg": "#e8dcbe",
+      "bg-alt": "#e2d4b2",
+      "surface": "#efe4ca",
+      "surface-raised": "#f4ebd6",
+      "surface-hover": "#e6d9ba",
+      "border-subtle": "rgba(185, 162, 121, 0.35)",
+      "border": "rgba(185, 162, 121, 0.50)",
+      "border-strong": "#a48f66",
+      "text": "#2b1f10",
+      "text-dim": "#574126",
+      "text-muted": "#7d6a48",
+      "text-inverse": "#efe4ca",
+      "accent": "#8f2f10",
+      "accent-hover": "#a8471f",
+      "accent-contrast": "#efe4ca",
+      "accent-alt": "#d08a2c",
+      "accent-gradient": "linear-gradient(135deg, #8f2f10 0%, #d08a2c 100%)",
+      "success": "#4a6b3a",
+      "warning": "#d08a2c",
+      "danger": "#8f2f10",
+      "info": "#3f5d78",
+      "shadow-color": "rgba(43, 31, 16, 0.20)",
+      "shadow-highlight": "rgba(255, 255, 255, 0.50)",
+      "selection-bg": "#d08a2c",
+      "selection-text": "#2b1f10"
+    },
+    "fontName": {
+      "display": "IM Fell English",
+      "sans": "Instrument Serif",
+      "mono": "IBM Plex Mono",
+      "script": "Caveat"
+    }
+  }
+];
+const root = document.documentElement;
+let current = "core";
+
+/* ---- theme switcher ------------------------------------------------- */
+const chips = document.getElementById("chips");
+const inFamily = THEMES.filter((t) => t.family);
+const outside = THEMES.filter((t) => !t.family);
+
+function makeChip(t) {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "chip";
+  b.dataset.theme = t.name;
+  b.setAttribute("aria-pressed", String(t.name === current));
+  const dot = document.createElement("span");
+  dot.className = "dot";
+  dot.style.background = t.color.accent;
+  b.append(dot, document.createTextNode(t.label));
+  b.addEventListener("click", () => select(t.name));
+  return b;
+}
+inFamily.forEach((t) => chips.append(makeChip(t)));
+if (outside.length) {
+  const rule = document.createElement("span");
+  rule.className = "chip-split";
+  const lab = document.createElement("span");
+  lab.className = "lab outsider";
+  lab.textContent = "outside the family";
+  chips.append(rule, lab);
+  outside.forEach((t) => chips.append(makeChip(t)));
+}
+
+/* ---- the panels that describe the current theme --------------------- */
+const cs = () => getComputedStyle(root);
+const tokenValue = (name) => cs().getPropertyValue(name).trim();
+
+const GROUPS = [
+  ["Ground", ["bg", "bg-alt", "surface", "surface-raised", "surface-hover"]],
+  ["Line", ["border-subtle", "border", "border-strong"]],
+  ["Ink", ["text", "text-dim", "text-muted", "text-inverse"]],
+  ["Accent", ["accent", "accent-hover", "accent-alt", "accent-contrast"]],
+  ["Signal", ["success", "warning", "danger", "info"]],
+];
+
+function paintColour() {
+  const host = document.getElementById("colour");
+  host.replaceChildren();
+  for (const [title, keys] of GROUPS) {
+    const g = document.createElement("div");
+    g.className = "swatch-group";
+    const h = document.createElement("div");
+    h.className = "group-name";
+    h.textContent = title;
+    g.append(h);
+    const grid = document.createElement("div");
+    grid.className = "swatches";
+    for (const key of keys) {
+      const el = document.createElement("div");
+      el.className = "swatch";
+      const fill = document.createElement("span");
+      fill.className = "fill";
+      fill.style.background = `var(--ds-color-${key})`;
+      const cap = document.createElement("div");
+      cap.className = "cap";
+      const n = document.createElement("span");
+      n.className = "name";
+      n.textContent = key;
+      const v = document.createElement("span");
+      v.className = "hex";
+      v.textContent = tokenValue(`--ds-color-${key}`);
+      cap.append(n, v);
+      el.append(fill, cap);
+      grid.append(el);
+    }
+    g.append(grid);
+    host.append(g);
+  }
+}
+
+function paintVoice() {
+  const t = THEMES.find((x) => x.name === current);
+  document.getElementById("voice-label").textContent = t.label;
+  document.getElementById("voice-desc").textContent = t.description;
+  document.getElementById("voice-app").textContent = t.app;
+  const dl = document.getElementById("dials");
+  dl.replaceChildren();
+  const rows = [
+    ["radius base", t.dial["radius-base"], false],
+    ["density", t.dial.density, false],
+    ["display", t.fontName.display, true],
+    ["sans", t.fontName.sans, true],
+    ["mono", t.fontName.mono, true],
+    ["accent", tokenValue("--ds-color-accent"), false],
+  ];
+  for (const [k, v, isFace] of rows) {
+    const d = document.createElement("div");
+    d.className = "dial";
+    const dt = document.createElement("dt");
+    dt.textContent = k;
+    const dd = document.createElement("dd");
+    dd.textContent = v;
+    if (isFace) {
+      dd.className = "face";
+      dd.style.fontFamily = `var(--ds-font-${k === "display" ? "display" : k})`;
+    }
+    d.append(dt, dd);
+    dl.append(d);
+  }
+}
+
+const TYPE_ROLES = ["h1", "h2", "h3", "lead", "body", "ui", "mono"];
+function paintTypeMeta() {
+  for (const role of TYPE_ROLES) {
+    const el = document.getElementById(`m-${role}`);
+    if (!el) continue;
+    const sample = document.querySelector(`.sp-${role}`);
+    const size = sample ? Math.round(parseFloat(getComputedStyle(sample).fontSize) * 10) / 10 : "";
+    el.textContent = `${size}px · ${tokenValue(`--ds-type-${role}-leading`)} · ${tokenValue(`--ds-type-${role}-tracking`)}`;
+  }
+}
+
+const SPACE = ["3xs", "2xs", "xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl"];
+function paintSpacing() {
+  const host = document.getElementById("spacing");
+  host.replaceChildren();
+  for (const key of SPACE) {
+    const v = tokenValue(`--ds-space-${key}`);
+    const row = document.createElement("div");
+    row.className = "scale-row";
+    const k = document.createElement("span");
+    k.className = "key";
+    k.textContent = key;
+    const bar = document.createElement("span");
+    bar.className = "bar";
+    bar.style.width = v;
+    const px = document.createElement("span");
+    px.className = "px";
+    px.textContent = v;
+    row.append(k, bar, px);
+    host.append(row);
+  }
+}
+
+const RADII = ["xs", "sm", "md", "lg", "xl"];
+function paintRadii() {
+  document.getElementById("radius-base").textContent = tokenValue("--ds-radius-base");
+  const host = document.getElementById("radii");
+  host.replaceChildren();
+  for (const key of RADII) {
+    const wrap = document.createElement("div");
+    wrap.className = "radius";
+    const box = document.createElement("div");
+    box.className = "box";
+    box.style.borderRadius = `var(--ds-radius-${key})`;
+    const k = document.createElement("span");
+    k.className = "key";
+    const base = parseFloat(tokenValue("--ds-radius-base"));
+    const mult = { xs: 0.25, sm: 0.5, md: 1, lg: 1.5, xl: 2.5 }[key];
+    k.textContent = `${key} ${Math.round(base * mult * 100) / 100}px`;
+    wrap.append(box, k);
+    host.append(wrap);
+  }
+}
+
+const EASES = ["out", "in", "in-out", "spring"];
+function buildEases() {
+  const host = document.getElementById("eases");
+  host.replaceChildren();
+  for (const key of EASES) {
+    const row = document.createElement("div");
+    row.className = "ease-row";
+    row.dataset.ease = key;
+    const k = document.createElement("span");
+    k.className = "key";
+    k.textContent = key;
+    const track = document.createElement("div");
+    track.className = "track";
+    const puck = document.createElement("span");
+    puck.className = "puck";
+    puck.style.transition = `transform var(--ds-duration-slower) var(--ds-ease-${key})`;
+    track.append(puck);
+    row.append(k, track);
+    host.append(row);
+  }
+}
+function runEases() {
+  document.querySelectorAll(".ease-row").forEach((row) => {
+    row.classList.remove("is-running");
+    void row.offsetWidth;
+    row.classList.add("is-running");
+    setTimeout(() => row.classList.remove("is-running"), 1100);
+  });
+}
+document.getElementById("replay-ease").addEventListener("click", runEases);
+
+/* ---- the live components -------------------------------------------- */
+const PHRASES = [
+  "Thinking…", "Reading the room…", "Cutting the noise…",
+  "Finding signal…", "Outcomes first…", "Second-guessing…",
+];
+cycleThink(document.getElementById("think"), shuffle(PHRASES), { pool: PHRASES });
+
+const bootEl = document.getElementById("boot");
+let boot = mountBootRing(bootEl);
+document.getElementById("replay-boot").addEventListener("click", () => {
+  bootEl.classList.remove("is-running");
+  boot.destroy();
+  boot = mountBootRing(bootEl, { start: false });
+  void bootEl.offsetWidth;
+  boot.start();
+});
+
+const gateWrap = document.getElementById("gateWrap");
+const gateField = document.getElementById("gateField");
+const gateBadge = document.getElementById("gateBadge");
+const gateBlur = document.getElementById("gateBlur");
+const gateArrow = document.getElementById("gateArrow");
+const morph = checkMorph(gateBadge, gateBlur);
+
+gateWrap.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const value = document.getElementById("gatePw").value.trim().toLowerCase();
+  if (value === "obvious") {
+    gateArrow.hidden = true;
+    gateBlur.hidden = false;
+    morph.spin();
+    setTimeout(() => morph.done(2400), 700);
+    setTimeout(() => {
+      gateBlur.hidden = true;
+      gateArrow.hidden = false;
+      document.getElementById("gatePw").value = "";
+    }, 4200);
+  } else {
+    shake(gateField, gateWrap);
+    document.getElementById("gatePw").select();
+  }
+});
+
+const solo = checkMorph(document.getElementById("soloBadge"), document.getElementById("soloBlur"));
+document.getElementById("replay-check").addEventListener("click", () => {
+  solo.spin();
+  setTimeout(() => solo.done(2600), 650);
+});
+
+document.getElementById("replay-reveal").addEventListener("click", () => {
+  const items = [...document.querySelectorAll(".reveal-demo .t-reveal")];
+  items.forEach((el) => el.classList.remove("in"));
+  void items[0].offsetWidth;
+  items.forEach((el, i) => setTimeout(() => el.classList.add("in"), i * 110));
+});
+
+/* ---- wire it all together ------------------------------------------- */
+function select(name) {
+  current = name;
+  root.setAttribute("data-ds-theme", name);
+  document.querySelectorAll(".chip").forEach((c) => {
+    c.setAttribute("aria-pressed", String(c.dataset.theme === name));
+  });
+  /* One frame, so the newly stamped variables have resolved before anything
+     reads them back with getComputedStyle. */
+  requestAnimationFrame(() => {
+    paintVoice();
+    paintColour();
+    paintTypeMeta();
+    paintSpacing();
+    paintRadii();
+  });
+}
+
+buildEases();
+select("core");
+</script>

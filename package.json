@@ -19,7 +19,8 @@
     "./tailwind/theme.css": "./dist/tailwind/theme.css"
   },
   "scripts": {
-    "build": "node scripts/build.mjs",
-    "check": "node scripts/build.mjs && git diff --exit-code -- dist"
+    "build": "node scripts/build.mjs && node docs/build-docs.mjs",
+    "check": "node scripts/build.mjs && git diff --exit-code -- dist",
+    "docs": "node docs/build-docs.mjs"
   }
 }

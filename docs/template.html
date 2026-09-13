@@ -1,0 +1,913 @@
+<title>Obvious</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&family=Bricolage+Grotesque:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=IM+Fell+English&family=Instrument+Serif&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@500&family=Geist:wght@400;500;600&family=Geist+Mono&family=Libre+Baskerville:ital@0;1&family=DM+Mono:wght@300;400&display=swap">
+
+<style>
+/* ── The system itself, generated. Everything in this block is inlined
+      verbatim from dist/ so this page cannot describe a version of the
+      system that does not exist. ─────────────────────────────────────── */
+
+/* The variables next/font supplies in the real apps. Declared here so the
+   parchment and condimental themes resolve to the faces they actually use
+   rather than silently falling back to Georgia. */
+:root{
+  --font-fell:'IM Fell English';
+  --font-instrument:'Instrument Serif';
+  --font-plex-mono:'IBM Plex Mono';
+  --font-caveat:'Caveat';
+  --font-geist-sans:'Geist';
+  --font-geist-mono:'Geist Mono';
+}
+
+{{CSS_PRIMITIVES}}
+{{CSS_THEMES}}
+{{CSS_BASE}}
+{{CSS_COMPONENTS}}
+
+/* ── The workbench. Deliberately achromatic: five opinions are already on
+      this page and a sixth from the chrome would fight all of them. The
+      only colour up here is whichever accent is currently selected. ───── */
+
+:root{
+  --w-bg:#FAF9F6;
+  --w-panel:#FFFFFF;
+  --w-ink:#1A1815;
+  --w-ink-2:#4A453E;
+  --w-mute:#7A736A;
+  --w-rule:rgba(26,24,21,.13);
+  --w-rule-soft:rgba(26,24,21,.07);
+  --w-inset:rgba(26,24,21,.04);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --w-bg:#131211;
+    --w-panel:#1B1A18;
+    --w-ink:#EFEDE8;
+    --w-ink-2:#BDB8B0;
+    --w-mute:#8C867D;
+    --w-rule:rgba(239,237,232,.15);
+    --w-rule-soft:rgba(239,237,232,.07);
+    --w-inset:rgba(239,237,232,.04);
+  }
+}
+:root[data-theme="dark"]{
+  --w-bg:#131211;
+  --w-panel:#1B1A18;
+  --w-ink:#EFEDE8;
+  --w-ink-2:#BDB8B0;
+  --w-mute:#8C867D;
+  --w-rule:rgba(239,237,232,.15);
+  --w-rule-soft:rgba(239,237,232,.07);
+  --w-inset:rgba(239,237,232,.04);
+}
+
+body{
+  background:var(--w-bg);
+  color:var(--w-ink);
+  font-family:'Archivo',system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.55;
+}
+
+.page{
+  max-width:1080px;
+  margin:0 auto;
+  padding-inline:20px;
+  padding-block:40px 96px;
+}
+
+/* Chrome typography ------------------------------------------------- */
+.lab{
+  font-family:'Azeret Mono',ui-monospace,monospace;
+  font-size:10.5px;
+  font-weight:500;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--w-mute);
+}
+.val{
+  font-family:'Azeret Mono',ui-monospace,monospace;
+  font-size:11.5px;
+  color:var(--w-mute);
+  font-variant-numeric:tabular-nums;
+}
+h1.wordmark{
+  font-family:'Archivo',system-ui,sans-serif;
+  font-weight:700;
+  font-size:clamp(38px,9vw,64px);
+  letter-spacing:-.045em;
+  line-height:.95;
+  margin:0;
+}
+.standfirst{
+  max-width:62ch;
+  color:var(--w-ink-2);
+  font-size:clamp(15px,2.4vw,17px);
+  margin:18px 0 0;
+}
+.standfirst b{font-weight:600;color:var(--w-ink)}
+
+h2.sec{
+  font-family:'Archivo',system-ui,sans-serif;
+  font-weight:600;
+  font-size:clamp(20px,3.4vw,25px);
+  letter-spacing:-.02em;
+  margin:0;
+}
+.sec-note{color:var(--w-mute);font-size:14px;max-width:58ch;margin:6px 0 0}
+
+header.top{display:flex;flex-direction:column;gap:0}
+.meta-line{display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:14px}
+
+/* Sections ------------------------------------------------------------ */
+main{display:flex;flex-direction:column;gap:56px;margin-top:52px}
+section{display:flex;flex-direction:column;gap:18px}
+.sec-head{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--w-rule);padding-top:14px}
+.sec-index{display:flex;align-items:baseline;gap:12px}
+
+/* Theme switcher ------------------------------------------------------ */
+.switcher{
+  position:sticky;top:0;z-index:20;
+  margin-top:28px;
+  padding-block:12px;
+  background:color-mix(in srgb,var(--w-bg) 92%,transparent);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--w-rule-soft);
+}
+.chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--w-rule);
+  background:var(--w-panel);
+  color:var(--w-ink-2);
+  border-radius:999px;
+  padding:7px 14px 7px 10px;
+  font-family:'Azeret Mono',ui-monospace,monospace;
+  font-size:11.5px;
+  letter-spacing:.02em;
+  cursor:pointer;
+  transition:border-color 160ms ease,color 160ms ease,background 160ms ease;
+}
+.chip:hover{color:var(--w-ink)}
+.chip .dot{
+  width:11px;height:11px;border-radius:3px;flex:none;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.18);
+}
+.chip[aria-pressed="true"]{
+  color:var(--w-ink);
+  border-color:currentColor;
+  background:var(--w-inset);
+}
+.chip-split{
+  align-self:stretch;width:1px;background:var(--w-rule);margin-inline:6px;
+}
+.outsider{font-size:10.5px}
+
+/* The stage: anything painted in the system's own colours ------------- */
+.stage{
+  background:var(--ds-color-bg);
+  color:var(--ds-color-text);
+  border:1px solid var(--ds-color-border-strong);
+  border-radius:var(--ds-radius-lg);
+  padding:clamp(18px,4vw,32px);
+  overflow:hidden;
+}
+
+/* Voice panel --------------------------------------------------------- */
+.voice{display:grid;gap:22px}
+.voice-name{
+  font-family:var(--ds-font-display);
+  font-size:var(--ds-type-h2-size);
+  line-height:var(--ds-type-h2-leading);
+  letter-spacing:var(--ds-type-h2-tracking);
+  font-weight:var(--ds-type-h2-weight);
+  margin:0;
+}
+.voice-desc{
+  font-family:var(--ds-font-sans);
+  font-size:var(--ds-type-lead-size);
+  line-height:var(--ds-type-lead-leading);
+  color:var(--ds-color-text-dim);
+  max-width:60ch;margin:0;
+}
+.dials{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px;
+  background:var(--ds-color-border);
+  border:1px solid var(--ds-color-border);
+  border-radius:var(--ds-radius-md);
+  overflow:hidden;
+}
+.dial{background:var(--ds-color-surface);padding:14px 16px;display:flex;flex-direction:column;gap:5px}
+.dial dt{
+  font-family:var(--ds-font-mono);
+  font-size:var(--ds-text-micro);
+  letter-spacing:var(--ds-tracking-wide);
+  text-transform:uppercase;
+  color:var(--ds-color-text-muted);
+}
+.dial dd{margin:0;font-family:var(--ds-font-sans);font-size:15px;color:var(--ds-color-text)}
+.dial dd.face{font-size:18px}
+
+/* Swatches ------------------------------------------------------------ */
+.swatch-group{display:flex;flex-direction:column;gap:10px}
+.swatch-group + .swatch-group{margin-top:22px}
+.group-name{
+  font-family:var(--ds-font-mono);
+  font-size:var(--ds-text-micro);
+  letter-spacing:var(--ds-tracking-wide);
+  text-transform:uppercase;
+  color:var(--ds-color-text-muted);
+}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(146px,1fr));gap:10px}
+.swatch{
+  border:1px solid var(--ds-color-border);
+  border-radius:var(--ds-radius-sm);
+  overflow:hidden;
+  background:var(--ds-color-surface);
+}
+.swatch .fill{height:46px;display:block}
+.swatch .cap{padding:8px 10px;display:flex;flex-direction:column;gap:2px}
+.swatch .name{
+  font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text);
+  overflow-wrap:anywhere;
+}
+.swatch .hex{
+  font-family:var(--ds-font-mono);font-size:10.5px;color:var(--ds-color-text-muted);
+  overflow-wrap:anywhere;
+}
+
+/* Type specimen ------------------------------------------------------- */
+.specimens{display:flex;flex-direction:column}
+.spec{
+  display:flex;flex-direction:column;gap:6px;
+  padding-block:18px;
+  border-top:1px solid var(--ds-color-border-subtle);
+}
+.spec:first-child{border-top:0;padding-top:0}
+.spec-meta{display:flex;flex-wrap:wrap;gap:4px 14px}
+.spec-meta span{
+  font-family:var(--ds-font-mono);
+  font-size:var(--ds-text-micro);
+  letter-spacing:var(--ds-tracking-wide);
+  color:var(--ds-color-text-muted);
+  text-transform:uppercase;
+}
+.spec-sample{margin:0;color:var(--ds-color-text);overflow-wrap:break-word}
+.sp-h1{font-family:var(--ds-font-display);font-size:var(--ds-type-h1-size);line-height:var(--ds-type-h1-leading);letter-spacing:var(--ds-type-h1-tracking);font-weight:var(--ds-type-h1-weight)}
+.sp-h2{font-family:var(--ds-font-display);font-size:var(--ds-type-h2-size);line-height:var(--ds-type-h2-leading);letter-spacing:var(--ds-type-h2-tracking);font-weight:var(--ds-type-h2-weight)}
+.sp-h3{font-family:var(--ds-font-display);font-size:var(--ds-type-h3-size);line-height:var(--ds-type-h3-leading);letter-spacing:var(--ds-type-h3-tracking);font-weight:var(--ds-type-h3-weight)}
+.sp-lead{font-family:var(--ds-font-sans);font-size:var(--ds-type-lead-size);line-height:var(--ds-type-lead-leading);color:var(--ds-color-text-dim);max-width:56ch}
+.sp-body{font-family:var(--ds-font-sans);font-size:var(--ds-type-body-size);line-height:var(--ds-type-body-leading);max-width:62ch}
+.sp-ui{font-family:var(--ds-font-sans);font-size:var(--ds-type-ui-size);line-height:var(--ds-type-ui-leading);font-weight:var(--ds-type-ui-weight)}
+.sp-mono{font-family:var(--ds-font-mono);font-size:var(--ds-type-mono-size);line-height:var(--ds-type-mono-leading);letter-spacing:var(--ds-type-mono-tracking);color:var(--ds-color-text-muted)}
+
+/* Scales -------------------------------------------------------------- */
+.scale-row{display:flex;align-items:center;gap:12px;padding-block:5px}
+.scale-row .key{
+  flex:none;width:52px;
+  font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text-muted);
+}
+.scale-row .bar{height:12px;border-radius:2px;background:var(--ds-color-accent);flex:none;max-width:100%}
+.scale-row .px{font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text-muted);font-variant-numeric:tabular-nums}
+
+.radii{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+.radius{display:flex;flex-direction:column;gap:7px;align-items:center}
+.radius .box{
+  width:66px;height:66px;
+  background:var(--ds-color-surface-raised);
+  border:1px solid var(--ds-color-border-strong);
+}
+.radius .key{font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text-muted)}
+
+/* Motion -------------------------------------------------------------- */
+.eases{display:flex;flex-direction:column;gap:2px}
+.ease-row{display:grid;grid-template-columns:76px 1fr;gap:12px;align-items:center;padding-block:9px;border-top:1px solid var(--ds-color-border-subtle)}
+.ease-row:first-child{border-top:0}
+.ease-row .key{font-family:var(--ds-font-mono);font-size:11.5px;color:var(--ds-color-text)}
+.track{
+  position:relative;height:14px;border-radius:999px;
+  background:var(--ds-color-surface-raised);
+  border:1px solid var(--ds-color-border);
+}
+.puck{
+  position:absolute;top:50%;left:2px;width:10px;height:10px;margin-top:-5px;
+  border-radius:2px;background:var(--ds-color-accent);
+  transform:translateX(0);
+}
+.is-running .puck{transform:translateX(calc(100cqw - 100% - 6px));}
+.track{container-type:inline-size}
+
+/* Component bench ----------------------------------------------------- */
+.bench{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:1px;background:var(--ds-color-border);border:1px solid var(--ds-color-border);border-radius:var(--ds-radius-md);overflow:hidden}
+.cell{background:var(--ds-color-bg);padding:20px 18px;display:flex;flex-direction:column;gap:14px;min-height:170px}
+.cell-head{display:flex;flex-direction:column;gap:3px}
+.cell-name{font-family:var(--ds-font-mono);font-size:12px;color:var(--ds-color-text)}
+.cell-what{font-family:var(--ds-font-sans);font-size:13px;line-height:1.45;color:var(--ds-color-text-muted)}
+.cell-demo{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto}
+.cell--wide{grid-column:1/-1}
+
+.gate-demo{width:100%;max-width:330px}
+.gate-demo .t-error-msg{font-family:var(--ds-font-mono);font-size:12px}
+.hint{font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text-muted);margin:8px 0 0}
+
+.grad-demo{
+  font-family:var(--ds-font-display);
+  font-size:clamp(26px,5.5vw,40px);
+  line-height:1.1;letter-spacing:-.02em;font-weight:600;
+}
+.think-demo{font-family:var(--ds-font-sans);font-size:14px}
+
+.reveal-demo{display:flex;flex-direction:column;gap:7px}
+.reveal-demo .t-reveal{
+  font-family:var(--ds-font-sans);font-size:14px;
+  padding:9px 12px;border-radius:var(--ds-radius-sm);
+  background:var(--ds-color-surface);border:1px solid var(--ds-color-border);
+}
+
+.mini-btn{
+  font-family:var(--ds-font-mono);font-size:11px;
+  color:var(--ds-color-text-dim);
+  background:var(--ds-color-surface);
+  border:1px solid var(--ds-color-border-strong);
+  border-radius:var(--ds-radius-sm);
+  padding:6px 11px;cursor:pointer;
+  transition:color 150ms ease,border-color 150ms ease;
+}
+.mini-btn:hover{color:var(--ds-color-accent);border-color:var(--ds-color-accent)}
+
+.outside-note{
+  display:none;
+  gap:10px;align-items:flex-start;
+  border:1px dashed var(--ds-color-border-strong);
+  border-radius:var(--ds-radius-md);
+  padding:14px 16px;
+  font-family:var(--ds-font-sans);font-size:14px;line-height:1.5;
+  color:var(--ds-color-text-dim);
+  margin-bottom:16px;
+}
+[data-ds-theme="parchment"] .outside-note{display:flex}
+[data-ds-theme="parchment"] .bench{opacity:.62}
+
+/* Footer -------------------------------------------------------------- */
+footer{
+  margin-top:64px;padding-top:20px;border-top:1px solid var(--w-rule);
+  display:flex;flex-direction:column;gap:14px;
+}
+pre.cmd{
+  margin:0;overflow-x:auto;
+  background:var(--w-panel);border:1px solid var(--w-rule);
+  border-radius:8px;padding:13px 15px;
+  font-family:'Azeret Mono',ui-monospace,monospace;font-size:12px;
+  color:var(--w-ink-2);line-height:1.7;
+}
+footer a{color:var(--w-ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--w-rule)}
+footer a:hover{text-decoration-color:currentColor}
+
+@media (max-width:560px){
+  .swatches{grid-template-columns:repeat(auto-fill,minmax(128px,1fr))}
+  .radius .box{width:54px;height:54px}
+  .ease-row{grid-template-columns:64px 1fr}
+}
+</style>
+
+<div class="page">
+
+<header class="top">
+  <div class="meta-line">
+    <span class="lab">Design system</span>
+    <span class="lab">v{{VERSION}}</span>
+    <span class="lab">trev-delivers/obvious</span>
+  </div>
+  <h1 class="wordmark">obvious</h1>
+  <p class="standfirst">
+    Six apps on four different stacks. What they share is not a component library,
+    because no component library spans a static site, a Vite app that styles itself
+    from a template string, two Tailwind&nbsp;v4 Next apps and a README card
+    generator. What they share is <b>a set of invariants and four dials</b>.
+    Spacing, type scale, motion curves and focus geometry are identical everywhere.
+    Palette, typeface, <code class="val">--ds-radius-base</code> and
+    <code class="val">--ds-density</code> are what an app is allowed to differ on.
+  </p>
+</header>
+
+<div class="switcher">
+  <div class="chips" id="chips" role="group" aria-label="Theme"></div>
+</div>
+
+<main>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-index"><h2 class="sec">The voice</h2><span class="lab" id="voice-app"></span></div>
+      <p class="sec-note">Everything below this line is painted in the selected theme. The four dials are the only things it is allowed to change.</p>
+    </div>
+    <div class="stage">
+      <div class="voice">
+        <div>
+          <h3 class="voice-name" id="voice-label"></h3>
+          <p class="voice-desc" id="voice-desc"></p>
+        </div>
+        <dl class="dials" id="dials"></dl>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-index"><h2 class="sec">Colour</h2><span class="lab">31 semantic tokens</span></div>
+      <p class="sec-note">Every theme declares exactly this set. The build refuses to emit if one of them diverges, so a theme cannot quietly drop a token and inherit a stale value from whatever ran before it.</p>
+    </div>
+    <div class="stage" id="colour"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-index"><h2 class="sec">Type</h2><span class="lab">Roles, not sizes</span></div>
+      <p class="sec-note">Lifted verbatim from designedbytrev, which is the type authority. Size, leading and tracking travel together as roles because a heading that takes h1's size and body's 1.6 leading is the most common way a page stops matching its siblings.</p>
+    </div>
+    <div class="stage">
+      <div class="specimens">
+        <div class="spec">
+          <div class="spec-meta"><span>h1</span><span id="m-h1"></span></div>
+          <p class="spec-sample sp-h1">I make complicated products feel obvious.</p>
+        </div>
+        <div class="spec">
+          <div class="spec-meta"><span>h2</span><span id="m-h2"></span></div>
+          <p class="spec-sample sp-h2">How much of your time has quietly gone missing?</p>
+        </div>
+        <div class="spec">
+          <div class="spec-meta"><span>h3</span><span id="m-h3"></span></div>
+          <p class="spec-sample sp-h3">A gallery of good taste</p>
+        </div>
+        <div class="spec">
+          <div class="spec-meta"><span>lead</span><span id="m-lead"></span></div>
+          <p class="spec-sample sp-lead">Case studies, side projects, the design-systems work. Twelve years across fintech, broadcast and consumer apps.</p>
+        </div>
+        <div class="spec">
+          <div class="spec-meta"><span>body</span><span id="m-body"></span></div>
+          <p class="spec-sample sp-body">A calculator and a field guide to the hours that policy, physics and space weather have taken from you. Daylight saving takes an hour each spring and gives most of it back each autumn; relativity takes considerably less, and never gives any of it back at all.</p>
+        </div>
+        <div class="spec">
+          <div class="spec-meta"><span>ui</span><span id="m-ui"></span></div>
+          <p class="spec-sample sp-ui">Rate this condiment</p>
+        </div>
+        <div class="spec">
+          <div class="spec-meta"><span>mono</span><span id="m-mono"></span></div>
+          <p class="spec-sample sp-mono">CURRENT STREAK 41 DAYS · LONGEST 118</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-index"><h2 class="sec">Space and radius</h2><span class="lab">One dial moves the set</span></div>
+      <p class="sec-note">Spacing never changes between apps. Radius always does: every step derives from <code class="val">--ds-radius-base</code>, so switching theme moves the whole set at once and the ratio between a small and a large corner stays put. Watch the squares as you change theme.</p>
+    </div>
+    <div class="stage">
+      <div class="group-name" style="margin-bottom:10px">Spacing · identical in all six apps</div>
+      <div id="spacing"></div>
+      <div class="group-name" style="margin:26px 0 14px">Radius · derived from <span id="radius-base"></span></div>
+      <div class="radii" id="radii"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-index"><h2 class="sec">Motion</h2><span class="lab">Shared, never themed</span></div>
+      <p class="sec-note">Four curves. <code class="val">out</code> is the house glide, taken from the portfolio. <code class="val">spring</code> is Brookwood's overshoot, kept because a settle is a different gesture from a glide and both belong in the family.</p>
+    </div>
+    <div class="stage">
+      <div class="eases" id="eases"></div>
+      <div style="margin-top:16px"><button class="mini-btn" id="replay-ease" type="button">Run all four</button></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-index"><h2 class="sec">The interaction layer</h2><span class="lab">Live, not screenshots</span></div>
+      <p class="sec-note">Lifted out of the portfolio's stylesheet so the rest of the family can use it. These keep the <code class="val">t-</code> prefix they were written with, which marks where they came from and meant adopting them was a deletion rather than a rename across three files.</p>
+    </div>
+    <div class="stage">
+      <div class="outside-note">
+        <span>Brookwood Hunt takes none of this. It is the one app built for people who have never seen any of the others, and a drifting gradient would make it read as part of a portfolio rather than as something found in a village. It shares the engineering and none of the voice.</span>
+      </div>
+      <div class="bench">
+
+        <div class="cell cell--wide">
+          <div class="cell-head">
+            <span class="cell-name">t-input · t-check-badge · t-pro-btn</span>
+            <span class="cell-what">The gate field. Border tween on focus, shake and a hot border on a wrong answer that reverts after three seconds, and a spinner that morphs into a check in the button rather than somewhere else on the page.</span>
+          </div>
+          <div class="cell-demo">
+            <form class="gate-demo t-input-wrap" id="gateWrap" autocomplete="off">
+              <div class="t-input" id="gateField">
+                <input id="gatePw" type="password" placeholder="Password" aria-label="Demo password" autocomplete="off" spellcheck="false">
+                <button type="submit" class="t-pro-btn t-pro-btn--icon" id="gateBtn" aria-label="Enter">
+                  <span class="t-pro-btn-label" id="gateArrow">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </span>
+                  <span class="t-check-blur-wrap" id="gateBlur" hidden>
+                    <span class="t-check-badge" id="gateBadge" data-state="spinning" role="img" aria-label="Checking">
+                      <span class="t-check-ring" aria-hidden="true"></span>
+                      <span class="t-check-arc" aria-hidden="true"></span>
+                      <span class="t-check-fill" aria-hidden="true"></span>
+                      <span class="t-check-disc" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path class="t-check-mark" d="M8 12.5L10.8 15.5L16.4 9.5"></path></svg>
+                      </span>
+                    </span>
+                  </span>
+                </button>
+              </div>
+              <p class="t-error-msg" id="gateErr">Not that one.</p>
+              <p class="hint">try anything · then try &ldquo;obvious&rdquo;</p>
+            </form>
+          </div>
+        </div>
+
+        <div class="cell">
+          <div class="cell-head">
+            <span class="cell-name">t-pro-btn</span>
+            <span class="cell-what">A white pill whose rim glows with the Pro colour system. Fixed white on purpose, so it reads the same wherever it lands.</span>
+          </div>
+          <div class="cell-demo">
+            <button class="t-pro-btn" type="button"><span class="t-pro-btn-label">Get in touch</span></button>
+          </div>
+        </div>
+
+        <div class="cell">
+          <div class="cell-head">
+            <span class="cell-name">t-link</span>
+            <span class="cell-what">Muted label on a hairline rule, both taking the accent on hover. A border-bottom rather than an underline, so it clears the descenders.</span>
+          </div>
+          <div class="cell-demo" style="gap:22px">
+            <a class="t-link" href="#colour">LinkedIn</a>
+            <a class="t-link t-gradient-text" href="#colour">LinkedIn</a>
+          </div>
+        </div>
+
+        <div class="cell">
+          <div class="cell-head">
+            <span class="cell-name">t-check-badge</span>
+            <span class="cell-what">On its own. A verifying spin that resolves into a filled check. The green and the white are fixed: a success signal that changes colour per app stops being readable at a glance.</span>
+          </div>
+          <div class="cell-demo" style="gap:16px">
+            <span class="t-check-blur-wrap" id="soloBlur">
+              <span class="t-check-badge" id="soloBadge" data-state="spinning" role="img" aria-label="Checking" style="width:32px;height:32px;flex:0 0 32px">
+                <span class="t-check-ring" aria-hidden="true"></span>
+                <span class="t-check-arc" aria-hidden="true"></span>
+                <span class="t-check-fill" aria-hidden="true"></span>
+                <span class="t-check-disc" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path class="t-check-mark" d="M8 12.5L10.8 15.5L16.4 9.5"></path></svg>
+                </span>
+              </span>
+            </span>
+            <button class="mini-btn" id="replay-check" type="button">Resolve</button>
+          </div>
+        </div>
+
+        <div class="cell">
+          <div class="cell-head">
+            <span class="cell-name">t-think</span>
+            <span class="cell-what">A loading beat that reads as deliberation rather than a spinner. Greys, not the accent, so it stays flat material.</span>
+          </div>
+          <div class="cell-demo think-demo">
+            <span class="t-think" id="think" role="status">
+              <span class="t-think-sizer" aria-hidden="true">Second-guessing&hellip;</span>
+              <span class="t-think-text" data-text="Thinking&hellip;">Thinking&hellip;</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="cell">
+          <div class="cell-head">
+            <span class="cell-name">t-boot-ring</span>
+            <span class="cell-what">Pixel LEDs powering on in sequence, then settling into a chase. Positions are computed in JS because there is no usable calc(sin()) yet.</span>
+          </div>
+          <div class="cell-demo" style="gap:16px">
+            <div class="t-boot-ring is-running" id="boot" aria-hidden="true"></div>
+            <button class="mini-btn" id="replay-boot" type="button">Power cycle</button>
+          </div>
+        </div>
+
+        <div class="cell">
+          <div class="cell-head">
+            <span class="cell-name">t-reveal</span>
+            <span class="cell-what">Scroll and load reveals. Fails open: with no IntersectionObserver everything is shown at once rather than left invisible.</span>
+          </div>
+          <div class="cell-demo">
+            <div class="reveal-demo" style="width:100%">
+              <span class="t-reveal in">Ketchup</span>
+              <span class="t-reveal in">Kewpie mayonnaise</span>
+              <span class="t-reveal in">Henderson&rsquo;s Relish</span>
+              <button class="mini-btn" id="replay-reveal" type="button" style="align-self:flex-start;margin-top:4px">Replay</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cell cell--wide">
+          <div class="cell-head">
+            <span class="cell-name">t-gradient-text</span>
+            <span class="cell-what">Seven rotated radial washes drifting over a grey ramp while a full hue rotation cycles the palette. Deliberately not tokenised: it is fixed material, the same spectrum wherever it appears, not a restatement of the local accent. One or two things per page.</span>
+          </div>
+          <div class="cell-demo">
+            <p class="grad-demo" style="margin:0">I make complicated products feel <span class="t-gradient-text">obvious</span>.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="lab">Using it</span>
+  <p class="sec-note" style="max-width:64ch">Tokens are vendored rather than installed. Four consumers are private repos and two are not npm-built at all, so a dependency would mean deploy-key auth in every build for the sake of a few KB of CSS. Each app carries a copy of the sync script and a generated <code class="val">ds/</code> folder instead, with <code class="val">ds/.version</code> standing in for a lockfile.</p>
+  <pre class="cmd">node scripts/sync-ds.mjs             # pull main into ds/
+node scripts/sync-ds.mjs --ref v0.2.0  # pin a tag
+node scripts/sync-ds.mjs --check     # CI: fail if ds/ is stale</pre>
+  <p class="sec-note"><a href="https://github.com/trev-delivers/obvious">github.com/trev-delivers/obvious</a> · this page is generated from <code class="val">dist/</code>, so it cannot describe a version of the system that does not exist.</p>
+</footer>
+
+</div>
+
+<script type="module">
+{{JS_BEHAVIOURS}}
+
+const THEMES = {{THEME_DATA}};
+const root = document.documentElement;
+let current = "core";
+
+/* ---- theme switcher ------------------------------------------------- */
+const chips = document.getElementById("chips");
+const inFamily = THEMES.filter((t) => t.family);
+const outside = THEMES.filter((t) => !t.family);
+
+function makeChip(t) {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "chip";
+  b.dataset.theme = t.name;
+  b.setAttribute("aria-pressed", String(t.name === current));
+  const dot = document.createElement("span");
+  dot.className = "dot";
+  dot.style.background = t.color.accent;
+  b.append(dot, document.createTextNode(t.label));
+  b.addEventListener("click", () => select(t.name));
+  return b;
+}
+inFamily.forEach((t) => chips.append(makeChip(t)));
+if (outside.length) {
+  const rule = document.createElement("span");
+  rule.className = "chip-split";
+  const lab = document.createElement("span");
+  lab.className = "lab outsider";
+  lab.textContent = "outside the family";
+  chips.append(rule, lab);
+  outside.forEach((t) => chips.append(makeChip(t)));
+}
+
+/* ---- the panels that describe the current theme --------------------- */
+const cs = () => getComputedStyle(root);
+const tokenValue = (name) => cs().getPropertyValue(name).trim();
+
+const GROUPS = [
+  ["Ground", ["bg", "bg-alt", "surface", "surface-raised", "surface-hover"]],
+  ["Line", ["border-subtle", "border", "border-strong"]],
+  ["Ink", ["text", "text-dim", "text-muted", "text-inverse"]],
+  ["Accent", ["accent", "accent-hover", "accent-alt", "accent-contrast"]],
+  ["Signal", ["success", "warning", "danger", "info"]],
+];
+
+function paintColour() {
+  const host = document.getElementById("colour");
+  host.replaceChildren();
+  for (const [title, keys] of GROUPS) {
+    const g = document.createElement("div");
+    g.className = "swatch-group";
+    const h = document.createElement("div");
+    h.className = "group-name";
+    h.textContent = title;
+    g.append(h);
+    const grid = document.createElement("div");
+    grid.className = "swatches";
+    for (const key of keys) {
+      const el = document.createElement("div");
+      el.className = "swatch";
+      const fill = document.createElement("span");
+      fill.className = "fill";
+      fill.style.background = `var(--ds-color-${key})`;
+      const cap = document.createElement("div");
+      cap.className = "cap";
+      const n = document.createElement("span");
+      n.className = "name";
+      n.textContent = key;
+      const v = document.createElement("span");
+      v.className = "hex";
+      v.textContent = tokenValue(`--ds-color-${key}`);
+      cap.append(n, v);
+      el.append(fill, cap);
+      grid.append(el);
+    }
+    g.append(grid);
+    host.append(g);
+  }
+}
+
+function paintVoice() {
+  const t = THEMES.find((x) => x.name === current);
+  document.getElementById("voice-label").textContent = t.label;
+  document.getElementById("voice-desc").textContent = t.description;
+  document.getElementById("voice-app").textContent = t.app;
+  const dl = document.getElementById("dials");
+  dl.replaceChildren();
+  const rows = [
+    ["radius base", t.dial["radius-base"], false],
+    ["density", t.dial.density, false],
+    ["display", t.fontName.display, true],
+    ["sans", t.fontName.sans, true],
+    ["mono", t.fontName.mono, true],
+    ["accent", tokenValue("--ds-color-accent"), false],
+  ];
+  for (const [k, v, isFace] of rows) {
+    const d = document.createElement("div");
+    d.className = "dial";
+    const dt = document.createElement("dt");
+    dt.textContent = k;
+    const dd = document.createElement("dd");
+    dd.textContent = v;
+    if (isFace) {
+      dd.className = "face";
+      dd.style.fontFamily = `var(--ds-font-${k === "display" ? "display" : k})`;
+    }
+    d.append(dt, dd);
+    dl.append(d);
+  }
+}
+
+const TYPE_ROLES = ["h1", "h2", "h3", "lead", "body", "ui", "mono"];
+function paintTypeMeta() {
+  for (const role of TYPE_ROLES) {
+    const el = document.getElementById(`m-${role}`);
+    if (!el) continue;
+    const sample = document.querySelector(`.sp-${role}`);
+    const size = sample ? Math.round(parseFloat(getComputedStyle(sample).fontSize) * 10) / 10 : "";
+    el.textContent = `${size}px · ${tokenValue(`--ds-type-${role}-leading`)} · ${tokenValue(`--ds-type-${role}-tracking`)}`;
+  }
+}
+
+const SPACE = ["3xs", "2xs", "xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl"];
+function paintSpacing() {
+  const host = document.getElementById("spacing");
+  host.replaceChildren();
+  for (const key of SPACE) {
+    const v = tokenValue(`--ds-space-${key}`);
+    const row = document.createElement("div");
+    row.className = "scale-row";
+    const k = document.createElement("span");
+    k.className = "key";
+    k.textContent = key;
+    const bar = document.createElement("span");
+    bar.className = "bar";
+    bar.style.width = v;
+    const px = document.createElement("span");
+    px.className = "px";
+    px.textContent = v;
+    row.append(k, bar, px);
+    host.append(row);
+  }
+}
+
+const RADII = ["xs", "sm", "md", "lg", "xl"];
+function paintRadii() {
+  document.getElementById("radius-base").textContent = tokenValue("--ds-radius-base");
+  const host = document.getElementById("radii");
+  host.replaceChildren();
+  for (const key of RADII) {
+    const wrap = document.createElement("div");
+    wrap.className = "radius";
+    const box = document.createElement("div");
+    box.className = "box";
+    box.style.borderRadius = `var(--ds-radius-${key})`;
+    const k = document.createElement("span");
+    k.className = "key";
+    const base = parseFloat(tokenValue("--ds-radius-base"));
+    const mult = { xs: 0.25, sm: 0.5, md: 1, lg: 1.5, xl: 2.5 }[key];
+    k.textContent = `${key} ${Math.round(base * mult * 100) / 100}px`;
+    wrap.append(box, k);
+    host.append(wrap);
+  }
+}
+
+const EASES = ["out", "in", "in-out", "spring"];
+function buildEases() {
+  const host = document.getElementById("eases");
+  host.replaceChildren();
+  for (const key of EASES) {
+    const row = document.createElement("div");
+    row.className = "ease-row";
+    row.dataset.ease = key;
+    const k = document.createElement("span");
+    k.className = "key";
+    k.textContent = key;
+    const track = document.createElement("div");
+    track.className = "track";
+    const puck = document.createElement("span");
+    puck.className = "puck";
+    puck.style.transition = `transform var(--ds-duration-slower) var(--ds-ease-${key})`;
+    track.append(puck);
+    row.append(k, track);
+    host.append(row);
+  }
+}
+function runEases() {
+  document.querySelectorAll(".ease-row").forEach((row) => {
+    row.classList.remove("is-running");
+    void row.offsetWidth;
+    row.classList.add("is-running");
+    setTimeout(() => row.classList.remove("is-running"), 1100);
+  });
+}
+document.getElementById("replay-ease").addEventListener("click", runEases);
+
+/* ---- the live components -------------------------------------------- */
+const PHRASES = [
+  "Thinking…", "Reading the room…", "Cutting the noise…",
+  "Finding signal…", "Outcomes first…", "Second-guessing…",
+];
+cycleThink(document.getElementById("think"), shuffle(PHRASES), { pool: PHRASES });
+
+const bootEl = document.getElementById("boot");
+let boot = mountBootRing(bootEl);
+document.getElementById("replay-boot").addEventListener("click", () => {
+  bootEl.classList.remove("is-running");
+  boot.destroy();
+  boot = mountBootRing(bootEl, { start: false });
+  void bootEl.offsetWidth;
+  boot.start();
+});
+
+const gateWrap = document.getElementById("gateWrap");
+const gateField = document.getElementById("gateField");
+const gateBadge = document.getElementById("gateBadge");
+const gateBlur = document.getElementById("gateBlur");
+const gateArrow = document.getElementById("gateArrow");
+const morph = checkMorph(gateBadge, gateBlur);
+
+gateWrap.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const value = document.getElementById("gatePw").value.trim().toLowerCase();
+  if (value === "obvious") {
+    gateArrow.hidden = true;
+    gateBlur.hidden = false;
+    morph.spin();
+    setTimeout(() => morph.done(2400), 700);
+    setTimeout(() => {
+      gateBlur.hidden = true;
+      gateArrow.hidden = false;
+      document.getElementById("gatePw").value = "";
+    }, 4200);
+  } else {
+    shake(gateField, gateWrap);
+    document.getElementById("gatePw").select();
+  }
+});
+
+const solo = checkMorph(document.getElementById("soloBadge"), document.getElementById("soloBlur"));
+document.getElementById("replay-check").addEventListener("click", () => {
+  solo.spin();
+  setTimeout(() => solo.done(2600), 650);
+});
+
+document.getElementById("replay-reveal").addEventListener("click", () => {
+  const items = [...document.querySelectorAll(".reveal-demo .t-reveal")];
+  items.forEach((el) => el.classList.remove("in"));
+  void items[0].offsetWidth;
+  items.forEach((el, i) => setTimeout(() => el.classList.add("in"), i * 110));
+});
+
+/* ---- wire it all together ------------------------------------------- */
+function select(name) {
+  current = name;
+  root.setAttribute("data-ds-theme", name);
+  document.querySelectorAll(".chip").forEach((c) => {
+    c.setAttribute("aria-pressed", String(c.dataset.theme === name));
+  });
+  /* One frame, so the newly stamped variables have resolved before anything
+     reads them back with getComputedStyle. */
+  requestAnimationFrame(() => {
+    paintVoice();
+    paintColour();
+    paintTypeMeta();
+    paintSpacing();
+    paintRadii();
+  });
+}
+
+buildEases();
+select("core");
+</script>
