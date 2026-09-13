@@ -49,8 +49,18 @@ if (process.env.DS_LOCAL) {
 }
 
 const version = JSON.parse(readFileSync(join(source, "package.json"), "utf8")).version;
-const built = JSON.parse(readFileSync(join(source, "dist", "js", "tokens.json"), "utf8"));
-const stamp = `trev-ds ${version} ${built.commit} (ref: ${ref})\n`;
+/* The checkout's own HEAD, not anything baked into dist/ — a generated file
+   cannot record the commit it is about to become part of, which is exactly
+   why the build no longer tries to. */
+let head = "local";
+try {
+  head = execFileSync("git", ["rev-parse", "--short", "HEAD"], { cwd: source, stdio: ["ignore", "pipe", "ignore"] })
+    .toString()
+    .trim();
+} catch {
+  /* DS_LOCAL may not be a checkout; the version still identifies the build */
+}
+const stamp = `trev-ds ${version} ${head} (ref: ${ref})\n`;
 
 if (check) {
   const current = existsSync(join(target, ".version")) ? readFileSync(join(target, ".version"), "utf8") : "(none)";
