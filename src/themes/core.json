@@ -1,0 +1,39 @@
+{
+  "name": "core",
+  "label": "Core",
+  "description": "The reference theme: designedbytrev. Dark, near-black, one blue accent. When a new app has no reason to be particular, it starts here.",
+  "dial": { "radius-base": "8px", "density": "1" },
+  "font": {
+    "display": "'Bricolage Grotesque', system-ui, sans-serif",
+    "sans": "'Inter', system-ui, sans-serif",
+    "mono": "'JetBrains Mono', ui-monospace, monospace",
+    "script": "'Inter', system-ui, sans-serif"
+  },
+  "color": {
+    "bg": "#0A0B0C",
+    "bg-alt": "#0F1113",
+    "surface": "#16181B",
+    "surface-raised": "#1B1E22",
+    "surface-hover": "rgba(255, 255, 255, 0.05)",
+    "border-subtle": "rgba(255, 255, 255, 0.06)",
+    "border": "rgba(255, 255, 255, 0.10)",
+    "border-strong": "rgba(255, 255, 255, 0.18)",
+    "text": "#ECEDEE",
+    "text-dim": "#C4C8CB",
+    "text-muted": "#8A8F94",
+    "text-inverse": "#0A0B0C",
+    "accent": "#5B7FE8",
+    "accent-hover": "#7C9AFF",
+    "accent-contrast": "#FFFFFF",
+    "accent-alt": "#7C9AFF",
+    "accent-gradient": "linear-gradient(135deg, #5B7FE8 0%, #7C9AFF 100%)",
+    "success": "#3FA97A",
+    "warning": "#D9A03C",
+    "danger": "#E05252",
+    "info": "#5B7FE8",
+    "shadow-color": "rgba(0, 0, 0, 0.55)",
+    "shadow-highlight": "rgba(255, 255, 255, 0.08)",
+    "selection-bg": "#5B7FE8",
+    "selection-text": "#FFFFFF"
+  }
+}

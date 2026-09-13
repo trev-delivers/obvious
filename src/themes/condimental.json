@@ -1,0 +1,39 @@
+{
+  "name": "condimental",
+  "label": "Condimental",
+  "description": "Condiment Gallery. Dark and glassy, with a mustard-to-ketchup gradient doing the work a single accent does elsewhere. Rounder than anything else in the family.",
+  "dial": { "radius-base": "16px", "density": "1" },
+  "font": {
+    "display": "var(--font-geist-sans), system-ui, sans-serif",
+    "sans": "var(--font-geist-sans), system-ui, sans-serif",
+    "mono": "var(--font-geist-mono), ui-monospace, monospace",
+    "script": "var(--font-geist-sans), system-ui, sans-serif"
+  },
+  "color": {
+    "bg": "#0a0a0d",
+    "bg-alt": "#131318",
+    "surface": "#17171d",
+    "surface-raised": "#1e1e26",
+    "surface-hover": "#1e1e26",
+    "border-subtle": "rgba(255, 255, 255, 0.08)",
+    "border": "rgba(255, 255, 255, 0.08)",
+    "border-strong": "rgba(255, 255, 255, 0.14)",
+    "text": "#f2f1ee",
+    "text-dim": "#c7c5cd",
+    "text-muted": "#9a98a3",
+    "text-inverse": "#1a1a1a",
+    "accent": "#f5b841",
+    "accent-hover": "#f7c563",
+    "accent-contrast": "#1a1a1a",
+    "accent-alt": "#e14e3b",
+    "accent-gradient": "linear-gradient(135deg, #f5b841 0%, #e97a3a 45%, #e14e3b 100%)",
+    "success": "#4ab07a",
+    "warning": "#f5b841",
+    "danger": "#e14e3b",
+    "info": "#6b8cb0",
+    "shadow-color": "rgba(0, 0, 0, 0.60)",
+    "shadow-highlight": "rgba(255, 255, 255, 0.05)",
+    "selection-bg": "#f5b841",
+    "selection-text": "#1a1a1a"
+  }
+}
