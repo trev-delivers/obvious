@@ -1,0 +1,43 @@
+{
+  "name": "dissonance",
+  "label": "Dissonance",
+  "description": "Time Dissonance. Deep night-sky navy with a low amber lamp — the same dark-with-one-warm-accent shape as Condimental, tuned cold instead of hot. Keeps its own serif voice: the subject is slipping time, and a Baskerville italic says that in a way a grotesk cannot.",
+  "family": true,
+  "dial": {
+    "radius-base": "8px",
+    "density": "1"
+  },
+  "font": {
+    "display": "'Libre Baskerville', Georgia, serif",
+    "sans": "'Libre Baskerville', Georgia, serif",
+    "mono": "'DM Mono', ui-monospace, monospace",
+    "script": "'Libre Baskerville', Georgia, serif"
+  },
+  "color": {
+    "bg": "#04060d",
+    "bg-alt": "#080e1a",
+    "surface": "#0d1526",
+    "surface-raised": "#121e33",
+    "surface-hover": "#16223a",
+    "border-subtle": "rgba(30, 48, 80, 0.6)",
+    "border": "#1e3050",
+    "border-strong": "#2e4868",
+    "text": "#dde8f2",
+    "text-dim": "#9db5cc",
+    "text-muted": "#6a8aaa",
+    "text-inverse": "#04060d",
+    "accent": "#d4853a",
+    "accent-hover": "#f0a050",
+    "accent-contrast": "#04060d",
+    "accent-alt": "#c9a227",
+    "accent-gradient": "linear-gradient(135deg, #c9a227 0%, #d4853a 100%)",
+    "success": "#4ab07a",
+    "warning": "#c9a227",
+    "danger": "#ff4444",
+    "info": "#5aabcf",
+    "shadow-color": "rgba(0, 0, 0, 0.65)",
+    "shadow-highlight": "rgba(157, 181, 204, 0.08)",
+    "selection-bg": "#d4853a",
+    "selection-text": "#04060d"
+  }
+}

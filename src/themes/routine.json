@@ -1,0 +1,40 @@
+{
+  "name": "routine",
+  "label": "Routine",
+  "description": "Daily Routine. The family's light, untextured theme: warm off-white paper, ink-blue text, one green accent for a completed thing. Deliberately the plainest of the five — a habit tracker earns nothing from atmosphere.",
+  "family": true,
+  "dial": { "radius-base": "12px", "density": "0.95" },
+  "font": {
+    "display": "'Bricolage Grotesque', system-ui, sans-serif",
+    "sans": "'Inter', system-ui, sans-serif",
+    "mono": "'JetBrains Mono', ui-monospace, monospace",
+    "script": "'Inter', system-ui, sans-serif"
+  },
+  "color": {
+    "bg": "#FAF9F7",
+    "bg-alt": "#F2F0EC",
+    "surface": "#FFFFFF",
+    "surface-raised": "#FFFFFF",
+    "surface-hover": "#F2F0EC",
+    "border-subtle": "rgba(26, 32, 44, 0.06)",
+    "border": "rgba(26, 32, 44, 0.12)",
+    "border-strong": "rgba(26, 32, 44, 0.22)",
+    "text": "#161A20",
+    "text-dim": "#434A56",
+    "text-muted": "#727A88",
+    "text-inverse": "#FAF9F7",
+    "accent": "#2F7D5A",
+    "accent-hover": "#39956B",
+    "accent-contrast": "#FFFFFF",
+    "accent-alt": "#5B7FE8",
+    "accent-gradient": "linear-gradient(135deg, #2F7D5A 0%, #5B7FE8 100%)",
+    "success": "#2F7D5A",
+    "warning": "#B07A16",
+    "danger": "#C03A3A",
+    "info": "#5B7FE8",
+    "shadow-color": "rgba(26, 32, 44, 0.10)",
+    "shadow-highlight": "rgba(255, 255, 255, 0.90)",
+    "selection-bg": "#2F7D5A",
+    "selection-text": "#FFFFFF"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "condimental",
+  "family": true,
+  "description": "Condiment Gallery. Warm paper, brown ink and a ketchup accent with mustard behind it. Light like Brookwood's parchment but not aged: this one is a clean sheet on a shelf, not something found in a drawer. The roundest theme in the family — cards at 24px against the portfolio's 12.",
+  "dial": { "radius-base": "16px", "density": "1" },
+  "font": {
+    "display": "var(--font-geist-sans), system-ui, sans-serif",
+    "sans": "var(--font-geist-sans), system-ui, sans-serif",
+    "mono": "var(--font-geist-mono), ui-monospace, monospace",
+    "script": "var(--font-geist-sans), system-ui, sans-serif"
+  },
+  "color": {
+    "bg": "#faf5ee",
+    "bg-alt": "#f4ead2",
+    "surface": "#ffffff",
+    "surface-raised": "#ffffff",
+    "surface-hover": "#f5eee2",
+    "border-subtle": "rgba(37, 26, 12, 0.08)",
+    "border": "rgba(37, 26, 12, 0.08)",
+    "border-strong": "rgba(37, 26, 12, 0.16)",
+    "text": "#241a10",
+    "text-dim": "#4a3a28",
+    "text-muted": "#8c8071",
+    "text-inverse": "#fff8f0",
+    "accent": "#e14e3b",
+    "accent-hover": "#c93f2e",
+    "accent-contrast": "#fff8f0",
+    "accent-alt": "#f5b841",
+    "accent-gradient": "linear-gradient(135deg, #f5b841 0%, #e97a3a 45%, #e14e3b 100%)",
+    "success": "#3f7d4f",
+    "warning": "#b07a16",
+    "danger": "#c93f2e",
+    "info": "#4a6b8a",
+    "shadow-color": "rgba(37, 26, 12, 0.14)",
+    "shadow-highlight": "rgba(255, 255, 255, 0.90)",
+    "selection-bg": "#f5b841",
+    "selection-text": "#241a10"
+  }
+}

@@ -1,0 +1,170 @@
+{
+  "$comment": "Shared invariants. Identical in every app, in every theme. If a value lives here, changing it changes all six sites at once — that is the point. Anything an app is allowed to differ on lives in src/themes/*.json instead.",
+
+  "space": {
+    "$comment": "4px base. Steps, not a continuum: pick the nearest one rather than adding a value.",
+    "3xs": "2px",
+    "2xs": "4px",
+    "xs": "8px",
+    "sm": "12px",
+    "md": "16px",
+    "lg": "24px",
+    "xl": "32px",
+    "2xl": "48px",
+    "3xl": "64px",
+    "4xl": "96px",
+    "5xl": "128px"
+  },
+
+  "space-fluid": {
+    "$comment": "Floor-first vertical rhythm, lifted from designedbytrev's site.css where the reasoning is written out: the mobile floor is deliberately generous and desktop growth is a bonus, not the point.",
+    "s": "clamp(16px, 4vw, 22px)",
+    "m": "clamp(22px, 5.5vw, 32px)",
+    "l": "clamp(36px, 8vw, 56px)",
+    "xl": "clamp(56px, 11vw, 88px)"
+  },
+
+  "gutter": "clamp(20px, 5vw, 64px)",
+  "measure": "68ch",
+  "container": "1140px",
+
+  "text": {
+    "$comment": "Lifted verbatim from designedbytrev's site.css — that site is the type authority, so these are its real sizes rather than a scale invented around them. Named by role, not by t-shirt size, because the roles are what stop someone pairing hero size with body leading.",
+    "micro": "11px",
+    "mono": "12.5px",
+    "xs": "13px",
+    "sm": "14px",
+    "md": "15px",
+    "base": "17px",
+    "lead": "clamp(16px, 1.7vw, 19px)",
+    "h3": "clamp(20px, 2.4vw, 28px)",
+    "h2": "clamp(30px, 4.4vw, 52px)",
+    "h1": "clamp(34px, 6.6vw, 78px)"
+  },
+
+  "type": {
+    "$comment": "Size, leading and tracking travel together. Use these rather than the loose --ds-text-* values whenever you are setting a whole role: a heading that takes h1's size and body's 1.6 leading is the single most common way a page stops looking like the rest of the family.",
+    "h1-size": "var(--ds-text-h1)",
+    "h1-leading": "1.06",
+    "h1-tracking": "-0.03em",
+    "h1-weight": "600",
+    "h2-size": "var(--ds-text-h2)",
+    "h2-leading": "1.1",
+    "h2-tracking": "-0.025em",
+    "h2-weight": "600",
+    "h3-size": "var(--ds-text-h3)",
+    "h3-leading": "1.2",
+    "h3-tracking": "-0.015em",
+    "h3-weight": "600",
+    "lead-size": "var(--ds-text-lead)",
+    "lead-leading": "1.5",
+    "lead-tracking": "0",
+    "lead-weight": "400",
+    "body-size": "var(--ds-text-base)",
+    "body-leading": "1.6",
+    "body-tracking": "0",
+    "body-weight": "400",
+    "ui-size": "var(--ds-text-md)",
+    "ui-leading": "1.4",
+    "ui-tracking": "0",
+    "ui-weight": "500",
+    "mono-size": "var(--ds-text-mono)",
+    "mono-leading": "1.4",
+    "mono-tracking": "0.04em",
+    "mono-weight": "400"
+  },
+
+  "leading": {
+    "tight": "1.06",
+    "snug": "1.1",
+    "normal": "1.4",
+    "body": "1.5",
+    "relaxed": "1.6"
+  },
+
+  "tracking": {
+    "tightest": "-0.03em",
+    "tighter": "-0.025em",
+    "tight": "-0.015em",
+    "normal": "0",
+    "wide": "0.04em",
+    "wider": "0.08em"
+  },
+
+  "weight": {
+    "regular": "400",
+    "medium": "500",
+    "semibold": "600",
+    "bold": "700"
+  },
+
+  "radius": {
+    "$comment": "Derived from the --ds-radius-base dial a theme sets, so an app changes one number and the whole set moves together. Brookwood sets 4px and gets near-square paper; a rounder app sets 12px and gets soft cards. The ratios between steps never change.",
+    "xs": "calc(var(--ds-radius-base) * 0.25)",
+    "sm": "calc(var(--ds-radius-base) * 0.5)",
+    "md": "var(--ds-radius-base)",
+    "lg": "calc(var(--ds-radius-base) * 1.5)",
+    "xl": "calc(var(--ds-radius-base) * 2.5)",
+    "full": "999px"
+  },
+
+  "border": {
+    "hairline": "1px",
+    "thick": "1.5px",
+    "heavy": "2px"
+  },
+
+  "focus": {
+    "$comment": "One focus treatment across all six. Never restyle this per app beyond the accent colour it inherits.",
+    "width": "2px",
+    "offset": "3px",
+    "style": "solid"
+  },
+
+  "duration": {
+    "instant": "100ms",
+    "fast": "150ms",
+    "base": "250ms",
+    "slow": "400ms",
+    "slower": "700ms",
+    "slowest": "900ms"
+  },
+
+  "ease": {
+    "$comment": "out is the house curve — the one in designedbytrev's --ease. spring is brookwood's linear() overshoot, kept because a settle is a different gesture from a glide and both are legitimately part of the family.",
+    "out": "cubic-bezier(0.22, 1, 0.36, 1)",
+    "in": "cubic-bezier(0.55, 0, 1, 0.45)",
+    "in-out": "cubic-bezier(0.65, 0, 0.35, 1)",
+    "spring": "linear(0, 0.006, 0.025, 0.101, 0.539, 0.816, 0.934, 0.988, 1.007, 1.011, 1.005, 1)"
+  },
+
+  "shadow": {
+    "$comment": "Shape is shared; the colour comes from the theme's --ds-shadow-color, which is why brookwood's shadows are brown and condimental's are black without either app overriding a shadow.",
+    "sm": "0 1px 3px var(--ds-shadow-color)",
+    "md": "0 2px 8px -2px var(--ds-shadow-color)",
+    "lg": "0 8px 24px -6px var(--ds-shadow-color)",
+    "xl": "0 20px 48px -12px var(--ds-shadow-color)",
+    "inset-hairline": "inset 0 1px 0 var(--ds-shadow-highlight)"
+  },
+
+  "control": {
+    "$comment": "Multiplied by the theme's --ds-density dial. A denser app (a dashboard) sets 0.9; a roomier one sets 1.1. Tap targets never fall below 44px regardless, hence the min().",
+    "height-sm": "calc(32px * var(--ds-density))",
+    "height-md": "calc(40px * var(--ds-density))",
+    "height-lg": "calc(48px * var(--ds-density))",
+    "tap-min": "44px",
+    "pad-x-sm": "calc(10px * var(--ds-density))",
+    "pad-x-md": "calc(14px * var(--ds-density))",
+    "pad-x-lg": "calc(20px * var(--ds-density))"
+  },
+
+  "z": {
+    "base": "0",
+    "raised": "1",
+    "sticky": "10",
+    "nav": "40",
+    "overlay": "50",
+    "modal": "60",
+    "toast": "70"
+  }
+}

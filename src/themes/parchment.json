@@ -1,0 +1,41 @@
+{
+  "name": "parchment",
+  "label": "Parchment",
+  "description": "Brookwood Hunt. Aged paper, brown ink, an oxblood seal, and one candlelit warning colour. The only light theme with texture; nothing in it is allowed to glow except the lamp.",
+  "family": false,
+  "familyNote": "Stands apart on purpose. Brookwood Hunt is the one app built for people who have never seen any of the others, so it takes the primitives (spacing, type scale, motion, focus) and none of the shared interaction layer \u2014 no gradient text, no Pro button, no thinking shimmer. Those would make it read as part of a portfolio instead of as a thing found in a village.",
+  "dial": { "radius-base": "4px", "density": "1" },
+  "font": {
+    "display": "var(--font-fell), Georgia, serif",
+    "sans": "var(--font-instrument), system-ui, sans-serif",
+    "mono": "var(--font-plex-mono), ui-monospace, monospace",
+    "script": "var(--font-caveat), 'Segoe Print', 'Bradley Hand', cursive"
+  },
+  "color": {
+    "bg": "#e8dcbe",
+    "bg-alt": "#e2d4b2",
+    "surface": "#efe4ca",
+    "surface-raised": "#f4ebd6",
+    "surface-hover": "#e6d9ba",
+    "border-subtle": "rgba(185, 162, 121, 0.35)",
+    "border": "rgba(185, 162, 121, 0.50)",
+    "border-strong": "#a48f66",
+    "text": "#2b1f10",
+    "text-dim": "#574126",
+    "text-muted": "#7d6a48",
+    "text-inverse": "#efe4ca",
+    "accent": "#8f2f10",
+    "accent-hover": "#a8471f",
+    "accent-contrast": "#efe4ca",
+    "accent-alt": "#d08a2c",
+    "accent-gradient": "linear-gradient(135deg, #8f2f10 0%, #d08a2c 100%)",
+    "success": "#4a6b3a",
+    "warning": "#d08a2c",
+    "danger": "#8f2f10",
+    "info": "#3f5d78",
+    "shadow-color": "rgba(43, 31, 16, 0.20)",
+    "shadow-highlight": "rgba(255, 255, 255, 0.50)",
+    "selection-bg": "#d08a2c",
+    "selection-text": "#2b1f10"
+  }
+}

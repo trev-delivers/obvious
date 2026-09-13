@@ -1,0 +1,25 @@
+{
+  "name": "obvious",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Design tokens, themes and the shared interaction layer behind Trev's apps.",
+  "type": "module",
+  "files": [
+    "dist",
+    "src",
+    "scripts"
+  ],
+  "exports": {
+    "./tokens": "./dist/js/tokens.js",
+    "./tokens.json": "./dist/js/tokens.json",
+    "./css/primitives.css": "./dist/css/primitives.css",
+    "./css/base.css": "./dist/css/base.css",
+    "./css/all-themes.css": "./dist/css/all-themes.css",
+    "./css/themes/*": "./dist/css/themes/*",
+    "./tailwind/theme.css": "./dist/tailwind/theme.css"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs && git diff --exit-code -- dist"
+  }
+}
