@@ -128,6 +128,22 @@ writeFileSync(
 /* The Tailwind v4 bridge. @theme inline means the utilities resolve through
    the --ds-* variables rather than snapshotting their values, so swapping a
    theme file at runtime still moves every utility with it. */
+/* Additive only. An earlier version of this bridge mapped the system onto
+   Tailwind's own named scales — --spacing-md, --radius-lg, --text-base,
+   --shadow-sm — and silently changed what those utilities meant. Naming a
+   --spacing-<name> key is the worst of them: Tailwind resolves max-w-md and
+   friends through that same namespace, so max-w-md became 16px and every
+   sheet and centred column in the consuming app collapsed. Tailwind's
+   spacing scale is numeric (calc(var(--spacing) * n)) and is not ours to
+   rename, so it is not mapped at all; reach for var(--ds-space-*) directly
+   when a step is wanted.
+
+   Everything that would collide is namespaced instead: rounded-ds-lg,
+   text-ds-h1, ease-ds-out, shadow-ds-md. Opt-in, and impossible to confuse
+   with the framework's own. Colours are new names rather than overrides, so
+   they stay as they are, and --font-sans/--font-mono are a deliberate
+   override: naming the app's typeface is the one thing the bridge should
+   take over. */
 const tw = [
   ["--color-bg", "var(--ds-color-bg)"],
   ["--color-bg-alt", "var(--ds-color-bg-alt)"],
@@ -152,11 +168,10 @@ const tw = [
   ["--font-sans", "var(--ds-font-sans)"],
   ["--font-mono", "var(--ds-font-mono)"],
   ["--font-script", "var(--ds-font-script)"],
-  ...["xs", "sm", "md", "lg", "xl", "full"].map((s) => [`--radius-${s}`, `var(--ds-radius-${s})`]),
-  ...Object.keys(primitives.text).filter((k) => !isComment(k)).map((s) => [`--text-${s}`, `var(--ds-text-${s})`]),
-  ...Object.keys(primitives.space).filter((k) => !isComment(k)).map((s) => [`--spacing-${s}`, `var(--ds-space-${s})`]),
-  ...Object.keys(primitives.ease).filter((k) => !isComment(k)).map((s) => [`--ease-${s}`, `var(--ds-ease-${s})`]),
-  ...Object.keys(primitives.shadow).filter((k) => !isComment(k)).map((s) => [`--shadow-${s}`, `var(--ds-shadow-${s})`]),
+  ...["xs", "sm", "md", "lg", "xl", "full"].map((s) => [`--radius-ds-${s}`, `var(--ds-radius-${s})`]),
+  ...Object.keys(primitives.text).filter((k) => !isComment(k)).map((s) => [`--text-ds-${s}`, `var(--ds-text-${s})`]),
+  ...Object.keys(primitives.ease).filter((k) => !isComment(k)).map((s) => [`--ease-ds-${s}`, `var(--ds-ease-${s})`]),
+  ...Object.keys(primitives.shadow).filter((k) => !isComment(k)).map((s) => [`--shadow-ds-${s}`, `var(--ds-shadow-${s})`]),
 ];
 
 writeFileSync(

@@ -95,9 +95,22 @@ Tailwind v4:
 @import "../../ds/tailwind/theme.css";
 ```
 
-That last import gives you `bg-surface`, `text-ink-muted`, `rounded-lg`,
-`ease-spring`, `shadow-md` and the rest, all resolving through `--ds-*` at
-runtime rather than snapshotting values at build time.
+That last import is **additive**. It gives you `bg-surface`, `text-ink-muted`,
+`rounded-ds-lg`, `ease-ds-out` and `shadow-ds-md`, all resolving through
+`--ds-*` at runtime rather than snapshotting values at build time, and it
+leaves Tailwind's own scales alone.
+
+That namespacing is not fussiness. The first version of this bridge mapped
+straight onto `--spacing-*`, `--radius-*`, `--text-*` and `--shadow-*`, which
+quietly changed what `rounded-lg`, `text-base` and `shadow-sm` meant in the
+consuming app. `--spacing-*` was the worst of them: Tailwind resolves
+`max-w-md` through that same namespace, so `max-w-md` became 16px and every
+sheet and centred column in the app collapsed to a strip. Tailwind's spacing
+scale is numeric and is not ours to rename, so it is not mapped at all — use
+`var(--ds-space-md)` directly when you want a step.
+
+The two deliberate overrides are `--font-sans` and `--font-mono`. Naming the
+app's typeface is the one thing the bridge should take over.
 
 Anything that cannot read a stylesheet — the README card generator, OG images,
 canvas and WebGL code — imports the JS export instead:
