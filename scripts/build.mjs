@@ -197,8 +197,9 @@ for (const file of components) {
 writeFileSync(
   join(dist, "css", "components.css"),
   stamp("trev-ds components — the shared interaction layer. Import after primitives, a theme and base.") +
-    components.map((f) => `@import "./components/${f}";`).join("\n") +
-    "\n",
+    components
+      .map((f) => readFileSync(join(dist, "css", "components", f), "utf8"))
+      .join("\n"),
 );
 
 cpSync(join(src, "js", "behaviours.js"), join(dist, "js", "behaviours.js"));

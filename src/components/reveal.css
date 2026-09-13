@@ -1,7 +1,7 @@
 /* Scroll and load reveals.
  *
- * Two names because they mean different things: .t-stagger is a group whose
- * children arrive one after another, .t-seq is a single element arriving on
+ * Two names because they mean different things: .t-reveal is a group whose
+ * children arrive one after another, .t-reveal--seq is a single element arriving on
  * its own. Both start hidden in CSS and are released by adding .in, so a
  * failure in the observer leaves content invisible — which is why
  * revealOnScroll() in the behaviours module releases everything immediately
@@ -14,14 +14,14 @@
  * the start of a line.
  */
 
-.t-stagger,
-.t-seq{opacity:0;transform:translateY(10px)}
+.t-reveal,
+.t-reveal--seq{opacity:0;transform:translateY(10px)}
 
-.t-stagger.in{
+.t-reveal.in{
   opacity:1;transform:none;
   transition:opacity var(--ds-duration-slower) var(--ds-ease-out),transform var(--ds-duration-slower) var(--ds-ease-out);
 }
-.t-seq.in{
+.t-reveal--seq.in{
   opacity:1;transform:none;
   transition:opacity .7s var(--ds-ease-out),transform .7s var(--ds-ease-out);
 }
@@ -37,5 +37,5 @@
 }
 
 @media (prefers-reduced-motion:reduce){
-  .t-stagger,.t-seq,.t-word{opacity:1;transform:none;filter:none}
+  .t-reveal,.t-reveal--seq,.t-word{opacity:1;transform:none;filter:none}
 }

@@ -13,13 +13,15 @@
  * worth keeping even on a site with a strong accent colour.
  */
 
+/* Defaults sit on the component itself, so an ancestor that wants to retime
+   or recolour a particular instance just redeclares them and they inherit
+   down. Nothing needs to know where the overrides came from. */
 .t-think{
+  position:relative;display:inline-block;text-align:left;font:inherit;
   --think-swap:150ms; --think-distance:8px; --think-blur:2px;
   --think-shimmer:2000ms; --think-base:#9A9A9A; --think-highlight:#F5F5F5;
   --think-ease:ease-in-out; --think-hold:750ms; --think-gap:50ms;
 }
-
-.t-think-container{position:relative;display:inline-block;text-align:left;font:inherit}
 .t-think-sizer{display:block;visibility:hidden;white-space:nowrap}
 
 .t-think-text{

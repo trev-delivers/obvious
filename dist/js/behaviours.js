@@ -188,12 +188,12 @@ export function shuffle(arr) {
 }
 
 /**
- * Releases .t-stagger / .t-seq elements as they scroll into view.
+ * Releases .t-reveal elements as they scroll into view.
  *
  * Fails open: with no IntersectionObserver, everything is revealed at once
  * rather than left invisible, because the CSS starts these hidden.
  */
-export function revealOnScroll(root = document, { selector = ".t-stagger, .t-seq", threshold = 0.2, step = 90 } = {}) {
+export function revealOnScroll(root = document, { selector = ".t-reveal, .t-reveal--seq", threshold = 0.2, step = 90 } = {}) {
   const els = [...root.querySelectorAll(selector)];
   if (!els.length) return () => {};
 
