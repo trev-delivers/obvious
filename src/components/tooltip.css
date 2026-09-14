@@ -1,0 +1,19 @@
+/* t-tt — the hover tooltip.
+ *
+ * Sits on a trigger and shows on hover or focus. Used on the portfolio for
+ * the Inspect toggle; it is plain enough for anything.
+ */
+
+.t-tt-wrap{position:relative;display:inline-block}
+.t-tt{
+  position:absolute;
+  bottom:calc(100% + 8px);right:0;left:auto;
+  transform:translateY(0) scale(var(--tt-scale,.98));
+  transform-origin:100% 100%;
+  padding:8px 12px;border-radius:8px;
+  background:#101215;border:1px solid var(--line2);color:var(--dim);
+  font-family:var(--mono);font-size:12px;white-space:nowrap;
+  box-shadow:0 12px 26px -14px rgba(0,0,0,.8);
+  opacity:0;pointer-events:none;
+  transition:opacity 50ms ease-out,transform 50ms ease-out;
+}

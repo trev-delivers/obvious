@@ -146,13 +146,17 @@ rather than a rename across three files.
 | Component | What it is |
 | --- | --- |
 | `t-input` | The field assembly: border tween, error state, shake, message. |
-| `t-check-badge` | Spinner that morphs into a filled check, in place. |
-| `t-pro-btn` | White pill with a glowing Pro rim. Full width or docked icon. |
+| `t-check-badge` | Spinner that turns into a filled tick, in place. |
+| `t-pro-btn` | White pill with a glowing rim. Full width or docked icon. |
 | `t-gradient-text` | The seven-wash drifting spectrum, clipped to glyphs. |
 | `t-think` | Thinking shimmer: a phrase cycling under a sweeping highlight. |
-| `t-boot-ring` | Pixel-LED ring that powers on, then breathes. |
+| `t-boot-ring` | Pixel-LED ring that powers up, then breathes. |
 | `t-link` | The house text link: muted on a hairline, both take the accent. |
-| `t-stagger` / `t-seq` / `t-word` | Scroll and load reveals, word-by-word headings. |
+| `t-reveal` | Scroll and load reveals. |
+| `t-stagger` | A short sequence of lines inside something that just appeared. |
+| `t-badge` | The notification dot that pops onto a button once. |
+| `t-tt` | Hover tooltip. |
+| `t-confetti` | Paper flakes with real physics that pile on the button. |
 
 ```css
 @import "../ds/css/components.css";      /* all of it */
@@ -226,6 +230,15 @@ flatter the bypass number, which is the wrong trade.
 The portfolio is the only app really using the interaction layer, which is
 worth saying plainly: right now this is a token system with a component layer
 that mostly travels unused.
+
+## Nothing here needs a licence
+
+Worth writing down, because it was not obvious: none of these repos import a
+transitions.dev package. Every `t-*` component is a hand-written adaptation
+that lived in the portfolio's own stylesheet, and they are all in here now.
+The `t-` prefix is where they came from, not a dependency.
+
+The only third-party component anywhere is `border-beam`, which is MIT.
 
 ## Not here yet
 
