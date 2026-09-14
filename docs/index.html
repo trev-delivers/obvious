@@ -1159,13 +1159,12 @@ footer a:hover{text-decoration-color:currentColor}
   </div>
   <h1 class="wordmark">obvious</h1>
   <p class="standfirst">
-    Six apps on four different stacks. What they share is not a component library,
-    because no component library spans a static site, a Vite app that styles itself
-    from a template string, two Tailwind&nbsp;v4 Next apps and a README card
-    generator. What they share is <b>a set of invariants and four dials</b>.
-    Spacing, type scale, motion curves and focus geometry are identical everywhere.
-    Palette, typeface, <code class="val">--ds-radius-base</code> and
-    <code class="val">--ds-density</code> are what an app is allowed to differ on.
+    Six apps, four different stacks. They can&rsquo;t share a component library:
+    one&rsquo;s a static site, one keeps its styles in a template string, two are
+    Next on Tailwind, one&rsquo;s a script that draws an SVG. So they share
+    <b>tokens</b> instead. Spacing, type, motion and focus are the same everywhere.
+    Colour, typeface, <code class="val">--ds-radius-base</code> and
+    <code class="val">--ds-density</code> are what each app gets to change.
   </p>
 </header>
 
@@ -1177,8 +1176,8 @@ footer a:hover{text-decoration-color:currentColor}
 
   <section>
     <div class="sec-head">
-      <div class="sec-index"><h2 class="sec">The voice</h2><span class="lab" id="voice-app"></span></div>
-      <p class="sec-note">Everything below this line is painted in the selected theme. The four dials are the only things it is allowed to change.</p>
+      <div class="sec-index"><h2 class="sec">This theme</h2><span class="lab" id="voice-app"></span></div>
+      <p class="sec-note">Everything below is painted in whichever theme you pick. These four dials are all an app can change.</p>
     </div>
     <div class="stage">
       <div class="voice">
@@ -1194,15 +1193,15 @@ footer a:hover{text-decoration-color:currentColor}
   <section>
     <div class="sec-head">
       <div class="sec-index"><h2 class="sec">Colour</h2><span class="lab">31 semantic tokens</span></div>
-      <p class="sec-note">Every theme declares exactly this set. The build refuses to emit if one of them diverges, so a theme cannot quietly drop a token and inherit a stale value from whatever ran before it.</p>
+      <p class="sec-note">Every theme sets the same 31. The build won&rsquo;t emit if one is missing, so a theme can&rsquo;t drop a token and quietly inherit the last one&rsquo;s value.</p>
     </div>
     <div class="stage" id="colour"></div>
   </section>
 
   <section>
     <div class="sec-head">
-      <div class="sec-index"><h2 class="sec">Type</h2><span class="lab">Roles, not sizes</span></div>
-      <p class="sec-note">Lifted verbatim from designedbytrev, which is the type authority. Size, leading and tracking travel together as roles because a heading that takes h1's size and body's 1.6 leading is the most common way a page stops matching its siblings.</p>
+      <div class="sec-index"><h2 class="sec">Type</h2><span class="lab">From designedbytrev</span></div>
+      <p class="sec-note">Taken straight off the portfolio. Size, line-height and tracking come as a set, so you can&rsquo;t put body line-height on a hero by accident.</p>
     </div>
     <div class="stage">
       <div class="specimens">
@@ -1240,8 +1239,8 @@ footer a:hover{text-decoration-color:currentColor}
 
   <section>
     <div class="sec-head">
-      <div class="sec-index"><h2 class="sec">Space and radius</h2><span class="lab">One dial moves the set</span></div>
-      <p class="sec-note">Spacing never changes between apps. Radius always does: every step derives from <code class="val">--ds-radius-base</code>, so switching theme moves the whole set at once and the ratio between a small and a large corner stays put. Watch the squares as you change theme.</p>
+      <div class="sec-index"><h2 class="sec">Space and radius</h2><span class="lab">One is fixed, one is not</span></div>
+      <p class="sec-note">Spacing is the same in every app. Radius isn&rsquo;t: all five steps are worked out from <code class="val">--ds-radius-base</code>, so changing theme moves them together. Watch the squares.</p>
     </div>
     <div class="stage">
       <div class="group-name" style="margin-bottom:10px">Spacing · identical in all six apps</div>
@@ -1253,8 +1252,8 @@ footer a:hover{text-decoration-color:currentColor}
 
   <section>
     <div class="sec-head">
-      <div class="sec-index"><h2 class="sec">Motion</h2><span class="lab">Shared, never themed</span></div>
-      <p class="sec-note">Four curves. <code class="val">out</code> is the house glide, taken from the portfolio. <code class="val">spring</code> is Brookwood's overshoot, kept because a settle is a different gesture from a glide and both belong in the family.</p>
+      <div class="sec-index"><h2 class="sec">Motion</h2><span class="lab">Four curves</span></div>
+      <p class="sec-note"><code class="val">out</code> is the one the portfolio uses for nearly everything. <code class="val">spring</code> is Brookwood&rsquo;s, for things that should land rather than glide. Same in every app.</p>
     </div>
     <div class="stage">
       <div class="eases" id="eases"></div>
@@ -1264,19 +1263,19 @@ footer a:hover{text-decoration-color:currentColor}
 
   <section>
     <div class="sec-head">
-      <div class="sec-index"><h2 class="sec">The interaction layer</h2><span class="lab">Live, not screenshots</span></div>
-      <p class="sec-note">Lifted out of the portfolio's stylesheet so the rest of the family can use it. These keep the <code class="val">t-</code> prefix they were written with, which marks where they came from and meant adopting them was a deletion rather than a rename across three files.</p>
+      <div class="sec-index"><h2 class="sec">The interaction layer</h2><span class="lab">All working</span></div>
+      <p class="sec-note">Pulled out of the portfolio&rsquo;s stylesheet so the other sites can use them. They keep the <code class="val">t-</code> prefix from transitions.dev, where they started.</p>
     </div>
     <div class="stage">
       <div class="outside-note">
-        <span>Brookwood Hunt takes none of this. It is the one app built for people who have never seen any of the others, and a drifting gradient would make it read as part of a portfolio rather than as something found in a village. It shares the engineering and none of the voice.</span>
+        <span>Brookwood doesn&rsquo;t use any of these. It&rsquo;s the only one made for people who have never seen the others, so it takes the tokens and none of the look.</span>
       </div>
       <div class="bench">
 
         <div class="cell cell--wide">
           <div class="cell-head">
             <span class="cell-name">t-input · t-check-badge · t-pro-btn</span>
-            <span class="cell-what">The gate field. Border tween on focus, shake and a hot border on a wrong answer that reverts after three seconds, and a spinner that morphs into a check in the button rather than somewhere else on the page.</span>
+            <span class="cell-what">The gate field off the portfolio. Border shifts on focus, shakes and goes hot on a wrong answer then settles back after three seconds, and the spinner turns into a tick inside the button.</span>
           </div>
           <div class="cell-demo">
             <form class="gate-demo t-input-wrap" id="gateWrap" autocomplete="off">
@@ -1307,7 +1306,7 @@ footer a:hover{text-decoration-color:currentColor}
         <div class="cell">
           <div class="cell-head">
             <span class="cell-name">t-pro-btn</span>
-            <span class="cell-what">A white pill whose rim glows with the Pro colour system. Fixed white on purpose, so it reads the same wherever it lands.</span>
+            <span class="cell-what">A white pill with a glowing rim. Stays white in every theme so it looks the same wherever it turns up.</span>
           </div>
           <div class="cell-demo">
             <button class="t-pro-btn" type="button"><span class="t-pro-btn-label">Get in touch</span></button>
@@ -1317,7 +1316,7 @@ footer a:hover{text-decoration-color:currentColor}
         <div class="cell">
           <div class="cell-head">
             <span class="cell-name">t-link</span>
-            <span class="cell-what">Muted label on a hairline rule, both taking the accent on hover. A border-bottom rather than an underline, so it clears the descenders.</span>
+            <span class="cell-what">Muted text on a hairline, both picking up the accent on hover. It is a border rather than an underline so it clears the descenders.</span>
           </div>
           <div class="cell-demo" style="gap:22px">
             <a class="t-link" href="#colour">LinkedIn</a>
@@ -1328,7 +1327,7 @@ footer a:hover{text-decoration-color:currentColor}
         <div class="cell">
           <div class="cell-head">
             <span class="cell-name">t-check-badge</span>
-            <span class="cell-what">On its own. A verifying spin that resolves into a filled check. The green and the white are fixed: a success signal that changes colour per app stops being readable at a glance.</span>
+            <span class="cell-what">The spinner and tick on their own. Green and white in every theme, because a tick that changes colour stops reading as a tick.</span>
           </div>
           <div class="cell-demo" style="gap:16px">
             <span class="t-check-blur-wrap" id="soloBlur">
@@ -1348,7 +1347,7 @@ footer a:hover{text-decoration-color:currentColor}
         <div class="cell">
           <div class="cell-head">
             <span class="cell-name">t-think</span>
-            <span class="cell-what">A loading beat that reads as deliberation rather than a spinner. Greys, not the accent, so it stays flat material.</span>
+            <span class="cell-what">A loading state that reads as thinking rather than waiting. Greys rather than the accent, so it stays quiet.</span>
           </div>
           <div class="cell-demo think-demo">
             <span class="t-think" id="think" role="status">
@@ -1361,7 +1360,7 @@ footer a:hover{text-decoration-color:currentColor}
         <div class="cell">
           <div class="cell-head">
             <span class="cell-name">t-boot-ring</span>
-            <span class="cell-what">Pixel LEDs powering on in sequence, then settling into a chase. Positions are computed in JS because there is no usable calc(sin()) yet.</span>
+            <span class="cell-what">Pixel LEDs powering up one at a time, then settling into a chase. Positions are worked out in JS, since CSS still has no usable calc(sin()).</span>
           </div>
           <div class="cell-demo" style="gap:16px">
             <div class="t-boot-ring is-running" id="boot" aria-hidden="true"></div>
@@ -1372,7 +1371,7 @@ footer a:hover{text-decoration-color:currentColor}
         <div class="cell">
           <div class="cell-head">
             <span class="cell-name">t-reveal</span>
-            <span class="cell-what">Scroll and load reveals. Fails open: with no IntersectionObserver everything is shown at once rather than left invisible.</span>
+            <span class="cell-what">Scroll and load reveals. If IntersectionObserver is missing everything just shows, rather than staying invisible.</span>
           </div>
           <div class="cell-demo">
             <div class="reveal-demo" style="width:100%">
@@ -1387,7 +1386,7 @@ footer a:hover{text-decoration-color:currentColor}
         <div class="cell cell--wide">
           <div class="cell-head">
             <span class="cell-name">t-gradient-text</span>
-            <span class="cell-what">Seven rotated radial washes drifting over a grey ramp while a full hue rotation cycles the palette. Deliberately not tokenised: it is fixed material, the same spectrum wherever it appears, not a restatement of the local accent. One or two things per page.</span>
+            <span class="cell-what">Seven rotated washes drifting over a grey ramp, with the hue cycling underneath. Not themed: it is the same spectrum everywhere it appears. Worth using on one or two things a page, no more.</span>
           </div>
           <div class="cell-demo">
             <p class="grad-demo" style="margin:0">I make complicated products feel <span class="t-gradient-text">obvious</span>.</p>
@@ -1402,11 +1401,11 @@ footer a:hover{text-decoration-color:currentColor}
 
 <footer>
   <span class="lab">Using it</span>
-  <p class="sec-note" style="max-width:64ch">Tokens are vendored rather than installed. Four consumers are private repos and two are not npm-built at all, so a dependency would mean deploy-key auth in every build for the sake of a few KB of CSS. Each app carries a copy of the sync script and a generated <code class="val">ds/</code> folder instead, with <code class="val">ds/.version</code> standing in for a lockfile.</p>
+  <p class="sec-note" style="max-width:64ch">The tokens get copied into each app rather than installed. Four of the repos are private and two don&rsquo;t build with npm at all, so a dependency would mean deploy keys everywhere for a few KB of CSS. Each app has the sync script and a generated <code class="val">ds/</code> folder; <code class="val">ds/.version</code> does the job of a lockfile.</p>
   <pre class="cmd">node scripts/sync-ds.mjs             # pull main into ds/
 node scripts/sync-ds.mjs --ref v0.2.0  # pin a tag
 node scripts/sync-ds.mjs --check     # CI: fail if ds/ is stale</pre>
-  <p class="sec-note"><a href="https://github.com/trev-delivers/obvious">github.com/trev-delivers/obvious</a> · this page is generated from <code class="val">dist/</code>, so it cannot describe a version of the system that does not exist.</p>
+  <p class="sec-note"><a href="https://github.com/trev-delivers/obvious">github.com/trev-delivers/obvious</a> · this page is built from <code class="val">dist/</code>, so it always shows what is actually in there.</p>
 </footer>
 
 </div>
@@ -1673,7 +1672,7 @@ const THEMES = [
   {
     "name": "core",
     "label": "Core",
-    "description": "The reference theme: designedbytrev. Dark, near-black, one blue accent. When a new app has no reason to be particular, it starts here.",
+    "description": "designedbytrev. Near-black with one blue accent. If a new app has no reason to look like anything in particular, it starts here.",
     "family": true,
     "app": "designedbytrev",
     "dial": {
@@ -1717,7 +1716,7 @@ const THEMES = [
   {
     "name": "condimental",
     "label": "condimental",
-    "description": "Condiment Gallery. Warm paper, brown ink and a ketchup accent with mustard behind it. Light like Brookwood's parchment but not aged: this one is a clean sheet on a shelf, not something found in a drawer. The roundest theme in the family — cards at 24px against the portfolio's 12.",
+    "description": "Condiment Gallery. Warm paper and brown ink with a ketchup accent and mustard behind it. Light like Brookwood but clean rather than aged, and the roundest of the five.",
     "family": true,
     "app": "condiment-gallery",
     "dial": {
@@ -1761,7 +1760,7 @@ const THEMES = [
   {
     "name": "dissonance",
     "label": "Dissonance",
-    "description": "Time Dissonance. Deep night-sky navy with a low amber lamp — the same dark-with-one-warm-accent shape as Condimental, tuned cold instead of hot. Keeps its own serif voice: the subject is slipping time, and a Baskerville italic says that in a way a grotesk cannot.",
+    "description": "Time Dissonance. Night-sky navy with a low amber lamp. Same shape as Condimental, tuned cold instead of hot. Keeps its serif, because the subject is slipping time and a Baskerville italic does that better than a grotesk.",
     "family": true,
     "app": "time-dissonance",
     "dial": {
@@ -1805,7 +1804,7 @@ const THEMES = [
   {
     "name": "routine",
     "label": "routine",
-    "description": "Morning & Night. The only theme that moves: its palette is a ramp through the day, interpolated from the clock at runtime, so the app is warm at dawn, bright at noon and properly dark after bedtime. These values are the 10am stop, which is what a page paints before JavaScript has read the time.",
+    "description": "Ritual. The only one that moves: the palette is a ramp through the day, worked out from the clock, so it is warm at dawn, plain at noon and dark by bedtime. These values are the 10am stop, which is what paints before the JavaScript has read the time.",
     "family": true,
     "app": "daily-routine",
     "dial": {
@@ -1849,7 +1848,7 @@ const THEMES = [
   {
     "name": "parchment",
     "label": "Parchment",
-    "description": "Brookwood Hunt. Aged paper, brown ink, an oxblood seal, and one candlelit warning colour. The only light theme with texture; nothing in it is allowed to glow except the lamp.",
+    "description": "Brookwood Hunt. Aged paper, brown ink, an oxblood seal and a bit of candlelight. The only textured one, and the only thing in it that glows is the lamp.",
     "family": false,
     "app": "brookwood-hunt",
     "dial": {

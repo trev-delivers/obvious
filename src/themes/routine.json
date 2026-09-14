@@ -1,8 +1,11 @@
 {
   "name": "routine",
   "family": true,
-  "description": "Morning & Night. The only theme that moves: its palette is a ramp through the day, interpolated from the clock at runtime, so the app is warm at dawn, bright at noon and properly dark after bedtime. These values are the 10am stop, which is what a page paints before JavaScript has read the time.",
-  "dial": { "radius-base": "13px", "density": "1" },
+  "description": "Ritual. The only one that moves: the palette is a ramp through the day, worked out from the clock, so it is warm at dawn, plain at noon and dark by bedtime. These values are the 10am stop, which is what paints before the JavaScript has read the time.",
+  "dial": {
+    "radius-base": "13px",
+    "density": "1"
+  },
   "font": {
     "display": "'Fraunces', Georgia, serif",
     "sans": "'Inter', system-ui, sans-serif",

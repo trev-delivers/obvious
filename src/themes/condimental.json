@@ -1,8 +1,11 @@
 {
   "name": "condimental",
   "family": true,
-  "description": "Condiment Gallery. Warm paper, brown ink and a ketchup accent with mustard behind it. Light like Brookwood's parchment but not aged: this one is a clean sheet on a shelf, not something found in a drawer. The roundest theme in the family — cards at 24px against the portfolio's 12.",
-  "dial": { "radius-base": "16px", "density": "1" },
+  "description": "Condiment Gallery. Warm paper and brown ink with a ketchup accent and mustard behind it. Light like Brookwood but clean rather than aged, and the roundest of the five.",
+  "dial": {
+    "radius-base": "16px",
+    "density": "1"
+  },
   "font": {
     "display": "var(--font-geist-sans), system-ui, sans-serif",
     "sans": "var(--font-geist-sans), system-ui, sans-serif",
