@@ -656,6 +656,9 @@ p {
   color:var(--ds-color-text);
   font-family:var(--ds-font-sans);
   font-size:16px;
+  /* Explicit, because a select's default line-height is not an input's and
+     a field row with one of each ends up 3px out of alignment. */
+  line-height:1.375;
   border:0;background:transparent;outline:none;
 }
 
