@@ -283,12 +283,45 @@
 }
 
 /* 16px minimum, or iOS zooms the viewport on focus. */
-.t-input input{
+.t-input input,
+.t-input select{
   flex:1;min-width:0;padding:13px 14px;
   color:var(--ds-color-text);
   font-family:var(--ds-font-sans);
   font-size:16px;
   border:0;background:transparent;outline:none;
+}
+
+/* A select inside the field: strip the platform chrome and draw the
+   chevron on the wrapper instead, so it inherits the text colour. The UA
+   arrow cannot, which is why it is gone rather than restyled. Both
+   appearance lines are needed — Safari still wants the prefixed one. */
+.t-input select{
+  -webkit-appearance:none;appearance:none;
+  cursor:pointer;
+  padding-right:4px;
+}
+.t-input--select::after{
+  content:"";
+  flex:none;
+  width:7px;height:7px;
+  margin-right:12px;
+  border-right:1.5px solid var(--ds-color-text-muted);
+  border-bottom:1.5px solid var(--ds-color-text-muted);
+  transform:translateY(-2px) rotate(45deg);
+  pointer-events:none;
+  transition:border-color var(--ds-duration-fast) ease;
+}
+.t-input--select:focus-within::after{
+  border-right-color:var(--ds-color-accent);
+  border-bottom-color:var(--ds-color-accent);
+}
+
+/* Date and time inputs ship their own picker button, which on a dark
+   theme renders as a black glyph on a near-black well. */
+.t-input input::-webkit-calendar-picker-indicator{
+  filter:var(--t-input-picker-filter,none);
+  cursor:pointer;
 }
 
 /* visibility rather than display, so the message can fade rather than

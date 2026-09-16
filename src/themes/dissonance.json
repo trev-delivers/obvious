@@ -4,7 +4,7 @@
   "description": "Time Dissonance. Night-sky navy with a low amber lamp. Same shape as Condimental, tuned cold instead of hot. Keeps its serif, because the subject is slipping time and a Baskerville italic does that better than a grotesk.",
   "family": true,
   "dial": {
-    "radius-base": "8px",
+    "radius-base": "3px",
     "density": "1"
   },
   "font": {
