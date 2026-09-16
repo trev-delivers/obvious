@@ -550,6 +550,18 @@ footer a:hover{text-decoration-color:currentColor}
 
         <div class="cell">
           <div class="cell-head">
+            <span class="cell-name">t-chip</span>
+            <span class="cell-what">The selectable pill. It only owns shape and state &mdash; type is inherited, so a row of chips can be 14px sans on one site and small mono on another.</span>
+          </div>
+          <div class="cell-demo" style="gap:6px;flex-wrap:wrap">
+            <button class="t-chip is-on" type="button">Work</button>
+            <button class="t-chip" type="button">About</button>
+            <button class="t-chip" type="button">Contact</button>
+          </div>
+        </div>
+
+        <div class="cell">
+          <div class="cell-head">
             <span class="cell-name">t-check-badge</span>
             <span class="cell-what">The spinner and tick on their own. Green and white in every theme, because a tick that changes colour stops reading as a tick.</span>
           </div>
@@ -842,6 +854,14 @@ cycleThink(document.getElementById("think"), shuffle(PHRASES), { pool: PHRASES }
 
 const bootEl = document.getElementById("boot");
 let boot = mountBootRing(bootEl);
+// the chip row is the one demo you drive by using it rather than replaying it
+document.querySelectorAll(".cell-demo .t-chip").forEach((chip) => {
+  chip.addEventListener("click", () => {
+    chip.parentElement.querySelectorAll(".t-chip").forEach((c) => c.classList.remove("is-on"));
+    chip.classList.add("is-on");
+  });
+});
+
 document.getElementById("replay-boot").addEventListener("click", () => {
   bootEl.classList.remove("is-running");
   boot.destroy();
