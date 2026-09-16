@@ -14,6 +14,10 @@
   box-shadow:
     inset 0 2px 5px var(--ds-color-shadow-color),
     inset 0 -1px 0 var(--ds-color-shadow-highlight);
+  /* The wrapper owns the height, not whatever is inside it. A date input
+     and a select have different intrinsic heights, and without this a row
+     with one of each comes out a couple of pixels misaligned. */
+  min-height:var(--t-input-height,48px);
   transition:border-color var(--ds-duration-fast) ease-out;
   will-change:transform;
   --t-input-error:var(--ds-color-accent-hover);
@@ -33,12 +37,12 @@
 /* 16px minimum, or iOS zooms the viewport on focus. */
 .t-input input,
 .t-input select{
-  flex:1;min-width:0;padding:13px 14px;
+  /* Stretched and padded horizontally only, so the control fills the
+     height the wrapper set rather than setting one of its own. */
+  flex:1;min-width:0;align-self:stretch;padding:0 14px;
   color:var(--ds-color-text);
   font-family:var(--ds-font-sans);
   font-size:16px;
-  /* Explicit, because a select's default line-height is not an input's and
-     a field row with one of each ends up 3px out of alignment. */
   line-height:1.375;
   border:0;background:transparent;outline:none;
 }
