@@ -49,6 +49,13 @@ for (const theme of themes) {
   for (const key of expected) if (!actual.includes(key)) problems.push(`${theme.name}: missing ${key}`);
   for (const key of actual) if (!expected.includes(key)) problems.push(`${theme.name}: unknown ${key} (not in core)`);
 }
+/* A dark set is optional, but it can only override colours the theme already
+   has. Anything else would be a token that exists in dark mode and nowhere
+   else. */
+for (const theme of themes) {
+  for (const key of Object.keys(theme.dark ?? {}).filter((k) => !isComment(k)))
+    if (!expected.includes(`color.${key}`)) problems.push(`${theme.name}: dark.${key} is not a colour in core`);
+}
 if (problems.length) {
   console.error("Theme contract broken:\n  " + problems.join("\n  "));
   process.exit(1);
@@ -93,6 +100,8 @@ const themeVars = (theme) => [
   ...vars(theme.color, "--ds-color"),
 ];
 
+const darkVars = (theme) => vars(theme.dark ?? {}, "--ds-color");
+
 const block = (selector, pairs, indent = "  ") =>
   `${selector} {\n` + pairs.map(([k, v]) => `${indent}${k}: ${v};`).join("\n") + `\n}\n`;
 
@@ -112,17 +121,33 @@ writeFileSync(
     block(":root", primitiveVars),
 );
 
+/* Dark sets follow the system setting. data-ds-mode on <html> forces either
+   one, for an app that has its own switch. */
+const darkBlock = (sel, pairs) =>
+  `\n@media (prefers-color-scheme: dark) {\n` +
+  block(`  ${sel}:not([data-ds-mode="light"])`, pairs, "    ").replace(/\n}\n$/, "\n  }\n") +
+  `}\n\n` +
+  block(`${sel}[data-ds-mode="dark"]`, pairs);
+
 for (const theme of themes) {
   writeFileSync(
     join(dist, "css", "themes", `${theme.name}.css`),
-    stamp(`obvious theme: ${theme.label} — ${theme.description}`) + block(":root", themeVars(theme)),
+    stamp(`obvious theme: ${theme.label} — ${theme.description}`) +
+      block(":root", themeVars(theme)) +
+      (theme.dark ? darkBlock(":root", darkVars(theme)) : ""),
   );
 }
 
 writeFileSync(
   join(dist, "css", "all-themes.css"),
   stamp("obvious — every theme, selectable with data-ds-theme. For the docs site; apps import their own theme file instead.") +
-    themes.map((t) => block(`[data-ds-theme="${t.name}"]`, themeVars(t))).join("\n"),
+    themes
+      .map(
+        (t) =>
+          block(`[data-ds-theme="${t.name}"]`, themeVars(t)) +
+          (t.dark ? "\n" + block(`[data-ds-theme="${t.name}"][data-ds-mode="dark"]`, darkVars(t)) : ""),
+      )
+      .join("\n"),
 );
 
 /* The Tailwind v4 bridge. @theme inline means the utilities resolve through
@@ -180,6 +205,51 @@ writeFileSync(
     block("@theme inline", tw),
 );
 
+/* The shadcn bridge. shadcn's components read --background, --primary and
+   friends; pointing those at --ds-* means a shadcn dialog picks up whatever
+   theme the app loads, dark set included, with no .dark class. Import it
+   after shadcn's own globals so these win. */
+const shadcn = [
+  ["--background", "var(--ds-color-bg)"],
+  ["--foreground", "var(--ds-color-text)"],
+  ["--card", "var(--ds-color-surface)"],
+  ["--card-foreground", "var(--ds-color-text)"],
+  ["--popover", "var(--ds-color-surface-raised)"],
+  ["--popover-foreground", "var(--ds-color-text)"],
+  ["--primary", "var(--ds-color-accent)"],
+  ["--primary-foreground", "var(--ds-color-accent-contrast)"],
+  ["--secondary", "var(--ds-color-bg-alt)"],
+  ["--secondary-foreground", "var(--ds-color-text)"],
+  ["--muted", "var(--ds-color-bg-alt)"],
+  ["--muted-foreground", "var(--ds-color-text-muted)"],
+  ["--accent", "var(--ds-color-surface-hover)"],
+  ["--accent-foreground", "var(--ds-color-text)"],
+  ["--destructive", "var(--ds-color-danger)"],
+  ["--border", "var(--ds-color-border)"],
+  ["--input", "var(--ds-color-border)"],
+  ["--ring", "var(--ds-color-accent)"],
+  ["--radius", "var(--ds-radius-md)"],
+  ["--chart-1", "var(--ds-color-accent)"],
+  ["--chart-2", "var(--ds-color-accent-alt)"],
+  ["--chart-3", "var(--ds-color-success)"],
+  ["--chart-4", "var(--ds-color-warning)"],
+  ["--chart-5", "var(--ds-color-info)"],
+  ["--sidebar", "var(--ds-color-bg-alt)"],
+  ["--sidebar-foreground", "var(--ds-color-text)"],
+  ["--sidebar-primary", "var(--ds-color-accent)"],
+  ["--sidebar-primary-foreground", "var(--ds-color-accent-contrast)"],
+  ["--sidebar-accent", "var(--ds-color-surface-hover)"],
+  ["--sidebar-accent-foreground", "var(--ds-color-text)"],
+  ["--sidebar-border", "var(--ds-color-border)"],
+  ["--sidebar-ring", "var(--ds-color-accent)"],
+];
+mkdirSync(join(dist, "shadcn"), { recursive: true });
+writeFileSync(
+  join(dist, "shadcn", "theme.css"),
+  stamp("obvious — shadcn/ui bridge. @import this after shadcn's globals, alongside your theme file.") +
+    block(":root, .dark", shadcn),
+);
+
 /* Components. The interaction layer the family shares: the field assembly,
    the spinner-to-check morph, the gradient text, the thinking shimmer, the
    boot ring, the house link. Each ships as its own file so an app can take
@@ -215,6 +285,7 @@ const jsTokens = {
   version: pkg.version,
   primitives: Object.fromEntries(primitiveVars),
   themes: Object.fromEntries(themes.map((t) => [t.name, Object.fromEntries(themeVars(t))])),
+  dark: Object.fromEntries(themes.filter((t) => t.dark).map((t) => [t.name, Object.fromEntries(darkVars(t))])),
 };
 writeFileSync(join(dist, "js", "tokens.json"), JSON.stringify(jsTokens, null, 2) + "\n");
 writeFileSync(

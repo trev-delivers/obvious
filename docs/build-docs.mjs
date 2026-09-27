@@ -28,6 +28,7 @@ const APPS = {
   dissonance: "time-dissonance",
   routine: "daily-routine",
   parchment: "brookwood-hunt",
+  morris: "MorrisOS",
 };
 
 /* next/font hands the real apps these variables. The docs page declares them

@@ -1,0 +1,41 @@
+/* Plus menu: transitions.dev's plus-to-menu morph, sized for a thumb. The
+   open height follows the item count. */
+
+.ob-plus {
+  --ob-plus-size: 58px;
+  --ob-plus-width: 264px;
+  --ob-plus-row: 58px;
+  position: relative; z-index: 2; width: var(--ob-plus-size); height: var(--ob-plus-size); flex: none; pointer-events: auto;
+}
+.ob-plus .t-morph {
+  --morph-r-closed: calc(var(--ob-plus-size) / 2); --morph-r-open: 26px;
+  position: absolute; right: 0; bottom: 0; width: var(--ob-plus-size); height: var(--ob-plus-size);
+  background: var(--ds-color-text); color: var(--ds-color-bg);
+  box-shadow: var(--ob-shadow-float, var(--ds-shadow-lg));
+}
+.ob-plus .t-morph[data-open="true"] {
+  width: var(--ob-plus-width);
+  height: calc(16px + var(--ob-plus-items) * var(--ob-plus-row) + (var(--ob-plus-items) - 1) * 2px);
+}
+.ob-plus .t-morph-plus { width: var(--ob-plus-size); height: var(--ob-plus-size); color: inherit; border: 0; background: none; padding: 0; }
+.ob-plus .t-morph-menu {
+  inset: auto 0 0 auto; width: var(--ob-plus-width);
+  height: calc(16px + var(--ob-plus-items) * var(--ob-plus-row) + (var(--ob-plus-items) - 1) * 2px);
+  padding: 8px; display: grid; align-content: start; gap: 2px;
+}
+.ob-plus-item {
+  display: flex; align-items: center; gap: 12px; width: 100%; height: var(--ob-plus-row); padding: 0 10px;
+  border: 0; background: none; font: inherit; cursor: pointer;
+  border-radius: 18px; text-align: left; color: inherit;
+}
+.ob-plus-item:hover, .ob-plus-item:focus-visible { background: color-mix(in srgb, var(--ds-color-bg) 12%, transparent); outline: none; }
+.ob-plus-icon { width: 38px; height: 38px; border-radius: 12px; background: color-mix(in srgb, var(--ds-color-bg) 14%, transparent); display: grid; place-items: center; flex: none; }
+.ob-plus-text { display: grid; font-weight: 600; font-size: 15px; line-height: 1.25; }
+.ob-plus-hint { font-size: 12.5px; font-weight: 500; opacity: 0.6; }
+.ob-plus-scrim {
+  position: fixed; inset: 0; z-index: 0; background: rgba(10, 10, 8, 0.28);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--morph-close-dur) var(--morph-close-ease);
+}
+.ob-plus-scrim.is-on { opacity: 1; pointer-events: auto; transition-duration: var(--morph-open-dur); }
+@media (prefers-reduced-motion: reduce) { .ob-plus-scrim { transition: none; } }

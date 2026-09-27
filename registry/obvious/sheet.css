@@ -1,0 +1,69 @@
+/* Sheet: bottom sheet on phones, centred dialog from 640px. The dialog
+   motion is transitions.dev's modal; the phone slide is its own, timed by
+   --ob-sheet-open-dur and --ob-sheet-close-dur. */
+
+:where(:root) {
+  --ob-sheet-open-dur: 400ms;
+  --ob-sheet-close-dur: 350ms;
+  --ob-sheet-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ob-sheet-radius: 28px;
+  --ob-sheet-bg: var(--ds-color-surface-raised);
+  --ob-shade: rgba(10, 10, 8, 0.4);
+}
+@media (prefers-color-scheme: dark) {
+  :where(:root:not([data-ds-mode="light"])) { --ob-shade: rgba(0, 0, 0, 0.62); }
+}
+:where(:root[data-ds-mode="dark"]) { --ob-shade: rgba(0, 0, 0, 0.62); }
+
+html.ob-sheet-lock, html.ob-sheet-lock body { overflow: hidden; }
+
+.ob-sheet { position: fixed; inset: 0; z-index: 50; display: flex; align-items: flex-end; justify-content: center; }
+.ob-sheet-shade {
+  position: absolute; inset: 0; background: var(--ob-shade); opacity: 0;
+  transition: opacity var(--ob-sheet-close-dur) var(--ob-sheet-ease);
+}
+.ob-sheet[data-open] .ob-sheet-shade { opacity: 1; transition-duration: var(--ob-sheet-open-dur); }
+.ob-sheet.is-dragging .ob-sheet-shade { transition: none; }
+.ob-sheet-panel {
+  position: relative; width: 100%;
+  max-height: calc(100dvh - env(safe-area-inset-top) - 12px);
+  display: flex; flex-direction: column;
+  background: var(--ob-sheet-bg); color: var(--ds-color-text);
+  border-radius: var(--ob-sheet-radius) var(--ob-sheet-radius) 0 0; outline: none;
+  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.14), inset 0 1px 0 var(--ds-color-border-subtle);
+}
+.ob-sheet-panel.is-tall { height: calc(100dvh - env(safe-area-inset-top) - 12px); }
+.ob-sheet-grab { width: 38px; height: 5px; border-radius: 3px; background: var(--ds-color-border); margin: 8px auto 0; flex: none; }
+.ob-sheet-head { display: flex; align-items: center; gap: 12px; padding: 12px 20px 6px; flex: none; }
+.ob-sheet-head h2 {
+  flex: 1; min-width: 0; margin: 0;
+  font-family: var(--ds-font-display); font-size: 23px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15;
+}
+.ob-sheet-close {
+  width: 34px; height: 34px; flex: none; border: 0; padding: 0; border-radius: 50%; cursor: pointer;
+  display: inline-grid; place-items: center;
+  background: var(--ds-color-bg-alt); color: var(--ds-color-text-muted);
+}
+.ob-sheet-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 6px 20px 0; }
+.ob-sheet-body > :first-child { margin-top: 0; }
+.ob-sheet-actions {
+  position: sticky; bottom: 0; z-index: 1; display: flex; gap: 10px;
+  margin: 18px -20px 0; padding: 14px 20px calc(16px + env(safe-area-inset-bottom));
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--ob-sheet-bg) 0%, transparent), var(--ob-sheet-bg) 14px);
+}
+
+@media (max-width: 639px) {
+  .ob-sheet-panel.t-modal { opacity: 1; transform: translateY(100%); transition: transform var(--ob-sheet-close-dur) var(--ob-sheet-ease); }
+  .ob-sheet-panel.t-modal.is-open { transform: translateY(0); transition-duration: var(--ob-sheet-open-dur); }
+  .ob-sheet-panel.t-modal.is-closing { opacity: 1; transform: translateY(100%); transition: transform var(--ob-sheet-close-dur) var(--ob-sheet-ease); }
+  .ob-sheet.is-dragging .ob-sheet-panel { transition: none; }
+}
+@media (min-width: 640px) {
+  .ob-sheet { align-items: center; padding: 24px; }
+  .ob-sheet-panel { max-width: 480px; border-radius: var(--ob-sheet-radius); max-height: min(780px, calc(100dvh - 48px)); box-shadow: var(--ob-shadow-float, var(--ds-shadow-xl)); }
+  .ob-sheet-panel.is-tall { height: min(780px, calc(100dvh - 48px)); }
+  .ob-sheet-grab { display: none; }
+  .ob-sheet-head { padding-top: 20px; }
+  .ob-sheet-actions { padding-bottom: 20px; border-radius: 0 0 var(--ob-sheet-radius) var(--ob-sheet-radius); }
+}
+@media (prefers-reduced-motion: reduce) { .ob-sheet-shade { transition: none; } }
