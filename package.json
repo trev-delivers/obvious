@@ -22,7 +22,8 @@
     "./css/components/*": "./dist/css/components/*",
     "./css/themes/*": "./dist/css/themes/*",
     "./tailwind/theme.css": "./dist/tailwind/theme.css",
-    "./shadcn/theme.css": "./dist/shadcn/theme.css"
+    "./shadcn/theme.css": "./dist/shadcn/theme.css",
+    "./css/transitions-bridge.css": "./dist/css/transitions-bridge.css"
   },
   "scripts": {
     "build": "node scripts/build.mjs && node scripts/build-registry.mjs && node docs/build-docs.mjs",

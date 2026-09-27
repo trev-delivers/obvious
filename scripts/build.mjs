@@ -116,6 +116,12 @@ writeFileSync(
 );
 
 writeFileSync(
+  join(dist, "css", "transitions-bridge.css"),
+  stamp("obvious transitions bridge — transitions.dev's colour hooks, from the theme.") +
+    readFileSync(join(src, "transitions-bridge.css"), "utf8").replace(/^\/\*[\s\S]*?\*\/\n+/, ""),
+);
+
+writeFileSync(
   join(dist, "css", "primitives.css"),
   stamp("obvious primitives — shared by every app, identical everywhere.") +
     block(":root", primitiveVars),

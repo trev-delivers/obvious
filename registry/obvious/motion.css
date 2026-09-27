@@ -1,18 +1,7 @@
 /* House styling for the motion wrappers. The transitions themselves come
    from transitions.dev; this is only what those snippets leave to the app:
-   colour, size and shape, all from --ds-* tokens. */
-
-:where(:root) {
-  /* transitions.dev's colour hooks, pointed at the theme. */
-  --tabs-bar-bg: var(--ds-color-bg-alt);
-  --tabs-pill-bg: var(--ds-color-surface);
-  --tabs-text-muted: var(--ds-color-text-muted);
-  --tabs-text-active: var(--ds-color-text);
-  --shimmer-base: var(--ds-color-text-muted);
-  --shimmer-highlight: var(--ds-color-text);
-  --matrix-base: var(--ds-color-border);
-  --matrix-active: var(--ds-color-text);
-}
+   colour, size and shape, all from --ds-* tokens. transitions.dev's own
+   colour hooks are set by obvious/css/transitions-bridge.css. */
 
 :where(.t-tab, .ob-switch, .ob-check, .t-clear-btn) {
   font: inherit;

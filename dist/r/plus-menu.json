@@ -23,5 +23,5 @@
       "plus-menu-morph"
     ]
   },
-  "docs": "Plus menu needs these transitions.dev snippets in the app:\n\n  npx transitions-dev add plus-menu-morph\n\nImport obvious's primitives and a theme before them, so the colours come from --ds-* tokens."
+  "docs": "Plus menu needs these transitions.dev snippets in the app:\n\n  npx transitions-dev add plus-menu-morph\n\nLoad obvious's primitives and a theme first, then the transitions.dev CSS, then obvious/css/transitions-bridge.css, so the colours come from the theme."
 }

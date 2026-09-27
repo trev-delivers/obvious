@@ -45,7 +45,8 @@ for (const item of registry.items) {
     built.docs =
       `${item.title} needs these transitions.dev snippets in the app:\n\n` +
       `  npx transitions-dev add ${transitions.join(" ")}\n\n` +
-      `Import obvious's primitives and a theme before them, so the colours come from --ds-* tokens.`;
+      `Load obvious's primitives and a theme first, then the transitions.dev CSS, then ` +
+      `obvious/css/transitions-bridge.css, so the colours come from the theme.`;
   }
   writeFileSync(join(out, `${item.name}.json`), JSON.stringify(built, null, 2) + "\n");
 }
