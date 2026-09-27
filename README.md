@@ -49,6 +49,7 @@ the system and become expressions of it.
 | `dissonance` | time-dissonance | yes | Night-sky navy with a low amber lamp. |
 | `routine` | daily-routine | yes | Light, warm off-white, one green accent. The plain one. |
 | `parchment` | brookwood-hunt | **no** | Aged paper, brown ink, oxblood seal, candlelight. |
+| `morris` | MorrisOS | yes | Warm grey paper, near-black ink, one green. Has a dark set. |
 
 Family members take everything: primitives, base, the type scale and the whole
 interaction layer below. They are meant to feel like the same hand made them.
@@ -64,12 +65,30 @@ is shared; the voice is not.
 theme declares a different set of semantic keys, so a theme cannot quietly
 drop a token and inherit whatever was left behind.
 
+A theme can also have a `dark` block. It can only override colours the theme
+already has (the build checks), and it's emitted under
+`prefers-color-scheme: dark`. Set `data-ds-mode="light"` or `"dark"` on
+`<html>` to force one. `morris` is the only theme with one so far, because
+MorrisOS follows the phone's setting.
+
 ## Using it
 
-Tokens are vendored, not installed. Four of the six repos are private and two
-are not npm-built at all, so a dependency would mean deploy-key auth in every
-build for the sake of a few KB of CSS. Each app carries a copy of
-`scripts/sync-ds.mjs` and a generated `ds/` folder instead:
+This repo is public, so an npm-built app can install it straight from GitHub
+with no auth. Pin a commit or tag, and use the tarball URL rather than
+`github:`, because npm records `github:` in the lockfile as an SSH URL that
+Vercel can't fetch:
+
+```sh
+npm i https://codeload.github.com/trev-delivers/obvious/tar.gz/<commit-or-tag>
+```
+
+```ts
+import "obvious/css/primitives.css";
+import "obvious/css/themes/morris.css";
+```
+
+The static site and the README card generator aren't npm-built, so they
+carry a copy of `scripts/sync-ds.mjs` and a generated `ds/` folder instead:
 
 ```sh
 node scripts/sync-ds.mjs             # pull main into ds/
@@ -231,18 +250,79 @@ The portfolio is the only app really using the interaction layer, which is
 worth saying plainly: right now this is a token system with a component layer
 that mostly travels unused.
 
-## Nothing here needs a licence
+## React components
 
-Worth writing down, because it was not obvious: none of these repos import a
-transitions.dev package. Every `t-*` component is a hand-written adaptation
-that lived in the portfolio's own stylesheet, and they are all in here now.
-The `t-` prefix is where they came from, not a dependency.
+`registry/` holds React components, served as a
+[shadcn registry](https://ui.shadcn.com/docs/registry) from the docs site.
+shadcn copies a component's source into the app instead of installing it, so
+each app owns its copy and takes updates when it re-runs `add`.
 
-The only third-party component anywhere is `border-beam`, which is MIT.
+| Item | What it is |
+| --- | --- |
+| `sheet` | Bottom sheet on phones that drags down to close, centred dialog from 640px. |
+| `toasts` | Stacked toasts. `useToasts()` gives you `toast(text, tone)`. |
+| `plus-menu` | A + that grows into the menu it opens. |
+| `motion` | Tabs, Badge, PopNumber, TextSwap, useReveal, SuccessCheck, Toggle, SearchField, Check, IconSwap, Matrix, Reel. |
 
-## Not here yet
+They came out of MorrisOS. Class names are `ob-*` and colours come from the
+theme, so they work in any app that loads one.
 
-shadcn/ui, through a registry served from this repo, for the structural
-primitives the React apps need and this layer does not cover — dialog, popover,
-select, the parts where getting focus trapping and ARIA right matters more than
-character. The character is already here.
+```sh
+npx shadcn add https://obvious-nine.vercel.app/r/sheet.json
+```
+
+Or add the registry to the app's `components.json` once and use the short
+name:
+
+```json
+"registries": { "@obvious": "https://obvious-nine.vercel.app/r/{name}.json" }
+```
+
+```sh
+npx shadcn add @obvious/sheet
+```
+
+Files land in `components/obvious/`. Each `.tsx` imports its own CSS.
+Size, radius and timing knobs are `--ob-*` custom properties at zero
+specificity, so an app sets them on `:root` to match itself. MorrisOS sets
+`--ob-shade`, `--ob-shadow-float` and `--ob-badge-bg`, for example.
+
+`npm run build` regenerates `dist/r/` from `registry.json` and
+`registry/obvious/`.
+
+### transitions.dev
+
+These components are wrappers around transitions.dev snippets: they set the
+classes and data attributes each snippet expects. The snippets' CSS is not in
+this repo. Its terms let you use them in as many of your own products as you
+like, but not republish them as a kit, and this repo is public.
+
+So each app pulls the CSS itself. Every registry item lists the snippets it
+needs, and shadcn prints the command after install:
+
+```sh
+npx transitions-dev add modal banner-stacking plus-menu-morph tabs-sliding ...
+```
+
+Then load, in this order: primitives and a theme, the transitions.dev CSS,
+`obvious/css/transitions-bridge.css`, then the app's own styles. The bridge
+points transitions.dev's colour hooks (`--tabs-bar-bg`, `--shimmer-base`
+and so on) at the theme. It has to come after the transitions.dev CSS
+because that sets its own dark-grey defaults on `:root`.
+
+The `t-*` components in the interaction layer above are different: they're
+hand-written adaptations that lived in the portfolio's own stylesheet, and
+nothing in them comes from a transitions.dev package. The only third-party
+component anywhere is `border-beam`, which is MIT.
+
+## shadcn/ui
+
+For the structural parts the registry doesn't cover (dialog, popover,
+select), use shadcn's own components. `obvious/shadcn/theme.css` points
+shadcn's variables (`--background`, `--primary`, `--radius` and the rest) at
+`--ds-*`, so they pick up the app's theme, dark set included, with no `.dark`
+class. Import it after shadcn's globals.
+
+shadcn's components are written in Tailwind, so this needs a Tailwind app.
+MorrisOS isn't one, which is why the registry components above are plain
+CSS.
