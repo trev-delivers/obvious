@@ -1,0 +1,28 @@
+/* Toasts: transitions.dev's banner stacking, dark pill on a light page and
+   the other way round. Sits above a bottom dock; move it with
+   --ob-toasts-bottom. */
+
+.ob-toasts {
+  position: fixed; left: 16px; right: 16px; z-index: 60;
+  bottom: var(--ob-toasts-bottom, calc(env(safe-area-inset-bottom) + 96px));
+  display: flex; justify-content: center; pointer-events: none;
+}
+.ob-toasts .t-stack { width: 100%; max-width: 400px; }
+.ob-toast {
+  right: 0; display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px 12px 12px; border-radius: 18px;
+  background: var(--ds-color-text); color: var(--ds-color-bg);
+  box-shadow: var(--ob-shadow-float, var(--ds-shadow-lg));
+  font-weight: 600; font-size: 14.5px; pointer-events: auto; cursor: pointer;
+}
+.ob-toast-dot { width: 24px; height: 24px; border-radius: 50%; background: var(--ds-color-success); color: #fff; display: grid; place-items: center; flex: none; }
+.ob-toast.is-error .ob-toast-dot { background: var(--ds-color-danger); }
+.ob-toast-text { min-width: 0; }
+
+/* Dismissal mirrors the entrance instead of stepping back into the stack. */
+.t-stack-banner.is-dismiss {
+  transform: translateY(var(--stack-rise)) scale(var(--stack-scale));
+  opacity: 0;
+  filter: blur(var(--stack-blur));
+  transition: transform var(--stack-close) var(--stack-ease), opacity var(--stack-close) var(--stack-ease), filter var(--stack-close) var(--stack-ease);
+}

@@ -7,21 +7,29 @@
   "files": [
     "dist",
     "src",
-    "scripts"
+    "scripts",
+    "registry",
+    "registry.json"
   ],
   "exports": {
     "./tokens": "./dist/js/tokens.js",
     "./tokens.json": "./dist/js/tokens.json",
+    "./behaviours": "./dist/js/behaviours.js",
     "./css/primitives.css": "./dist/css/primitives.css",
     "./css/base.css": "./dist/css/base.css",
     "./css/all-themes.css": "./dist/css/all-themes.css",
+    "./css/components.css": "./dist/css/components.css",
+    "./css/components/*": "./dist/css/components/*",
     "./css/themes/*": "./dist/css/themes/*",
-    "./tailwind/theme.css": "./dist/tailwind/theme.css"
+    "./tailwind/theme.css": "./dist/tailwind/theme.css",
+    "./shadcn/theme.css": "./dist/shadcn/theme.css",
+    "./css/transitions-bridge.css": "./dist/css/transitions-bridge.css"
   },
   "scripts": {
-    "build": "node scripts/build.mjs && node docs/build-docs.mjs",
-    "check": "node scripts/build.mjs && git diff --exit-code -- dist",
+    "build": "node scripts/build.mjs && node scripts/build-registry.mjs && node docs/build-docs.mjs",
+    "check": "node scripts/build.mjs && node scripts/build-registry.mjs && git diff --exit-code -- dist",
     "docs": "node docs/build-docs.mjs",
-    "audit": "node scripts/audit-ds.mjs"
+    "audit": "node scripts/audit-ds.mjs",
+    "registry": "node scripts/build-registry.mjs"
   }
 }

@@ -1,0 +1,82 @@
+/* House styling for the motion wrappers. The transitions themselves come
+   from transitions.dev; this is only what those snippets leave to the app:
+   colour, size and shape, all from --ds-* tokens. transitions.dev's own
+   colour hooks are set by obvious/css/transitions-bridge.css. */
+
+:where(.t-tab, .ob-switch, .ob-check, .t-clear-btn) {
+  font: inherit;
+  color: inherit;
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Tabs with an icon: the badge hangs off the icon's corner. */
+.ob-tab-icon { position: relative; display: inline-grid; }
+.ob-tab-icon svg { display: block; }
+.ob-tab-icon .t-badge { top: -7px; right: -11px; }
+
+/* Notification badge dot with a count. */
+.t-badge-dot.ob-badge {
+  min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px;
+  background: var(--ob-badge-bg, var(--ds-color-danger)); color: #fff;
+  font-size: 11px; font-weight: 700; display: grid; place-items: center; font-variant-numeric: tabular-nums;
+}
+
+/* Toggle. */
+.ob-switch {
+  --toggle-travel: 18px;
+  width: 44px; height: 26px; padding: 2px; border-radius: var(--ds-radius-full);
+  background: var(--ds-color-border); display: inline-flex; align-items: center; flex: none;
+}
+.ob-switch[data-on="true"] { background: var(--ds-color-success); }
+.ob-switch .t-toggle-thumb {
+  display: block; width: 22px; height: 22px; border-radius: 50%;
+  background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+/* Round check box. */
+.t-check.ob-check {
+  width: 28px; height: 28px; flex: none; border-radius: 50%;
+  border: 1.5px solid var(--ds-color-border); background: var(--ds-color-surface); color: #fff;
+  display: grid; place-items: center;
+}
+.t-check.ob-check svg { width: 13px; height: 13px; }
+.t-check.ob-check[aria-checked="true"] { background: var(--ds-color-success); border-color: var(--ds-color-success); }
+
+/* Search field with the clear dissolve. */
+.ob-search {
+  position: relative; height: 46px; flex: 1; min-width: 0;
+  border-radius: var(--ds-radius-md); background: var(--ds-color-bg-alt); color: var(--ds-color-text);
+  transition: box-shadow var(--ds-duration-fast) ease-out;
+}
+.ob-search:focus-within { box-shadow: inset 0 0 0 1.5px var(--ds-color-text); }
+.ob-search > input {
+  position: absolute; inset: 0; width: 100%; height: 100%; margin: 0;
+  border: 0; outline: none; background: transparent; border-radius: inherit;
+  font: inherit; color: inherit; -webkit-appearance: none; appearance: none;
+}
+.ob-search > input::-webkit-search-cancel-button { -webkit-appearance: none; display: none; }
+.ob-search > input, .ob-search .t-clear-mirror, .ob-search .t-clear-placeholder { padding: 0 44px 0 42px; font-size: 16px; }
+.ob-search .t-clear-placeholder { color: var(--ds-color-text-muted); }
+.ob-search-icon { position: absolute; left: 14px; top: 14px; color: var(--ds-color-text-muted); z-index: 4; pointer-events: none; }
+.ob-search .t-clear-btn {
+  position: absolute; right: 9px; top: 9px; z-index: 5; width: 28px; height: 28px; border-radius: 50%;
+  background: color-mix(in srgb, var(--ds-color-text-muted) 45%, transparent); color: var(--ds-color-surface);
+  display: grid; place-items: center;
+  opacity: 0; scale: 0.6; pointer-events: none;
+  transition: opacity var(--ds-duration-fast) ease-out, scale var(--ds-duration-base) cubic-bezier(0.34, 1.36, 0.64, 1);
+}
+.ob-search.has-value .t-clear-btn { opacity: 1; scale: 1; pointer-events: auto; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-ds-mode="light"]) .t-clear-glow { mix-blend-mode: screen; }
+}
+:root[data-ds-mode="dark"] .t-clear-glow { mix-blend-mode: screen; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ob-search, .ob-search .t-clear-btn { transition: none; }
+}

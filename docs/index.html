@@ -237,6 +237,68 @@
   --ds-color-selection-text: #04060d;
 }
 
+[data-ds-theme="morris"] {
+  --ds-radius-base: 14px;
+  --ds-density: 1;
+  --ds-font-display: ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ds-font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --ds-font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --ds-font-script: ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, sans-serif;
+  --ds-color-bg: #F4F3F0;
+  --ds-color-bg-alt: #EBE9E4;
+  --ds-color-surface: #FFFFFF;
+  --ds-color-surface-raised: #F8F7F4;
+  --ds-color-surface-hover: #EBE9E4;
+  --ds-color-border-subtle: rgba(0, 0, 0, 0.06);
+  --ds-color-border: #DEDBD4;
+  --ds-color-border-strong: #C7C3BA;
+  --ds-color-text: #151412;
+  --ds-color-text-dim: #5C5850;
+  --ds-color-text-muted: #86827A;
+  --ds-color-text-inverse: #F4F3F0;
+  --ds-color-accent: #2F7A5F;
+  --ds-color-accent-hover: #276B53;
+  --ds-color-accent-contrast: #FFFFFF;
+  --ds-color-accent-alt: #E08A2C;
+  --ds-color-accent-gradient: linear-gradient(135deg, #2F7A5F 0%, #2E9C6A 100%);
+  --ds-color-success: #2E9C6A;
+  --ds-color-warning: #E08A2C;
+  --ds-color-danger: #D8473D;
+  --ds-color-info: #2F7A5F;
+  --ds-color-shadow-color: rgba(20, 18, 14, 0.28);
+  --ds-color-shadow-highlight: rgba(255, 255, 255, 0.90);
+  --ds-color-selection-bg: rgba(47, 122, 95, 0.30);
+  --ds-color-selection-text: #151412;
+}
+
+[data-ds-theme="morris"][data-ds-mode="dark"] {
+  --ds-color-bg: #0B0B0A;
+  --ds-color-bg-alt: #242320;
+  --ds-color-surface: #181816;
+  --ds-color-surface-raised: #1B1B19;
+  --ds-color-surface-hover: #242320;
+  --ds-color-border-subtle: rgba(255, 255, 255, 0.07);
+  --ds-color-border: #34332F;
+  --ds-color-border-strong: #4A4843;
+  --ds-color-text: #F4F2ED;
+  --ds-color-text-dim: #B5B1A9;
+  --ds-color-text-muted: #8E8A82;
+  --ds-color-text-inverse: #0B0B0A;
+  --ds-color-accent: #5CC49A;
+  --ds-color-accent-hover: #74D0AA;
+  --ds-color-accent-contrast: #0B0B0A;
+  --ds-color-accent-alt: #F0A24D;
+  --ds-color-accent-gradient: linear-gradient(135deg, #5CC49A 0%, #3FBF86 100%);
+  --ds-color-success: #3FBF86;
+  --ds-color-warning: #F0A24D;
+  --ds-color-danger: #F06B60;
+  --ds-color-info: #5CC49A;
+  --ds-color-shadow-color: rgba(0, 0, 0, 0.70);
+  --ds-color-shadow-highlight: rgba(255, 255, 255, 0.06);
+  --ds-color-selection-bg: rgba(92, 196, 154, 0.30);
+  --ds-color-selection-text: #F4F2ED;
+}
+
 [data-ds-theme="parchment"] {
   --ds-radius-base: 4px;
   --ds-density: 1;
@@ -2258,6 +2320,50 @@ const THEMES = [
       "sans": "Libre Baskerville",
       "mono": "DM Mono",
       "script": "Libre Baskerville"
+    }
+  },
+  {
+    "name": "morris",
+    "label": "Morris",
+    "description": "Morris OS, the household app. Warm grey paper, near-black ink, one green. The only theme with a dark set, because it follows the phone's light or dark setting.",
+    "family": true,
+    "app": "MorrisOS",
+    "dial": {
+      "radius-base": "14px",
+      "density": "1"
+    },
+    "color": {
+      "bg": "#F4F3F0",
+      "bg-alt": "#EBE9E4",
+      "surface": "#FFFFFF",
+      "surface-raised": "#F8F7F4",
+      "surface-hover": "#EBE9E4",
+      "border-subtle": "rgba(0, 0, 0, 0.06)",
+      "border": "#DEDBD4",
+      "border-strong": "#C7C3BA",
+      "text": "#151412",
+      "text-dim": "#5C5850",
+      "text-muted": "#86827A",
+      "text-inverse": "#F4F3F0",
+      "accent": "#2F7A5F",
+      "accent-hover": "#276B53",
+      "accent-contrast": "#FFFFFF",
+      "accent-alt": "#E08A2C",
+      "accent-gradient": "linear-gradient(135deg, #2F7A5F 0%, #2E9C6A 100%)",
+      "success": "#2E9C6A",
+      "warning": "#E08A2C",
+      "danger": "#D8473D",
+      "info": "#2F7A5F",
+      "shadow-color": "rgba(20, 18, 14, 0.28)",
+      "shadow-highlight": "rgba(255, 255, 255, 0.90)",
+      "selection-bg": "rgba(47, 122, 95, 0.30)",
+      "selection-text": "#151412"
+    },
+    "fontName": {
+      "display": "ui-rounded",
+      "sans": "-apple-system",
+      "mono": "ui-monospace",
+      "script": "ui-rounded"
     }
   },
   {
