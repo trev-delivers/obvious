@@ -1,0 +1,40 @@
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  dist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: dist/ is built and committed
+        run: npm run check
+
+  # Installs every registry item into a scratch Next app with the real shadcn
+  # CLI, then typechecks a page that uses them all. Items are read from
+  # dist/r/ in this checkout, so a PR is tested before it deploys.
+  registry:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scripts/registry-smoke
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - name: shadcn add every item
+        run: |
+          for item in ../../dist/r/*.json; do
+            [ "$(basename "$item")" = registry.json ] && continue
+            npx -y shadcn@latest add "$item" --yes --overwrite
+          done
+      - run: ls -R components
+      - run: npx tsc --noEmit

@@ -1,3 +1,7 @@
 node_modules
 .DS_Store
 site
+scripts/registry-smoke/node_modules
+scripts/registry-smoke/components
+scripts/registry-smoke/package-lock.json
+scripts/registry-smoke/next-env.d.ts
