@@ -326,3 +326,12 @@ class. Import it after shadcn's globals.
 shadcn's components are written in Tailwind, so this needs a Tailwind app.
 MorrisOS isn't one, which is why the registry components above are plain
 CSS.
+
+## Icons
+
+`icons/` has a favicon for each theme, all drawn the same way: a 32px
+tile with an 8px radius and a hairline edge, and one mark drawn with a
+2.5px round-ended stroke, in the theme's own colours. Core is a T,
+specimen an eye, dissonance a clock, routine a sun on the horizon,
+condimental a bottle and parchment a lit window. Apps copy the SVG in, plus
+PNG and ICO versions where they need them.
