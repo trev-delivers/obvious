@@ -1,7 +1,7 @@
 {
   "name": "morris",
-  "label": "Morris",
-  "description": "Morris OS, the household app. Warm grey paper, near-black ink, one green. The only theme with a dark set, because it follows the phone's light or dark setting.",
+  "label": "Household",
+  "description": "The household app. Warm grey paper, near-black ink, one green. The only theme with a dark set, because it follows the phone's light or dark setting.",
   "family": true,
   "dial": {
     "radius-base": "14px",

@@ -15,7 +15,7 @@
     "5xl": "128px"
   },
   "space-fluid": {
-    "$comment": "Floor-first vertical rhythm, lifted from designedbytrev's site.css where the reasoning is written out: the mobile floor is deliberately generous and desktop growth is a bonus, not the point.",
+    "$comment": "Floor-first vertical rhythm, worked out on the core theme: the mobile floor is deliberately generous and desktop growth is a bonus, not the point.",
     "s": "clamp(16px, 4vw, 22px)",
     "m": "clamp(22px, 5.5vw, 32px)",
     "l": "clamp(36px, 8vw, 56px)",
@@ -25,7 +25,7 @@
   "measure": "68ch",
   "container": "1140px",
   "text": {
-    "$comment": "Lifted verbatim from designedbytrev's site.css — that site is the type authority, so these are its real sizes rather than a scale invented around them. Named by role, not by t-shirt size, because the roles are what stop someone pairing hero size with body leading.",
+    "$comment": "Taken from the core theme's real sizes rather than a scale invented around them. Named by role, not by t-shirt size, because the roles are what stop someone pairing hero size with body leading.",
     "micro": "11px",
     "mono": "12.5px",
     "xs": "13px",
@@ -123,7 +123,7 @@
     "slowest": "900ms"
   },
   "ease": {
-    "$comment": "out is the house curve — the one in designedbytrev's --ease. spring is brookwood's linear() overshoot, kept because a settle is a different gesture from a glide and both are legitimately part of the family.",
+    "$comment": "out is the house curve — the core theme's --ease. spring is brookwood's linear() overshoot, kept because a settle is a different gesture from a glide and both are legitimately part of the family.",
     "out": "cubic-bezier(0.22, 1, 0.36, 1)",
     "in": "cubic-bezier(0.55, 0, 1, 0.45)",
     "in-out": "cubic-bezier(0.65, 0, 0.35, 1)",

@@ -17,18 +17,18 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (...p) => readFileSync(join(root, ...p), "utf8");
 
 /** Strips the generated banner; the page has its own, once, at the top. */
-const bare = (css) => css.replace(/^\/\*[\s\S]*?\*\/\n+/, "");
+const bare = (css) => css.replace(/\/\*[\s\S]*?\*\/\n*/g, "");
 
 /* The apps each theme is for. Not in the theme JSON because a theme is a set
    of values, not a deployment — but on a reference page the reader wants to
    know which site they are looking at. */
 const APPS = {
-  core: "designedbytrev",
+  core: "Reference",
   condimental: "condiment-gallery",
   dissonance: "time-dissonance",
   routine: "daily-routine",
   parchment: "brookwood-hunt",
-  morris: "MorrisOS",
+  morris: "Household app",
 };
 
 /* next/font hands the real apps these variables. The docs page declares them
