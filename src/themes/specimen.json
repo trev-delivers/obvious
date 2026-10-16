@@ -1,0 +1,43 @@
+{
+  "name": "specimen",
+  "label": "Specimen",
+  "description": "Eye for Type. Cool proof paper, black ink, a proofreader's red for marks and blue for the answer. Source Serif for the type being judged, Source Sans for everything around it.",
+  "family": true,
+  "dial": {
+    "radius-base": "10px",
+    "density": "1"
+  },
+  "font": {
+    "display": "'Source Serif 4', Georgia, serif",
+    "sans": "'Source Sans 3', system-ui, sans-serif",
+    "mono": "'Source Sans 3', system-ui, sans-serif",
+    "script": "'Source Serif 4', Georgia, serif"
+  },
+  "color": {
+    "bg": "#E8E9E5",
+    "bg-alt": "#DEDFDA",
+    "surface": "#FAFAF8",
+    "surface-raised": "#FFFFFF",
+    "surface-hover": "rgba(17, 18, 16, 0.04)",
+    "border-subtle": "rgba(17, 18, 16, 0.07)",
+    "border": "rgba(17, 18, 16, 0.14)",
+    "border-strong": "rgba(17, 18, 16, 0.26)",
+    "text": "#121310",
+    "text-dim": "#3E403B",
+    "text-muted": "#62655E",
+    "text-inverse": "#FAFAF8",
+    "accent": "#C23A1E",
+    "accent-hover": "#A82F16",
+    "accent-contrast": "#FFFFFF",
+    "accent-alt": "#1D6FD0",
+    "accent-gradient": "linear-gradient(135deg, #C23A1E 0%, #A82F16 100%)",
+    "success": "#2F8A5B",
+    "warning": "#B7791F",
+    "danger": "#C23A1E",
+    "info": "#1D6FD0",
+    "shadow-color": "rgba(18, 19, 16, 0.14)",
+    "shadow-highlight": "rgba(255, 255, 255, 0.7)",
+    "selection-bg": "#1D6FD0",
+    "selection-text": "#FFFFFF"
+  }
+}

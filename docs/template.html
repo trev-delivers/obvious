@@ -1,7 +1,7 @@
 <title>Obvious</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&family=Bricolage+Grotesque:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=IM+Fell+English&family=Instrument+Serif&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@500&family=Geist:wght@400;500;600&family=Geist+Mono&family=Libre+Baskerville:ital@0;1&family=DM+Mono:wght@300;400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IM+Fell+English&family=Instrument+Sans:wght@400;500;600&family=Caveat:wght@500&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Hanken+Grotesk:wght@400;500;600&family=Libre+Baskerville:ital@0;1&family=Libre+Franklin:wght@400;500;600&family=Young+Serif&family=Figtree:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Source+Sans+3:wght@400;500;600&display=swap">
 
 <style>
 /* ── The system itself, generated. Everything in this block is inlined
@@ -13,11 +13,9 @@
    rather than silently falling back to Georgia. */
 :root{
   --font-fell:'IM Fell English';
-  --font-instrument:'Instrument Serif';
-  --font-plex-mono:'IBM Plex Mono';
+  --font-instrument:'Instrument Sans';
   --font-caveat:'Caveat';
-  --font-geist-sans:'Geist';
-  --font-geist-mono:'Geist Mono';
+  
 }
 
 {{CSS_PRIMITIVES}}
@@ -65,7 +63,7 @@
 body{
   background:var(--w-bg);
   color:var(--w-ink);
-  font-family:'Archivo',system-ui,sans-serif;
+  font-family:'Bricolage Grotesque',system-ui,sans-serif;
   font-size:16px;
   line-height:1.55;
 }
@@ -79,21 +77,20 @@ body{
 
 /* Chrome typography ------------------------------------------------- */
 .lab{
-  font-family:'Azeret Mono',ui-monospace,monospace;
+  font-family:'IBM Plex Sans',system-ui,sans-serif;
   font-size:10.5px;
   font-weight:500;
-  letter-spacing:.14em;
-  text-transform:uppercase;
+  letter-spacing:0;
   color:var(--w-mute);
 }
 .val{
-  font-family:'Azeret Mono',ui-monospace,monospace;
+  font-family:'IBM Plex Sans',system-ui,sans-serif;
   font-size:11.5px;
   color:var(--w-mute);
   font-variant-numeric:tabular-nums;
 }
 h1.wordmark{
-  font-family:'Archivo',system-ui,sans-serif;
+  font-family:'Bricolage Grotesque',system-ui,sans-serif;
   font-weight:700;
   font-size:clamp(38px,9vw,64px);
   letter-spacing:-.045em;
@@ -109,7 +106,7 @@ h1.wordmark{
 .standfirst b{font-weight:600;color:var(--w-ink)}
 
 h2.sec{
-  font-family:'Archivo',system-ui,sans-serif;
+  font-family:'Bricolage Grotesque',system-ui,sans-serif;
   font-weight:600;
   font-size:clamp(20px,3.4vw,25px);
   letter-spacing:-.02em;
@@ -143,7 +140,7 @@ section{display:flex;flex-direction:column;gap:18px}
   color:var(--w-ink-2);
   border-radius:999px;
   padding:7px 14px 7px 10px;
-  font-family:'Azeret Mono',ui-monospace,monospace;
+  font-family:'IBM Plex Sans',system-ui,sans-serif;
   font-size:11.5px;
   letter-spacing:.02em;
   cursor:pointer;
@@ -202,10 +199,9 @@ section{display:flex;flex-direction:column;gap:18px}
 }
 .dial{background:var(--ds-color-surface);padding:14px 16px;display:flex;flex-direction:column;gap:5px}
 .dial dt{
-  font-family:var(--ds-font-mono);
+  font-family:var(--ds-font-sans);
   font-size:var(--ds-text-micro);
-  letter-spacing:var(--ds-tracking-wide);
-  text-transform:uppercase;
+  
   color:var(--ds-color-text-muted);
 }
 .dial dd{margin:0;font-family:var(--ds-font-sans);font-size:15px;color:var(--ds-color-text)}
@@ -215,10 +211,9 @@ section{display:flex;flex-direction:column;gap:18px}
 .swatch-group{display:flex;flex-direction:column;gap:10px}
 .swatch-group + .swatch-group{margin-top:22px}
 .group-name{
-  font-family:var(--ds-font-mono);
+  font-family:var(--ds-font-sans);
   font-size:var(--ds-text-micro);
-  letter-spacing:var(--ds-tracking-wide);
-  text-transform:uppercase;
+  
   color:var(--ds-color-text-muted);
 }
 .swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(146px,1fr));gap:10px}
@@ -231,11 +226,11 @@ section{display:flex;flex-direction:column;gap:18px}
 .swatch .fill{height:46px;display:block}
 .swatch .cap{padding:8px 10px;display:flex;flex-direction:column;gap:2px}
 .swatch .name{
-  font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text);
+  font-family:var(--ds-font-sans);font-size:11px;color:var(--ds-color-text);
   overflow-wrap:anywhere;
 }
 .swatch .hex{
-  font-family:var(--ds-font-mono);font-size:10.5px;color:var(--ds-color-text-muted);
+  font-family:var(--ds-font-sans);font-size:10.5px;color:var(--ds-color-text-muted);
   overflow-wrap:anywhere;
 }
 
@@ -249,11 +244,10 @@ section{display:flex;flex-direction:column;gap:18px}
 .spec:first-child{border-top:0;padding-top:0}
 .spec-meta{display:flex;flex-wrap:wrap;gap:4px 14px}
 .spec-meta span{
-  font-family:var(--ds-font-mono);
+  font-family:var(--ds-font-sans);
   font-size:var(--ds-text-micro);
-  letter-spacing:var(--ds-tracking-wide);
+  
   color:var(--ds-color-text-muted);
-  text-transform:uppercase;
 }
 .spec-sample{margin:0;color:var(--ds-color-text);overflow-wrap:break-word}
 .sp-h1{font-family:var(--ds-font-display);font-size:var(--ds-type-h1-size);line-height:var(--ds-type-h1-leading);letter-spacing:var(--ds-type-h1-tracking);font-weight:var(--ds-type-h1-weight)}
@@ -262,16 +256,16 @@ section{display:flex;flex-direction:column;gap:18px}
 .sp-lead{font-family:var(--ds-font-sans);font-size:var(--ds-type-lead-size);line-height:var(--ds-type-lead-leading);color:var(--ds-color-text-dim);max-width:56ch}
 .sp-body{font-family:var(--ds-font-sans);font-size:var(--ds-type-body-size);line-height:var(--ds-type-body-leading);max-width:62ch}
 .sp-ui{font-family:var(--ds-font-sans);font-size:var(--ds-type-ui-size);line-height:var(--ds-type-ui-leading);font-weight:var(--ds-type-ui-weight)}
-.sp-mono{font-family:var(--ds-font-mono);font-size:var(--ds-type-mono-size);line-height:var(--ds-type-mono-leading);letter-spacing:var(--ds-type-mono-tracking);color:var(--ds-color-text-muted)}
+.sp-mono{font-family:var(--ds-font-sans);font-size:var(--ds-type-mono-size);line-height:var(--ds-type-mono-leading);letter-spacing:var(--ds-type-mono-tracking);color:var(--ds-color-text-muted)}
 
 /* Scales -------------------------------------------------------------- */
 .scale-row{display:flex;align-items:center;gap:12px;padding-block:5px}
 .scale-row .key{
   flex:none;width:52px;
-  font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text-muted);
+  font-family:var(--ds-font-sans);font-size:11px;color:var(--ds-color-text-muted);
 }
 .scale-row .bar{height:12px;border-radius:2px;background:var(--ds-color-accent);flex:none;max-width:100%}
-.scale-row .px{font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text-muted);font-variant-numeric:tabular-nums}
+.scale-row .px{font-family:var(--ds-font-sans);font-size:11px;color:var(--ds-color-text-muted);font-variant-numeric:tabular-nums}
 
 .radii{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
 .radius{display:flex;flex-direction:column;gap:7px;align-items:center}
@@ -280,13 +274,13 @@ section{display:flex;flex-direction:column;gap:18px}
   background:var(--ds-color-surface-raised);
   border:1px solid var(--ds-color-border-strong);
 }
-.radius .key{font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text-muted)}
+.radius .key{font-family:var(--ds-font-sans);font-size:11px;color:var(--ds-color-text-muted)}
 
 /* Motion -------------------------------------------------------------- */
 .eases{display:flex;flex-direction:column;gap:2px}
 .ease-row{display:grid;grid-template-columns:76px 1fr;gap:12px;align-items:center;padding-block:9px;border-top:1px solid var(--ds-color-border-subtle)}
 .ease-row:first-child{border-top:0}
-.ease-row .key{font-family:var(--ds-font-mono);font-size:11.5px;color:var(--ds-color-text)}
+.ease-row .key{font-family:var(--ds-font-sans);font-size:11.5px;color:var(--ds-color-text)}
 .track{
   position:relative;height:14px;border-radius:999px;
   background:var(--ds-color-surface-raised);
@@ -304,14 +298,14 @@ section{display:flex;flex-direction:column;gap:18px}
 .bench{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:1px;background:var(--ds-color-border);border:1px solid var(--ds-color-border);border-radius:var(--ds-radius-md);overflow:hidden}
 .cell{background:var(--ds-color-bg);padding:20px 18px;display:flex;flex-direction:column;gap:14px;min-height:170px}
 .cell-head{display:flex;flex-direction:column;gap:3px}
-.cell-name{font-family:var(--ds-font-mono);font-size:12px;color:var(--ds-color-text)}
+.cell-name{font-family:var(--ds-font-sans);font-size:12px;color:var(--ds-color-text)}
 .cell-what{font-family:var(--ds-font-sans);font-size:13px;line-height:1.45;color:var(--ds-color-text-muted)}
 .cell-demo{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto}
 .cell--wide{grid-column:1/-1}
 
 .gate-demo{width:100%;max-width:330px}
-.gate-demo .t-error-msg{font-family:var(--ds-font-mono);font-size:12px}
-.hint{font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text-muted);margin:8px 0 0}
+.gate-demo .t-error-msg{font-family:var(--ds-font-sans);font-size:12px}
+.hint{font-family:var(--ds-font-sans);font-size:11px;color:var(--ds-color-text-muted);margin:8px 0 0}
 
 .grad-demo{
   font-family:var(--ds-font-display);
@@ -328,7 +322,7 @@ section{display:flex;flex-direction:column;gap:18px}
 }
 
 .mini-btn{
-  font-family:var(--ds-font-mono);font-size:11px;
+  font-family:var(--ds-font-sans);font-size:11px;
   color:var(--ds-color-text-dim);
   background:var(--ds-color-surface);
   border:1px solid var(--ds-color-border-strong);
@@ -360,7 +354,7 @@ pre.cmd{
   margin:0;overflow-x:auto;
   background:var(--w-panel);border:1px solid var(--w-rule);
   border-radius:8px;padding:13px 15px;
-  font-family:'Azeret Mono',ui-monospace,monospace;font-size:12px;
+  font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:12px;
   color:var(--w-ink-2);line-height:1.7;
 }
 footer a{color:var(--w-ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--w-rule)}
@@ -379,7 +373,7 @@ footer a:hover{text-decoration-color:currentColor}
   <div class="meta-line">
     <span class="lab">Design system</span>
     <span class="lab">v{{VERSION}}</span>
-    <span class="lab">trev-delivers/obvious</span>
+    
   </div>
   <h1 class="wordmark">obvious</h1>
   <p class="standfirst">
@@ -424,7 +418,7 @@ footer a:hover{text-decoration-color:currentColor}
 
   <section>
     <div class="sec-head">
-      <div class="sec-index"><h2 class="sec">Type</h2><span class="lab">From designedbytrev</span></div>
+      <div class="sec-index"><h2 class="sec">Type</h2><span class="lab">One scale for every app</span></div>
       <p class="sec-note">Taken straight off the portfolio. Size, line-height and tracking come as a set, so you can&rsquo;t put body line-height on a hero by accident.</p>
     </div>
     <div class="stage">
@@ -454,8 +448,8 @@ footer a:hover{text-decoration-color:currentColor}
           <p class="spec-sample sp-ui">Rate this condiment</p>
         </div>
         <div class="spec">
-          <div class="spec-meta"><span>mono</span><span id="m-mono"></span></div>
-          <p class="spec-sample sp-mono">CURRENT STREAK 41 DAYS · LONGEST 118</p>
+          <div class="spec-meta"><span>figures</span><span id="m-mono"></span></div>
+          <p class="spec-sample sp-mono">Current streak 41 days, longest 118</p>
         </div>
       </div>
     </div>
@@ -558,7 +552,7 @@ footer a:hover{text-decoration-color:currentColor}
         <div class="cell">
           <div class="cell-head">
             <span class="cell-name">t-chip</span>
-            <span class="cell-what">The selectable pill. It only owns shape and state &mdash; type is inherited, so a row of chips can be 14px sans on one site and small mono on another.</span>
+            <span class="cell-what">The selectable pill. It only owns shape and state &mdash; type is inherited, so a row of chips can be 14px on one site and 13px on another.</span>
           </div>
           <div class="cell-demo" style="gap:6px;flex-wrap:wrap">
             <button class="t-chip is-on" type="button">Work</button>
@@ -748,7 +742,7 @@ function paintVoice() {
     ["density", t.dial.density, false],
     ["display", t.fontName.display, true],
     ["sans", t.fontName.sans, true],
-    ["mono", t.fontName.mono, true],
+    ["figures", t.fontName.mono, true],
     ["accent", tokenValue("--ds-color-accent"), false],
   ];
   for (const [k, v, isFace] of rows) {
@@ -760,7 +754,7 @@ function paintVoice() {
     dd.textContent = v;
     if (isFace) {
       dd.className = "face";
-      dd.style.fontFamily = `var(--ds-font-${k === "display" ? "display" : k})`;
+      dd.style.fontFamily = `var(--ds-font-${k === "figures" ? "mono" : k})`;
     }
     d.append(dt, dd);
     dl.append(d);
@@ -774,7 +768,7 @@ function paintTypeMeta() {
     if (!el) continue;
     const sample = document.querySelector(`.sp-${role}`);
     const size = sample ? Math.round(parseFloat(getComputedStyle(sample).fontSize) * 10) / 10 : "";
-    el.textContent = `${size}px · ${tokenValue(`--ds-type-${role}-leading`)} · ${tokenValue(`--ds-type-${role}-tracking`)}`;
+    el.textContent = `${size}px, leading ${tokenValue(`--ds-type-${role}-leading`)}, tracking ${tokenValue(`--ds-type-${role}-tracking`)}`;
   }
 }
 

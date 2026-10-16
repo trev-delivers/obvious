@@ -36,7 +36,7 @@ const APPS = {
    app actually ships rather than a silent fallback. */
 const FONT_VARS = {
   "var(--font-fell)": "IM Fell English",
-  "var(--font-instrument)": "Instrument Serif",
+  "var(--font-instrument)": "Instrument Sans",
   "var(--font-plex-mono)": "IBM Plex Mono",
   "var(--font-caveat)": "Caveat",
   "var(--font-geist-sans)": "Geist",

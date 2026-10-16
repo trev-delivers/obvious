@@ -7,10 +7,10 @@
     "density": "1"
   },
   "font": {
-    "display": "var(--font-geist-sans), system-ui, sans-serif",
-    "sans": "var(--font-geist-sans), system-ui, sans-serif",
-    "mono": "var(--font-geist-mono), ui-monospace, monospace",
-    "script": "var(--font-geist-sans), system-ui, sans-serif"
+    "display": "'Young Serif', Georgia, serif",
+    "sans": "'Figtree', system-ui, sans-serif",
+    "mono": "'Figtree', system-ui, sans-serif",
+    "script": "'Figtree', system-ui, sans-serif"
   },
   "color": {
     "bg": "#faf5ee",

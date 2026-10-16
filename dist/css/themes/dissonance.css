@@ -7,8 +7,8 @@
   --ds-radius-base: 3px;
   --ds-density: 1;
   --ds-font-display: 'Libre Baskerville', Georgia, serif;
-  --ds-font-sans: 'Libre Baskerville', Georgia, serif;
-  --ds-font-mono: 'DM Mono', ui-monospace, monospace;
+  --ds-font-sans: 'Libre Franklin', system-ui, sans-serif;
+  --ds-font-mono: 'Libre Franklin', system-ui, sans-serif;
   --ds-font-script: 'Libre Baskerville', Georgia, serif;
   --ds-color-bg: #04060d;
   --ds-color-bg-alt: #080e1a;

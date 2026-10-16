@@ -9,8 +9,8 @@
   },
   "font": {
     "display": "'Libre Baskerville', Georgia, serif",
-    "sans": "'Libre Baskerville', Georgia, serif",
-    "mono": "'DM Mono', ui-monospace, monospace",
+    "sans": "'Libre Franklin', system-ui, sans-serif",
+    "mono": "'Libre Franklin', system-ui, sans-serif",
     "script": "'Libre Baskerville', Georgia, serif"
   },
   "color": {

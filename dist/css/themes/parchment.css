@@ -8,7 +8,7 @@
   --ds-density: 1;
   --ds-font-display: var(--font-fell), Georgia, serif;
   --ds-font-sans: var(--font-instrument), system-ui, sans-serif;
-  --ds-font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --ds-font-mono: var(--font-instrument), system-ui, sans-serif;
   --ds-font-script: var(--font-caveat), 'Segoe Print', 'Bradley Hand', cursive;
   --ds-color-bg: #e8dcbe;
   --ds-color-bg-alt: #e2d4b2;
