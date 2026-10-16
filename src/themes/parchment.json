@@ -11,7 +11,7 @@
   "font": {
     "display": "var(--font-fell), Georgia, serif",
     "sans": "var(--font-instrument), system-ui, sans-serif",
-    "mono": "var(--font-plex-mono), ui-monospace, monospace",
+    "mono": "var(--font-instrument), system-ui, sans-serif",
     "script": "var(--font-caveat), 'Segoe Print', 'Bradley Hand', cursive"
   },
   "color": {

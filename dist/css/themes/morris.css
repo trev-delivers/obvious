@@ -8,7 +8,7 @@
   --ds-density: 1;
   --ds-font-display: ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --ds-font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-  --ds-font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --ds-font-mono: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   --ds-font-script: ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, sans-serif;
   --ds-color-bg: #F4F3F0;
   --ds-color-bg-alt: #EBE9E4;

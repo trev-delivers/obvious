@@ -6,10 +6,10 @@
 [data-ds-theme="condimental"] {
   --ds-radius-base: 16px;
   --ds-density: 1;
-  --ds-font-display: var(--font-geist-sans), system-ui, sans-serif;
-  --ds-font-sans: var(--font-geist-sans), system-ui, sans-serif;
-  --ds-font-mono: var(--font-geist-mono), ui-monospace, monospace;
-  --ds-font-script: var(--font-geist-sans), system-ui, sans-serif;
+  --ds-font-display: 'Young Serif', Georgia, serif;
+  --ds-font-sans: 'Figtree', system-ui, sans-serif;
+  --ds-font-mono: 'Figtree', system-ui, sans-serif;
+  --ds-font-script: 'Figtree', system-ui, sans-serif;
   --ds-color-bg: #faf5ee;
   --ds-color-bg-alt: #f4ead2;
   --ds-color-surface: #ffffff;
@@ -41,9 +41,9 @@
   --ds-radius-base: 8px;
   --ds-density: 1;
   --ds-font-display: 'Bricolage Grotesque', system-ui, sans-serif;
-  --ds-font-sans: 'Inter', system-ui, sans-serif;
-  --ds-font-mono: 'JetBrains Mono', ui-monospace, monospace;
-  --ds-font-script: 'Inter', system-ui, sans-serif;
+  --ds-font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --ds-font-mono: 'IBM Plex Sans', system-ui, sans-serif;
+  --ds-font-script: 'IBM Plex Sans', system-ui, sans-serif;
   --ds-color-bg: #0A0B0C;
   --ds-color-bg-alt: #0F1113;
   --ds-color-surface: #16181B;
@@ -75,8 +75,8 @@
   --ds-radius-base: 3px;
   --ds-density: 1;
   --ds-font-display: 'Libre Baskerville', Georgia, serif;
-  --ds-font-sans: 'Libre Baskerville', Georgia, serif;
-  --ds-font-mono: 'DM Mono', ui-monospace, monospace;
+  --ds-font-sans: 'Libre Franklin', system-ui, sans-serif;
+  --ds-font-mono: 'Libre Franklin', system-ui, sans-serif;
   --ds-font-script: 'Libre Baskerville', Georgia, serif;
   --ds-color-bg: #04060d;
   --ds-color-bg-alt: #080e1a;
@@ -110,7 +110,7 @@
   --ds-density: 1;
   --ds-font-display: ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --ds-font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-  --ds-font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --ds-font-mono: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   --ds-font-script: ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, sans-serif;
   --ds-color-bg: #F4F3F0;
   --ds-color-bg-alt: #EBE9E4;
@@ -172,7 +172,7 @@
   --ds-density: 1;
   --ds-font-display: var(--font-fell), Georgia, serif;
   --ds-font-sans: var(--font-instrument), system-ui, sans-serif;
-  --ds-font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --ds-font-mono: var(--font-instrument), system-ui, sans-serif;
   --ds-font-script: var(--font-caveat), 'Segoe Print', 'Bradley Hand', cursive;
   --ds-color-bg: #e8dcbe;
   --ds-color-bg-alt: #e2d4b2;
@@ -205,8 +205,8 @@
   --ds-radius-base: 13px;
   --ds-density: 1;
   --ds-font-display: 'Fraunces', Georgia, serif;
-  --ds-font-sans: 'Inter', system-ui, sans-serif;
-  --ds-font-mono: 'Inter', system-ui, sans-serif;
+  --ds-font-sans: 'Hanken Grotesk', system-ui, sans-serif;
+  --ds-font-mono: 'Hanken Grotesk', system-ui, sans-serif;
   --ds-font-script: 'Fraunces', Georgia, serif;
   --ds-color-bg: #FAF7F1;
   --ds-color-bg-alt: #F1EDE2;
@@ -232,5 +232,39 @@
   --ds-color-shadow-color: rgba(30, 27, 46, 0.28);
   --ds-color-shadow-highlight: rgba(255, 255, 255, 0.90);
   --ds-color-selection-bg: #F0693C;
+  --ds-color-selection-text: #FFFFFF;
+}
+
+[data-ds-theme="specimen"] {
+  --ds-radius-base: 10px;
+  --ds-density: 1;
+  --ds-font-display: 'Source Serif 4', Georgia, serif;
+  --ds-font-sans: 'Source Sans 3', system-ui, sans-serif;
+  --ds-font-mono: 'Source Sans 3', system-ui, sans-serif;
+  --ds-font-script: 'Source Serif 4', Georgia, serif;
+  --ds-color-bg: #E8E9E5;
+  --ds-color-bg-alt: #DEDFDA;
+  --ds-color-surface: #FAFAF8;
+  --ds-color-surface-raised: #FFFFFF;
+  --ds-color-surface-hover: rgba(17, 18, 16, 0.04);
+  --ds-color-border-subtle: rgba(17, 18, 16, 0.07);
+  --ds-color-border: rgba(17, 18, 16, 0.14);
+  --ds-color-border-strong: rgba(17, 18, 16, 0.26);
+  --ds-color-text: #121310;
+  --ds-color-text-dim: #3E403B;
+  --ds-color-text-muted: #62655E;
+  --ds-color-text-inverse: #FAFAF8;
+  --ds-color-accent: #C23A1E;
+  --ds-color-accent-hover: #A82F16;
+  --ds-color-accent-contrast: #FFFFFF;
+  --ds-color-accent-alt: #1D6FD0;
+  --ds-color-accent-gradient: linear-gradient(135deg, #C23A1E 0%, #A82F16 100%);
+  --ds-color-success: #2F8A5B;
+  --ds-color-warning: #B7791F;
+  --ds-color-danger: #C23A1E;
+  --ds-color-info: #1D6FD0;
+  --ds-color-shadow-color: rgba(18, 19, 16, 0.14);
+  --ds-color-shadow-highlight: rgba(255, 255, 255, 0.7);
+  --ds-color-selection-bg: #1D6FD0;
   --ds-color-selection-text: #FFFFFF;
 }

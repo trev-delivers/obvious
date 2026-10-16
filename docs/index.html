@@ -1,7 +1,7 @@
 <title>Obvious</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&family=Bricolage+Grotesque:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=IM+Fell+English&family=Instrument+Serif&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@500&family=Geist:wght@400;500;600&family=Geist+Mono&family=Libre+Baskerville:ital@0;1&family=DM+Mono:wght@300;400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IM+Fell+English&family=Instrument+Sans:wght@400;500;600&family=Caveat:wght@500&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Hanken+Grotesk:wght@400;500;600&family=Libre+Baskerville:ital@0;1&family=Libre+Franklin:wght@400;500;600&family=Young+Serif&family=Figtree:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Source+Sans+3:wght@400;500;600&display=swap">
 
 <style>
 /* ── The system itself, generated. Everything in this block is inlined
@@ -13,11 +13,9 @@
    rather than silently falling back to Georgia. */
 :root{
   --font-fell:'IM Fell English';
-  --font-instrument:'Instrument Serif';
-  --font-plex-mono:'IBM Plex Mono';
+  --font-instrument:'Instrument Sans';
   --font-caveat:'Caveat';
-  --font-geist-sans:'Geist';
-  --font-geist-mono:'Geist Mono';
+  
 }
 
 :root {
@@ -73,9 +71,13 @@
   --ds-type-ui-leading: 1.4;
   --ds-type-ui-tracking: 0;
   --ds-type-ui-weight: 500;
+  --ds-type-label-size: var(--ds-text-sm);
+  --ds-type-label-leading: 1.4;
+  --ds-type-label-tracking: 0;
+  --ds-type-label-weight: 500;
   --ds-type-mono-size: var(--ds-text-mono);
   --ds-type-mono-leading: 1.4;
-  --ds-type-mono-tracking: 0.04em;
+  --ds-type-mono-tracking: 0;
   --ds-type-mono-weight: 400;
   --ds-leading-tight: 1.06;
   --ds-leading-snug: 1.1;
@@ -138,10 +140,10 @@
 [data-ds-theme="condimental"] {
   --ds-radius-base: 16px;
   --ds-density: 1;
-  --ds-font-display: var(--font-geist-sans), system-ui, sans-serif;
-  --ds-font-sans: var(--font-geist-sans), system-ui, sans-serif;
-  --ds-font-mono: var(--font-geist-mono), ui-monospace, monospace;
-  --ds-font-script: var(--font-geist-sans), system-ui, sans-serif;
+  --ds-font-display: 'Young Serif', Georgia, serif;
+  --ds-font-sans: 'Figtree', system-ui, sans-serif;
+  --ds-font-mono: 'Figtree', system-ui, sans-serif;
+  --ds-font-script: 'Figtree', system-ui, sans-serif;
   --ds-color-bg: #faf5ee;
   --ds-color-bg-alt: #f4ead2;
   --ds-color-surface: #ffffff;
@@ -173,9 +175,9 @@
   --ds-radius-base: 8px;
   --ds-density: 1;
   --ds-font-display: 'Bricolage Grotesque', system-ui, sans-serif;
-  --ds-font-sans: 'Inter', system-ui, sans-serif;
-  --ds-font-mono: 'JetBrains Mono', ui-monospace, monospace;
-  --ds-font-script: 'Inter', system-ui, sans-serif;
+  --ds-font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --ds-font-mono: 'IBM Plex Sans', system-ui, sans-serif;
+  --ds-font-script: 'IBM Plex Sans', system-ui, sans-serif;
   --ds-color-bg: #0A0B0C;
   --ds-color-bg-alt: #0F1113;
   --ds-color-surface: #16181B;
@@ -207,8 +209,8 @@
   --ds-radius-base: 3px;
   --ds-density: 1;
   --ds-font-display: 'Libre Baskerville', Georgia, serif;
-  --ds-font-sans: 'Libre Baskerville', Georgia, serif;
-  --ds-font-mono: 'DM Mono', ui-monospace, monospace;
+  --ds-font-sans: 'Libre Franklin', system-ui, sans-serif;
+  --ds-font-mono: 'Libre Franklin', system-ui, sans-serif;
   --ds-font-script: 'Libre Baskerville', Georgia, serif;
   --ds-color-bg: #04060d;
   --ds-color-bg-alt: #080e1a;
@@ -242,7 +244,7 @@
   --ds-density: 1;
   --ds-font-display: ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --ds-font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-  --ds-font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --ds-font-mono: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   --ds-font-script: ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, sans-serif;
   --ds-color-bg: #F4F3F0;
   --ds-color-bg-alt: #EBE9E4;
@@ -304,7 +306,7 @@
   --ds-density: 1;
   --ds-font-display: var(--font-fell), Georgia, serif;
   --ds-font-sans: var(--font-instrument), system-ui, sans-serif;
-  --ds-font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --ds-font-mono: var(--font-instrument), system-ui, sans-serif;
   --ds-font-script: var(--font-caveat), 'Segoe Print', 'Bradley Hand', cursive;
   --ds-color-bg: #e8dcbe;
   --ds-color-bg-alt: #e2d4b2;
@@ -337,8 +339,8 @@
   --ds-radius-base: 13px;
   --ds-density: 1;
   --ds-font-display: 'Fraunces', Georgia, serif;
-  --ds-font-sans: 'Inter', system-ui, sans-serif;
-  --ds-font-mono: 'Inter', system-ui, sans-serif;
+  --ds-font-sans: 'Hanken Grotesk', system-ui, sans-serif;
+  --ds-font-mono: 'Hanken Grotesk', system-ui, sans-serif;
   --ds-font-script: 'Fraunces', Georgia, serif;
   --ds-color-bg: #FAF7F1;
   --ds-color-bg-alt: #F1EDE2;
@@ -364,6 +366,40 @@
   --ds-color-shadow-color: rgba(30, 27, 46, 0.28);
   --ds-color-shadow-highlight: rgba(255, 255, 255, 0.90);
   --ds-color-selection-bg: #F0693C;
+  --ds-color-selection-text: #FFFFFF;
+}
+
+[data-ds-theme="specimen"] {
+  --ds-radius-base: 10px;
+  --ds-density: 1;
+  --ds-font-display: 'Source Serif 4', Georgia, serif;
+  --ds-font-sans: 'Source Sans 3', system-ui, sans-serif;
+  --ds-font-mono: 'Source Sans 3', system-ui, sans-serif;
+  --ds-font-script: 'Source Serif 4', Georgia, serif;
+  --ds-color-bg: #E8E9E5;
+  --ds-color-bg-alt: #DEDFDA;
+  --ds-color-surface: #FAFAF8;
+  --ds-color-surface-raised: #FFFFFF;
+  --ds-color-surface-hover: rgba(17, 18, 16, 0.04);
+  --ds-color-border-subtle: rgba(17, 18, 16, 0.07);
+  --ds-color-border: rgba(17, 18, 16, 0.14);
+  --ds-color-border-strong: rgba(17, 18, 16, 0.26);
+  --ds-color-text: #121310;
+  --ds-color-text-dim: #3E403B;
+  --ds-color-text-muted: #62655E;
+  --ds-color-text-inverse: #FAFAF8;
+  --ds-color-accent: #C23A1E;
+  --ds-color-accent-hover: #A82F16;
+  --ds-color-accent-contrast: #FFFFFF;
+  --ds-color-accent-alt: #1D6FD0;
+  --ds-color-accent-gradient: linear-gradient(135deg, #C23A1E 0%, #A82F16 100%);
+  --ds-color-success: #2F8A5B;
+  --ds-color-warning: #B7791F;
+  --ds-color-danger: #C23A1E;
+  --ds-color-info: #1D6FD0;
+  --ds-color-shadow-color: rgba(18, 19, 16, 0.14);
+  --ds-color-shadow-highlight: rgba(255, 255, 255, 0.7);
+  --ds-color-selection-bg: #1D6FD0;
   --ds-color-selection-text: #FFFFFF;
 }
 
@@ -862,7 +898,7 @@ p {
   border:0;cursor:pointer;
   background:var(--probtn-bg,#fff);
   border-radius:var(--ds-radius-full);
-  font-family:var(--ds-font-mono);font-weight:var(--ds-weight-medium);
+  font-family:var(--ds-font-sans);font-weight:var(--ds-weight-medium);
   font-size:var(--ds-text-xs);letter-spacing:.02em;
   line-height:1.4;
   color:var(--probtn-fg,#0f0f0f);
@@ -1105,7 +1141,7 @@ p {
 body{
   background:var(--w-bg);
   color:var(--w-ink);
-  font-family:'Archivo',system-ui,sans-serif;
+  font-family:'Bricolage Grotesque',system-ui,sans-serif;
   font-size:16px;
   line-height:1.55;
 }
@@ -1119,21 +1155,20 @@ body{
 
 /* Chrome typography ------------------------------------------------- */
 .lab{
-  font-family:'Azeret Mono',ui-monospace,monospace;
+  font-family:'IBM Plex Sans',system-ui,sans-serif;
   font-size:10.5px;
   font-weight:500;
-  letter-spacing:.14em;
-  text-transform:uppercase;
+  letter-spacing:0;
   color:var(--w-mute);
 }
 .val{
-  font-family:'Azeret Mono',ui-monospace,monospace;
+  font-family:'IBM Plex Sans',system-ui,sans-serif;
   font-size:11.5px;
   color:var(--w-mute);
   font-variant-numeric:tabular-nums;
 }
 h1.wordmark{
-  font-family:'Archivo',system-ui,sans-serif;
+  font-family:'Bricolage Grotesque',system-ui,sans-serif;
   font-weight:700;
   font-size:clamp(38px,9vw,64px);
   letter-spacing:-.045em;
@@ -1149,7 +1184,7 @@ h1.wordmark{
 .standfirst b{font-weight:600;color:var(--w-ink)}
 
 h2.sec{
-  font-family:'Archivo',system-ui,sans-serif;
+  font-family:'Bricolage Grotesque',system-ui,sans-serif;
   font-weight:600;
   font-size:clamp(20px,3.4vw,25px);
   letter-spacing:-.02em;
@@ -1183,7 +1218,7 @@ section{display:flex;flex-direction:column;gap:18px}
   color:var(--w-ink-2);
   border-radius:999px;
   padding:7px 14px 7px 10px;
-  font-family:'Azeret Mono',ui-monospace,monospace;
+  font-family:'IBM Plex Sans',system-ui,sans-serif;
   font-size:11.5px;
   letter-spacing:.02em;
   cursor:pointer;
@@ -1242,10 +1277,9 @@ section{display:flex;flex-direction:column;gap:18px}
 }
 .dial{background:var(--ds-color-surface);padding:14px 16px;display:flex;flex-direction:column;gap:5px}
 .dial dt{
-  font-family:var(--ds-font-mono);
+  font-family:var(--ds-font-sans);
   font-size:var(--ds-text-micro);
-  letter-spacing:var(--ds-tracking-wide);
-  text-transform:uppercase;
+  
   color:var(--ds-color-text-muted);
 }
 .dial dd{margin:0;font-family:var(--ds-font-sans);font-size:15px;color:var(--ds-color-text)}
@@ -1255,10 +1289,9 @@ section{display:flex;flex-direction:column;gap:18px}
 .swatch-group{display:flex;flex-direction:column;gap:10px}
 .swatch-group + .swatch-group{margin-top:22px}
 .group-name{
-  font-family:var(--ds-font-mono);
+  font-family:var(--ds-font-sans);
   font-size:var(--ds-text-micro);
-  letter-spacing:var(--ds-tracking-wide);
-  text-transform:uppercase;
+  
   color:var(--ds-color-text-muted);
 }
 .swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(146px,1fr));gap:10px}
@@ -1271,11 +1304,11 @@ section{display:flex;flex-direction:column;gap:18px}
 .swatch .fill{height:46px;display:block}
 .swatch .cap{padding:8px 10px;display:flex;flex-direction:column;gap:2px}
 .swatch .name{
-  font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text);
+  font-family:var(--ds-font-sans);font-size:11px;color:var(--ds-color-text);
   overflow-wrap:anywhere;
 }
 .swatch .hex{
-  font-family:var(--ds-font-mono);font-size:10.5px;color:var(--ds-color-text-muted);
+  font-family:var(--ds-font-sans);font-size:10.5px;color:var(--ds-color-text-muted);
   overflow-wrap:anywhere;
 }
 
@@ -1289,11 +1322,10 @@ section{display:flex;flex-direction:column;gap:18px}
 .spec:first-child{border-top:0;padding-top:0}
 .spec-meta{display:flex;flex-wrap:wrap;gap:4px 14px}
 .spec-meta span{
-  font-family:var(--ds-font-mono);
+  font-family:var(--ds-font-sans);
   font-size:var(--ds-text-micro);
-  letter-spacing:var(--ds-tracking-wide);
+  
   color:var(--ds-color-text-muted);
-  text-transform:uppercase;
 }
 .spec-sample{margin:0;color:var(--ds-color-text);overflow-wrap:break-word}
 .sp-h1{font-family:var(--ds-font-display);font-size:var(--ds-type-h1-size);line-height:var(--ds-type-h1-leading);letter-spacing:var(--ds-type-h1-tracking);font-weight:var(--ds-type-h1-weight)}
@@ -1302,16 +1334,16 @@ section{display:flex;flex-direction:column;gap:18px}
 .sp-lead{font-family:var(--ds-font-sans);font-size:var(--ds-type-lead-size);line-height:var(--ds-type-lead-leading);color:var(--ds-color-text-dim);max-width:56ch}
 .sp-body{font-family:var(--ds-font-sans);font-size:var(--ds-type-body-size);line-height:var(--ds-type-body-leading);max-width:62ch}
 .sp-ui{font-family:var(--ds-font-sans);font-size:var(--ds-type-ui-size);line-height:var(--ds-type-ui-leading);font-weight:var(--ds-type-ui-weight)}
-.sp-mono{font-family:var(--ds-font-mono);font-size:var(--ds-type-mono-size);line-height:var(--ds-type-mono-leading);letter-spacing:var(--ds-type-mono-tracking);color:var(--ds-color-text-muted)}
+.sp-mono{font-family:var(--ds-font-sans);font-size:var(--ds-type-mono-size);line-height:var(--ds-type-mono-leading);letter-spacing:var(--ds-type-mono-tracking);color:var(--ds-color-text-muted)}
 
 /* Scales -------------------------------------------------------------- */
 .scale-row{display:flex;align-items:center;gap:12px;padding-block:5px}
 .scale-row .key{
   flex:none;width:52px;
-  font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text-muted);
+  font-family:var(--ds-font-sans);font-size:11px;color:var(--ds-color-text-muted);
 }
 .scale-row .bar{height:12px;border-radius:2px;background:var(--ds-color-accent);flex:none;max-width:100%}
-.scale-row .px{font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text-muted);font-variant-numeric:tabular-nums}
+.scale-row .px{font-family:var(--ds-font-sans);font-size:11px;color:var(--ds-color-text-muted);font-variant-numeric:tabular-nums}
 
 .radii{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
 .radius{display:flex;flex-direction:column;gap:7px;align-items:center}
@@ -1320,13 +1352,13 @@ section{display:flex;flex-direction:column;gap:18px}
   background:var(--ds-color-surface-raised);
   border:1px solid var(--ds-color-border-strong);
 }
-.radius .key{font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text-muted)}
+.radius .key{font-family:var(--ds-font-sans);font-size:11px;color:var(--ds-color-text-muted)}
 
 /* Motion -------------------------------------------------------------- */
 .eases{display:flex;flex-direction:column;gap:2px}
 .ease-row{display:grid;grid-template-columns:76px 1fr;gap:12px;align-items:center;padding-block:9px;border-top:1px solid var(--ds-color-border-subtle)}
 .ease-row:first-child{border-top:0}
-.ease-row .key{font-family:var(--ds-font-mono);font-size:11.5px;color:var(--ds-color-text)}
+.ease-row .key{font-family:var(--ds-font-sans);font-size:11.5px;color:var(--ds-color-text)}
 .track{
   position:relative;height:14px;border-radius:999px;
   background:var(--ds-color-surface-raised);
@@ -1344,14 +1376,14 @@ section{display:flex;flex-direction:column;gap:18px}
 .bench{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:1px;background:var(--ds-color-border);border:1px solid var(--ds-color-border);border-radius:var(--ds-radius-md);overflow:hidden}
 .cell{background:var(--ds-color-bg);padding:20px 18px;display:flex;flex-direction:column;gap:14px;min-height:170px}
 .cell-head{display:flex;flex-direction:column;gap:3px}
-.cell-name{font-family:var(--ds-font-mono);font-size:12px;color:var(--ds-color-text)}
+.cell-name{font-family:var(--ds-font-sans);font-size:12px;color:var(--ds-color-text)}
 .cell-what{font-family:var(--ds-font-sans);font-size:13px;line-height:1.45;color:var(--ds-color-text-muted)}
 .cell-demo{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto}
 .cell--wide{grid-column:1/-1}
 
 .gate-demo{width:100%;max-width:330px}
-.gate-demo .t-error-msg{font-family:var(--ds-font-mono);font-size:12px}
-.hint{font-family:var(--ds-font-mono);font-size:11px;color:var(--ds-color-text-muted);margin:8px 0 0}
+.gate-demo .t-error-msg{font-family:var(--ds-font-sans);font-size:12px}
+.hint{font-family:var(--ds-font-sans);font-size:11px;color:var(--ds-color-text-muted);margin:8px 0 0}
 
 .grad-demo{
   font-family:var(--ds-font-display);
@@ -1368,7 +1400,7 @@ section{display:flex;flex-direction:column;gap:18px}
 }
 
 .mini-btn{
-  font-family:var(--ds-font-mono);font-size:11px;
+  font-family:var(--ds-font-sans);font-size:11px;
   color:var(--ds-color-text-dim);
   background:var(--ds-color-surface);
   border:1px solid var(--ds-color-border-strong);
@@ -1400,7 +1432,7 @@ pre.cmd{
   margin:0;overflow-x:auto;
   background:var(--w-panel);border:1px solid var(--w-rule);
   border-radius:8px;padding:13px 15px;
-  font-family:'Azeret Mono',ui-monospace,monospace;font-size:12px;
+  font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:12px;
   color:var(--w-ink-2);line-height:1.7;
 }
 footer a{color:var(--w-ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--w-rule)}
@@ -1419,7 +1451,7 @@ footer a:hover{text-decoration-color:currentColor}
   <div class="meta-line">
     <span class="lab">Design system</span>
     <span class="lab">v0.1.0</span>
-    <span class="lab">trev-delivers/obvious</span>
+    
   </div>
   <h1 class="wordmark">obvious</h1>
   <p class="standfirst">
@@ -1464,7 +1496,7 @@ footer a:hover{text-decoration-color:currentColor}
 
   <section>
     <div class="sec-head">
-      <div class="sec-index"><h2 class="sec">Type</h2><span class="lab">From designedbytrev</span></div>
+      <div class="sec-index"><h2 class="sec">Type</h2><span class="lab">One scale for every app</span></div>
       <p class="sec-note">Taken straight off the portfolio. Size, line-height and tracking come as a set, so you can&rsquo;t put body line-height on a hero by accident.</p>
     </div>
     <div class="stage">
@@ -1494,8 +1526,8 @@ footer a:hover{text-decoration-color:currentColor}
           <p class="spec-sample sp-ui">Rate this condiment</p>
         </div>
         <div class="spec">
-          <div class="spec-meta"><span>mono</span><span id="m-mono"></span></div>
-          <p class="spec-sample sp-mono">CURRENT STREAK 41 DAYS · LONGEST 118</p>
+          <div class="spec-meta"><span>figures</span><span id="m-mono"></span></div>
+          <p class="spec-sample sp-mono">Current streak 41 days, longest 118</p>
         </div>
       </div>
     </div>
@@ -1598,7 +1630,7 @@ footer a:hover{text-decoration-color:currentColor}
         <div class="cell">
           <div class="cell-head">
             <span class="cell-name">t-chip</span>
-            <span class="cell-what">The selectable pill. It only owns shape and state &mdash; type is inherited, so a row of chips can be 14px sans on one site and small mono on another.</span>
+            <span class="cell-what">The selectable pill. It only owns shape and state &mdash; type is inherited, so a row of chips can be 14px on one site and 13px on another.</span>
           </div>
           <div class="cell-demo" style="gap:6px;flex-wrap:wrap">
             <button class="t-chip is-on" type="button">Work</button>
@@ -2229,9 +2261,9 @@ const THEMES = [
     },
     "fontName": {
       "display": "Bricolage Grotesque",
-      "sans": "Inter",
-      "mono": "JetBrains Mono",
-      "script": "Inter"
+      "sans": "IBM Plex Sans",
+      "mono": "IBM Plex Sans",
+      "script": "IBM Plex Sans"
     }
   },
   {
@@ -2272,10 +2304,10 @@ const THEMES = [
       "selection-text": "#241a10"
     },
     "fontName": {
-      "display": "Geist",
-      "sans": "Geist",
-      "mono": "Geist Mono",
-      "script": "Geist"
+      "display": "Young Serif",
+      "sans": "Figtree",
+      "mono": "Figtree",
+      "script": "Figtree"
     }
   },
   {
@@ -2317,8 +2349,8 @@ const THEMES = [
     },
     "fontName": {
       "display": "Libre Baskerville",
-      "sans": "Libre Baskerville",
-      "mono": "DM Mono",
+      "sans": "Libre Franklin",
+      "mono": "Libre Franklin",
       "script": "Libre Baskerville"
     }
   },
@@ -2362,7 +2394,7 @@ const THEMES = [
     "fontName": {
       "display": "ui-rounded",
       "sans": "-apple-system",
-      "mono": "ui-monospace",
+      "mono": "-apple-system",
       "script": "ui-rounded"
     }
   },
@@ -2405,9 +2437,53 @@ const THEMES = [
     },
     "fontName": {
       "display": "Fraunces",
-      "sans": "Inter",
-      "mono": "Inter",
+      "sans": "Hanken Grotesk",
+      "mono": "Hanken Grotesk",
       "script": "Fraunces"
+    }
+  },
+  {
+    "name": "specimen",
+    "label": "Specimen",
+    "description": "Eye for Type. Cool proof paper, black ink, a proofreader's red for marks and blue for the answer. Source Serif for the type being judged, Source Sans for everything around it.",
+    "family": true,
+    "app": "",
+    "dial": {
+      "radius-base": "10px",
+      "density": "1"
+    },
+    "color": {
+      "bg": "#E8E9E5",
+      "bg-alt": "#DEDFDA",
+      "surface": "#FAFAF8",
+      "surface-raised": "#FFFFFF",
+      "surface-hover": "rgba(17, 18, 16, 0.04)",
+      "border-subtle": "rgba(17, 18, 16, 0.07)",
+      "border": "rgba(17, 18, 16, 0.14)",
+      "border-strong": "rgba(17, 18, 16, 0.26)",
+      "text": "#121310",
+      "text-dim": "#3E403B",
+      "text-muted": "#62655E",
+      "text-inverse": "#FAFAF8",
+      "accent": "#C23A1E",
+      "accent-hover": "#A82F16",
+      "accent-contrast": "#FFFFFF",
+      "accent-alt": "#1D6FD0",
+      "accent-gradient": "linear-gradient(135deg, #C23A1E 0%, #A82F16 100%)",
+      "success": "#2F8A5B",
+      "warning": "#B7791F",
+      "danger": "#C23A1E",
+      "info": "#1D6FD0",
+      "shadow-color": "rgba(18, 19, 16, 0.14)",
+      "shadow-highlight": "rgba(255, 255, 255, 0.7)",
+      "selection-bg": "#1D6FD0",
+      "selection-text": "#FFFFFF"
+    },
+    "fontName": {
+      "display": "Source Serif 4",
+      "sans": "Source Sans 3",
+      "mono": "Source Sans 3",
+      "script": "Source Serif 4"
     }
   },
   {
@@ -2449,8 +2525,8 @@ const THEMES = [
     },
     "fontName": {
       "display": "IM Fell English",
-      "sans": "Instrument Serif",
-      "mono": "IBM Plex Mono",
+      "sans": "Instrument Sans",
+      "mono": "Instrument Sans",
       "script": "Caveat"
     }
   }
@@ -2546,7 +2622,7 @@ function paintVoice() {
     ["density", t.dial.density, false],
     ["display", t.fontName.display, true],
     ["sans", t.fontName.sans, true],
-    ["mono", t.fontName.mono, true],
+    ["figures", t.fontName.mono, true],
     ["accent", tokenValue("--ds-color-accent"), false],
   ];
   for (const [k, v, isFace] of rows) {
@@ -2558,7 +2634,7 @@ function paintVoice() {
     dd.textContent = v;
     if (isFace) {
       dd.className = "face";
-      dd.style.fontFamily = `var(--ds-font-${k === "display" ? "display" : k})`;
+      dd.style.fontFamily = `var(--ds-font-${k === "figures" ? "mono" : k})`;
     }
     d.append(dt, dd);
     dl.append(d);
@@ -2572,7 +2648,7 @@ function paintTypeMeta() {
     if (!el) continue;
     const sample = document.querySelector(`.sp-${role}`);
     const size = sample ? Math.round(parseFloat(getComputedStyle(sample).fontSize) * 10) / 10 : "";
-    el.textContent = `${size}px · ${tokenValue(`--ds-type-${role}-leading`)} · ${tokenValue(`--ds-type-${role}-tracking`)}`;
+    el.textContent = `${size}px, leading ${tokenValue(`--ds-type-${role}-leading`)}, tracking ${tokenValue(`--ds-type-${role}-tracking`)}`;
   }
 }
 

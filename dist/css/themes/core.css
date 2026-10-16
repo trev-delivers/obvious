@@ -7,9 +7,9 @@
   --ds-radius-base: 8px;
   --ds-density: 1;
   --ds-font-display: 'Bricolage Grotesque', system-ui, sans-serif;
-  --ds-font-sans: 'Inter', system-ui, sans-serif;
-  --ds-font-mono: 'JetBrains Mono', ui-monospace, monospace;
-  --ds-font-script: 'Inter', system-ui, sans-serif;
+  --ds-font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --ds-font-mono: 'IBM Plex Sans', system-ui, sans-serif;
+  --ds-font-script: 'IBM Plex Sans', system-ui, sans-serif;
   --ds-color-bg: #0A0B0C;
   --ds-color-bg-alt: #0F1113;
   --ds-color-surface: #16181B;

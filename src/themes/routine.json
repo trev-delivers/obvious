@@ -8,8 +8,8 @@
   },
   "font": {
     "display": "'Fraunces', Georgia, serif",
-    "sans": "'Inter', system-ui, sans-serif",
-    "mono": "'Inter', system-ui, sans-serif",
+    "sans": "'Hanken Grotesk', system-ui, sans-serif",
+    "mono": "'Hanken Grotesk', system-ui, sans-serif",
     "script": "'Fraunces', Georgia, serif"
   },
   "color": {
