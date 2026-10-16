@@ -2,7 +2,7 @@
  *
  * Different from t-reveal: that one releases a group as it scrolls into
  * view, this plays a short sequence inside something that has just
- * appeared. The portfolio uses it for the two lines in its UX-law tooltip.
+ * appeared. Used for the two lines in the UX-law tooltip.
  */
 
 .t-stagger{

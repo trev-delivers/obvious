@@ -7,7 +7,7 @@
  * The shake lives on .t-input rather than the <input> on purpose — a transform
  * on the input itself distorts its own box and the caret with it.
  *
- * Error colour is a component dial, not --ds-color-danger. On the portfolio it
+ * Error colour is a component dial, not --ds-color-danger. On core it
  * is the hot blue, because a wrong password is a "try again", not a failure;
  * point --t-input-error at the theme's danger where a form genuinely is one.
  */
