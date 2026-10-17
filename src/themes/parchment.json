@@ -1,7 +1,7 @@
 {
   "name": "parchment",
   "label": "Parchment",
-  "description": "Brookwood Hunt. Aged paper, brown ink, an oxblood seal and a bit of candlelight. The only textured one, and the only thing in it that glows is the lamp.",
+  "description": "For the Brookwood Christmas Hunt, a trail round the village. Aged paper, brown ink, an oxblood seal and a bit of candlelight. It's the only one with texture, and the lamp is the only thing that glows.",
   "family": false,
   "familyNote": "Brookwood takes the tokens and none of the interaction layer. It is the only app made for people who have never seen the others, and the shared components would make it look like part of a portfolio rather than something you found in a village.",
   "dial": {

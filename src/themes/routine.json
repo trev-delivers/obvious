@@ -1,7 +1,7 @@
 {
   "name": "routine",
   "family": true,
-  "description": "Ritual. The only one that moves: the palette is a ramp through the day, worked out from the clock, so it is warm at dawn, plain at noon and dark by bedtime. These values are the 10am stop, which is what paints before the JavaScript has read the time.",
+  "description": "For the skincare app. It's meant to be used every morning and every evening, so the colours follow the clock and it goes dark at night when the glare is all too much. What you see here is the 10am set, which is what shows before the app has checked the time.",
   "dial": {
     "radius-base": "13px",
     "density": "1"

@@ -23,6 +23,14 @@ squeezed, drizzled, or regretted." / "Built for sensitive skin. Product names
 link out to where to buy." / "Nobody's written a word on this one yet." /
 "No sign-up. Finds save to this phone as you go."
 
+When he explains why he made something, it's first person and personal:
+"I've never had a skincare regime, but decided now was a good time. I wanted
+an easy way to add to the routine (my wife has really got me into it) but
+also make something other people can use." Write theme notes, the README and
+docs pages like that, as him telling you what it's for. If it reads like the
+system describing itself, rewrite it. The skill at
+`.claude/skills/write-like-trev` has more.
+
 Dry, specific, unfussy. Commit messages can still be long where the reasoning
 earns it — that part he has not objected to — but the same rules apply to how
 they are written.

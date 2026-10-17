@@ -1,7 +1,7 @@
 {
   "name": "condimental",
   "family": true,
-  "description": "Condiment Gallery. Warm paper and brown ink with a ketchup accent and mustard behind it. Light like Brookwood but clean rather than aged, and the roundest of the five.",
+  "description": "For Condiment Gallery. Warm paper and brown ink, with a ketchup red and a bit of mustard behind it. It's light like Brookwood but cleaner, and it's the roundest of the lot.",
   "dial": {
     "radius-base": "16px",
     "density": "1"

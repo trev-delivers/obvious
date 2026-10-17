@@ -47,7 +47,7 @@ the system and become expressions of it.
 | `core` | designedbytrev | yes | Near-black, one blue accent. The reference. |
 | `condimental` | condiment-gallery | yes | Dark and glassy, mustard-to-ketchup gradient, round. |
 | `dissonance` | time-dissonance | yes | Night-sky navy with a low amber lamp. |
-| `routine` | daily-routine | yes | Light, warm off-white, one green accent. The plain one. |
+| `routine` | daily-routine | yes | Follows the clock, warm in the morning and dark at night. |
 | `parchment` | brookwood-hunt | **no** | Aged paper, brown ink, oxblood seal, candlelight. |
 | `morris` | MorrisOS | yes | Warm grey paper, near-black ink, one green. Has a dark set. |
 
