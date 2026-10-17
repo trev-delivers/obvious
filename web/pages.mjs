@@ -128,7 +128,7 @@ check.done(2600); // back to spinning after 2.6s, or 0 to stay done`,
     slug: "gradient-text",
     cls: "t-gradient-text",
     title: "Gradient text",
-    what: "Seven washes drifting over a grey ramp, with the hue cycling underneath, clipped to the letters. It's the same spectrum in every theme. Use it on 1 or 2 things a page.",
+    what: "Gold washes drifting over a bronze ramp, clipped to the letters. It's the same gold in every theme. Use it on 1 or 2 things a page.",
     demo: `<p class="demo-display">I make complicated products feel <span class="t-gradient-text">obvious</span>.</p>`,
     usage: `<span class="t-gradient-text">obvious</span>`,
   },
@@ -410,7 +410,7 @@ ${section(
 )}
 ${section(
   "The 2 that don't change",
-  `<p>Gradient text keeps its own spectrum and the check badge keeps its green. The first should look the same everywhere it appears. The second is a success signal, and a tick that changes colour per app stops reading at a glance.</p>`,
+  `<p>Gradient text keeps its own gold and the check badge keeps its green. The first should look the same everywhere it appears. The second is a success signal, and a tick that changes colour per app stops reading at a glance.</p>`,
 )}`,
   });
 
