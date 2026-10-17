@@ -26,10 +26,11 @@
     "./css/transitions-bridge.css": "./dist/css/transitions-bridge.css"
   },
   "scripts": {
-    "build": "node scripts/build.mjs && node scripts/build-registry.mjs && node docs/build-docs.mjs",
+    "build": "node scripts/build.mjs && node scripts/build-registry.mjs && node web/build.mjs",
     "check": "node scripts/build.mjs && node scripts/build-registry.mjs && git diff --exit-code -- dist",
-    "docs": "node docs/build-docs.mjs",
     "audit": "node scripts/audit-ds.mjs",
-    "registry": "node scripts/build-registry.mjs"
+    "registry": "node scripts/build-registry.mjs",
+    "site": "node web/build.mjs",
+    "site:serve": "node web/build.mjs && node web/serve.mjs"
   }
 }

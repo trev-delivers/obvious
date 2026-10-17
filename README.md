@@ -148,9 +148,15 @@ killing only the duration leaves you staring at an empty screen.
 ## Working on it
 
 ```sh
-npm run build   # regenerate dist/ from src/
-npm run check   # build and fail if dist/ is not committed up to date
+npm run build        # regenerate dist/ from src/, then build the site
+npm run check        # build and fail if dist/ is not committed up to date
+npm run site:serve   # the site on localhost:4321
 ```
+
+The website lives in `web/`. `web/build.mjs` writes it to `site/`, which
+Vercel serves and git ignores. Pages link the real stylesheets from `dist/`,
+and the token tables and theme pages are generated from `src/`, so the site
+changes when the system does. Page content is in `web/pages.mjs`.
 
 `dist/` is committed deliberately: consumers clone this repo shallowly and
 copy it, with no build step of their own.
@@ -167,7 +173,7 @@ rather than a rename across three files.
 | `t-input` | The field assembly: border tween, error state, shake, message. |
 | `t-check-badge` | Spinner that turns into a filled tick, in place. |
 | `t-pro-btn` | White pill with a glowing rim. Full width or docked icon. |
-| `t-gradient-text` | The seven-wash drifting spectrum, clipped to glyphs. |
+| `t-gradient-text` | Seven drifting gold washes, clipped to glyphs. |
 | `t-think` | Thinking shimmer: a phrase cycling under a sweeping highlight. |
 | `t-boot-ring` | Pixel-LED ring that powers up, then breathes. |
 | `t-link` | The house text link: muted on a hairline, both take the accent. |
@@ -196,7 +202,7 @@ properties rather than hard-coding it, so retiming stays a CSS change and the
 two can never disagree.
 
 Two components are deliberately not tokenised. `t-gradient-text` keeps its own
-spectrum and `t-check-badge` keeps its green: the first is a fixed material
+gold and `t-check-badge` keeps its green: the first is a fixed material
 that should look the same everywhere it appears, and the second is a success
 signal, which stops being readable at a glance if it changes colour per app.
 
