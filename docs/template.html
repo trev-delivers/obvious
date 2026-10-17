@@ -588,7 +588,7 @@ footer a:hover{text-decoration-color:currentColor}
           </div>
           <div class="cell-demo think-demo">
             <span class="t-think" id="think" role="status">
-              <span class="t-think-sizer" aria-hidden="true">Second-guessing&hellip;</span>
+              <span class="t-think-sizer" aria-hidden="true">Checking the contrast&hellip;</span>
               <span class="t-think-text" data-text="Thinking&hellip;">Thinking&hellip;</span>
             </span>
           </div>
@@ -597,7 +597,7 @@ footer a:hover{text-decoration-color:currentColor}
         <div class="cell">
           <div class="cell-head">
             <span class="cell-name">t-boot-ring</span>
-            <span class="cell-what">Pixel LEDs powering up one at a time, then settling into a chase. Positions are worked out in JS, since CSS still has no usable calc(sin()).</span>
+            <span class="cell-what">8 dots that light up in turn, then chase round. Sized to sit next to a line of text. Positions are worked out in JS, since CSS still has no usable calc(sin()).</span>
           </div>
           <div class="cell-demo" style="gap:16px">
             <div class="t-boot-ring is-running" id="boot" aria-hidden="true"></div>
@@ -848,8 +848,8 @@ document.getElementById("replay-ease").addEventListener("click", runEases);
 
 /* ---- the live components -------------------------------------------- */
 const PHRASES = [
-  "Thinking…", "Reading the room…", "Cutting the noise…",
-  "Finding signal…", "Outcomes first…", "Second-guessing…",
+  "Thinking…", "Moving it 2px left…", "Renaming the layers…",
+  "Checking the contrast…", "Asking why again…", "Undoing that…",
 ];
 cycleThink(document.getElementById("think"), shuffle(PHRASES), { pool: PHRASES });
 
