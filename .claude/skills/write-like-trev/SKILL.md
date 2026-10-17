@@ -67,6 +67,8 @@ Notice what they do: name the actual thing, give the one fact the reader needs, 
 - **Confirmations and toasts:** past tense, name the thing. "Recipe saved." "Link copied." No "Success!".
 - **Settings and toggles:** describe the on state. "Show prices", not "Disable price hiding".
 - Don't describe position or colour ("the button on the right", "the green link"). Layouts change and not everyone sees colour.
+- Don't narrate the interface. If the page shows the thing, don't also describe it ("Each sauce gets a page", "Tap a bottle and you get its page"). Cut the caption.
+- Use the stock phrase for stock situations. A login wall is "Members only" or "Sign in to see this", not a sentence about who's allowed in or what's behind it.
 - Keep it consistent. Pick one term per thing (for example "sign in" everywhere, with no stray "log in") and stick to it across the app.
 
 ### Commits, PRs and READMEs
