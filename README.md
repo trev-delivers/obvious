@@ -148,9 +148,15 @@ killing only the duration leaves you staring at an empty screen.
 ## Working on it
 
 ```sh
-npm run build   # regenerate dist/ from src/
-npm run check   # build and fail if dist/ is not committed up to date
+npm run build        # regenerate dist/ from src/, then build the site
+npm run check        # build and fail if dist/ is not committed up to date
+npm run site:serve   # the site on localhost:4321
 ```
+
+The website lives in `web/`. `web/build.mjs` writes it to `site/`, which
+Vercel serves and git ignores. Pages link the real stylesheets from `dist/`,
+and the token tables and theme pages are generated from `src/`, so the site
+changes when the system does. Page content is in `web/pages.mjs`.
 
 `dist/` is committed deliberately: consumers clone this repo shallowly and
 copy it, with no build step of their own.
