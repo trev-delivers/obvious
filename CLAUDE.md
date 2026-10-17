@@ -58,3 +58,27 @@ takes a theme.
 - Copy follows the voice notes above. Also no "not X, it's Y", no lists of
   three by habit, no summary closer, no em dashes, UK spelling, numerals
   rather than words.
+
+# Working on it
+
+`npm run check` runs everything: it builds `dist/` (which fails if a theme
+is missing a key or a contrast pair has got worse), the registry and the docs
+site, runs the tests in `test/`, audits obvious itself with `--max 113`, and
+fails if `dist/` or `docs/` isn't committed. CI runs the same, plus the
+registry smoke test with the shadcn and Next versions pinned in
+`scripts/registry-smoke/package.json`.
+
+It ships by merging to `main`. Vercel deploys the docs site, and apps pick up
+the change when they next sync or bump their pin.
+
+Careful with:
+
+- Theme keys. Every theme must have the same keys as `core`, and apps break
+  if one disappears.
+- `src/primitives.json`. A change there changes every app at once.
+- The registry components. Apps copy them in and overwrite their copy on
+  the next `add`.
+- Theme colours. Don't change them to make the contrast check pass. The
+  failing pairs are in `docs/contrast.md` for me to decide.
+- `scripts/audit-ds.mjs`, `sync-ds.mjs` and `sync-skills.mjs` are copied
+  into apps, so they stay single files with no imports beyond Node's own.
