@@ -376,7 +376,7 @@ npm run site:serve   # this site on localhost:4321`)}
   });
 
   /* Colour ---------------------------------------------------------- */
-  const swatch = (k) => `<div class="swatch">
+  const swatch = (k) => `<div class="swatch" id="ds-color-${k}">
   <span class="swatch-fill" style="background:var(--ds-color-${k})"></span>
   <span class="swatch-cap"><span class="swatch-name">${k}</span><span class="swatch-val" data-token="--ds-color-${k}"></span></span>
 </div>`;
@@ -592,7 +592,7 @@ ${section(
 <div class="runs" data-runs>${entries(primitives.ease)
     .map(
       ([k, v]) =>
-        `<div class="run-row"><span class="run-key">${tok(`--ds-ease-${k}`)}</span><span class="track"><span class="puck" style="transition:transform var(--ds-duration-slower) var(--ds-ease-${k})"></span></span></div>`,
+        `<div class="run-row" id="ds-ease-${k}"><span class="run-key">${tok(`--ds-ease-${k}`)}</span><span class="track"><span class="puck" style="transition:transform var(--ds-duration-slower) var(--ds-ease-${k})"></span></span></div>`,
     )
     .join("")}</div>
 <button class="demo-btn" type="button" data-run>Run the curves</button>
@@ -603,7 +603,7 @@ ${section(
   `<div class="runs" data-runs>${entries(primitives.duration)
     .map(
       ([k, v]) =>
-        `<div class="run-row"><span class="run-key">${tok(`--ds-duration-${k}`)} <span class="run-val">${v}</span></span><span class="track"><span class="puck" style="transition:transform var(--ds-duration-${k}) var(--ds-ease-out)"></span></span></div>`,
+        `<div class="run-row" id="ds-duration-${k}"><span class="run-key">${tok(`--ds-duration-${k}`)} <span class="run-val">${v}</span></span><span class="track"><span class="puck" style="transition:transform var(--ds-duration-${k}) var(--ds-ease-out)"></span></span></div>`,
     )
     .join("")}</div>
 <button class="demo-btn" type="button" data-run>Run the durations</button>`,
