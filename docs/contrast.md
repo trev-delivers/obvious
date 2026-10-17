@@ -6,7 +6,7 @@ These pairs fail WCAG AA. Text needs 4.5:1. The accent, which is also the focus 
 
 I haven't changed any colours. Each row has the nearest colour with the same hue that would pass. The build fails if any of these gets worse or a new one appears.
 
-15 of 96 pairs fail.
+13 of 96 pairs fail.
 
 | Theme | Pair | Now | Needs | Change | To | Then |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -14,8 +14,6 @@ I haven't changed any colours. Each row has the nearest colour with the same hue
 | condimental | text-muted on surface | 3.85 | 4.5 | text-muted `#8c8071` | `#807568` | 4.50 |
 | condimental | accent-contrast on accent | 3.72 | 4.5 | accent `#e14e3b` | `#D63621` | 4.52 |
 | core | accent-contrast on accent | 3.71 | 4.5 | accent `#5B7FE8` | `#466FE5` | 4.50 |
-| morris | text-muted on bg | 3.44 | 4.5 | text-muted `#86827A` | `#736F68` | 4.50 |
-| morris | text-muted on surface | 3.82 | 4.5 | text-muted `#86827A` | `#7A766F` | 4.51 |
 | morris | warning on bg | 2.41 | 3 | warning `#E08A2C` | `#CB791E` | 3.00 |
 | parchment | text-muted on bg | 3.82 | 4.5 | text-muted `#7d6a48` | `#705F41` | 4.53 |
 | parchment | text-muted on surface | 4.12 | 4.5 | text-muted `#7d6a48` | `#766444` | 4.52 |

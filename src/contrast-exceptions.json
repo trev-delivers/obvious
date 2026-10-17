@@ -9,8 +9,6 @@
     "accent-contrast on accent": 3.71
   },
   "morris": {
-    "text-muted on bg": 3.44,
-    "text-muted on surface": 3.82,
     "warning on bg": 2.41
   },
   "parchment": {
