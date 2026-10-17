@@ -246,6 +246,9 @@ td{color:var(--ds-color-text-dim)}
   overflow:hidden;
   background:var(--ds-color-surface);
 }
+/* Linked to from other sites by token name, e.g. /tokens/colour#ds-color-accent */
+.swatch:target{border-color:var(--ds-color-accent);box-shadow:0 0 0 var(--ds-border-hairline) var(--ds-color-accent)}
+.swatch,.run-row{scroll-margin-top:var(--ds-space-2xl)}
 .swatch-fill{display:block;height:48px;box-shadow:inset 0 -1px 0 var(--ds-color-border-subtle)}
 .swatch-cap{display:flex;flex-direction:column;gap:2px;padding:var(--ds-space-xs) var(--ds-space-xs)}
 .swatch-name{font-size:var(--ds-type-label-size);color:var(--ds-color-text)}
@@ -277,6 +280,7 @@ td{color:var(--ds-color-text-dim)}
 /* Motion runs --------------------------------------------------------- */
 .runs{display:flex;flex-direction:column;gap:var(--ds-space-xs)}
 .run-row{display:grid;grid-template-columns:200px 1fr;gap:var(--ds-space-sm);align-items:center}
+.run-row:target .run-key{color:var(--ds-color-accent)}
 .run-key{font-size:var(--ds-type-label-size)}
 .run-val{color:var(--ds-color-text-muted)}
 .track{
