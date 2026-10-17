@@ -92,7 +92,8 @@ keep a copy of `scripts/sync-ds.mjs` and a generated `ds/` folder instead:
 ```sh
 node scripts/sync-ds.mjs             # pull main into ds/
 node scripts/sync-ds.mjs --ref v0.2.0  # pin a tag
-node scripts/sync-ds.mjs --check     # CI: fail if ds/ is stale
+node scripts/sync-ds.mjs --check     # CI: fail if ds/ was edited or half-synced
+node scripts/sync-ds.mjs --latest    # also fail if ds/ is behind main
 DS_LOCAL=../obvious node scripts/sync-ds.mjs   # against a local checkout
 ```
 
