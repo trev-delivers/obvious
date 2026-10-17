@@ -16,6 +16,7 @@ Everything outstanding across the portfolio and side projects. Tick things off h
 - [ ] Find the source for the 5 tiers and the place-or-task rule
 - [ ] Decide which Eye for Type research changes to make (report: https://claude.ai/artifact/AnGY4ksmh7VHfBK2k65JYt)
 - [ ] Decide whether the Condiment Gallery demo should say its scores are made up
+- [ ] Confirm which missing Brookwood News months were double issues (July 2025 covered July and August), so the archive can say so instead of "Not available"
 
 ## For Claude, once the above is done
 
