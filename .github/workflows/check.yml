@@ -5,28 +5,40 @@ on:
     branches: [main]
   pull_request:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
+  # Builds dist/, the registry and the docs site, runs the unit tests and
+  # the audit on obvious itself, and fails if dist/ or docs/ aren't
+  # committed up to date.
   dist:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 22
-      - name: dist/ is built and committed
-        run: npm run check
+      - run: npm run check
 
   # Installs every registry item into a scratch Next app with the real shadcn
   # CLI, then typechecks a page that uses them all. Items are read from
-  # dist/r/ in this checkout, so a PR is tested before it deploys.
+  # dist/r/ in this checkout, so a PR is tested before it deploys. shadcn and
+  # Next are pinned in scripts/registry-smoke/package.json.
   registry:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     defaults:
       run:
         working-directory: scripts/registry-smoke
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 22
       - run: npm install --no-audit --no-fund
@@ -34,7 +46,7 @@ jobs:
         run: |
           for item in ../../dist/r/*.json; do
             [ "$(basename "$item")" = registry.json ] && continue
-            npx -y shadcn@latest add "$item" --yes --overwrite
+            npx shadcn add "$item" --yes --overwrite
           done
       - run: ls -R components
       - run: npx tsc --noEmit
