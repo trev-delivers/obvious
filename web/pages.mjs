@@ -251,7 +251,7 @@ revealWords(splitWords(heading)); // a heading, word by word`,
   <button type="button">Inbox</button>
   <span class="t-badge" data-open="true"><span class="t-badge-dot">3</span></span>
 </span>`,
-    notes: "Set <code>data-open</code> to <code>true</code> to pop it on and <code>false</code> to take it away. Its ring and number still read the portfolio's own <code>--bg</code> and <code>--mono</code>, so outside the portfolio the ring doesn't show.",
+    notes: "Set <code>data-open</code> to <code>true</code> to pop it on and <code>false</code> to take it away. The dot is the theme's danger colour with a ring of the page colour round it.",
   },
 ];
 
@@ -831,14 +831,21 @@ node scripts/audit-ds.mjs --max 60    # exit 1 over budget, for CI`),
 )}
 ${section(
   "What it counts",
-  `<p>Adoption is which tokens and components an app uses, and which theme it imports. Bypass is the literal colours, durations, easing curves and font stacks that went around the system. Bypass is the one to watch.</p>
+  `<p>Adoption is which tokens and components an app uses, which registry items it has installed and how many of their <code>ob-*</code> classes it uses, and which theme it imports. It reads the theme and components from <code>ds/</code>, or from <code>node_modules/obvious</code> for an app that installs it from npm.</p>
+<p>Bypass is everything that went around the system, with a line each for literal colours, durations, easing curves, font stacks, radii and px font sizes, monospace, eyebrows (capitals with letter-spacing), gradient text, and fonts loaded that the theme doesn't name. Bypass is the one to watch.</p>
 <p>It won't reach zero. Icons need literal fills and Brookwood doesn't take the interaction layer. The aim is a small number that's going down, and <code>--max</code> is there so CI can hold it.</p>`,
 )}
 ${section(
   "Exceptions",
-  `<p>Where a file is outside the system's job, say so in the app's <code>.ds-audit.json</code>.</p>` +
-    code(`{ "ignore": ["tools/"], "note": "a standalone preview harness, not the app" }`) +
-    `<p>Exceptions hide bypass findings only. A file can be outside the remit and still use tokens, and those still count towards adoption.</p>`,
+  `<p>When something is meant to stay, say why in the app's <code>.ds-audit.json</code>. <code>ignore</code> excuses every category in those paths. An entry under <code>exceptions</code> excuses one category, and only counts if it has a note.</p>` +
+    code(`{
+  "ignore": ["tools/"],
+  "note": "tools/ is a standalone preview harness.",
+  "exceptions": {
+    "gradient-text": { "ignore": ["src/hero.css"], "note": "The gold headline. I chose it." }
+  }
+}`) +
+    `<p>Exceptions only hide findings. Tokens used in an ignored file still count towards adoption.</p>`,
 )}`,
   });
 

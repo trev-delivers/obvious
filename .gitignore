@@ -5,3 +5,4 @@ scripts/registry-smoke/node_modules
 scripts/registry-smoke/components
 scripts/registry-smoke/package-lock.json
 scripts/registry-smoke/next-env.d.ts
+!test/fixtures/**/node_modules

@@ -1,0 +1,9 @@
+{
+  "ignore": ["vendor/"],
+  "note": "vendor/ is a map library's own styles.",
+  "exceptions": {
+    "gradient-text": { "ignore": ["src/hero.css"], "note": "The gold headline on the home page. Trev chose it." },
+    "radius": { "ignore": ["src/card.css"] },
+    "sparkle": { "ignore": ["src/"], "note": "not a category" }
+  }
+}

@@ -1,82 +1,81 @@
 # obvious
 
-The design system behind everything I ship. Named after the thing the
-portfolio claims: *I make complicated products feel obvious.*
+The design system behind everything I make. It's named after the line on my
+portfolio: *I make complicated products feel obvious.*
 
-Design tokens, themes and a shared interaction layer, used by every app I run. One source of truth in
-`src/`, generated into CSS, a Tailwind v4 bridge and a JS export in `dist/`.
+It holds the design tokens, the themes and the small interaction pieces my
+apps share. Everything starts in `src/` and is built into `dist/` as CSS, a
+Tailwind v4 bridge, a shadcn bridge and a JS export.
 
-The problem it solves: six repos on four different stacks. A static site with
+I needed it because my apps don't share a stack. There's a static site with
 986 lines of hand-written CSS, a Vite app with its styles in a template
-string, two Next apps on Tailwind v4, a greenfield app, and a profile README
-whose stats card is drawn by a build script. No component library spans all of
-that. CSS custom properties do, and Tailwind v4's `@theme` is itself CSS
-custom properties, so the token layer needs no adapter anywhere.
+string, Next apps on Tailwind v4 and on plain CSS, and a profile README whose
+stats card is drawn by a build script. No component library covers all of
+that, but CSS custom properties work in every one of them. Tailwind v4's
+`@theme` is custom properties too, so the tokens go in with no adapter.
 
-## How an app stays particular without leaving the family
+## What every app shares, and what it can change
 
-Two categories, and which side of the line a value falls on is the whole
-design decision:
+**Primitives** live in `src/primitives.json` and are the same in every app:
+the spacing scale, the type scale, line heights, easing curves and durations,
+the focus ring, shadow shapes, control heights and z-index layers. They're
+what makes two of my apps feel like they came from the same person even when
+they share no colours.
 
-**Invariants** live in `src/primitives.json` and are byte-identical in all six
-apps: the spacing scale, the type scale, line heights, motion easings and
-durations, focus ring behaviour, shadow shape, control heights, z-index layers.
-These are the things that make two screens feel like they were drawn by the
-same hand even when they share no colour at all.
+The type scale is copied straight from designedbytrev, using its real sizes.
+It's set by role (`--ds-type-h1-*`, `--ds-type-body-*`) so size, leading and
+tracking come as a set, and a heading can't end up with body text's 1.6 line
+height.
 
-The type scale is lifted verbatim from designedbytrev, which is the type
-authority — its real sizes, not a scale invented around them. Roles rather than
-t-shirt sizes (`--ds-type-h1-*`, `--ds-type-body-*`), because size, leading and
-tracking travel together: a heading that takes h1's size and body's 1.6 leading
-is the most common way a page quietly stops looking like the rest of them.
+**Dials** live in `src/themes/*.json` and are what each app sets for itself:
+colours, its pair of faces, `--ds-radius-base` and `--ds-density`. The radius
+steps are worked out from the base, so Brookwood sets `4px` and gets
+near-square paper while Condimental sets `16px` and gets soft cards, and a
+small radius is the same fraction of a large one in both. Density scales
+control heights and padding the same way.
 
-**Dials** live in `src/themes/*.json` and are what an app is allowed to differ
-on: palette, font trio, `--ds-radius-base`, `--ds-density`. Radius steps are
-derived from the base, so Brookwood sets `4px` and gets near-square paper
-while Condimental sets `16px` and gets soft cards, and the *ratio* between a
-small and a large radius stays the same in both. Density multiplies control
-heights and padding the same way.
+## Themes
 
-So Brookwood's parchment and Condimental's mustard stop being exceptions to
-the system and become expressions of it.
-
-## Themes, and who is in the family
-
-| Theme | App | Family | Character |
+| Theme | App | Family | What it looks like |
 | --- | --- | --- | --- |
-| `core` | designedbytrev | yes | Near-black, one blue accent. The reference. |
-| `condimental` | condiment-gallery | yes | Dark and glassy, mustard-to-ketchup gradient, round. |
-| `dissonance` | time-dissonance | yes | Night-sky navy with a low amber lamp. |
-| `routine` | daily-routine | yes | Follows the clock, warm in the morning and dark at night. |
-| `parchment` | brookwood-hunt | **no** | Aged paper, brown ink, oxblood seal, candlelight. |
-| `morris` | MorrisOS | yes | Warm grey paper, near-black ink, one green. Has a dark set. |
+| `core` | designedbytrev | yes | Near-black with one blue accent. Where a new app starts. |
+| `condimental` | condiment-gallery | yes | Warm paper, brown ink, ketchup red with a bit of mustard. The roundest. The app doesn't use obvious yet. |
+| `dissonance` | time-dissonance | yes | Night-sky navy with a low amber lamp, and a serif. |
+| `routine` | daily-routine | yes | Follows the clock: warm in the morning, dark at night. |
+| `specimen` | eye-for-type | yes | Cool proof paper and black ink, with a proofreader's red and blue. |
+| `morris` | MorrisOS | yes | Warm grey paper, near-black ink and one green. Has a dark set. |
+| `parchment` | brookwood-hunt | **no** | Aged paper, brown ink, an oxblood seal and candlelight. |
 
-Family members take everything: primitives, base, the type scale and the whole
-interaction layer below. They are meant to feel like the same hand made them.
+Family apps take everything: the primitives, `base.css`, the type scale and
+the interaction layer below.
 
-Brookwood stands apart deliberately. It is the one app built for people who
-have never seen any of the others, so it takes the primitives — spacing, type
-scale, motion curves, focus behaviour — and none of the shared components. No
-gradient text, no Pro button, no thinking shimmer. Those would make it read as
-part of a portfolio rather than as a thing found in a village. The engineering
-is shared; the voice is not.
+Brookwood is the exception. It's the one app made for people who've never
+seen any of the others, so it takes the primitives (spacing, type scale,
+easing, focus) and none of the shared components. Gradient text, the Pro
+button and the thinking shimmer would make it look like part of my portfolio
+when it's meant to look like something the village made.
 
-`core` is the reference theme in a literal sense: the build fails if any other
-theme declares a different set of semantic keys, so a theme cannot quietly
-drop a token and inherit whatever was left behind.
+`core` is the reference theme. The build fails if another theme has a
+different set of keys, so a theme can't drop a token and quietly pick up
+whatever was there before.
 
-A theme can also have a `dark` block. It can only override colours the theme
-already has (the build checks), and it's emitted under
+A theme can also have a `dark` block. It can only change colours the theme
+already has (the build checks), and it's written out under
 `prefers-color-scheme: dark`. Set `data-ds-mode="light"` or `"dark"` on
 `<html>` to force one. `morris` is the only theme with one so far, because
-MorrisOS follows the phone's setting.
+our household app follows whatever the phone is set to.
+
+The build also checks contrast for every theme and dark set. The pairs that
+fail today are in [docs/contrast.md](docs/contrast.md), each with the nearest
+colour that would pass. I haven't decided on those yet, so they're recorded
+in `src/contrast-exceptions.json` and the build only fails if one gets worse
+or a new one appears.
 
 ## Using it
 
-This repo is public, so an npm-built app can install it straight from GitHub
-with no auth. Pin a commit or tag, and use the tarball URL rather than
-`github:`, because npm records `github:` in the lockfile as an SSH URL that
-Vercel can't fetch:
+The repo is public, so an app built with npm can install it straight from
+GitHub with no login. Pin a commit or tag, and use the tarball URL: npm writes
+`github:` into the lockfile as an SSH URL, which Vercel can't fetch.
 
 ```sh
 npm i https://codeload.github.com/trev-delivers/obvious/tar.gz/<commit-or-tag>
@@ -87,14 +86,25 @@ import "obvious/css/primitives.css";
 import "obvious/css/themes/morris.css";
 ```
 
-The static site and the README card generator aren't npm-built, so they
-carry a copy of `scripts/sync-ds.mjs` and a generated `ds/` folder instead:
+The static site and the README card generator aren't built with npm, so they
+keep a copy of `scripts/sync-ds.mjs` and a generated `ds/` folder instead:
 
 ```sh
 node scripts/sync-ds.mjs             # pull main into ds/
 node scripts/sync-ds.mjs --ref v0.2.0  # pin a tag
 node scripts/sync-ds.mjs --check     # CI: fail if ds/ is stale
 DS_LOCAL=../obvious node scripts/sync-ds.mjs   # against a local checkout
+```
+
+The skills every repo should have, `engineer` and `write-like-trev`, live
+here in `.claude/skills/`. `scripts/sync-skills.mjs` copies them into an
+app's `.claude/skills/` the same way, and leaves any skills of the app's
+own alone:
+
+```sh
+node scripts/sync-skills.mjs           # pull main into .claude/skills/
+node scripts/sync-skills.mjs --check   # CI: fail if a copy is stale
+DS_LOCAL=../obvious node scripts/sync-skills.mjs
 ```
 
 Plain CSS:
@@ -114,82 +124,88 @@ Tailwind v4:
 @import "../../ds/tailwind/theme.css";
 ```
 
-That last import is **additive**. It gives you `bg-surface`, `text-ink-muted`,
-`rounded-ds-lg`, `ease-ds-out` and `shadow-ds-md`, all resolving through
-`--ds-*` at runtime rather than snapshotting values at build time, and it
-leaves Tailwind's own scales alone.
+That last import only adds names. It gives you `bg-surface`,
+`text-ink-muted`, `rounded-ds-lg`, `ease-ds-out` and `shadow-ds-md`, which
+all read the `--ds-*` variables when the page runs, and it leaves Tailwind's
+own scales alone.
 
-That namespacing is not fussiness. The first version of this bridge mapped
-straight onto `--spacing-*`, `--radius-*`, `--text-*` and `--shadow-*`, which
-quietly changed what `rounded-lg`, `text-base` and `shadow-sm` meant in the
-consuming app. `--spacing-*` was the worst of them: Tailwind resolves
-`max-w-md` through that same namespace, so `max-w-md` became 16px and every
-sheet and centred column in the app collapsed to a strip. Tailwind's spacing
-scale is numeric and is not ours to rename, so it is not mapped at all — use
-`var(--ds-space-md)` directly when you want a step.
+The first version of the bridge did map onto `--spacing-*`, `--radius-*`,
+`--text-*` and `--shadow-*`, and it changed what `rounded-lg`, `text-base`
+and `shadow-sm` meant in the app. Spacing was the worst. Tailwind works out
+`max-w-md` from the same names, so `max-w-md` became 16px and every sheet and
+centred column collapsed to a strip. So spacing isn't mapped at all. Use
+`var(--ds-space-md)` when you want a step.
 
-The two deliberate overrides are `--font-sans` and `--font-mono`. Naming the
-app's typeface is the one thing the bridge should take over.
+The bridge does take over `--font-sans` and `--font-mono` on purpose, so the
+app's typeface comes from the theme. The mono slot points at the theme's text
+face, because none of my apps use monospace.
 
-Anything that cannot read a stylesheet — the README card generator, OG images,
-canvas and WebGL code — imports the JS export instead:
+Anything that can't read a stylesheet (the README card generator, OG images,
+canvas and WebGL code) imports the JS export instead:
 
 ```js
 import { tokens } from "./ds/js/tokens.js";
 tokens.themes.core["--ds-color-accent"]; // "#5B7FE8"
 ```
 
-`ds/css/base.css` is opt-in and sets no colour or layout of its own. It is
-only the behaviours that were being rewritten in every app: box sizing, focus
-rings, `::selection`, text wrapping, and a reduced-motion block that zeroes
-delay as well as duration, because staggered entrances lean on delay and
-killing only the duration leaves you staring at an empty screen.
+`ds/css/base.css` is optional and sets no colours or layout. It's the
+behaviours I kept rewriting in every app: box sizing, focus rings,
+`::selection`, text wrapping, and a reduced-motion block that zeroes delays
+as well as durations. Staggered entrances use delays, so zeroing only the
+duration leaves you looking at an empty screen.
 
 ## Working on it
 
 ```sh
-npm run build        # regenerate dist/ from src/, then build the site
-npm run check        # build and fail if dist/ is not committed up to date
+npm run build        # rebuild dist/ from src/, then the registry and the site
+npm run check        # everything below, and fail if dist/ or docs/ isn't committed
+npm test             # just the tests
 npm run site:serve   # the site on localhost:4321
 ```
+
+`npm run check` is what CI runs. It builds `dist/` (which checks every theme
+has the same keys and that contrast hasn't got worse), the registry and the
+docs site, runs the tests in `test/`, audits obvious itself with a budget of
+113, and fails if the built files aren't committed.
 
 The website lives in `web/`. `web/build.mjs` writes it to `site/`, which
 Vercel serves and git ignores. Pages link the real stylesheets from `dist/`,
 and the token tables and theme pages are generated from `src/`, so the site
 changes when the system does. Page content is in `web/pages.mjs`.
 
-`dist/` is committed deliberately: consumers clone this repo shallowly and
-copy it, with no build step of their own.
+`dist/` is committed because apps copy it from a shallow clone and have no
+build step of their own.
 
 ## The interaction layer
 
-The portfolio's components, lifted out so the rest of the family can use them.
-They keep the `t-` prefix they were written with, which marks their origin in
-transitions.dev's work and means adopting them in designedbytrev is a deletion
-rather than a rename across three files.
+These are my portfolio's components, lifted out so the other family apps can
+use them. They keep the `t-` prefix they were written with, so moving
+designedbytrev onto them means deleting its copies with no renaming.
 
 | Component | What it is |
 | --- | --- |
-| `t-input` | The field assembly: border tween, error state, shake, message. |
-| `t-check-badge` | Spinner that turns into a filled tick, in place. |
-| `t-pro-btn` | White pill with a glowing rim. Full width or docked icon. |
-| `t-gradient-text` | Seven drifting gold washes, clipped to glyphs. |
-| `t-think` | Thinking shimmer: a phrase cycling under a sweeping highlight. |
-| `t-boot-ring` | Pixel-LED ring that powers up, then breathes. |
-| `t-link` | The house text link: muted on a hairline, both take the accent. |
+| `t-input` | The field: border tween, error state, shake and message. |
+| `t-check-badge` | A spinner that turns into a filled tick, in place. |
+| `t-pro-btn` | A white pill with a glowing rim. Full width or as a docked icon. |
+| `t-gradient-text` | 7 drifting gold washes clipped to the letters. |
+| `t-think` | A thinking shimmer: a phrase cycling under a sweeping highlight. |
+| `t-boot-ring` | A pixel-LED ring that powers up, then breathes. |
+| `t-link` | The house text link: muted on a hairline, and both take the accent on hover. |
+| `t-chip` | A selectable pill, filled or outlined. |
 | `t-reveal` | Scroll and load reveals. |
-| `t-stagger` | A short sequence of lines inside something that just appeared. |
+| `t-stagger` | A few lines arriving one after another inside something that just opened. |
 | `t-badge` | The notification dot that pops onto a button once. |
-| `t-tt` | Hover tooltip. |
-| `t-confetti` | Paper flakes with real physics that pile on the button. |
+| `t-tt` | A tooltip that shows on hover and keyboard focus. |
 
 ```css
 @import "../ds/css/components.css";      /* all of it */
 @import "../ds/css/components/field.css"; /* or just what you use */
 ```
 
-Behaviours that CSS cannot do live in one dependency-free module. Each returns
-a teardown or a control object, which is the shape a React effect wants:
+The parts CSS can't do live in one module with no dependencies. Each function
+returns a teardown or a control object, which is the shape a React effect
+wants. Confetti (`mountConfetti`, paper flakes that pile up on the button) is
+only in here:
 
 ```js
 import { mountBootRing, checkMorph, shake, cycleThink, revealOnScroll } from "./ds/js/behaviours.js";
@@ -197,64 +213,99 @@ import { mountBootRing, checkMorph, shake, cycleThink, revealOnScroll } from "./
 useEffect(() => mountBootRing(ref.current).destroy, []);
 ```
 
-Every one of them reads its timing from the component's own CSS custom
-properties rather than hard-coding it, so retiming stays a CSS change and the
-two can never disagree.
+Each one reads its timing from the component's CSS custom properties, so
+retiming is a CSS change and the CSS and JS can't disagree.
 
-Two components are deliberately not tokenised. `t-gradient-text` keeps its own
-gold and `t-check-badge` keeps its green: the first is a fixed material
-that should look the same everywhere it appears, and the second is a success
-signal, which stops being readable at a glance if it changes colour per app.
+2 components keep their own colours. `t-gradient-text` is always the same
+gold wherever it appears, and `t-check-badge` is always green because it
+means success and should read that way at a glance in any app. Gradient text
+breaks the written rule against gradient text, so it's listed as an
+exception in `.ds-audit.json` until I decide what to do with it.
 
 ## Is it actually being used?
 
-`--check` proves the vendored copy is current. That is a different question
-from whether anything uses it: an app can carry the whole system and still be
-built entirely out of hard-coded hexes.
+`--check` proves the copy in `ds/` is current. Whether the app uses any of it
+is a separate question, because an app can carry the whole system and still be
+built out of hard-coded hexes. The audit answers that one.
 
 ```sh
 npm run audit ../app-one ../app-two   # from here, across checkouts
 node scripts/audit-ds.mjs             # or from inside one app
 node scripts/audit-ds.mjs --detail    # every finding, with file:line
 node scripts/audit-ds.mjs --max 60    # exit 1 over budget, for CI
+node scripts/audit-ds.mjs --json      # the same numbers for a script
 ```
 
-It counts two things. **Adoption**: which tokens and components an app
-references, and which theme it imports. **Bypass**: the values that went
-around the system anyway — literal colours, durations, easing curves and font
-stacks. Bypass is the number that matters.
+It counts what an app takes from the system: the tokens it references, the
+`t-*` components it uses, the registry items it has installed and how many of
+their `ob-*` classes it uses, and the theme it imports. It finds the theme and
+components in `ds/`, or in `node_modules/obvious` for an app that installs it
+from npm.
 
-It is not meant to reach zero. Icons need literal fills, a one-off texture is
-a one-off decision, and Brookwood's whole point is that it does not take the
-interaction layer. The target is a number that is small, known, and going
-down. `--max` exists so it can be ratcheted rather than watched.
+Then it counts what went around the system, which is the number I care about.
+Each of these gets its own line:
 
-Where a file is genuinely outside the system's remit, say so in the app's
-`.ds-audit.json` rather than letting it sit in the count forever:
+| Category | What it looks for |
+| --- | --- |
+| literal colours | hex, `rgb()` and `hsl()` values |
+| literal durations | seconds and milliseconds in a transition or animation |
+| literal easing curves | `cubic-bezier()` and `linear()` |
+| literal font stacks | a `font-family` that names faces instead of a variable |
+| literal radii | px values in `border-radius`, `borderRadius` or `rounded-[..px]` |
+| px font sizes | px in `font-size`, `fontSize`, the `font` shorthand or `text-[..px]` |
+| monospace | `monospace`, `font-mono`, `--ds-font-mono`, `var(--mono)` and named mono faces |
+| eyebrows | capitals and letter-spacing in one rule, or `uppercase` with `tracking-*` |
+| gradient text | `background-clip: text` and `bg-clip-text` |
+| fonts loaded outside the theme | Google Fonts, `@font-face`, `next/font` or `@fontsource` loading a face the theme doesn't name |
+
+It skips `node_modules`, `ds/`, build output, `scripts/`, test fixtures, and
+the `.claude` and `.agents` folders where the skills live. Registry files
+copied into `components/obvious/` are mine, so they don't count against the
+app either.
+
+I don't expect it to reach zero. Icons need literal fills, and Brookwood
+doesn't take the interaction layer at all. I want the number small and known,
+and `--max` lets an app ratchet it down.
+
+When something is meant to stay, say why in the app's `.ds-audit.json`.
+`ignore` excuses every category in those paths. An entry under `exceptions`
+excuses one category, and only counts if it has a note:
 
 ```json
-{ "ignore": ["tools/"], "note": "a standalone preview harness, not the app" }
+{
+  "ignore": ["tools/"],
+  "note": "tools/ is a standalone preview harness.",
+  "exceptions": {
+    "gradient-text": { "ignore": ["src/hero.css"], "note": "The gold headline. I chose it." }
+  }
+}
 ```
 
-Exceptions suppress bypass findings only, never adoption. A file can be
-outside the remit and still use the tokens — Ritual's `palette.ts` writes
-every `--ds-color-*` there is — and hiding that would understate adoption to
-flatter the bypass number, which is the wrong trade.
+The audit prints how many findings each exception covered, next to its note,
+and complains about an exception with no note or a category it doesn't know.
+Exceptions only hide findings. Tokens used in an ignored file still count,
+because the skincare app's `palette.ts` writes every `--ds-color-*` there is,
+and hiding that would make the app look like it uses less of the system than
+it does.
 
-### Where it stood when the audit was written
+### Where the apps stood on 17 October 2026
+
+This is with the new categories, so it isn't comparable with the first run.
 
 | App | Tokens | Components | Bypass |
 | --- | --- | --- | --- |
-| designedbytrev | 18 | 6/8 | 92 |
-| condiment-gallery | 24 | 1/8 | 44 |
-| daily-routine | 21 | 0/8 | 99 |
-| brookwood-hunt | 17 | 0/8 | 97 |
-| time-dissonance | 14 | 0/8 | 67 |
-| trev-delivers | 11 | — | 8 |
+| MorrisOS | 23 | 4/12 | 290 |
+| designedbytrev | 53 | 8/12 | 119 |
+| brookwood-hunt | 35 | 0/12 | 81 |
+| condiment-gallery | 0 | 0 | 58 |
+| daily-routine | 36 | 0/12 | 46 |
+| eye-for-type | 40 | 0/12 | 13 |
+| trev-delivers | 11 | 0/12 | 9 |
+| time-dissonance | 37 | 10/12 | 0 |
 
-The portfolio is the only app really using the interaction layer, which is
-worth saying plainly: right now this is a token system with a component layer
-that mostly travels unused.
+condiment-gallery doesn't take obvious yet. Its colours are the condimental
+theme copied in by hand, so it scores zero for adoption. Brookwood's 0
+components is on purpose.
 
 ## React components
 
@@ -298,10 +349,10 @@ specificity, so an app sets them on `:root` to match itself. MorrisOS sets
 
 ### transitions.dev
 
-These components are wrappers around transitions.dev snippets: they set the
-classes and data attributes each snippet expects. The snippets' CSS is not in
-this repo. Its terms let you use them in as many of your own products as you
-like, but not republish them as a kit, and this repo is public.
+These components wrap transitions.dev snippets: they set the classes and data
+attributes each snippet expects. The snippets' CSS isn't in this repo. Its
+terms let you use them in as many of your own products as you like but don't
+let you republish them as a kit, and this repo is public.
 
 So each app pulls the CSS itself. Every registry item lists the snippets it
 needs, and shadcn prints the command after install:
@@ -339,5 +390,5 @@ CSS.
 tile with an 8px radius and a hairline edge, and one mark drawn with a
 2.5px round-ended stroke, in the theme's own colours. Core is a T,
 specimen an eye, dissonance a clock, routine a sun on the horizon,
-condimental a bottle and parchment a lit window. Apps copy the SVG in, plus
-PNG and ICO versions where they need them.
+condimental a bottle and parchment a lit window. There isn't one for morris
+yet. Apps copy the SVG in, plus PNG and ICO versions where they need them.

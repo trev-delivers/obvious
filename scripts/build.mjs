@@ -11,6 +11,7 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, cpSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { check as checkContrast } from "./contrast.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const src = join(root, "src");
@@ -58,6 +59,16 @@ for (const theme of themes) {
 }
 if (problems.length) {
   console.error("Theme contract broken:\n  " + problems.join("\n  "));
+  process.exit(1);
+}
+
+/* Contrast. The pairs that failed when this went in are recorded in
+   src/contrast-exceptions.json; anything new, or worse, stops the build.
+   docs/contrast.md is rewritten each time with what still fails. */
+const contrast = checkContrast();
+for (const note of contrast.better) console.log(note);
+if (contrast.regressions.length) {
+  console.error("Contrast has got worse:\n  " + contrast.regressions.join("\n  "));
   process.exit(1);
 }
 
@@ -304,5 +315,6 @@ writeFileSync(
 console.log(
   `obvious v${pkg.version}: ${primitiveVars.length} primitives, ` +
     `${themes.length} themes x ${themeVars(reference).length} semantic tokens, ` +
-    `${components.length} components.`,
+    `${components.length} components, ` +
+    `${contrast.rows.filter((r) => r.passes).length}/${contrast.rows.length} contrast pairs pass.`,
 );
