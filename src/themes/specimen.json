@@ -1,7 +1,7 @@
 {
   "name": "specimen",
   "label": "Specimen",
-  "description": "Eye for Type. Cool proof paper, black ink, a proofreader's red for marks and blue for the answer. Source Serif for the type being judged, Source Sans for everything around it.",
+  "description": "For Eye for Type. Cool proof paper and black ink, with a proofreader's red for marks and blue for the answer. Source Serif for the type you're judging, Source Sans for everything around it.",
   "family": true,
   "dial": {
     "radius-base": "10px",

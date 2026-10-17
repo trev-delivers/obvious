@@ -1,7 +1,7 @@
 {
   "name": "morris",
   "label": "Household",
-  "description": "The household app. Warm grey paper, near-black ink, one green. The only theme with a dark set, because it follows the phone's light or dark setting.",
+  "description": "For our household app. Warm grey paper, near-black ink and one green. It's the only theme with a proper dark set, because it follows whatever the phone is set to.",
   "family": true,
   "dial": {
     "radius-base": "14px",
