@@ -1,0 +1,16 @@
+.code{font-family:var(--mono)}
+.stack{font-family:ui-monospace, SFMono-Regular, Menlo, monospace}
+.slot{font-family:var(--ds-font-mono)}
+.eyebrow{text-transform:uppercase;letter-spacing:.08em}
+.acronym-ok{text-transform:uppercase;letter-spacing:0}
+.caps-ok{text-transform:uppercase}
+.shine{-webkit-background-clip:text;background-clip:text}
+.card{border-radius:8px}
+.pill{border-radius:999px}
+.round-ok{border-radius:50%}
+.zero-ok{border-radius:0}
+.token-ok{border-radius:var(--ds-radius-md, 8px)}
+.small{font-size:12px}
+.short{font:600 11px/1.4 var(--ds-font-sans)}
+.size-ok{font-size:var(--ds-text-sm)}
+.calc-ok{font-size:calc(var(--n) * 1px)}

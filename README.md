@@ -208,53 +208,87 @@ signal, which stops being readable at a glance if it changes colour per app.
 
 ## Is it actually being used?
 
-`--check` proves the vendored copy is current. That is a different question
-from whether anything uses it: an app can carry the whole system and still be
-built entirely out of hard-coded hexes.
+`--check` proves the copy in `ds/` is current. Whether the app uses any of it
+is a separate question, because an app can carry the whole system and still be
+built out of hard-coded hexes. The audit answers that one.
 
 ```sh
 npm run audit ../app-one ../app-two   # from here, across checkouts
 node scripts/audit-ds.mjs             # or from inside one app
 node scripts/audit-ds.mjs --detail    # every finding, with file:line
 node scripts/audit-ds.mjs --max 60    # exit 1 over budget, for CI
+node scripts/audit-ds.mjs --json      # the same numbers for a script
 ```
 
-It counts two things. **Adoption**: which tokens and components an app
-references, and which theme it imports. **Bypass**: the values that went
-around the system anyway — literal colours, durations, easing curves and font
-stacks. Bypass is the number that matters.
+It counts what an app takes from the system: the tokens it references, the
+`t-*` components it uses, the registry items it has installed and how many of
+their `ob-*` classes it uses, and the theme it imports. It finds the theme and
+components in `ds/`, or in `node_modules/obvious` for an app that installs it
+from npm.
 
-It is not meant to reach zero. Icons need literal fills, a one-off texture is
-a one-off decision, and Brookwood's whole point is that it does not take the
-interaction layer. The target is a number that is small, known, and going
-down. `--max` exists so it can be ratcheted rather than watched.
+Then it counts what went around the system, which is the number I care about.
+Each of these gets its own line:
 
-Where a file is genuinely outside the system's remit, say so in the app's
-`.ds-audit.json` rather than letting it sit in the count forever:
+| Category | What it looks for |
+| --- | --- |
+| literal colours | hex, `rgb()` and `hsl()` values |
+| literal durations | seconds and milliseconds in a transition or animation |
+| literal easing curves | `cubic-bezier()` and `linear()` |
+| literal font stacks | a `font-family` that names faces instead of a variable |
+| literal radii | px values in `border-radius`, `borderRadius` or `rounded-[..px]` |
+| px font sizes | px in `font-size`, `fontSize`, the `font` shorthand or `text-[..px]` |
+| monospace | `monospace`, `font-mono`, `--ds-font-mono`, `var(--mono)` and named mono faces |
+| eyebrows | capitals and letter-spacing in one rule, or `uppercase` with `tracking-*` |
+| gradient text | `background-clip: text` and `bg-clip-text` |
+| fonts loaded outside the theme | Google Fonts, `@font-face`, `next/font` or `@fontsource` loading a face the theme doesn't name |
+
+It skips `node_modules`, `ds/`, build output, `scripts/`, test fixtures, and
+the `.claude` and `.agents` folders where the skills live. Registry files
+copied into `components/obvious/` are mine, so they don't count against the
+app either.
+
+I don't expect it to reach zero. Icons need literal fills, and Brookwood
+doesn't take the interaction layer at all. I want the number small and known,
+and `--max` lets an app ratchet it down.
+
+When something is meant to stay, say why in the app's `.ds-audit.json`.
+`ignore` excuses every category in those paths. An entry under `exceptions`
+excuses one category, and only counts if it has a note:
 
 ```json
-{ "ignore": ["tools/"], "note": "a standalone preview harness, not the app" }
+{
+  "ignore": ["tools/"],
+  "note": "tools/ is a standalone preview harness.",
+  "exceptions": {
+    "gradient-text": { "ignore": ["src/hero.css"], "note": "The gold headline. I chose it." }
+  }
+}
 ```
 
-Exceptions suppress bypass findings only, never adoption. A file can be
-outside the remit and still use the tokens — Ritual's `palette.ts` writes
-every `--ds-color-*` there is — and hiding that would understate adoption to
-flatter the bypass number, which is the wrong trade.
+The audit prints how many findings each exception covered, next to its note,
+and complains about an exception with no note or a category it doesn't know.
+Exceptions only hide findings. Tokens used in an ignored file still count,
+because Ritual's `palette.ts` writes every `--ds-color-*` there is and hiding
+that would make the app look like it uses less of the system than it does.
 
-### Where it stood when the audit was written
+### Where the apps stood on 17 October 2026
+
+This is with the new categories, so it isn't comparable with the first run.
 
 | App | Tokens | Components | Bypass |
 | --- | --- | --- | --- |
-| designedbytrev | 18 | 6/8 | 92 |
-| condiment-gallery | 24 | 1/8 | 44 |
-| daily-routine | 21 | 0/8 | 99 |
-| brookwood-hunt | 17 | 0/8 | 97 |
-| time-dissonance | 14 | 0/8 | 67 |
-| trev-delivers | 11 | — | 8 |
+| MorrisOS | 23 | 4/12 | 290 |
+| designedbytrev | 53 | 8/12 | 119 |
+| brookwood-hunt | 35 | 0/12 | 81 |
+| condiment-gallery | 0 | 0 | 58 |
+| daily-routine | 36 | 0/12 | 46 |
+| eye-for-type | 40 | 0/12 | 13 |
+| trev-delivers | 11 | 0/12 | 9 |
+| time-dissonance | 37 | 10/12 | 0 |
 
-The portfolio is the only app really using the interaction layer, which is
-worth saying plainly: right now this is a token system with a component layer
-that mostly travels unused.
+condiment-gallery doesn't take obvious yet. Its colours are the condimental
+theme copied in by hand, so it scores zero for adoption. Brookwood's 0
+components is on purpose.
 
 ## React components
 
