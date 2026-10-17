@@ -251,7 +251,7 @@ revealWords(splitWords(heading)); // a heading, word by word`,
   <button type="button">Inbox</button>
   <span class="t-badge" data-open="true"><span class="t-badge-dot">3</span></span>
 </span>`,
-    notes: "Set <code>data-open</code> to <code>true</code> to pop it on and <code>false</code> to take it away. Its ring and number still read the portfolio's own <code>--bg</code> and <code>--mono</code>, so outside the portfolio the ring doesn't show.",
+    notes: "Set <code>data-open</code> to <code>true</code> to pop it on and <code>false</code> to take it away. The dot is the theme's danger colour with a ring of the page colour round it.",
   },
 ];
 
