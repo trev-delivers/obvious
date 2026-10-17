@@ -511,7 +511,11 @@ export function Matrix({ variant = "orbit" }: { variant?: "orbit" | "scan" | "tw
 
 const CELLS = Array.from({ length: 40 }, (_, i) => i % 10);
 
-function ReelCol({ digit, index }: { digit: number; index: number }) {
+/* Each cell is 1/40 of the strip, so positions are percentages and stay right
+   if the cell size changes with the screen. */
+const at = (n: number) => `translateY(${(-n / CELLS.length) * 100}%)`;
+
+function ReelCol({ digit, index, roll }: { digit: number; index: number; roll: boolean }) {
   const strip = useRef<HTMLDivElement>(null);
   const blur = useRef<SVGFEGaussianBlurElement>(null);
   const prev = useRef<number | null>(null);
@@ -520,11 +524,10 @@ function ReelCol({ digit, index }: { digit: number; index: number }) {
   useLayoutEffect(() => {
     const el = strip.current;
     if (!el) return;
-    const cell = el.parentElement!.clientHeight || 30;
 
     if (prev.current === null || reduced()) {
       el.style.transition = "none";
-      el.style.transform = `translateY(${-digit * cell}px)`;
+      el.style.transform = at(digit);
       prev.current = digit;
       return;
     }
@@ -532,15 +535,18 @@ function ReelCol({ digit, index }: { digit: number; index: number }) {
 
     const from = prev.current;
     prev.current = digit;
-    const dur = readMs("--reel-dur", 1400);
+    /* A spin goes round twice before landing. A roll moves forward to the next
+       digit, the way a clock turns over, so 9 to 0 is one step. */
+    const to = roll ? from + ((digit - from + 10) % 10) : 20 + digit;
+    const dur = roll ? readMs("--reel-roll-dur", 600) : readMs("--reel-dur", 1400);
     const delay = index * readMs("--reel-stagger", 90);
-    const maxBlur = readMs("--reel-spin-blur", 3);
+    const maxBlur = readMs("--reel-spin-blur", 3) * (roll ? 0.5 : 1);
 
     el.style.transition = "none";
-    el.style.transform = `translateY(${-from * cell}px)`;
+    el.style.transform = at(from);
     void el.offsetWidth;
     el.style.transition = `transform ${dur}ms var(--reel-ease) ${delay}ms`;
-    el.style.transform = `translateY(${-(20 + digit) * cell}px)`;
+    el.style.transform = at(to);
     el.style.filter = `url(#${id})`;
 
     let raf = 0;
@@ -555,7 +561,7 @@ function ReelCol({ digit, index }: { digit: number; index: number }) {
 
     const done = window.setTimeout(() => {
       el.style.transition = "none";
-      el.style.transform = `translateY(${-digit * cell}px)`;
+      el.style.transform = at(digit);
       el.style.filter = "";
     }, dur + delay + 40);
 
@@ -563,7 +569,7 @@ function ReelCol({ digit, index }: { digit: number; index: number }) {
       cancelAnimationFrame(raf);
       window.clearTimeout(done);
     };
-  }, [digit, index, id]);
+  }, [digit, index, id, roll]);
 
   return (
     <span className="t-reel-col">
@@ -585,17 +591,20 @@ function ReelCol({ digit, index }: { digit: number; index: number }) {
   );
 }
 
-export function Reel({ value, cell = 22 }: { value: number; cell?: number }) {
-  const digits = String(Math.max(0, Math.floor(value))).split("").map(Number);
+/* cell sets the digit height in px; leave it out to size it from --reel-cell
+   in CSS. pad keeps leading zeros, so 5 past reads 05. roll steps to the next
+   digit instead of spinning, for things that tick like a clock. */
+export function Reel({ value, cell, pad = 0, roll = false }: { value: number; cell?: number; pad?: number; roll?: boolean }) {
+  const digits = String(Math.max(0, Math.floor(value))).padStart(pad, "0").split("").map(Number);
   return (
     <span
       className="t-reel"
       role="img"
       aria-label={String(value)}
-      style={{ ["--reel-cell" as string]: `${cell}px` } as CSSProperties}
+      style={cell ? ({ ["--reel-cell" as string]: `${cell}px` } as CSSProperties) : undefined}
     >
       {digits.map((d, i) => (
-        <ReelCol key={digits.length - i} digit={d} index={i} />
+        <ReelCol key={digits.length - i} digit={d} index={i} roll={roll} />
       ))}
     </span>
   );
