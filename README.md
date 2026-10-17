@@ -97,6 +97,17 @@ node scripts/sync-ds.mjs --check     # CI: fail if ds/ is stale
 DS_LOCAL=../obvious node scripts/sync-ds.mjs   # against a local checkout
 ```
 
+The skills every repo should have, `engineer` and `write-like-trev`, live
+here in `.claude/skills/`. `scripts/sync-skills.mjs` copies them into an
+app's `.claude/skills/` the same way, and leaves any skills of the app's
+own alone:
+
+```sh
+node scripts/sync-skills.mjs           # pull main into .claude/skills/
+node scripts/sync-skills.mjs --check   # CI: fail if a copy is stale
+DS_LOCAL=../obvious node scripts/sync-skills.mjs
+```
+
 Plain CSS:
 
 ```html

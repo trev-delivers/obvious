@@ -34,7 +34,7 @@ Everything outstanding across the portfolio and side projects. Tick things off h
 - [ ] Case study: card disputes, as a shorter 4th piece
 - [ ] Piece on building with AI
 - [ ] Go through every site's copy against write-like-trev and fix what doesn't fit
-- [ ] Make the design system sync script copy write-like-trev into each repo, so the copies stay current
+- [x] Make the design system sync script copy write-like-trev into each repo, so the copies stay current (`scripts/sync-skills.mjs`, which copies the engineer skill too)
 - [ ] Condiment Gallery: let other people make their own gallery
 
 ## Tidying
