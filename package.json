@@ -27,7 +27,7 @@
   },
   "scripts": {
     "build": "node scripts/build.mjs && node scripts/build-registry.mjs && node web/build.mjs",
-    "check": "node scripts/build.mjs && node scripts/build-registry.mjs && node web/build.mjs && node --test test/*.test.mjs && node scripts/audit-ds.mjs --max 52 && git diff --exit-code -- dist docs",
+    "check": "node scripts/build.mjs && node scripts/build-registry.mjs && node web/build.mjs && node --test test/*.test.mjs && node scripts/audit-ds.mjs --max 44 && git diff --exit-code -- dist docs",
     "audit": "node scripts/audit-ds.mjs",
     "registry": "node scripts/build-registry.mjs",
     "site": "node web/build.mjs",
