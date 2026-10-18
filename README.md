@@ -108,6 +108,11 @@ node scripts/sync-skills.mjs --check   # CI: fail if a copy is stale
 DS_LOCAL=../obvious node scripts/sync-skills.mjs
 ```
 
+There's a third skill, `editorial-design`, for laying out things people
+read: newsletters, magazines, reports. I made it for the Brookwood News
+newsletter. It doesn't sync to every app, so copy the folder into any app
+that needs it.
+
 Plain CSS:
 
 ```html
