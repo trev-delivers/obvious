@@ -4,9 +4,9 @@
  */
 
 .ob-gradient-text{
-  --ob-gold-dark:#8A5A1C;
-  --ob-gold:#D9A441;
-  --ob-gold-light:#F2D58C;
+  --ob-gold-dark:#A87428;
+  --ob-gold:#E3B04E;
+  --ob-gold-light:#F7DE9A;
   --ob-gold-drift:7000ms;
   background-image:linear-gradient(
     110deg,
