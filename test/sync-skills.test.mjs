@@ -5,6 +5,7 @@ import { join, dirname } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
+import { SKILLS } from "../scripts/sync-skills.mjs";
 
 const script = join(dirname(fileURLToPath(import.meta.url)), "..", "scripts", "sync-skills.mjs");
 
@@ -12,7 +13,7 @@ function setup() {
   const base = mkdtempSync(join(tmpdir(), "sync-skills-test-"));
   const source = join(base, "obvious");
   const app = join(base, "app");
-  for (const name of ["engineer", "write-like-trev"]) {
+  for (const name of SKILLS) {
     mkdirSync(join(source, ".claude", "skills", name, "references"), { recursive: true });
     writeFileSync(join(source, ".claude", "skills", name, "SKILL.md"), `# ${name}\n`);
     writeFileSync(join(source, ".claude", "skills", name, "references", "a.md"), "a\n");
@@ -25,7 +26,7 @@ function setup() {
 const sync = (app, source, ...args) =>
   spawnSync(process.execPath, [script, ...args], { cwd: app, env: { ...process.env, DS_LOCAL: source } });
 
-test("copies both skills and leaves the app's own skills alone", () => {
+test("copies every shared skill and leaves the app's own skills alone", () => {
   const { base, source, app } = setup();
   assert.equal(sync(app, source).status, 0);
   assert.equal(readFileSync(join(app, ".claude/skills/engineer/SKILL.md"), "utf8"), "# engineer\n");
@@ -63,4 +64,9 @@ test("fails clearly when the source has no skills", () => {
   assert.equal(r.status, 1);
   assert.match(r.stderr.toString(), /has no \.claude\/skills\/engineer/);
   rmSync(base, { recursive: true });
+});
+
+test("every shared skill exists in obvious", () => {
+  const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+  for (const name of SKILLS) assert.ok(existsSync(join(root, ".claude", "skills", name, "SKILL.md")), name);
 });

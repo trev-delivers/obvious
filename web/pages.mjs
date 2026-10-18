@@ -856,7 +856,7 @@ ${items
   .join("")}
 ${section(
   "transitions.dev",
-  `<p>These components wrap transitions.dev snippets. The snippets' CSS isn't in this repo: their licence lets you use them in your own products but not republish them as a kit, and this repo is public. Each app pulls the CSS itself with the command under each component.</p>
+  `<p>These components wrap transitions.dev snippets. The snippets' CSS isn't in this repo: their licence lets you use them in your own products but not republish them as a kit, and this registry is public. Each app pulls the CSS itself with the command under each component.</p>
 <p>Load the CSS in this order: primitives and a theme, the transitions.dev CSS, <code>obvious/css/transitions-bridge.css</code>, then the app's own styles. The bridge points transitions.dev's colour hooks at the theme, and has to come after because transitions.dev sets its own dark grey defaults on <code>:root</code>.</p>`,
 )}
 ${section(

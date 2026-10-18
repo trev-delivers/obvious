@@ -29,8 +29,10 @@ uses this". As checks:
 8. `ds/` is current (`node scripts/sync-ds.mjs --check`), or the npm pin is
    recent.
 
-`audit-ds.mjs` checks 1 and part of 3 only. `scripts/scan.mjs` in this skill
-checks 4, 5 and parts of 6 by pattern. Neither replaces looking at the
+`audit-ds.mjs` checks 1, 3, 4, 5 and gradient text from 6, and its app's
+copy can fall behind obvious's (run obvious's own on the app). Spacing,
+line height and weight literals get past it. `scripts/scan.mjs` in this
+skill checks more of 6 by pattern; `design-system-guardian` has the rest. Neither replaces looking at the
 screen. A clean audit isn't proof.
 
 Several apps break these today, including the system itself (it ships
