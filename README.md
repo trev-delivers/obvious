@@ -206,8 +206,7 @@ use, with an `ob-` prefix.
 
 The parts CSS can't do live in one module with no dependencies. Each function
 returns a teardown or a control object, which is the shape a React effect
-wants. Confetti (`mountConfetti`, paper flakes that pile up on the button) is
-only in here:
+wants:
 
 ```js
 import { inlineLoading, shakeField, cycleLoadingText, revealOnScroll } from "./ds/js/behaviours.js";
