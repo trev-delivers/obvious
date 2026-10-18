@@ -171,3 +171,14 @@ if ($("badge")) {
   $("replay-badge").addEventListener("click", pop);
   setTimeout(pop, 400);
 }
+
+/* ---- skills ----------------------------------------------------------- */
+document.querySelectorAll(".skill-lock").forEach((btn) => {
+  const note = document.getElementById(btn.getAttribute("aria-describedby"));
+  btn.addEventListener("click", () => {
+    note.textContent = "Locked. Ask me if you'd like a look.";
+    btn.classList.remove("is-nudged");
+    void btn.offsetWidth;
+    btn.classList.add("is-nudged");
+  });
+});

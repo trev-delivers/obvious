@@ -54,3 +54,18 @@ test("every internal link and asset exists", () => {
 test("no em or en dashes in the copy", () => {
   for (const page of pages) assert.doesNotMatch(readFileSync(page, "utf8"), /[–—]/, page);
 });
+
+/* The skills page shows what each skill is for. Their text names the family
+   and each app's open gaps, so none of it, and nothing to download, may
+   reach the site. */
+test("skills page is locked and carries no skill text", () => {
+  const html = readFileSync(join(site, "skills.html"), "utf8");
+  const locks = html.match(/class="skill-lock"[^>]*aria-disabled="true"/g) ?? [];
+  assert.ok(locks.length >= 5, `only ${locks.length} locked buttons`);
+  assert.doesNotMatch(html, /href="[^"]*\.(md|zip)"|\bdownload=/);
+  const all = pages.map((p) => readFileSync(p, "utf8")).join("\n");
+  const skillText = readFileSync(join(root, ".claude", "skills", "engineer", "references", "repos.md"), "utf8");
+  for (const secret of ["Darcy", "hvyvtgshinhrwtkewgly", skillText.split("\n").find((l) => l.length > 60)]) {
+    assert.ok(!all.includes(secret), `site contains ${secret}`);
+  }
+});

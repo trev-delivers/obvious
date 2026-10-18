@@ -257,6 +257,50 @@ revealWords(splitWords(heading)); // a heading, word by word`,
 
 /* ---- pages ----------------------------------------------------------- */
 
+/* The Claude skills I build with. Written out by hand because most of them
+   live in other repos, and because their text stays private: it names the
+   family and the gaps still open in each app. The page shows what each one
+   is for and nothing else, so there's nothing in the page to download. */
+const SKILLS = [
+  {
+    name: "engineer",
+    title: "Engineer",
+    what: "The senior engineer on my projects. I can't read code, so it does the reviewing and testing too: runs the checks before and after, opens every page at phone and desktop width, and reports back in plain words with screenshots. It can audit a whole app on its own and only tell me what it could prove.",
+    inside: "standards for shipping, security, data, front end, accessibility and design, a page on each of my repos and what not to break in it, the audit routine, and a script that scans for broken design rules.",
+    used: "Every app",
+  },
+  {
+    name: "write-like-trev",
+    title: "Write like Trev",
+    what: "How I write. It covers every word in my apps, READMEs and commit messages: plain UK English, numerals, no em dashes, and a long list of the things that make copy read as machine-written.",
+    inside: "the voice with examples of the real thing, drafting rules, microcopy for buttons, errors and empty states, and a check to run before sending.",
+    used: "Every app",
+  },
+  {
+    name: "write-portfolio",
+    title: "Write the portfolio",
+    what: "For designedbytrev.com. Who reads a portfolio and what they're looking for, plus truth rules: no invented numbers, quotes, dates or results.",
+    inside: "the reader, what goes in a case study, and the truth rules.",
+    used: "designedbytrev.com",
+  },
+  {
+    name: "shopping-basket-builder",
+    title: "Basket builder",
+    what: "Does our weekly food shop. It reads the week's meals and what's already in the cupboards from our household app, fills a supermarket basket and books a delivery slot around the family calendar. It stops before payment.",
+    inside: "how to plan the meals, which supermarkets and how to use them, and what we never buy.",
+    used: "Household app",
+  },
+  {
+    name: "household-inventory-check",
+    title: "What's in the cupboards",
+    what: "Works out what's already in the fridge, freezer and cupboards so we don't buy it twice.",
+    inside: "where the stock list lives and how to read it.",
+    used: "Household app",
+  },
+];
+
+const PADLOCK = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>`;
+
 export function pages({ pkg, primitives, registry, themes, knobs }) {
   const core = themes.find((t) => t.name === "core");
   const tokenCount =
@@ -305,6 +349,7 @@ ${section(
 ${section(
   "What's in it",
   `<p>${themes.length} <a class="t-link" href="/themes">themes</a>, ${COMPONENTS.length} <a class="t-link" href="/components">CSS components</a> with a small behaviours module for the parts CSS can't do, and ${registry.items.length} <a class="t-link" href="/react">React components</a> served as a shadcn registry. There's also a Tailwind v4 bridge, a shadcn bridge, a JS export of every token for canvas and OG images, and an <a class="t-link" href="/audit">audit script</a> that counts how much of an app goes around the system.</p>
+<p>The <a class="t-link" href="/skills">Claude skills</a> I build with are here too.</p>
 <p><a class="t-link t-link--loud" href="/start">Add it to an app</a></p>`,
 )}`,
   });
@@ -846,6 +891,33 @@ ${section(
   }
 }`) +
     `<p>Exceptions only hide findings. Tokens used in an ignored file still count towards adoption.</p>`,
+)}`,
+  });
+
+  /* Skills ---------------------------------------------------------- */
+  out.push({
+    path: "/skills",
+    group: "Skills",
+    nav: "Claude skills",
+    title: "Claude skills",
+    description: "The instructions I've written for Claude so it builds my apps properly and writes like me.",
+    body: `
+${head("Claude skills", "I can design but I can't code. These are the instructions I've written for Claude so the code it writes for my apps holds up, and so it sounds like me when it writes the words. They're set up for my own projects, so the downloads are locked.")}
+<ul class="skill-list">${SKILLS.map(
+      (s) => `<li class="skill">
+  <h2 class="skill-name">${esc(s.title)}</h2>
+  <p>${esc(s.what)}</p>
+  <p class="skill-meta">In it: ${esc(s.inside)}</p>
+  <p class="skill-meta">Used in: ${esc(s.used)}</p>
+  <div class="skill-get">
+    <button class="skill-lock" type="button" aria-disabled="true" aria-describedby="lock-${s.name}">${PADLOCK}<span>Download</span></button>
+    <p class="note" id="lock-${s.name}" role="status">Locked</p>
+  </div>
+</li>`,
+    ).join("")}</ul>
+${section(
+  "Asking for a copy",
+  `<p>Ask me and I'll talk you through them. The engineer skill is the one I'd start with.</p>`,
 )}`,
   });
 
