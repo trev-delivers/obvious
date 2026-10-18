@@ -342,6 +342,29 @@ td{color:var(--ds-color-text-dim)}
 }
 
 /* Phones -------------------------------------------------------------- */
+/* Skills -------------------------------------------------------------- */
+.skill-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.skill{padding-block:var(--ds-space-lg);border-top:var(--ds-border-hairline) solid var(--ds-color-border-subtle);display:flex;flex-direction:column;gap:var(--ds-space-xs)}
+.skill:first-child{border-top:0;padding-top:0}
+.skill-name{margin:0;font-family:var(--ds-font-display);font-size:var(--ds-type-h3-size);line-height:var(--ds-type-h3-leading);font-weight:var(--ds-type-h3-weight)}
+.skill p{max-width:var(--ds-measure)}
+.skill-meta{font-size:var(--ds-type-label-size);line-height:var(--ds-type-label-leading);color:var(--ds-color-text-dim)}
+.skill-get{display:flex;align-items:center;flex-wrap:wrap;gap:var(--ds-space-sm);margin-top:var(--ds-space-2xs)}
+.skill-lock{
+  display:inline-flex;align-items:center;gap:var(--ds-space-xs);
+  font:inherit;font-size:var(--ds-type-label-size);font-weight:var(--ds-type-label-weight);
+  min-height:var(--ds-control-tap-min);
+  padding:0 var(--ds-control-pad-x-sm);
+  color:var(--ds-color-text-muted);
+  background:var(--ds-color-bg-alt);
+  border:var(--ds-border-hairline) solid var(--ds-color-border);
+  border-radius:var(--ds-radius-sm);
+  cursor:not-allowed;
+}
+.skill-lock.is-nudged{animation:skill-nudge var(--ds-duration-base) var(--ds-ease-out)}
+@keyframes skill-nudge{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+@media (prefers-reduced-motion:reduce){.skill-lock.is-nudged{animation:none}}
+
 @media (max-width:860px){
   .shell{display:block}
   .menu-btn{display:inline-block}

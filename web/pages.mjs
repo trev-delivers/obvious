@@ -257,6 +257,57 @@ revealWords(splitWords(heading)); // a heading, word by word`,
 
 /* ---- pages ----------------------------------------------------------- */
 
+/* The Claude skills I build with. Written out by hand because most of them
+   live in other repos, and because their text stays private: it names the
+   family and the gaps still open in each app. The page shows what each one
+   is for and nothing else, so there's nothing in the page to download. */
+const SKILLS = [
+  {
+    name: "engineer",
+    title: "Engineer",
+    what: "The senior engineer on my projects. I can't read code, so it does the reviewing and testing too: runs the checks before and after, opens every page at phone and desktop width, and reports back in plain words with screenshots. It can audit a whole app on its own and only tell me what it could prove.",
+    inside: "standards for shipping, security, data, front end, accessibility and design, a page on each of my repos and what not to break in it, the audit routine, and a script that scans for broken design rules.",
+    used: "Every app",
+  },
+  {
+    name: "figma-to-code",
+    title: "Figma to code",
+    what: "I design in Figma and build with Claude, and the handoff was always where it went wrong: hex values copied from the frame, a layout that worked at one width, no idea what happens when a list is empty. This builds the screen from my design system instead. It matches every value in the frame to a token and tells me which ones have no match, makes it work on a phone and a laptop, then screenshots what it built next to Figma's render and fixes what's off.",
+    inside: "a 9-step checklist, a script that matches Figma values to tokens, a script that compares screenshots, and notes on responsive layout, states and accessibility.",
+    used: "Any app on obvious, with Figma's MCP server",
+  },
+  {
+    name: "design-system-guardian",
+    title: "Design system guardian",
+    what: "Keeps new screens made from obvious. Before it writes any CSS it finds the app's theme and reaches for a token or a component that already exists. It runs my audit before and after, and every value that goes around the system is either swapped for its token or written down with a measured reason. The first time I ran it, it found an app passing its own audit at 0 that the current audit put at 52.",
+    inside: "a checklist, the order to build from, the audit read line by line, rules for exceptions and budgets, when something belongs in obvious itself, and 2 scripts: one reads an app's setup, one finds the nearest token for a value.",
+    used: "Every app on obvious",
+  },
+  {
+    name: "a11y-review",
+    title: "Accessibility review",
+    what: "Checks a page against WCAG 2.2 AA the way a decent tester would. Automated tools find some of the problems and none of the judgement calls, so after the measured pass it goes through with a keyboard, a narrow screen, bigger text spacing and the screen reader's view, and checks dialogs and menus against how they're meant to behave. It throws out what the tools got wrong and tells me who each problem stops.",
+    inside: "a measured pass script, the manual checks for WCAG 2.2 AA including everything new in 2.2, the ARIA patterns for common widgets, severity rules, known false positives and a report template.",
+    used: "Before a new screen, form or flow ships",
+  },
+  {
+    name: "design-critique",
+    title: "Design critique",
+    what: "Feedback the way a good design lead gives it in a crit. It writes down what the screen is for and who it's for first, and says when it's guessing. Then it opens the app at phone and desktop width, clicks through the flow and makes the empty, loading and error states appear. Findings are ranked by how much they get in the way of the task, with what's working and plain taste kept separate.",
+    inside: "a goal-first procedure, 12 things to look at tied to obvious's tokens, a screenshot script, ways to make every state appear, and Nielsen's severity scale.",
+    used: "Any screen, flow or prototype",
+  },
+  {
+    name: "ux-writing",
+    title: "UX writing",
+    what: "Content design with no voice of its own, so it uses whatever voice guide a product already has. It covers what goes on a button, how an error says what went wrong and how to fix it, when a confirm dialog earns its place, alt text and labels that work with a screen reader, and copy that survives translation. A script pulls every string out of an app so the copy can be read without opening the code.",
+    inside: "patterns for every common interface string, readability research, accessibility text, inclusive language, writing for translation, a term list and the string-finding script.",
+    used: "Any app with words on screen",
+  },
+];
+
+const PADLOCK = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>`;
+
 export function pages({ pkg, primitives, registry, themes, knobs }) {
   const core = themes.find((t) => t.name === "core");
   const tokenCount =
@@ -305,6 +356,7 @@ ${section(
 ${section(
   "What's in it",
   `<p>${themes.length} <a class="t-link" href="/themes">themes</a>, ${COMPONENTS.length} <a class="t-link" href="/components">CSS components</a> with a small behaviours module for the parts CSS can't do, and ${registry.items.length} <a class="t-link" href="/react">React components</a> served as a shadcn registry. There's also a Tailwind v4 bridge, a shadcn bridge, a JS export of every token for canvas and OG images, and an <a class="t-link" href="/audit">audit script</a> that counts how much of an app goes around the system.</p>
+<p>The <a class="t-link" href="/skills">Claude skills</a> I build with are here too.</p>
 <p><a class="t-link t-link--loud" href="/start">Add it to an app</a></p>`,
 )}`,
   });
@@ -804,7 +856,7 @@ ${items
   .join("")}
 ${section(
   "transitions.dev",
-  `<p>These components wrap transitions.dev snippets. The snippets' CSS isn't in this repo: their licence lets you use them in your own products but not republish them as a kit, and this repo is public. Each app pulls the CSS itself with the command under each component.</p>
+  `<p>These components wrap transitions.dev snippets. The snippets' CSS isn't in this repo: their licence lets you use them in your own products but not republish them as a kit, and this registry is public. Each app pulls the CSS itself with the command under each component.</p>
 <p>Load the CSS in this order: primitives and a theme, the transitions.dev CSS, <code>obvious/css/transitions-bridge.css</code>, then the app's own styles. The bridge points transitions.dev's colour hooks at the theme, and has to come after because transitions.dev sets its own dark grey defaults on <code>:root</code>.</p>`,
 )}
 ${section(
@@ -846,6 +898,33 @@ ${section(
   }
 }`) +
     `<p>Exceptions only hide findings. Tokens used in an ignored file still count towards adoption.</p>`,
+)}`,
+  });
+
+  /* Skills ---------------------------------------------------------- */
+  out.push({
+    path: "/skills",
+    group: "Skills",
+    nav: "Claude skills",
+    title: "Claude skills",
+    description: "The instructions I've written for Claude so the code it writes for my apps holds up.",
+    body: `
+${head("Claude skills", "I can design but I can't code. These are the instructions I've written for Claude so what it builds for me holds up: the engineering, the handoff from Figma, the design system, accessibility, critique and the words. Every rule in them points to where it came from. They're set up for my own projects, so the downloads are locked.")}
+<ul class="skill-list">${SKILLS.map(
+      (s) => `<li class="skill">
+  <h2 class="skill-name">${esc(s.title)}</h2>
+  <p>${esc(s.what)}</p>
+  <p class="skill-meta">In it: ${esc(s.inside)}</p>
+  <p class="skill-meta">Used in: ${esc(s.used)}</p>
+  <div class="skill-get">
+    <button class="skill-lock" type="button" aria-disabled="true" aria-describedby="lock-${s.name}">${PADLOCK}<span>Download</span></button>
+    <p class="note" id="lock-${s.name}" role="status">Locked</p>
+  </div>
+</li>`,
+    ).join("")}</ul>
+${section(
+  "Asking for a copy",
+  `<p>Ask me and I'll talk you through them. Figma to code is the one I'd start with.</p>`,
 )}`,
   });
 

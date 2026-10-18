@@ -43,7 +43,7 @@ run `design:accessibility-review` for a full audit.
 
 ## Seeing
 
-- Text contrast 4.5:1 (3:1 for 24px+ or 19px bold). Non-text (focus rings,
+- Text contrast 4.5:1 (3:1 for 24px+, or about 18.5px bold). Non-text (focus rings,
   borders that matter, icons) 3:1. Check muted and status colours: several
   obvious themes fail (routine accent 2.89, morris light warning 2.41, core
   white on accent 3.72). Measure with real values, don't eyeball.
