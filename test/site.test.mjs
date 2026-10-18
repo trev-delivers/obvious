@@ -61,7 +61,7 @@ test("no em or en dashes in the copy", () => {
 test("skills page is locked and carries no skill text", () => {
   const html = readFileSync(join(site, "skills.html"), "utf8");
   const locks = html.match(/class="skill-lock"[^>]*aria-disabled="true"/g) ?? [];
-  assert.ok(locks.length >= 1, `only ${locks.length} locked buttons`);
+  assert.ok(locks.length >= 6, `only ${locks.length} locked buttons`);
   assert.doesNotMatch(html, /href="[^"]*\.(md|zip)"|\bdownload=/);
   const all = pages.map((p) => readFileSync(p, "utf8")).join("\n");
   const skillText = readFileSync(join(root, ".claude", "skills", "engineer", "references", "repos.md"), "utf8");

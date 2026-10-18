@@ -269,6 +269,41 @@ const SKILLS = [
     inside: "standards for shipping, security, data, front end, accessibility and design, a page on each of my repos and what not to break in it, the audit routine, and a script that scans for broken design rules.",
     used: "Every app",
   },
+  {
+    name: "figma-to-code",
+    title: "Figma to code",
+    what: "I design in Figma and build with Claude, and the handoff was always where it went wrong: hex values copied from the frame, a layout that worked at one width, no idea what happens when a list is empty. This builds the screen from my design system instead. It matches every value in the frame to a token and tells me which ones have no match, makes it work on a phone and a laptop, then screenshots what it built next to Figma's render and fixes what's off.",
+    inside: "a 9-step checklist, a script that matches Figma values to tokens, a script that compares screenshots, and notes on responsive layout, states and accessibility.",
+    used: "Any app on obvious, with Figma's MCP server",
+  },
+  {
+    name: "design-system-guardian",
+    title: "Design system guardian",
+    what: "Keeps new screens made from obvious. Before it writes any CSS it finds the app's theme and reaches for a token or a component that already exists. It runs my audit before and after, and every value that goes around the system is either swapped for its token or written down with a measured reason. The first time I ran it, it found an app passing its own audit at 0 that the current audit put at 52.",
+    inside: "a checklist, the order to build from, the audit read line by line, rules for exceptions and budgets, when something belongs in obvious itself, and 2 scripts: one reads an app's setup, one finds the nearest token for a value.",
+    used: "Every app on obvious",
+  },
+  {
+    name: "a11y-review",
+    title: "Accessibility review",
+    what: "Checks a page against WCAG 2.2 AA the way a decent tester would. Automated tools find some of the problems and none of the judgement calls, so after the measured pass it goes through with a keyboard, a narrow screen, bigger text spacing and the screen reader's view, and checks dialogs and menus against how they're meant to behave. It throws out what the tools got wrong and tells me who each problem stops.",
+    inside: "a measured pass script, the manual checks for WCAG 2.2 AA including everything new in 2.2, the ARIA patterns for common widgets, severity rules, known false positives and a report template.",
+    used: "Before a new screen, form or flow ships",
+  },
+  {
+    name: "design-critique",
+    title: "Design critique",
+    what: "Feedback the way a good design lead gives it in a crit. It writes down what the screen is for and who it's for first, and says when it's guessing. Then it opens the app at phone and desktop width, clicks through the flow and makes the empty, loading and error states appear. Findings are ranked by how much they get in the way of the task, with what's working and plain taste kept separate.",
+    inside: "a goal-first procedure, 12 things to look at tied to obvious's tokens, a screenshot script, ways to make every state appear, and Nielsen's severity scale.",
+    used: "Any screen, flow or prototype",
+  },
+  {
+    name: "ux-writing",
+    title: "UX writing",
+    what: "Content design with no voice of its own, so it uses whatever voice guide a product already has. It covers what goes on a button, how an error says what went wrong and how to fix it, when a confirm dialog earns its place, alt text and labels that work with a screen reader, and copy that survives translation. A script pulls every string out of an app so the copy can be read without opening the code.",
+    inside: "patterns for every common interface string, readability research, accessibility text, inclusive language, writing for translation, a term list and the string-finding script.",
+    used: "Any app with words on screen",
+  },
 ];
 
 const PADLOCK = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>`;
@@ -874,7 +909,7 @@ ${section(
     title: "Claude skills",
     description: "The instructions I've written for Claude so the code it writes for my apps holds up.",
     body: `
-${head("Claude skills", "I can design but I can't code. These are the instructions I've written for Claude so the code it writes for my apps holds up. They're set up for my own projects, so the downloads are locked.")}
+${head("Claude skills", "I can design but I can't code. These are the instructions I've written for Claude so what it builds for me holds up: the engineering, the handoff from Figma, the design system, accessibility, critique and the words. Every rule in them points to where it came from. They're set up for my own projects, so the downloads are locked.")}
 <ul class="skill-list">${SKILLS.map(
       (s) => `<li class="skill">
   <h2 class="skill-name">${esc(s.title)}</h2>
@@ -889,7 +924,7 @@ ${head("Claude skills", "I can design but I can't code. These are the instructio
     ).join("")}</ul>
 ${section(
   "Asking for a copy",
-  `<p>Ask me and I'll talk you through them. The engineer skill is the one I'd start with.</p>`,
+  `<p>Ask me and I'll talk you through them. Figma to code is the one I'd start with.</p>`,
 )}`,
   });
 
