@@ -34,7 +34,7 @@ checks 4, 5 and parts of 6 by pattern. Neither replaces looking at the
 screen. A clean audit isn't proof.
 
 Several apps break these today, including the system itself (it ships
-`t-gradient-text`). Don't fix other people's breaches as a side effect;
+`ob-gradient-text`, the gold Trev asked for). Don't fix other people's breaches as a side effect;
 report them. Don't add new ones.
 
 Brookwood (parchment) is outside the family on purpose: it takes the
@@ -68,11 +68,12 @@ primitives and none of the shared components. It's read only anyway.
 
 ## Interaction and motion
 
-- Use the shared pieces before writing new ones: obvious's registry (Sheet,
-  Toasts, PlusMenu, motion) and the transitions.dev snippets through
-  `transitions-dev`.
-- Durations and easing from tokens. Open and close are asymmetric; tune with
-  `transitions-polish`.
+- Use the shared pieces before writing new ones: obvious's `ob-*` components
+  and its registry (Sheet, Toasts, PlusMenu, motion).
+- Motion is our own code. Don't copy or install transitions.dev snippets,
+  and don't name things after them (no "Pro button"). Write it on the tokens
+  and use the names other design systems use (Button, Badge, Tooltip).
+- Durations and easing from tokens. Open is a little slower than close.
 - Motion explains a change (something appeared, moved, was saved). Don't
   decorate.
 - Feedback within 100ms of a tap. Pending states on buttons that wait.

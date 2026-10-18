@@ -5,7 +5,7 @@ import "./plus-menu.css";
 
 export type PlusMenuItem = { label: string; hint?: string; icon: ReactNode; onSelect: () => void };
 
-/* Plus to menu morph: the + grows into the menu it opens. Anchored at its
+/* The + grows into the menu it opens. Anchored at its
    bottom-right corner, so it opens up and to the left. Put it wherever the
    + should sit; it sizes the open menu from the number of items. */
 export default function PlusMenu({ items, label = "Add" }: { items: PlusMenuItem[]; label?: string }) {
@@ -30,8 +30,8 @@ export default function PlusMenu({ items, label = "Add" }: { items: PlusMenuItem
     <>
       <div className={"ob-plus-scrim" + (open ? " is-on" : "")} aria-hidden="true" />
       <div className="ob-plus" ref={box} style={{ "--ob-plus-items": items.length } as CSSProperties}>
-        <div className="t-morph" data-open={open}>
-          <div className="t-morph-menu" role="menu" aria-hidden={!open}>
+        <div className="ob-plus-morph" data-open={open}>
+          <div className="ob-plus-menu" role="menu" aria-hidden={!open}>
             {items.map((it) => (
               <button
                 key={it.label}
@@ -54,7 +54,7 @@ export default function PlusMenu({ items, label = "Add" }: { items: PlusMenuItem
           </div>
           <button
             type="button"
-            className="t-morph-plus"
+            className="ob-plus-button"
             aria-expanded={open}
             aria-label={label}
             onClick={() => setOpen((o) => !o)}

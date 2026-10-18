@@ -6,7 +6,7 @@ import "./toasts.css";
 
 export type Toast = { id: number; text: string; tone: "ok" | "error"; state: "live" | "dismiss" | "push" };
 
-/* Banner stacking: a new toast rises in front, older ones step back, a fourth pushes the oldest out. */
+/* A new toast rises in front, older ones step back, and a fourth pushes the oldest out. */
 export function useToasts() {
   const [list, setList] = useState<Toast[]>([]);
   const next = useRef(0);
@@ -23,7 +23,7 @@ export function useToasts() {
   const drop = useCallback(
     (id: number, how: "dismiss" | "push") => {
       setList((cur) => cur.map((t) => (t.id === id && t.state === "live" ? { ...t, state: how } : t)));
-      later(() => setList((cur) => cur.filter((t) => t.id !== id)), readMs("--stack-close", 250) + 60);
+      later(() => setList((cur) => cur.filter((t) => t.id !== id)), readMs("--ob-toast-close-dur", 250) + 60);
     },
     [later]
   );
@@ -34,7 +34,7 @@ export function useToasts() {
       setList((cur) => {
         const live = cur.filter((t) => t.state === "live");
         const out = new Set(live.slice(2).map((t) => t.id));
-        if (out.size) later(() => setList((c) => c.filter((t) => !out.has(t.id))), readMs("--stack-close", 250) + 60);
+        if (out.size) later(() => setList((c) => c.filter((t) => !out.has(t.id))), readMs("--ob-toast-close-dur", 250) + 60);
         return [{ id, text, tone, state: "live" as const }, ...cur.map((t) => (out.has(t.id) ? { ...t, state: "push" as const } : t))];
       });
       later(() => drop(id, "dismiss"), tone === "error" ? 6000 : 2800);
@@ -54,7 +54,7 @@ export function Toasts({ list, dismiss }: { list: Toast[]; dismiss: (id: number)
   const live = list.filter((t) => t.state === "live");
   return (
     <div className="ob-toasts" aria-live="polite">
-      <div className="t-stack">
+      <div className="ob-toast-stack">
         {list.map((t) => (
           <ToastBanner key={t.id} t={t} depth={Math.max(0, live.indexOf(t))} onTap={() => dismiss(t.id)} />
         ))}
@@ -75,7 +75,7 @@ function ToastBanner({ t, depth, onTap }: { t: Toast; depth: number; onTap: () =
     <div
       ref={ref}
       className={
-        "t-stack-banner ob-toast" +
+        "ob-toast" +
         (t.tone === "error" ? " is-error" : "") +
         (t.state === "push" ? " is-leaving" : t.state === "dismiss" ? " is-dismiss" : "")
       }

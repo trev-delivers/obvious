@@ -51,7 +51,8 @@ Route to the specialist skills; don't redo their work:
 
 - Words on screen, READMEs, commits, PRs: `write-like-trev`. Portfolio copy:
   `write-portfolio` too.
-- Adding motion: `transitions-dev`. Tuning motion: `transitions-polish`.
+- Motion: obvious's components and registry first. New motion is written
+  by hand on the tokens. Never copy transitions.dev.
 - Design system tokens and rules: `obvious` (its CLAUDE.md and README) and
   its audit, `node scripts/audit-ds.mjs <app>` from the obvious repo.
 - Formal accessibility review: `design:accessibility-review`.

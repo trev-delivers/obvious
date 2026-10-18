@@ -63,7 +63,7 @@ takes a theme.
 
 `npm run check` runs everything: it builds `dist/` (which fails if a theme
 is missing a key or a contrast pair has got worse), the registry and the docs
-site, runs the tests in `test/`, audits obvious itself with `--max 113`, and
+site, runs the tests in `test/`, audits obvious itself with `--max 52`, and
 fails if `dist/` or `docs/` isn't committed. CI runs the same, plus the
 registry smoke test with the shadcn and Next versions pinned in
 `scripts/registry-smoke/package.json`.

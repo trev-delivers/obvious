@@ -1,71 +1,37 @@
-/* t-chip — the selectable pill. Nav items, the region
-   and flight pickers in Time Dissonance, anything else where one of a row
-   is on and the rest are not.
+/* ob-chip. One of a row of options where one is on, like filters or a
+ * picker. Mark the selected one with aria-pressed="true" (or .is-selected).
+ * Type comes from wherever it sits. --outline gives each one an edge, for
+ * squarer themes where a borderless chip doesn't read as a control. */
 
-   It owns shape and state only; type is inherited, so the app decides
-   whether its chips are 14px sans or 11px mono without fighting anything
-   here. Two escape hatches, both for the dials the family is allowed to
-   differ on: --t-chip-radius and --t-chip-pad. */
-
-.t-chip{
-  display:inline-flex;align-items:center;justify-content:center;gap:6px;
-  padding:var(--t-chip-pad,7px 14px);
-  border:0;
-  border-radius:var(--t-chip-radius,var(--ds-radius-full));
+.ob-chip{
+  --ob-chip-radius:var(--ds-radius-full);
+  --ob-chip-pad:var(--ds-space-xs) var(--ds-space-sm);
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--ds-space-2xs);
+  padding:var(--ob-chip-pad);
+  border:var(--ds-border-hairline) solid transparent;
+  border-radius:var(--ob-chip-radius);
   background:transparent;
   color:var(--ds-color-text-muted);
   font:inherit;
   cursor:pointer;
   -webkit-tap-highlight-color:transparent;
   transition:
-    color var(--ds-duration-fast) ease,
-    background var(--ds-duration-base) var(--ds-ease-out),
-    box-shadow var(--ds-duration-base) ease;
+    color var(--ds-duration-fast) var(--ds-ease-out),
+    background-color var(--ds-duration-base) var(--ds-ease-out),
+    border-color var(--ds-duration-base) var(--ds-ease-out);
 }
+.ob-chip:hover{color:var(--ds-color-text);background:var(--ds-color-surface-hover)}
 
-.t-chip:hover{
+/* The accent is mixed into the background rather than used solid, so text
+   on it keeps its contrast in every theme. */
+.ob-chip[aria-pressed="true"],
+.ob-chip.is-selected{
   color:var(--ds-color-text);
-  background:color-mix(in srgb,var(--ds-color-text) 6%,transparent);
+  background:color-mix(in srgb,var(--ds-color-accent) 20%,transparent);
+  border-color:color-mix(in srgb,var(--ds-color-accent) 35%,transparent);
 }
 
-/* The on state is a lit panel rather than a filled block: a shallow
-   accent gradient with a highlight along the top edge and a shadow along
-   the bottom, so it reads as pressed in against its neighbours. The
-   accent is mixed rather than solid because a full-strength fill under
-   body text fails contrast in most of the themes. */
-.t-chip.is-on{
-  color:var(--ds-color-text);
-  background:linear-gradient(
-    180deg,
-    color-mix(in srgb,var(--ds-color-accent) 30%,transparent),
-    color-mix(in srgb,var(--ds-color-accent) 16%,transparent)
-  );
-  box-shadow:
-    inset 0 1px 0 var(--ds-color-shadow-highlight),
-    inset 0 -1px 0 var(--ds-color-shadow-color);
-}
-
-/* A chip that is on is not a thing you click to turn off, so it does not
-   get a hover state of its own — it would only look like it might move. */
-.t-chip.is-on:hover{
-  color:var(--ds-color-text);
-  background:linear-gradient(
-    180deg,
-    color-mix(in srgb,var(--ds-color-accent) 30%,transparent),
-    color-mix(in srgb,var(--ds-color-accent) 16%,transparent)
-  );
-}
-
-/* Squared-off chips still want their border visible, since without the
-   pill silhouette an unselected one has nothing to read as a control. */
-.t-chip--outlined{
-  border:var(--ds-border-hairline) solid var(--ds-color-border);
-  transition:
-    color var(--ds-duration-fast) ease,
-    border-color var(--ds-duration-base) ease,
-    background var(--ds-duration-base) var(--ds-ease-out),
-    box-shadow var(--ds-duration-base) ease;
-}
-.t-chip--outlined:hover{border-color:var(--ds-color-border-strong)}
-.t-chip--outlined.is-on,
-.t-chip--outlined.is-on:hover{border-color:var(--ds-color-accent)}
+.ob-chip--outline{border-color:var(--ds-color-border)}
+.ob-chip--outline:hover{border-color:var(--ds-color-border-strong)}
+.ob-chip--outline[aria-pressed="true"],
+.ob-chip--outline.is-selected{border-color:var(--ds-color-accent)}

@@ -47,12 +47,12 @@ control heights and padding the same way.
 | `parchment` | brookwood-hunt | **no** | Aged paper, brown ink, an oxblood seal and candlelight. |
 
 Family apps take everything: the primitives, `base.css`, the type scale and
-the interaction layer below.
+the components below.
 
 Brookwood is the exception. It's the one app made for people who've never
 seen any of the others, so it takes the primitives (spacing, type scale,
-easing, focus) and none of the shared components. Gradient text, the Pro
-button and the thinking shimmer would make it look like part of my portfolio
+easing, focus) and none of the shared components. Gold text and the loading
+line would make it look like part of my portfolio
 when it's meant to look like something the village made.
 
 `core` is the reference theme. The build fails if another theme has a
@@ -177,30 +177,31 @@ changes when the system does. Page content is in `web/pages.mjs`.
 `dist/` is committed because apps copy it from a shallow clone and have no
 build step of their own.
 
-## The interaction layer
+## Components
 
-These are my portfolio's components, lifted out so the other family apps can
-use them. They keep the `t-` prefix they were written with, so moving
-designedbytrev onto them means deleting its copies with no renaming.
+These are my own, written on the tokens. They used to be the portfolio's
+`t-` components, some of them adapted from transitions.dev. On 18 Oct 2026 I
+rewrote them all from scratch and gave them the names other design systems
+use, with an `ob-` prefix.
 
 | Component | What it is |
 | --- | --- |
-| `t-input` | The field: border tween, error state, shake and message. |
-| `t-check-badge` | A spinner that turns into a filled tick, in place. |
-| `t-pro-btn` | A white pill with a glowing rim. Full width or as a docked icon. |
-| `t-gradient-text` | 7 drifting gold washes clipped to the letters. |
-| `t-think` | A thinking shimmer: a phrase cycling under a sweeping highlight. |
-| `t-boot-ring` | A pixel-LED ring that powers up, then breathes. |
-| `t-link` | The house text link: muted on a hairline, and both take the accent on hover. |
-| `t-chip` | A selectable pill, filled or outlined. |
-| `t-reveal` | Scroll and load reveals. |
-| `t-stagger` | A few lines arriving one after another inside something that just opened. |
-| `t-badge` | The notification dot that pops onto a button once. |
-| `t-tt` | A tooltip that shows on hover and keyboard focus. |
+| `ob-button` | Primary, secondary, ghost and icon-only, in 3 sizes, with a loading state. |
+| `ob-field` | Label, text input (`ob-input`) or select (`ob-select`), and a message. Shakes on a wrong answer. |
+| `ob-inline-loading` | A small spinner that turns into a tick, in place. |
+| `ob-spinner` | 8 dots in a ring, a line of text tall. CSS only. |
+| `ob-loading-text` | A line that says what's happening, with a brighter band passing through it. |
+| `ob-gradient-text` | The gold, with the light moving across it. |
+| `ob-link` | Muted text with a fine underline. Both take the accent on hover. |
+| `ob-chip` | One of a row of options where one is on. |
+| `ob-reveal` | Things fading up as they scroll into view. |
+| `ob-stagger` | The contents of something that's just opened, arriving in turn. |
+| `ob-badge` | A count on a button or tab that pops in and out. |
+| `ob-tooltip` | A short label on hover and keyboard focus. |
 
 ```css
-@import "../ds/css/components.css";      /* all of it */
-@import "../ds/css/components/field.css"; /* or just what you use */
+@import "../ds/css/components.css";       /* all of it */
+@import "../ds/css/components/button.css"; /* or just what you use */
 ```
 
 The parts CSS can't do live in one module with no dependencies. Each function
@@ -209,19 +210,34 @@ wants. Confetti (`mountConfetti`, paper flakes that pile up on the button) is
 only in here:
 
 ```js
-import { mountBootRing, checkMorph, shake, cycleThink, revealOnScroll } from "./ds/js/behaviours.js";
+import { inlineLoading, shakeField, cycleLoadingText, revealOnScroll } from "./ds/js/behaviours.js";
 
-useEffect(() => mountBootRing(ref.current).destroy, []);
+useEffect(() => cycleLoadingText(ref.current, phrases), []);
 ```
 
 Each one reads its timing from the component's CSS custom properties, so
 retiming is a CSS change and the CSS and JS can't disagree.
 
-2 components keep their own colours. `t-gradient-text` is always the same
-gold wherever it appears, and `t-check-badge` is always green because it
-means success and should read that way at a glance in any app. Gradient text
-breaks the written rule against gradient text, so it's listed as an
-exception in `.ds-audit.json` until I decide what to do with it.
+`ob-gradient-text` keeps its own colours, so it's the same gold wherever it
+appears. It breaks the written rule against gradient text, so it's listed as
+an exception in `.ds-audit.json`.
+
+### Moving an app off the old names
+
+| Was | Now |
+| --- | --- |
+| `t-pro-btn` | `ob-button` (`--icon` for the round one) |
+| `t-input-wrap`, `t-input`, `t-input--select`, `t-error-msg` | `ob-field`, `ob-input`, `ob-select`, `ob-field-message--error` |
+| `t-check-badge` and `checkMorph()` | `ob-inline-loading` and `inlineLoading()` |
+| `t-boot-ring` and `mountBootRing()` | `ob-spinner`, with 8 `<i>` inside and no JS |
+| `t-think` and `cycleThink()` | `ob-loading-text` and `cycleLoadingText()` |
+| `shake()` | `shakeField()` |
+| `t-link`, `t-link--loud` | `ob-link`, `ob-link--strong` |
+| `t-chip.is-on`, `t-chip--outlined` | `ob-chip[aria-pressed="true"]`, `ob-chip--outline` |
+| `t-reveal`, `.in`, `t-word` | `ob-reveal`, `.is-visible`, `ob-reveal-word` |
+| `t-stagger.is-shown`, `t-stagger-line` | `ob-stagger.is-open`, any children |
+| `t-badge[data-open]`, `t-badge-dot` | `ob-badge[data-visible]` |
+| `t-tt-wrap`, `t-tt` | `ob-tooltip-host`, `ob-tooltip` |
 
 ## Is it actually being used?
 
@@ -320,7 +336,7 @@ each app owns its copy and takes updates when it re-runs `add`.
 | `sheet` | Bottom sheet on phones that drags down to close, centred dialog from 640px. |
 | `toasts` | Stacked toasts. `useToasts()` gives you `toast(text, tone)`. |
 | `plus-menu` | A + that grows into the menu it opens. |
-| `motion` | Tabs, Badge, PopNumber, TextSwap, useReveal, SuccessCheck, Toggle, SearchField, Check, IconSwap, Matrix, Reel. |
+| `motion` | Tabs, Badge, AnimatedNumber, TextSwap, useReveal, SuccessCheck, Switch, SearchField, Checkbox, IconSwap, DotLoader, Odometer. |
 
 They came out of MorrisOS. Class names are `ob-*` and colours come from the
 theme, so they work in any app that loads one.
@@ -348,30 +364,18 @@ specificity, so an app sets them on `:root` to match itself. MorrisOS sets
 `npm run build` regenerates `dist/r/` from `registry.json` and
 `registry/obvious/`.
 
-### transitions.dev
+Every item brings its own CSS, so nothing else needs installing. They used
+to wrap transitions.dev snippets and needed its CSS in the app. That's gone:
+the motion is my own now. An app that still loads the transitions.dev CSS
+and `obvious/css/transitions-bridge.css` can drop both once it has re-run
+`add`. The bridge file is empty and stays for now so old imports don't break.
 
-These components wrap transitions.dev snippets: they set the classes and data
-attributes each snippet expects. The snippets' CSS isn't in this repo. Its
-terms let you use them in as many of your own products as you like but don't
-let you republish them as a kit, and this repo is public.
+The old component names still work in `motion`: `PopNumber`, `Toggle`,
+`Check`, `Matrix` and `Reel` point at `AnimatedNumber`, `Switch`, `Checkbox`,
+`DotLoader` and `Odometer`. The class names inside have all changed from `t-`
+to `ob-`, so an app that styled those classes itself needs to follow.
 
-So each app pulls the CSS itself. Every registry item lists the snippets it
-needs, and shadcn prints the command after install:
-
-```sh
-npx transitions-dev add modal banner-stacking plus-menu-morph tabs-sliding ...
-```
-
-Then load, in this order: primitives and a theme, the transitions.dev CSS,
-`obvious/css/transitions-bridge.css`, then the app's own styles. The bridge
-points transitions.dev's colour hooks (`--tabs-bar-bg`, `--shimmer-base`
-and so on) at the theme. It has to come after the transitions.dev CSS
-because that sets its own dark-grey defaults on `:root`.
-
-The `t-*` components in the interaction layer above are different: they're
-hand-written adaptations that lived in the portfolio's own stylesheet, and
-nothing in them comes from a transitions.dev package. The only third-party
-component anywhere is `border-beam`, which is MIT.
+The only third-party component anywhere is `border-beam`, which is MIT.
 
 ## shadcn/ui
 

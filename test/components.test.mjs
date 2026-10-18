@@ -29,8 +29,36 @@ test("components only read --ds-* tokens, their own knobs, runtime variables, or
 
 test("the tooltip shows itself on hover and focus", () => {
   const css = read("tooltip.css");
-  assert.match(css, /\.t-tt-wrap:hover \.t-tt/);
-  assert.match(css, /\.t-tt-trigger:focus-visible \+ \.t-tt/);
+  assert.match(css, /\.ob-tooltip-host:hover > \.ob-tooltip/);
+  assert.match(css, /\.ob-tooltip-host:focus-within > \.ob-tooltip/);
+});
+
+/* On 18 Oct 2026 the components were rewritten as our own code with ob-
+   names. These keep the old transitions.dev code and names from coming back. */
+const shipped = [
+  ...files.map((f) => new URL(f, dir)),
+  ...readdirSync(new URL("../registry/obvious/", import.meta.url)).map((f) => new URL(`../registry/obvious/${f}`, import.meta.url)),
+  new URL("../src/js/behaviours.js", import.meta.url),
+];
+
+test("nothing shipped mentions or needs transitions.dev", () => {
+  for (const url of shipped) assert.doesNotMatch(readFileSync(url, "utf8"), /transitions[.-]dev|\bpro[- ]?b(utto)?n\b/i, url.pathname);
+  assert.doesNotMatch(readFileSync(new URL("../registry.json", import.meta.url), "utf8"), /"transitions"/);
+});
+
+test("every component and registry class is ob-", () => {
+  for (const url of shipped.filter((u) => u.pathname.endsWith(".css"))) {
+    const css = readFileSync(url, "utf8").replace(/\/\*[\s\S]*?\*\//g, "");
+    const old = [...css.matchAll(/\.(t-[a-z0-9-]+)/g)].map((m) => m[1]);
+    assert.deepEqual(old, [], url.pathname);
+  }
+  for (const url of shipped.filter((u) => u.pathname.endsWith(".tsx"))) {
+    assert.doesNotMatch(readFileSync(url, "utf8"), /className=\{?["`'][^"`']*\bt-[a-z]/, url.pathname);
+  }
+});
+
+test("each component file is named after its class", () => {
+  for (const f of files) assert.match(read(f), new RegExp(`\\.ob-${f.replace(".css", "")}\\b`), f);
 });
 
 test("no component sets monospace or letter-spacing", () => {

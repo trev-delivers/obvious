@@ -40,8 +40,8 @@ in `web/`, and the scripts apps copy in: `audit-ds.mjs`, `sync-ds.mjs` and
   overwrite their copy on `add`); the copied scripts must stay single files.
 - **Open issues:**
   1. 13 colour pairs fail contrast (`docs/contrast.md`). Trev chooses fixes.
-  2. `t-gradient-text` and `t-think` break the written no-gradient-text rule.
-     Kept until Trev decides.
+  2. `ob-gradient-text` breaks the written no-gradient-text rule. Trev asked
+     for the gold on 17 Oct 2026, so it's an excused exception.
   3. The audit doesn't check literal JS timings yet.
   4. No release tags. Proposed: semver, start at `v0.2.0`.
 

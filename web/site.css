@@ -311,27 +311,24 @@ td{color:var(--ds-color-text-dim)}
 .comp-list code{margin-left:var(--ds-space-2xs);font-size:var(--ds-type-label-size);color:var(--ds-color-text-muted)}
 
 /* Demos --------------------------------------------------------------- */
-.demo-field{width:100%;max-width:340px;display:flex;flex-direction:column;gap:var(--ds-space-xs)}
-.demo-field .t-error-msg{font-size:var(--ds-type-label-size)}
+.demo-form{width:100%;max-width:340px;display:flex;flex-direction:column;gap:var(--ds-space-md)}
 .demo-display{
   font-family:var(--ds-font-display);
   font-size:var(--ds-type-h2-size);line-height:var(--ds-type-h2-leading);
   letter-spacing:var(--ds-type-h2-tracking);font-weight:var(--ds-type-h2-weight);
 }
-.demo-think{font-size:var(--ds-type-ui-size)}
+.demo-inline{display:inline-flex;align-items:center;gap:var(--ds-space-xs);font-size:var(--ds-type-ui-size);color:var(--ds-color-text-dim)}
 .demo-chips{display:flex;flex-wrap:wrap;gap:var(--ds-space-2xs);font-size:var(--ds-type-ui-size)}
 .demo-reveal{display:flex;flex-direction:column;gap:var(--ds-space-2xs);min-width:220px}
-.demo-reveal .t-reveal{
+.demo-reveal .ob-reveal{
   padding:var(--ds-space-xs) var(--ds-space-sm);
   background:var(--ds-color-surface);
   border:var(--ds-border-hairline) solid var(--ds-color-border);
   border-radius:var(--ds-radius-sm);
 }
 .demo-stagger{min-width:240px}
-.demo-stagger p{margin:0}
-.demo-stagger .t-stagger-line{font-weight:var(--ds-weight-medium)}
-.demo-stagger .t-stagger-line--2{font-weight:var(--ds-weight-regular);color:var(--ds-color-text-dim)}
-.demo-badge-host{position:relative;display:inline-block}
+.demo-stagger p{margin:0;font-weight:var(--ds-weight-medium)}
+.demo-stagger p + p{font-weight:var(--ds-weight-regular);color:var(--ds-color-text-dim)}
 
 /* Footer -------------------------------------------------------------- */
 .foot{

@@ -5,7 +5,7 @@
  * returns either a teardown function or a small control object, which is
  * exactly the shape a React effect wants:
  *
- *   useEffect(() => mountBootRing(ref.current), []);
+ *   useEffect(() => cycleLoadingText(ref.current, phrases), []);
  *
  * Every function reads its timing from the component's own CSS custom
  * properties rather than hard-coding it, so retiming a component is still a
@@ -24,156 +24,79 @@ const prefersReducedMotion = () =>
   window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
 /**
- * Builds a t-boot-ring's dots and starts the power-on sequence.
+ * Drives an ob-inline-loading.
  *
- * Positions are computed here because there is no calc(sin()/cos()) to lean
- * on yet. Call it as soon as the element exists; pass { start: false } if the
- * ring is hidden and should not begin booting until you reveal it, then call
- * the returned start().
+ *   const loading = inlineLoading(el);
+ *   loading.start();
+ *   loading.finish(2000); // tick for 2s, then back to the spinner. 0 keeps the tick.
  */
-export function mountBootRing(el, { start = true } = {}) {
-  if (!el) return { start() {}, destroy() {} };
-  const cs = getComputedStyle(el);
-  const count = parseInt(cs.getPropertyValue("--boot-count"), 10) || 8;
-  const radius = parseFloat(cs.getPropertyValue("--boot-radius")) || 6;
-  const step = cssMs(cs.getPropertyValue("--boot-step"), 110);
-  const lead = cssMs(cs.getPropertyValue("--boot-lead"), 300);
-
-  el.replaceChildren();
-  for (let i = 0; i < count; i++) {
-    const angle = (i / count) * Math.PI * 2 - Math.PI / 2;
-    const dot = document.createElement("i");
-    dot.style.setProperty("--x", `${(Math.cos(angle) * radius).toFixed(2)}px`);
-    dot.style.setProperty("--y", `${(Math.sin(angle) * radius).toFixed(2)}px`);
-    dot.style.setProperty("--boot-delay", `${(lead + i * step).toFixed(0)}ms`);
-    el.appendChild(dot);
-  }
-
-  const begin = () => el.classList.add("is-running");
-  if (start) begin();
-  return { start: begin, destroy: () => el.replaceChildren() };
-}
-
-/**
- * Drives a t-check-badge between its spinning and done states.
- *
- * done(hold) resolves to the check and, unless hold is 0, reverts to spinning
- * after that many ms. The re-entry dance in done() is deliberate: setting
- * data-state to done while it is already done would not restart the pop
- * animation, so it is knocked back to spinning and reflowed first.
- */
-export function checkMorph(badge, blurWrap) {
-  if (!badge) return { done() {}, spin() {}, destroy() {} };
-  const mark = badge.querySelector(".t-check-mark");
-  let blurTimer;
-  let revertTimer;
-
-  if (mark) badge.style.setProperty("--check-mark-len", String(Math.ceil(mark.getTotalLength())));
-
-  function crossBlur() {
-    if (!blurWrap) return;
-    clearTimeout(blurTimer);
-    blurWrap.classList.add("is-crossing");
-    const fillDur = cssMs(getComputedStyle(badge).getPropertyValue("--check-fill-dur"), 350);
-    blurTimer = setTimeout(() => blurWrap.classList.remove("is-crossing"), fillDur * 0.45);
-  }
-
-  function spin() {
-    clearTimeout(revertTimer);
-    crossBlur();
-    badge.setAttribute("data-state", "spinning");
-  }
-
-  function done(hold = 2000) {
-    clearTimeout(revertTimer);
-    if (badge.getAttribute("data-state") === "done") {
-      badge.setAttribute("data-state", "spinning");
-      void badge.offsetWidth;
-    }
-    badge.setAttribute("data-state", "done");
-    crossBlur();
-    if (hold > 0) revertTimer = setTimeout(spin, hold);
-  }
-
-  return {
-    done,
-    spin,
-    destroy() {
-      clearTimeout(blurTimer);
-      clearTimeout(revertTimer);
-    },
+export function inlineLoading(el) {
+  if (!el) return { start() {}, finish() {}, destroy() {} };
+  let timer;
+  const start = () => {
+    clearTimeout(timer);
+    el.setAttribute("data-state", "active");
   };
+  const finish = (hold = 0) => {
+    clearTimeout(timer);
+    el.setAttribute("data-state", "finished");
+    if (hold > 0) timer = setTimeout(start, hold);
+  };
+  return { start, finish, destroy: () => clearTimeout(timer) };
 }
 
 /**
- * Plays the error shake on a .t-input, and schedules the revert.
- *
- * The remove/reflow/add is what lets two wrong answers in a row each get their
- * own shake rather than the second being swallowed by the first.
+ * Marks an ob-field as wrong: shakes the box and shows the error message,
+ * then clears both after --ob-field-hold (3s by default). Calling it again
+ * while it's showing shakes again and restarts the clock.
  */
-export function shake(field, wrap) {
+export function shakeField(field) {
   if (!field) return;
-  const target = wrap ?? field.closest(".t-input-wrap") ?? field.parentElement;
-
-  target?.classList.add("is-error");
-  field.classList.add("is-error");
-
-  if (!prefersReducedMotion()) {
-    field.classList.remove("is-shaking");
-    void field.offsetWidth;
-    field.classList.add("is-shaking");
+  const box = field.querySelector(".ob-input, .ob-select");
+  field.classList.add("is-invalid");
+  if (box && !prefersReducedMotion()) {
+    box.classList.remove("is-shaking");
+    void box.offsetWidth;
+    box.classList.add("is-shaking");
+    box.addEventListener("animationend", () => box.classList.remove("is-shaking"), { once: true });
   }
-
-  const hold = cssMs(getComputedStyle(target ?? field).getPropertyValue("--revert-hold"), 3000);
-  clearTimeout(field._revertTimer);
-  field._revertTimer = setTimeout(() => {
-    target?.classList.remove("is-error");
-    field.classList.remove("is-error");
-  }, hold);
+  const hold = cssMs(getComputedStyle(field).getPropertyValue("--ob-field-hold"), 3000);
+  clearTimeout(field._obHold);
+  if (hold > 0) field._obHold = setTimeout(() => field.classList.remove("is-invalid"), hold);
 }
 
 /**
- * Cycles a t-think through a list of phrases and returns a stop function.
+ * Cycles an ob-loading-text through phrases. Returns a stop function.
  *
- * Sizes the hidden sizer to the widest phrase in the pool rather than the
- * widest of the ones being shown, so a later shuffle can never clip.
+ * The sizer gets the longest phrase in the pool, so the line is the right
+ * width from the start even if a longer phrase comes up later.
  */
-export function cycleThink(container, phrases, { pool = phrases } = {}) {
-  const textEl = container?.querySelector(".t-think-text");
-  const sizerEl = container?.querySelector(".t-think-sizer");
-  if (sizerEl && pool?.length) {
-    sizerEl.textContent = pool.reduce((a, b) => (b.length > a.length ? b : a));
-  }
-  if (!textEl || !phrases || phrases.length < 1) return () => {};
-
-  const setText = (s) => {
-    textEl.textContent = s;
-    textEl.setAttribute("data-text", s);
-  };
-  setText(phrases[0]);
+export function cycleLoadingText(el, phrases, { pool = phrases } = {}) {
+  const phrase = el?.querySelector(".ob-loading-text-phrase");
+  const sizer = el?.querySelector(".ob-loading-text-sizer");
+  if (!phrase || !phrases?.length) return () => {};
+  if (sizer && pool?.length) sizer.textContent = pool.reduce((a, b) => (b.length > a.length ? b : a));
+  phrase.textContent = phrases[0];
   if (phrases.length < 2) return () => {};
 
-  const cs = getComputedStyle(container);
-  const hold = cssMs(cs.getPropertyValue("--think-hold"), 750);
-  const swap = cssMs(cs.getPropertyValue("--think-swap"), 150);
-  const gap = cssMs(cs.getPropertyValue("--think-gap"), 50);
-
+  const cs = getComputedStyle(el);
+  const hold = cssMs(cs.getPropertyValue("--ob-loading-text-hold"), 1400);
+  const swap = cssMs(cs.getPropertyValue("--ob-loading-text-swap"), 180);
   let i = 0;
   let timer;
-  function advance() {
+  const next = () => {
     i = (i + 1) % phrases.length;
-    const next = phrases[i];
-    textEl.classList.add("is-exit");
+    phrase.classList.add("is-leaving");
     timer = setTimeout(() => {
-      setText(next);
-      textEl.classList.remove("is-exit");
-      textEl.classList.add("is-enter-start");
-      void textEl.offsetWidth;
-      textEl.classList.remove("is-enter-start");
-      timer = setTimeout(advance, hold);
-    }, swap + gap);
-  }
-  timer = setTimeout(advance, hold);
+      phrase.textContent = phrases[i];
+      phrase.classList.remove("is-leaving");
+      phrase.classList.add("is-arriving");
+      void phrase.offsetWidth;
+      phrase.classList.remove("is-arriving");
+      timer = setTimeout(next, hold);
+    }, swap);
+  };
+  timer = setTimeout(next, hold);
   return () => clearTimeout(timer);
 }
 
@@ -188,19 +111,21 @@ export function shuffle(arr) {
 }
 
 /**
- * Releases .t-reveal elements as they scroll into view.
+ * Shows .ob-reveal elements as they scroll into view, staggering siblings.
  *
- * Fails open: with no IntersectionObserver, everything is revealed at once
- * rather than left invisible, because the CSS starts these hidden.
+ * Sets .ob-motion on <html> first, which is what lets the CSS hide them, so
+ * if this never runs nothing is stuck invisible. With no
+ * IntersectionObserver, or with reduced motion, everything shows at once.
  */
-export function revealOnScroll(root = document, { selector = ".t-reveal, .t-reveal--seq", threshold = 0.2, step = 90 } = {}) {
+export function revealOnScroll(root = document, { selector = ".ob-reveal", threshold = 0.2, step = 90 } = {}) {
   const els = [...root.querySelectorAll(selector)];
   if (!els.length) return () => {};
 
   if (typeof IntersectionObserver === "undefined" || prefersReducedMotion()) {
-    els.forEach((el) => el.classList.add("in"));
+    els.forEach((el) => el.classList.add("is-visible"));
     return () => {};
   }
+  document.documentElement.classList.add("ob-motion");
 
   const io = new IntersectionObserver(
     (entries) => {
@@ -208,7 +133,7 @@ export function revealOnScroll(root = document, { selector = ".t-reveal, .t-reve
         if (!entry.isIntersecting) return;
         const siblings = [...(entry.target.parentElement?.children ?? [])].filter((n) => els.includes(n));
         const index = Math.max(0, siblings.indexOf(entry.target));
-        setTimeout(() => entry.target.classList.add("in"), index * step);
+        setTimeout(() => entry.target.classList.add("is-visible"), index * step);
         io.unobserve(entry.target);
       });
     },
@@ -219,7 +144,7 @@ export function revealOnScroll(root = document, { selector = ".t-reveal, .t-reve
 }
 
 /**
- * Wraps a heading's words in .t-word spans so they can arrive one at a time.
+ * Wraps a heading's words in .ob-reveal-word spans so they can arrive one at a time.
  *
  * Punctuation that followed a word with no space is marked --tail and stays
  * inline, so the browser's line-breaking rules keep it attached rather than
@@ -236,7 +161,7 @@ export function splitWords(el, { tail = /^[.,;:!?'’”)\]]+$/ } = {}) {
       continue;
     }
     const span = document.createElement("span");
-    span.className = tail.test(part) ? "t-word t-word--tail" : "t-word";
+    span.className = tail.test(part) ? "ob-reveal-word ob-reveal-word--tail" : "ob-reveal-word";
     span.textContent = part;
     el.appendChild(span);
     spans.push(span);
@@ -247,10 +172,11 @@ export function splitWords(el, { tail = /^[.,;:!?'’”)\]]+$/ } = {}) {
 /** Reveals split words in sequence. Returns a cancel function. */
 export function revealWords(spans, { step = 55, delay = 0 } = {}) {
   if (prefersReducedMotion()) {
-    spans.forEach((s) => s.classList.add("in"));
+    spans.forEach((s) => s.classList.add("is-visible"));
     return () => {};
   }
-  const timers = spans.map((span, i) => setTimeout(() => span.classList.add("in"), delay + i * step));
+  document.documentElement.classList.add("ob-motion");
+  const timers = spans.map((span, i) => setTimeout(() => span.classList.add("is-visible"), delay + i * step));
   return () => timers.forEach(clearTimeout);
 }
 

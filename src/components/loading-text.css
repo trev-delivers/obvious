@@ -1,0 +1,38 @@
+/* ob-loading-text. A line that says what's happening while you wait, with a
+ * brighter band passing through it. cycleLoadingText() swaps the phrase.
+ *
+ *   <span class="ob-loading-text" role="status">
+ *     <span class="ob-loading-text-sizer" aria-hidden="true"></span>
+ *     <span class="ob-loading-text-phrase">Thinking…</span>
+ *   </span>
+ *
+ * The band is a mask over solid text, so the letters stay one colour. The
+ * sizer is an invisible copy of the longest phrase, so the line never
+ * changes width. */
+
+.ob-loading-text{
+  --ob-loading-text-sweep:1800ms;
+  --ob-loading-text-swap:180ms;
+  --ob-loading-text-hold:1400ms;
+  position:relative;display:inline-block;
+  color:var(--ds-color-text-dim);
+}
+.ob-loading-text-sizer{display:block;visibility:hidden;white-space:nowrap;height:0}
+.ob-loading-text-phrase{
+  display:block;white-space:nowrap;
+  -webkit-mask-image:linear-gradient(90deg,rgb(0 0 0 / .6) 35%,#000 50%,rgb(0 0 0 / .6) 65%);
+  mask-image:linear-gradient(90deg,rgb(0 0 0 / .6) 35%,#000 50%,rgb(0 0 0 / .6) 65%);
+  -webkit-mask-size:300% 100%;mask-size:300% 100%;
+  animation:ob-loading-text-sweep var(--ob-loading-text-sweep) linear infinite;
+  transition:opacity var(--ob-loading-text-swap) var(--ds-ease-out),translate var(--ob-loading-text-swap) var(--ds-ease-out);
+}
+@keyframes ob-loading-text-sweep{
+  from{-webkit-mask-position:100% 0;mask-position:100% 0}
+  to{-webkit-mask-position:0 0;mask-position:0 0}
+}
+.ob-loading-text-phrase.is-leaving{opacity:0;translate:0 -6px}
+.ob-loading-text-phrase.is-arriving{opacity:0;translate:0 6px;transition:none}
+
+@media (prefers-reduced-motion:reduce){
+  .ob-loading-text-phrase{animation:none;-webkit-mask-image:none;mask-image:none;transition:none}
+}

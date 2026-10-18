@@ -1,17 +1,26 @@
 {
-  "ignore": ["site/", "test/"],
+  "ignore": [
+    "site/",
+    "test/"
+  ],
   "note": "This is the system itself, so it gets audited like an app. site/ is the built docs site and test/ holds the audit's own bad examples. src/components and registry/ still count: their literals are the defaults apps get.",
   "exceptions": {
     "gradient-text": {
-      "ignore": ["src/components/gradient-text.css", "src/components/think.css"],
-      "note": "t-gradient-text is the gold text I chose for the portfolio, and t-think's shimmer is a highlight swept across the letters. Both break the written rule against gradient text. Kept until I decide."
+      "ignore": [
+        "src/components/gradient-text.css"
+      ],
+      "note": "ob-gradient-text is the gold text I asked for on the portfolio. It breaks the written rule against gradient text."
     },
     "font-loading": {
-      "ignore": ["web/build.mjs"],
+      "ignore": [
+        "web/build.mjs"
+      ],
       "note": "The docs site shows every theme, so it loads every theme's faces in one request."
     },
     "mono": {
-      "ignore": ["web/pages.mjs"],
+      "ignore": [
+        "web/pages.mjs"
+      ],
       "note": "The Faces section says there's no monospace. That's the word in a sentence."
     }
   }

@@ -1,0 +1,73 @@
+/* ob-button. Primary is the one thing you want people to press, secondary
+ * sits beside it, and ghost is for toolbars and quiet actions. Height and
+ * padding follow the theme's density, and the radius follows its base. */
+
+.ob-button{
+  --ob-button-height:var(--ds-control-height-md);
+  --ob-button-pad:var(--ds-control-pad-x-md);
+  --ob-button-radius:var(--ds-radius-md);
+  --ob-button-bg:var(--ds-color-accent);
+  --ob-button-bg-hover:var(--ds-color-accent-hover);
+  --ob-button-fg:var(--ds-color-accent-contrast);
+  --ob-button-border:transparent;
+
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--ds-space-xs);
+  min-height:max(var(--ob-button-height),var(--ds-control-tap-min));
+  padding:0 var(--ob-button-pad);
+  border:var(--ds-border-hairline) solid var(--ob-button-border);
+  border-radius:var(--ob-button-radius);
+  background:var(--ob-button-bg);
+  color:var(--ob-button-fg);
+  font-family:var(--ds-font-sans);
+  font-size:var(--ds-type-ui-size);
+  font-weight:var(--ds-type-ui-weight);
+  line-height:var(--ds-type-ui-leading);
+  white-space:nowrap;
+  text-decoration:none;
+  cursor:pointer;
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+  transition:
+    background-color var(--ds-duration-fast) var(--ds-ease-out),
+    border-color var(--ds-duration-fast) var(--ds-ease-out),
+    color var(--ds-duration-fast) var(--ds-ease-out),
+    scale var(--ds-duration-fast) var(--ds-ease-out);
+}
+.ob-button:hover{background:var(--ob-button-bg-hover)}
+.ob-button:active{scale:.97}
+.ob-button:disabled,
+.ob-button[aria-disabled="true"]{opacity:.5;cursor:not-allowed;scale:1}
+.ob-button svg{display:block;flex:none}
+
+.ob-button--secondary{
+  --ob-button-bg:var(--ds-color-surface);
+  --ob-button-bg-hover:var(--ds-color-surface-hover);
+  --ob-button-fg:var(--ds-color-text);
+  --ob-button-border:var(--ds-color-border-strong);
+}
+.ob-button--ghost{
+  --ob-button-bg:transparent;
+  --ob-button-bg-hover:var(--ds-color-surface-hover);
+  --ob-button-fg:var(--ds-color-text);
+}
+
+.ob-button--sm{--ob-button-height:var(--ds-control-height-sm);--ob-button-pad:var(--ds-control-pad-x-sm)}
+.ob-button--lg{--ob-button-height:var(--ds-control-height-lg);--ob-button-pad:var(--ds-control-pad-x-lg)}
+
+/* Icon only. Give it an aria-label. */
+.ob-button--icon{
+  padding:0;
+  width:max(var(--ob-button-height),var(--ds-control-tap-min));
+  border-radius:var(--ds-radius-full);
+}
+
+/* While something is loading, the label keeps its width so the button
+   doesn't change size, and an ob-inline-loading sits on top of it. */
+.ob-button > .ob-inline-loading{display:none}
+.ob-button[aria-busy="true"]{position:relative;cursor:progress}
+.ob-button[aria-busy="true"] > :not(.ob-inline-loading){visibility:hidden}
+.ob-button[aria-busy="true"] > .ob-inline-loading{display:inline-grid;position:absolute}
+
+@media (prefers-reduced-motion:reduce){
+  .ob-button:active{scale:1}
+}

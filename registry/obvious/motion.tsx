@@ -1,10 +1,11 @@
 "use client";
 
-/* React wrappers for the transitions.dev snippets. Each one sets the classes
-   and data attributes its snippet expects; the CSS itself comes from
-   transitions.dev and lives in the app (see the registry item's docs).
-   motion.css is the house styling on top: the switch, the check box, the
-   search field and the badge dot. */
+/* Small animated pieces for React apps on obvious. The styles and motion are
+   all in motion.css, and the timings are --ob-* custom properties on :root,
+   so an app can retune them without touching this file.
+
+   Toggle, Check, Matrix, Reel and PopNumber are the old names, kept so an
+   app that already uses them doesn't break when it updates. */
 import "./motion.css";
 
 import {
@@ -32,9 +33,9 @@ export function reduced() {
   return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-/* ---------- Number pop-in ---------- */
+/* ---------- AnimatedNumber ---------- */
 
-export function PopNumber({ value }: { value: string | number }) {
+export function AnimatedNumber({ value }: { value: string | number }) {
   const s = String(value);
   const prev = useRef(s);
   const changed = useRef(false);
@@ -43,9 +44,9 @@ export function PopNumber({ value }: { value: string | number }) {
     changed.current = true;
   }
   return (
-    <span key={s} className={"t-digit-group" + (changed.current ? " is-animating" : "")}>
+    <span key={s} className={"ob-number" + (changed.current ? " is-animating" : "")}>
       {[...s].map((c, i) => (
-        <span key={i} className="t-digit" data-stagger={i > 0 ? Math.min(i, 2) : undefined}>
+        <span key={i} className="ob-number-digit" data-stagger={i > 0 ? Math.min(i, 2) : undefined}>
           {c}
         </span>
       ))}
@@ -53,7 +54,7 @@ export function PopNumber({ value }: { value: string | number }) {
   );
 }
 
-/* ---------- Text states swap ---------- */
+/* ---------- TextSwap ---------- */
 
 export function TextSwap({ text }: { text: string }) {
   const [shown, setShown] = useState(text);
@@ -73,19 +74,19 @@ export function TextSwap({ text }: { text: string }) {
       el.classList.add("is-enter-start");
       void el.offsetWidth;
       el.classList.remove("is-enter-start");
-    }, readMs("--text-swap-dur", 150));
+    }, readMs("--ob-text-swap-dur", 160));
     return () => window.clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 
   return (
-    <span ref={ref} className="t-text-swap">
+    <span ref={ref} className="ob-text-swap">
       {shown}
     </span>
   );
 }
 
-/* ---------- Tabs sliding ---------- */
+/* ---------- Tabs ---------- */
 
 export type TabOption<T extends string> = { value: T; label: string; icon?: ReactNode; badge?: number };
 
@@ -150,14 +151,14 @@ export function Tabs<T extends string>({
   }, []);
 
   return (
-    <div className={"t-tabs" + (className ? " " + className : "")} role="tablist" aria-label={label} ref={bar} style={style}>
-      <span className="t-tabs-pill" aria-hidden="true" ref={pill} />
+    <div className={"ob-tabs" + (className ? " " + className : "")} role="tablist" aria-label={label} ref={bar} style={style}>
+      <span className="ob-tabs-indicator" aria-hidden="true" ref={pill} />
       {options.map((o) => (
         <button
           key={o.value}
           type="button"
           role="tab"
-          className="t-tab"
+          className="ob-tab"
           aria-selected={o.value === value}
           onClick={() => onChange(o.value)}
         >
@@ -178,28 +179,28 @@ export function Tabs<T extends string>({
   );
 }
 
-/* ---------- Notification badge ---------- */
+/* ---------- Badge ---------- */
 
 export function Badge({ count }: { count: number }) {
   const last = useRef(count);
   if (count > 0) last.current = count;
   return (
-    <span className="t-badge" data-open={count > 0} aria-hidden="true">
-      <span className="t-badge-dot ob-badge">
-        <PopNumber value={last.current} />
-      </span>
+    <span className="ob-badge" data-visible={count > 0} aria-hidden="true">
+      <AnimatedNumber value={last.current} />
     </span>
   );
 }
 
-/* ---------- Texts reveal (also used to stagger list rows in) ---------- */
+/* ---------- useReveal (also used to stagger list rows in) ---------- */
 
-/* Plays the staggered entrance on mount and whenever `replay` changes. */
+/* Plays the staggered entrance on the element's children, on mount and
+   whenever `replay` changes. Give each child staggerStyle(i). */
 export function useReveal<E extends HTMLElement>(replay?: unknown) {
   const ref = useRef<E>(null);
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
+    el.classList.add("ob-reveal-group");
     el.classList.remove("is-hiding", "is-shown");
     void el.offsetHeight;
     el.classList.add("is-shown");
@@ -209,10 +210,10 @@ export function useReveal<E extends HTMLElement>(replay?: unknown) {
 
 /* Delay for the nth staggered line; rows past the fold don't wait. */
 export const staggerStyle = (n: number): CSSProperties => ({
-  transitionDelay: `calc(var(--stagger-stagger) * ${Math.min(n, 10)})`,
+  transitionDelay: `calc(var(--ob-stagger-step) * ${Math.min(n, 10)})`,
 });
 
-/* ---------- Success check ---------- */
+/* ---------- SuccessCheck ---------- */
 
 export function SuccessCheck({ size = 44 }: { size?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -228,7 +229,7 @@ export function SuccessCheck({ size = 44 }: { size?: number }) {
     wrap.setAttribute("data-state", "in");
   }, []);
   return (
-    <span className="t-success-check" data-state="out" ref={ref} aria-hidden="true">
+    <span className="ob-success-check" data-state="out" ref={ref} aria-hidden="true">
       <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M6.5 12.5l3.6 3.6L17.5 8.5" />
       </svg>
@@ -236,9 +237,9 @@ export function SuccessCheck({ size = 44 }: { size?: number }) {
   );
 }
 
-/* ---------- Toggle ---------- */
+/* ---------- Switch ---------- */
 
-export function Toggle({ on, onChange, label }: { on: boolean; onChange: (v: boolean) => void; label: string }) {
+export function Switch({ on, onChange, label }: { on: boolean; onChange: (v: boolean) => void; label: string }) {
   const [init, setInit] = useState(false);
   return (
     <button
@@ -246,19 +247,19 @@ export function Toggle({ on, onChange, label }: { on: boolean; onChange: (v: boo
       role="switch"
       aria-checked={on}
       aria-label={label}
-      className={"t-toggle ob-switch" + (init ? " is-init" : "")}
+      className={"ob-switch" + (init ? " is-init" : "")}
       data-on={on}
       onClick={() => {
         setInit(true);
         onChange(!on);
       }}
     >
-      <span className="t-toggle-thumb" />
+      <span className="ob-switch-thumb" />
     </button>
   );
 }
 
-/* ---------- Input clear with dissolve (search fields) ---------- */
+/* ---------- SearchField, with the text dissolving when you clear it ---------- */
 
 function bezier(str: string) {
   const m = String(str).match(/cubic-bezier\(([-\d.]+),\s*([-\d.]+),\s*([-\d.]+),\s*([-\d.]+)\)/);
@@ -307,7 +308,7 @@ export function SearchField({
     const rgb = dark ? "255,255,255" : "0,0,0";
     const w = wrap.current!.clientWidth || 280;
     const padLeft = parseFloat(getComputedStyle(el).paddingLeft) || 12;
-    const spread = readMs("--glow-spread", 1.5);
+    const spread = readMs("--ob-search-glow-spread", 1.5);
     const layers: string[] = [];
     let x = 0;
     text.split(/(\s+)/).forEach((seg) => {
@@ -345,17 +346,17 @@ export function SearchField({
     }
     setClearing(text);
     const cs = getComputedStyle(document.documentElement);
-    const total = readMs("--clear-dur", 1000);
-    const outDur = readMs("--clear-out-dur", 400);
-    const inDur = readMs("--clear-in-dur", 400);
-    const outFly = readMs("--clear-out-fly", 12);
-    const inFly = readMs("--clear-in-fly", 12);
-    const blur = readMs("--clear-blur", 2);
-    const delay = readMs("--glow-delay", 50);
-    const peakAt = readMs("--glow-peak-at", 0.15);
-    const gOp = readMs("--glow-opacity", 0.42);
-    const easeOut = bezier(cs.getPropertyValue("--clear-out-ease"));
-    const easeIn = bezier(cs.getPropertyValue("--clear-in-ease"));
+    const total = readMs("--ob-search-clear-dur", 900);
+    const outDur = readMs("--ob-search-out-dur", 380);
+    const inDur = readMs("--ob-search-in-dur", 380);
+    const outFly = readMs("--ob-search-out-fly", 12);
+    const inFly = readMs("--ob-search-in-fly", 10);
+    const blur = readMs("--ob-search-blur", 2);
+    const delay = readMs("--ob-search-glow-delay", 40);
+    const peakAt = readMs("--ob-search-glow-peak", 0.18);
+    const gOp = readMs("--ob-search-glow-opacity", 0.4);
+    const easeOut = bezier(cs.getPropertyValue("--ob-search-out-ease"));
+    const easeIn = bezier(cs.getPropertyValue("--ob-search-in-ease"));
     const m = mirror.current!;
     const p = phold.current!;
     const g = glow.current!;
@@ -404,7 +405,7 @@ export function SearchField({
   return (
     <div
       ref={wrap}
-      className={"t-clear ob-search" + (value ? " has-value" : "") + (clearing !== null ? " is-clearing" : "")}
+      className={"ob-search" + (value ? " has-value" : "") + (clearing !== null ? " is-clearing" : "")}
     >
       <svg className="ob-search-icon" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
         <circle cx="9" cy="9" r="6" />
@@ -418,14 +419,14 @@ export function SearchField({
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
-      <div className="t-clear-mirror" ref={mirror} aria-hidden="true">
+      <div className="ob-search-mirror" ref={mirror} aria-hidden="true">
         {shown.replace(/ /g, "\u00a0")}
       </div>
-      <div className="t-clear-placeholder" ref={phold} aria-hidden="true">
+      <div className="ob-search-placeholder" ref={phold} aria-hidden="true">
         {placeholder}
       </div>
-      <div className="t-clear-glow" ref={glow} aria-hidden="true" />
-      <button type="button" className="t-clear-btn" aria-label="Clear search" onPointerDown={keep} onMouseDown={keep} onClick={clear}>
+      <div className="ob-search-glow" ref={glow} aria-hidden="true" />
+      <button type="button" className="ob-search-clear" aria-label="Clear search" onPointerDown={keep} onMouseDown={keep} onClick={clear}>
         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
           <path d="M2 2l6 6M8 2L2 8" />
         </svg>
@@ -434,9 +435,9 @@ export function SearchField({
   );
 }
 
-/* ---------- Checkbox check ---------- */
+/* ---------- Checkbox ---------- */
 
-export function Check({
+export function Checkbox({
   checked,
   onChange,
   label,
@@ -451,22 +452,22 @@ export function Check({
       role="checkbox"
       aria-checked={checked}
       aria-label={label}
-      className="t-check ob-check"
+      className="ob-checkbox"
       onClick={() => onChange(!checked)}
     >
       <svg width="12" height="12" viewBox="0 0 10.1668 10.1668" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M1 5.52L3.92 9.17L9.17 1" />
+        <path d="M1 5.52L3.92 9.17L9.17 1" pathLength={1} />
       </svg>
     </button>
   );
 }
 
-/* ---------- Icon swap (plus or copy, to check) ---------- */
+/* ---------- IconSwap (plus or copy, to a tick) ---------- */
 
 export function IconSwap({ state, icon = "plus" }: { state: "a" | "b"; icon?: "plus" | "copy" }) {
   return (
-    <span className="t-icon-swap" data-state={state}>
-      <span className="t-icon" data-icon="a">
+    <span className="ob-icon-swap" data-state={state}>
+      <span className="ob-icon-swap-icon" data-icon="a">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
           {icon === "copy" ? (
             <>
@@ -478,7 +479,7 @@ export function IconSwap({ state, icon = "plus" }: { state: "a" | "b"; icon?: "p
           )}
         </svg>
       </span>
-      <span className="t-icon" data-icon="b">
+      <span className="ob-icon-swap-icon" data-icon="b">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M3 8.5l3.2 3.2L13 4.8" />
         </svg>
@@ -487,15 +488,15 @@ export function IconSwap({ state, icon = "plus" }: { state: "a" | "b"; icon?: "p
   );
 }
 
-/* ---------- Matrix dot loader ---------- */
+/* ---------- DotLoader ---------- */
 
 const CORNERS = [0, 3, 12, 15];
 const RING = [1, 2, 7, 11, 14, 13, 8, 4];
 
-export function Matrix({ variant = "orbit" }: { variant?: "orbit" | "scan" | "twinkle" | "pulse" }) {
+export function DotLoader({ variant = "orbit" }: { variant?: "orbit" | "scan" | "twinkle" | "pulse" }) {
   const cycle = 1200;
   return (
-    <span className="t-matrix" data-variant={variant} aria-hidden="true">
+    <span className="ob-dot-loader" data-variant={variant} aria-hidden="true">
       {Array.from({ length: 16 }, (_, idx) => {
         if (CORNERS.includes(idx)) return <i key={idx} className="is-gap" />;
         if (variant === "scan") return <i key={idx} style={{ ["--d" as string]: Math.round((idx % 4) * (cycle / 10)) } as CSSProperties} />;
@@ -507,7 +508,7 @@ export function Matrix({ variant = "orbit" }: { variant?: "orbit" | "scan" | "tw
   );
 }
 
-/* ---------- Spinning counter ---------- */
+/* ---------- Odometer ---------- */
 
 const CELLS = Array.from({ length: 40 }, (_, i) => i % 10);
 
@@ -515,11 +516,11 @@ const CELLS = Array.from({ length: 40 }, (_, i) => i % 10);
    if the cell size changes with the screen. */
 const at = (n: number) => `translateY(${(-n / CELLS.length) * 100}%)`;
 
-function ReelCol({ digit, index, roll }: { digit: number; index: number; roll: boolean }) {
+function OdometerCol({ digit, index, roll }: { digit: number; index: number; roll: boolean }) {
   const strip = useRef<HTMLDivElement>(null);
   const blur = useRef<SVGFEGaussianBlurElement>(null);
   const prev = useRef<number | null>(null);
-  const id = "reel" + useId().replace(/[^a-zA-Z0-9]/g, "");
+  const id = "odometer" + useId().replace(/[^a-zA-Z0-9]/g, "");
 
   useLayoutEffect(() => {
     const el = strip.current;
@@ -538,14 +539,14 @@ function ReelCol({ digit, index, roll }: { digit: number; index: number; roll: b
     /* A spin goes round twice before landing. A roll moves forward to the next
        digit, the way a clock turns over, so 9 to 0 is one step. */
     const to = roll ? from + ((digit - from + 10) % 10) : 20 + digit;
-    const dur = roll ? readMs("--reel-roll-dur", 600) : readMs("--reel-dur", 1400);
-    const delay = index * readMs("--reel-stagger", 90);
-    const maxBlur = readMs("--reel-spin-blur", 3) * (roll ? 0.5 : 1);
+    const dur = roll ? readMs("--ob-odometer-roll-dur", 600) : readMs("--ob-odometer-dur", 1400);
+    const delay = index * readMs("--ob-odometer-stagger", 90);
+    const maxBlur = readMs("--ob-odometer-blur", 3) * (roll ? 0.5 : 1);
 
     el.style.transition = "none";
     el.style.transform = at(from);
     void el.offsetWidth;
-    el.style.transition = `transform ${dur}ms var(--reel-ease) ${delay}ms`;
+    el.style.transition = `transform ${dur}ms var(--ob-odometer-ease) ${delay}ms`;
     el.style.transform = at(to);
     el.style.filter = `url(#${id})`;
 
@@ -572,7 +573,7 @@ function ReelCol({ digit, index, roll }: { digit: number; index: number; roll: b
   }, [digit, index, id, roll]);
 
   return (
-    <span className="t-reel-col">
+    <span className="ob-odometer-col">
       <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true" focusable="false">
         <defs>
           <filter id={id} x="-20%" y="-50%" width="140%" height="200%">
@@ -580,9 +581,9 @@ function ReelCol({ digit, index, roll }: { digit: number; index: number; roll: b
           </filter>
         </defs>
       </svg>
-      <div className="t-reel-strip" ref={strip}>
+      <div className="ob-odometer-strip" ref={strip}>
         {CELLS.map((d, i) => (
-          <span key={i} className="t-reel-digit">
+          <span key={i} className="ob-odometer-digit">
             {d}
           </span>
         ))}
@@ -591,21 +592,30 @@ function ReelCol({ digit, index, roll }: { digit: number; index: number; roll: b
   );
 }
 
-/* cell sets the digit height in px; leave it out to size it from --reel-cell
-   in CSS. pad keeps leading zeros, so 5 past reads 05. roll steps to the next
-   digit instead of spinning, for things that tick like a clock. */
-export function Reel({ value, cell, pad = 0, roll = false }: { value: number; cell?: number; pad?: number; roll?: boolean }) {
+/* cell sets the digit height in px; leave it out to size it from
+   --ob-odometer-cell in CSS. pad keeps leading zeros, so 5 past reads 05.
+   roll steps to the next digit instead of spinning, for things that tick
+   like a clock. */
+export function Odometer({ value, cell, pad = 0, roll = false }: { value: number; cell?: number; pad?: number; roll?: boolean }) {
   const digits = String(Math.max(0, Math.floor(value))).padStart(pad, "0").split("").map(Number);
   return (
     <span
-      className="t-reel"
+      className="ob-odometer"
       role="img"
       aria-label={String(value)}
-      style={cell ? ({ ["--reel-cell" as string]: `${cell}px` } as CSSProperties) : undefined}
+      style={cell ? ({ ["--ob-odometer-cell" as string]: `${cell}px` } as CSSProperties) : undefined}
     >
       {digits.map((d, i) => (
-        <ReelCol key={digits.length - i} digit={d} index={i} roll={roll} />
+        <OdometerCol key={digits.length - i} digit={d} index={i} roll={roll} />
       ))}
     </span>
   );
 }
+
+/* ---------- Old names ---------- */
+
+export const PopNumber = AnimatedNumber;
+export const Toggle = Switch;
+export const Check = Checkbox;
+export const Matrix = DotLoader;
+export const Reel = Odometer;

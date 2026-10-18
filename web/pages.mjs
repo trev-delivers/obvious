@@ -40,218 +40,240 @@ const COLOUR_GROUPS = [
 
 /* ---- components ------------------------------------------------------ */
 
-const CHECK_BADGE = (id, size = "") => `<span class="t-check-badge" id="${id}" data-state="spinning" role="img" aria-label="Checking"${size}>
-  <span class="t-check-ring" aria-hidden="true"></span>
-  <span class="t-check-arc" aria-hidden="true"></span>
-  <span class="t-check-fill" aria-hidden="true"></span>
-  <span class="t-check-disc" aria-hidden="true">
-    <svg viewBox="0 0 24 24"><path class="t-check-mark" d="M8 12.5L10.8 15.5L16.4 9.5"></path></svg>
-  </span>
+const INLINE_LOADING = (id, label = "Checking") => `<span class="ob-inline-loading" id="${id}" data-state="active" role="status" aria-label="${label}">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <circle class="ob-inline-loading-track" cx="12" cy="12" r="10"/>
+    <circle class="ob-inline-loading-arc" cx="12" cy="12" r="10" pathLength="100"/>
+    <circle class="ob-inline-loading-disc" cx="12" cy="12" r="11"/>
+    <path class="ob-inline-loading-tick" d="M7.5 12.5l3 3 6-6.5" pathLength="1"/>
+  </svg>
 </span>`;
 
-const ARROW = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>`;
+const SPINNER = `<span class="ob-spinner" role="status" aria-label="Loading">
+  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+</span>`;
+
+const ARROW = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>`;
 
 const COMPONENTS = [
   {
+    slug: "button",
+    cls: "ob-button",
+    title: "Button",
+    what: "Primary for the one thing you want people to press, secondary beside it, and ghost for quiet actions. Height follows the theme's density and the corners follow its radius.",
+    demo: `<button class="ob-button" type="button">Save changes</button>
+<button class="ob-button ob-button--secondary" type="button">Cancel</button>
+<button class="ob-button ob-button--ghost" type="button">Skip</button>
+<button class="ob-button ob-button--icon" type="button" aria-label="Next">${ARROW}</button>
+<button class="ob-button" type="button" id="busyBtn"><span>Send</span>${INLINE_LOADING("busyLoading", "Sending")}</button>`,
+    hint: "Press Send to see it loading.",
+    usage: `<button class="ob-button" type="button">Save changes</button>
+<button class="ob-button ob-button--secondary" type="button">Cancel</button>
+<button class="ob-button ob-button--ghost" type="button">Skip</button>
+<button class="ob-button ob-button--icon" type="button" aria-label="Next"><svg>…</svg></button>
+
+<!-- sizes -->
+<button class="ob-button ob-button--sm">…</button>
+<button class="ob-button ob-button--lg">…</button>
+
+<!-- loading: the label keeps its space -->
+<button class="ob-button" aria-busy="true">
+  <span>Send</span>
+  <span class="ob-inline-loading" data-state="active">…</span>
+</button>`,
+    notes: "Every size is at least 44px tall so it's easy to tap. Use a real <code>&lt;button&gt;</code>, or an <code>&lt;a&gt;</code> when it goes somewhere. The inline loading inside only shows while <code>aria-busy</code> is true.",
+  },
+  {
     slug: "field",
-    cls: "t-input",
+    cls: "ob-field",
     title: "Field",
-    what: "The text field and select. The border shifts on focus. On a wrong answer it shakes, turns the error colour, and settles back after 3 seconds.",
-    demo: `<form class="t-input-wrap demo-field" id="gateWrap" autocomplete="off">
-  <div class="t-input" id="gateField">
-    <input id="gatePw" type="password" placeholder="Password" aria-label="Password" autocomplete="off" spellcheck="false">
-    <button type="submit" class="t-pro-btn t-pro-btn--icon" id="gateBtn" aria-label="Enter">
-      <span class="t-pro-btn-label" id="gateArrow">${ARROW}</span>
-      <span class="t-check-blur-wrap" id="gateBlur" hidden>
-        ${CHECK_BADGE("gateBadge")}
-      </span>
-    </button>
+    what: "A label, a text input or select, and a message underneath. On a wrong answer the box shakes and the message turns into the error, then it clears after 3 seconds.",
+    demo: `<form class="demo-form" id="gateForm" autocomplete="off" novalidate>
+  <div class="ob-field" id="gateField">
+    <label class="ob-field-label" for="gatePw">Password</label>
+    <div class="ob-input">
+      <input id="gatePw" type="password" autocomplete="off" spellcheck="false" aria-describedby="gateErr gateHint">
+      <button type="submit" class="ob-button ob-button--icon ob-button--sm" id="gateBtn" aria-label="Enter">
+        <span id="gateArrow">${ARROW}</span>
+        ${INLINE_LOADING("gateLoading")}
+      </button>
+    </div>
+    <p class="ob-field-message ob-field-message--error" id="gateErr">Not that one.</p>
+    <p class="ob-field-message" id="gateHint">It's the name of this thing.</p>
   </div>
-  <p class="t-error-msg" id="gateErr">Not that one.</p>
-  <div class="t-input t-input--select">
-    <select aria-label="Clocks">
-      <option>Anywhere with DST</option>
-      <option>The UK and Europe</option>
-      <option>Nowhere, thankfully</option>
-    </select>
+  <div class="ob-field">
+    <label class="ob-field-label" for="clocks">Clocks</label>
+    <div class="ob-select">
+      <select id="clocks">
+        <option>Anywhere with DST</option>
+        <option>The UK and Europe</option>
+        <option>Nowhere, thankfully</option>
+      </select>
+    </div>
   </div>
 </form>`,
-    hint: "The password is obvious.",
-    usage: `<form class="t-input-wrap">
-  <div class="t-input">
-    <input type="password" placeholder="Password" aria-label="Password">
+    usage: `<div class="ob-field">
+  <label class="ob-field-label" for="pw">Password</label>
+  <div class="ob-input">
+    <input id="pw" type="password" aria-describedby="pw-error">
   </div>
-  <p class="t-error-msg">Not that one.</p>
-</form>
+  <p class="ob-field-message ob-field-message--error" id="pw-error">Not that one.</p>
+</div>
 
-<div class="t-input t-input--select">
-  <select aria-label="Clocks">…</select>
+<div class="ob-field">
+  <label class="ob-field-label" for="clocks">Clocks</label>
+  <div class="ob-select"><select id="clocks">…</select></div>
 </div>`,
-    js: `import { shake } from "obvious/behaviours";
+    js: `import { shakeField } from "obvious/behaviours";
 
-shake(field, wrap); // on a wrong answer`,
-    notes: "The shake sits on <code>.t-input</code> rather than the input, because transforming the input moves its caret too. The error colour is <code>--t-input-error</code>, which isn't the theme's danger: a wrong password is a try-again. Point it at <code>--ds-color-danger</code> where the form really has failed.",
+shakeField(fieldEl); // on a wrong answer`,
+    notes: "Add <code>.is-invalid</code> to the field yourself if you'd rather it stayed red until fixed. The error colour is <code>--ob-field-error</code>, the theme's danger by default.",
   },
   {
-    slug: "check-badge",
-    cls: "t-check-badge",
-    title: "Check badge",
-    what: "A spinner that turns into a filled tick in the same spot. Green and white in every theme, so it always reads as done.",
-    demo: `<span class="t-check-blur-wrap" id="soloBlur">
-  ${CHECK_BADGE("soloBadge", ' style="width:32px;height:32px;flex:0 0 32px"')}
-</span>
-<button class="demo-btn" id="replay-check" type="button">Resolve</button>`,
-    usage: CHECK_BADGE("badge"),
-    js: `import { checkMorph } from "obvious/behaviours";
+    slug: "inline-loading",
+    cls: "ob-inline-loading",
+    title: "Inline loading",
+    what: "A small spinner that turns into a tick when it's done, in the same spot, so the answer lands where the tap was. The tick is the theme's success colour.",
+    demo: `${INLINE_LOADING("soloLoading")}
+<button class="ob-button ob-button--secondary ob-button--sm" id="replay-check" type="button">Finish</button>`,
+    usage: INLINE_LOADING("saving", "Saving"),
+    js: `import { inlineLoading } from "obvious/behaviours";
 
-const check = checkMorph(badge, blurWrap);
-check.spin();
-check.done(2600); // back to spinning after 2.6s, or 0 to stay done`,
+const loading = inlineLoading(el);
+loading.start();
+loading.finish(2000); // tick for 2s, then back to the spinner. 0 keeps the tick.`,
   },
   {
-    slug: "pro-button",
-    cls: "t-pro-btn",
-    title: "Pro button",
-    what: "A white pill with a glowing rim. It stays white in every theme. Only the typeface follows the app.",
-    demo: `<button class="t-pro-btn" type="button"><span class="t-pro-btn-label">Get in touch</span></button>
-<button class="t-pro-btn t-pro-btn--icon" type="button" aria-label="Send"><span class="t-pro-btn-label">${ARROW}</span></button>`,
-    usage: `<button class="t-pro-btn" type="button">
-  <span class="t-pro-btn-label">Get in touch</span>
-</button>
+    slug: "spinner",
+    cls: "ob-spinner",
+    title: "Spinner",
+    what: "8 dots in a ring with a bright one running round. It's a line of text tall and takes the text colour.",
+    demo: `${SPINNER}
+<span class="demo-inline">${SPINNER} Loading your finds</span>`,
+    usage: SPINNER,
+    notes: "It's all CSS, so there's nothing to start or stop. Remove it when the thing has loaded.",
+  },
+  {
+    slug: "loading-text",
+    cls: "ob-loading-text",
+    title: "Loading text",
+    what: "A line that says what's happening while you wait, with a brighter band passing through it. Pair it with the spinner.",
+    demo: `<span class="demo-inline">${SPINNER}<span class="ob-loading-text" id="think" role="status">
+  <span class="ob-loading-text-sizer" aria-hidden="true"></span>
+  <span class="ob-loading-text-phrase">Thinking…</span>
+</span></span>`,
+    usage: `<span class="ob-loading-text" role="status">
+  <span class="ob-loading-text-sizer" aria-hidden="true"></span>
+  <span class="ob-loading-text-phrase">Thinking…</span>
+</span>`,
+    js: `import { cycleLoadingText, shuffle } from "obvious/behaviours";
 
-<button class="t-pro-btn t-pro-btn--icon" type="button" aria-label="Send">
-  <span class="t-pro-btn-label"><svg>…</svg></span>
-</button>`,
-    notes: "<code>.t-pro-btn--icon</code> is the 36px round version that docks inside a field.",
+const stop = cycleLoadingText(el, shuffle(phrases), { pool: phrases });`,
+    notes: "The sizer holds the width of the longest phrase, so nothing beside it moves when the phrase changes.",
   },
   {
     slug: "gradient-text",
-    cls: "t-gradient-text",
+    cls: "ob-gradient-text",
     title: "Gradient text",
-    what: "Gold washes drifting over a bronze ramp, clipped to the letters. It's the same gold in every theme. Use it on 1 or 2 things a page.",
-    demo: `<p class="demo-display">I make complicated products feel <span class="t-gradient-text">obvious</span>.</p>`,
-    usage: `<span class="t-gradient-text">obvious</span>`,
-  },
-  {
-    slug: "think",
-    cls: "t-think",
-    title: "Thinking",
-    what: "A loading line with a highlight sweeping through it, cycling short phrases. Grey in every theme so it doesn't compete with the page.",
-    demo: `<span class="t-think demo-think" id="think" role="status">
-  <span class="t-think-sizer" aria-hidden="true">Checking the contrast…</span>
-  <span class="t-think-text" data-text="Thinking…">Thinking…</span>
-</span>`,
-    usage: `<span class="t-think" role="status">
-  <span class="t-think-sizer" aria-hidden="true">Checking the contrast…</span>
-  <span class="t-think-text" data-text="Thinking…">Thinking…</span>
-</span>`,
-    js: `import { cycleThink, shuffle } from "obvious/behaviours";
-
-const stop = cycleThink(el, shuffle(phrases), { pool: phrases });`,
-    notes: "The sizer is an invisible copy of the longest phrase. It holds the box open so nothing around it moves when the phrase changes. <code>cycleThink</code> sizes it from the whole pool.",
-  },
-  {
-    slug: "boot-ring",
-    cls: "t-boot-ring",
-    title: "Boot ring",
-    what: "8 dots that light up in turn, then chase round with a fading tail. It's 16px, sized to sit next to a line of text.",
-    demo: `<div class="t-boot-ring is-running" id="boot" aria-hidden="true"></div>
-<button class="demo-btn" id="replay-boot" type="button">Power cycle</button>`,
-    usage: `<div class="t-boot-ring" aria-hidden="true"></div>`,
-    js: `import { mountBootRing } from "obvious/behaviours";
-
-const ring = mountBootRing(el);       // builds the dots and starts
-const later = mountBootRing(el, { start: false });
-later.start();`,
-    notes: "The dots are placed in JS because CSS still has no usable <code>calc(sin())</code>. One lap is <code>--boot-step</code> times <code>--boot-count</code>, so keep <code>--boot-cycle</code> equal to that or the tail breaks up.",
+    what: "Gold, with the light moving slowly across it. It's the same gold in every theme. Use it on 1 or 2 words a page.",
+    demo: `<p class="demo-display">I make complicated products feel <span class="ob-gradient-text">obvious</span>.</p>`,
+    usage: `<span class="ob-gradient-text">obvious</span>`,
   },
   {
     slug: "link",
-    cls: "t-link",
+    cls: "ob-link",
     title: "Link",
-    what: "The house text link. Muted text on a hairline, and both take the accent on hover. The line is a border so it clears the descenders.",
-    demo: `<a class="t-link" href="/tokens/colour">A text link</a>
-<a class="t-link t-link--loud" href="/tokens/colour">A louder one</a>
-<a class="t-link t-gradient-text" href="/tokens/colour">A text link</a>`,
-    usage: `<a class="t-link" href="…">A text link</a>
-<a class="t-link t-link--loud" href="…">A louder one</a>`,
-    notes: "<code>.t-link--loud</code> is for a page where the link is the main thing to do.",
+    what: "Muted text with a fine underline, and both take the accent on hover.",
+    demo: `<a class="ob-link" href="/tokens/colour">A text link</a>
+<a class="ob-link ob-link--strong" href="/tokens/colour">A stronger one</a>
+<a class="ob-link ob-gradient-text" href="/tokens/colour">A gold one</a>`,
+    usage: `<a class="ob-link" href="…">A text link</a>
+<a class="ob-link ob-link--strong" href="…">A stronger one</a>`,
+    notes: "<code>--strong</code> is for a link that's the main thing to do on the page.",
   },
   {
     slug: "chip",
-    cls: "t-chip",
+    cls: "ob-chip",
     title: "Chip",
-    what: "The selectable pill, for a row where one is on and the rest are off. It owns shape and state. Type comes from wherever it sits.",
+    what: "One of a row of options where one is on, like filters or a picker. Type comes from wherever it sits.",
     demo: `<div class="demo-chips" data-chips>
-  <button class="t-chip is-on" type="button">Work</button>
-  <button class="t-chip" type="button">About</button>
-  <button class="t-chip" type="button">Contact</button>
+  <button class="ob-chip" type="button" aria-pressed="true">Work</button>
+  <button class="ob-chip" type="button" aria-pressed="false">About</button>
+  <button class="ob-chip" type="button" aria-pressed="false">Contact</button>
 </div>
 <div class="demo-chips" data-chips>
-  <button class="t-chip t-chip--outlined is-on" type="button" style="--t-chip-radius:var(--ds-radius-sm)">UK</button>
-  <button class="t-chip t-chip--outlined" type="button" style="--t-chip-radius:var(--ds-radius-sm)">Europe</button>
-  <button class="t-chip t-chip--outlined" type="button" style="--t-chip-radius:var(--ds-radius-sm)">US</button>
+  <button class="ob-chip ob-chip--outline" type="button" aria-pressed="true" style="--ob-chip-radius:var(--ds-radius-sm)">UK</button>
+  <button class="ob-chip ob-chip--outline" type="button" aria-pressed="false" style="--ob-chip-radius:var(--ds-radius-sm)">Europe</button>
+  <button class="ob-chip ob-chip--outline" type="button" aria-pressed="false" style="--ob-chip-radius:var(--ds-radius-sm)">US</button>
 </div>`,
-    usage: `<button class="t-chip is-on" type="button">Work</button>
-<button class="t-chip" type="button">About</button>
+    usage: `<button class="ob-chip" type="button" aria-pressed="true">Work</button>
+<button class="ob-chip" type="button" aria-pressed="false">About</button>
 
-<button class="t-chip t-chip--outlined" type="button">UK</button>`,
-    notes: "The on state is a shallow accent gradient rather than a solid fill, because a full-strength accent under text fails contrast in most themes. <code>--t-chip-radius</code> and <code>--t-chip-pad</code> change the shape.",
+<button class="ob-chip ob-chip--outline" type="button" aria-pressed="false">UK</button>`,
+    notes: "<code>aria-pressed</code> marks the one that's on, so screen readers hear it too. <code>.is-selected</code> works where that doesn't fit, like a link. <code>--ob-chip-radius</code> and <code>--ob-chip-pad</code> change the shape.",
   },
   {
     slug: "reveal",
-    cls: "t-reveal",
+    cls: "ob-reveal",
     title: "Reveal",
-    what: "Things arriving as they scroll into view, one after another. If IntersectionObserver is missing, everything shows at once.",
+    what: "Things fading up as they scroll into view, a list arriving in order. If the script doesn't run, everything just shows.",
     demo: `<div class="demo-reveal" id="reveal-demo">
-  <span class="t-reveal in">Ketchup</span>
-  <span class="t-reveal in">Kewpie mayonnaise</span>
-  <span class="t-reveal in">Henderson's Relish</span>
+  <span class="ob-reveal">Ketchup</span>
+  <span class="ob-reveal">Kewpie mayonnaise</span>
+  <span class="ob-reveal">Henderson's Relish</span>
 </div>
-<button class="demo-btn" id="replay-reveal" type="button">Replay</button>`,
+<button class="ob-button ob-button--secondary ob-button--sm" id="replay-reveal" type="button">Replay</button>`,
     usage: `<ul>
-  <li class="t-reveal">Ketchup</li>
-  <li class="t-reveal">Kewpie mayonnaise</li>
-</ul>
-
-<h1 class="t-reveal--seq">One thing on its own</h1>`,
+  <li class="ob-reveal">Ketchup</li>
+  <li class="ob-reveal">Kewpie mayonnaise</li>
+</ul>`,
     js: `import { revealOnScroll, splitWords, revealWords } from "obvious/behaviours";
 
 const stop = revealOnScroll(document);
 revealWords(splitWords(heading)); // a heading, word by word`,
-    notes: "<code>.t-reveal</code> is a group whose members arrive in turn. <code>.t-reveal--seq</code> is one element on its own. Both start hidden in CSS and show when they get <code>.in</code>.",
   },
   {
     slug: "stagger",
-    cls: "t-stagger",
+    cls: "ob-stagger",
     title: "Stagger",
-    what: "2 lines arriving one after the other inside something that has just opened, like a tooltip. Reveal does the same job for things scrolling into view.",
-    demo: `<div class="t-stagger demo-stagger" id="stagger">
-  <p class="t-stagger-line">Hick's law</p>
-  <p class="t-stagger-line t-stagger-line--2">More choices, slower decisions.</p>
+    what: "The contents of something that's just opened, arriving one after another, like the lines in a tooltip or the rows in a menu.",
+    demo: `<div class="ob-stagger demo-stagger" id="stagger">
+  <p>Hick's law</p>
+  <p>More choices, slower decisions.</p>
 </div>
-<button class="demo-btn" id="replay-stagger" type="button">Show</button>`,
-    usage: `<div class="t-stagger is-shown">
-  <p class="t-stagger-line">Hick's law</p>
-  <p class="t-stagger-line t-stagger-line--2">More choices, slower decisions.</p>
+<button class="ob-button ob-button--secondary ob-button--sm" id="replay-stagger" type="button">Open</button>`,
+    usage: `<div class="ob-stagger is-open">
+  <p>Hick's law</p>
+  <p>More choices, slower decisions.</p>
 </div>`,
-    notes: "Add <code>.is-shown</code> to play it in. <code>.is-hiding</code> fades both lines out together.",
+    notes: "Add <code>.is-open</code> to play it. It staggers up to 7 children, and any after that arrive with the 7th.",
   },
   {
     slug: "badge",
-    cls: "t-badge",
+    cls: "ob-badge",
     title: "Badge",
-    what: "The notification dot that pops onto a button. It fires once, then leaves you alone.",
-    demo: `<span class="demo-badge-host">
-  <button class="demo-btn" id="badge-btn" type="button">Inbox</button>
-  <span class="t-badge" id="badge" data-open="false"><span class="t-badge-dot">3</span></span>
-</span>
-<button class="demo-btn" id="replay-badge" type="button">Pop it</button>`,
-    usage: `<span style="position:relative">
-  <button type="button">Inbox</button>
-  <span class="t-badge" data-open="true"><span class="t-badge-dot">3</span></span>
+    what: "A count on a button or tab, like unread messages. It pops in when there's something new and shrinks away at zero.",
+    demo: `<button class="ob-button ob-button--secondary ob-badge-host" type="button" id="inbox" aria-label="Inbox">Inbox <span class="ob-badge" id="badge" data-visible="false" aria-hidden="true">3</span></button>
+<button class="ob-button ob-button--ghost ob-button--sm" id="replay-badge" type="button">New message</button>`,
+    usage: `<button class="ob-badge-host" type="button" aria-label="Inbox, 3 unread">
+  Inbox <span class="ob-badge" data-visible="true" aria-hidden="true">3</span>
+</button>`,
+    notes: "Set <code>data-visible</code> to <code>false</code> to take it away. Put the count in the button's accessible name too, because the badge itself is hidden from screen readers.",
+  },
+  {
+    slug: "tooltip",
+    cls: "ob-tooltip",
+    title: "Tooltip",
+    what: "A short label that shows on hover or keyboard focus, for icon buttons and anything else that needs a word of explanation.",
+    demo: `<span class="ob-tooltip-host">
+  <button class="ob-button ob-button--secondary" type="button" aria-describedby="tip-1">Inspect</button>
+  <span class="ob-tooltip" role="tooltip" id="tip-1">Shows the tokens</span>
 </span>`,
-    notes: "Set <code>data-open</code> to <code>true</code> to pop it on and <code>false</code> to take it away. The dot is the theme's danger colour with a ring of the page colour round it.",
+    usage: `<span class="ob-tooltip-host">
+  <button type="button" aria-describedby="tip-1">Inspect</button>
+  <span class="ob-tooltip" role="tooltip" id="tip-1">Shows the tokens</span>
+</span>`,
+    notes: "It sits above, centred. <code>.ob-tooltip--start</code> and <code>--end</code> line it up with an edge instead, for triggers near the side of the screen.",
   },
 ];
 
@@ -291,11 +313,11 @@ ${head(
 )}
 ${section(
   "What every app shares",
-  `<p>Spacing, the <a class="t-link" href="/tokens/type">type scale</a>, line heights, <a class="t-link" href="/tokens/motion">motion</a>, focus rings, shadow shape, control heights and z-index layers. These live in <code>src/primitives.json</code> and are identical in every app. Change one and all 6 sites change with it.</p>`,
+  `<p>Spacing, the <a class="ob-link" href="/tokens/type">type scale</a>, line heights, <a class="ob-link" href="/tokens/motion">motion</a>, focus rings, shadow shape, control heights and z-index layers. These live in <code>src/primitives.json</code> and are identical in every app. Change one and all 6 sites change with it.</p>`,
 )}
 ${section(
   "What each app changes",
-  `<p>Colour, its type pair, <code>--ds-radius-base</code> and <code>--ds-density</code>. All 5 <a class="t-link" href="/tokens/radius">radius steps</a> are worked out from the base, so Brookwood sets 4px and gets near-square paper while Condimental sets 16px and gets soft cards. Density does the same for control heights and padding.</p>
+  `<p>Colour, its type pair, <code>--ds-radius-base</code> and <code>--ds-density</code>. All 5 <a class="ob-link" href="/tokens/radius">radius steps</a> are worked out from the base, so Brookwood sets 4px and gets near-square paper while Condimental sets 16px and gets soft cards. Density does the same for control heights and padding.</p>
 <p>Every theme declares the same ${tokenCount} tokens. The build fails if one is missing, so a theme can't drop a token and inherit whatever the last one left behind.</p>`,
 )}
 ${section(
@@ -304,8 +326,8 @@ ${section(
 )}
 ${section(
   "What's in it",
-  `<p>${themes.length} <a class="t-link" href="/themes">themes</a>, ${COMPONENTS.length} <a class="t-link" href="/components">CSS components</a> with a small behaviours module for the parts CSS can't do, and ${registry.items.length} <a class="t-link" href="/react">React components</a> served as a shadcn registry. There's also a Tailwind v4 bridge, a shadcn bridge, a JS export of every token for canvas and OG images, and an <a class="t-link" href="/audit">audit script</a> that counts how much of an app goes around the system.</p>
-<p><a class="t-link t-link--loud" href="/start">Add it to an app</a></p>`,
+  `<p>${themes.length} <a class="ob-link" href="/themes">themes</a>, ${COMPONENTS.length} <a class="ob-link" href="/components">CSS components</a> with a small behaviours module for the parts CSS can't do, and ${registry.items.length} <a class="ob-link" href="/react">React components</a> served as a shadcn registry. There's also a Tailwind v4 bridge, a shadcn bridge, a JS export of every token for canvas and OG images, and an <a class="ob-link" href="/audit">audit script</a> that counts how much of an app goes around the system.</p>
+<p><a class="ob-link ob-link--strong" href="/start">Add it to an app</a></p>`,
 )}`,
   });
 
@@ -395,7 +417,7 @@ ${COLOUR_GROUPS.map(([title, keys]) =>
 ${section(
   "Across the themes",
   `<div class="table-wrap"><table class="matrix"><thead><tr><th scope="col">Token</th>${themes
-    .map((t) => `<th scope="col"><a class="t-link" href="/themes/${t.name}">${esc(t.label)}</a></th>`)
+    .map((t) => `<th scope="col"><a class="ob-link" href="/themes/${t.name}">${esc(t.label)}</a></th>`)
     .join("")}</tr></thead><tbody>${COLOUR_GROUPS.flatMap(([, keys]) => keys)
     .map(
       (k) =>
@@ -471,7 +493,7 @@ ${section(
 ${table(
   ["Theme", "Display", "Text"],
   themes.map((th) => [
-    `<a class="t-link" href="/themes/${th.name}">${esc(th.label)}</a>`,
+    `<a class="ob-link" href="/themes/${th.name}">${esc(th.label)}</a>`,
     `<span style="font-family:${esc(th.font.display)}">${esc(th.fontName.display)}</span>`,
     `<span style="font-family:${esc(th.font.sans)}">${esc(th.fontName.sans)}</span>`,
   ]),
@@ -569,7 +591,7 @@ ${section(
   table(
     ["Theme", "Base", ""],
     themes.map((th) => [
-      `<a class="t-link" href="/themes/${th.name}">${esc(th.label)}</a>`,
+      `<a class="ob-link" href="/themes/${th.name}">${esc(th.label)}</a>`,
       th.dial["radius-base"],
       `<span class="radius-mini" style="border-radius:calc(${th.dial["radius-base"]} * 1.5)"></span>`,
     ]),
@@ -689,9 +711,10 @@ ${head(esc(th.label), esc(th.description))}
   <p class="stage-h">I make complicated products feel obvious.</p>
   <p class="stage-body">Daylight saving takes an hour each spring and gives most of it back each autumn.</p>
   <div class="stage-row">
-    <button class="t-chip is-on" type="button">Work</button>
-    <button class="t-chip" type="button">About</button>
-    <a class="t-link" href="#colours">A text link</a>
+    <button class="ob-button ob-button--sm" type="button">Save</button>
+    <button class="ob-chip" type="button" aria-pressed="true">Work</button>
+    <button class="ob-chip" type="button" aria-pressed="false">About</button>
+    <a class="ob-link" href="#colours">A text link</a>
   </div>
 </div>
 ${section(
@@ -725,16 +748,16 @@ import "obvious/css/themes/${th.name}.css";`) +
     title: "Components",
     description: "The shared interaction layer: CSS components and the behaviours that drive them.",
     body: `
-${head("Components", "The interaction layer every family app shares. Plain CSS with a <code>t-</code> prefix, plus a small JS module for the parts CSS can't do.")}
+${head("Components", "The components every family app shares. Plain CSS with an <code>ob-</code> prefix, plus a small JS module for the parts CSS can't do.")}
 <ul class="comp-list">${COMPONENTS.map(
       (c) =>
-        `<li><a class="comp-name t-link t-link--loud" href="/components/${c.slug}">${esc(c.title)}</a> <code>.${c.cls}</code><p>${c.what}</p></li>`,
+        `<li><a class="comp-name ob-link ob-link--strong" href="/components/${c.slug}">${esc(c.title)}</a> <code>.${c.cls}</code><p>${c.what}</p></li>`,
     ).join("")}</ul>
 ${section(
   "Loading them",
   code(`@import "obvious/css/components.css";          /* all of them */
 @import "obvious/css/components/chip.css";     /* or one */`) +
-    `<p>Every behaviour reads its timing from the component's own custom properties, so retiming one is a CSS change and the JS can't disagree with it.</p>`,
+    `<p>They're my own code, written on the tokens. Every behaviour reads its timing from the component's custom properties, so retiming one is a CSS change.</p>`,
 )}`,
   });
 
@@ -795,18 +818,11 @@ ${items
         (it.registryDependencies?.length
           ? `<p>Brings in ${it.registryDependencies.map((d) => `<code>${esc(d)}</code>`).join(", ")} too.</p>`
           : "") +
-        (it.transitions?.length
-          ? `<p>Needs these transitions.dev snippets:</p>` + code(`npx transitions-dev add ${it.transitions.join(" ")}`)
-          : ""),
+        "",
       it.name,
     ),
   )
   .join("")}
-${section(
-  "transitions.dev",
-  `<p>These components wrap transitions.dev snippets. The snippets' CSS isn't in this repo: their licence lets you use them in your own products but not republish them as a kit, and this repo is public. Each app pulls the CSS itself with the command under each component.</p>
-<p>Load the CSS in this order: primitives and a theme, the transitions.dev CSS, <code>obvious/css/transitions-bridge.css</code>, then the app's own styles. The bridge points transitions.dev's colour hooks at the theme, and has to come after because transitions.dev sets its own dark grey defaults on <code>:root</code>.</p>`,
-)}
 ${section(
   "shadcn/ui",
   `<p>For dialogs, popovers and selects, use shadcn's own components. <code>obvious/shadcn/theme.css</code> points shadcn's variables at <code>--ds-*</code>, so they take the app's theme, dark set included. Import it after shadcn's globals. It needs a Tailwind app.</p>`,

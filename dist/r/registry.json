@@ -7,7 +7,7 @@
       "name": "motion",
       "type": "registry:component",
       "title": "Motion",
-      "description": "React wrappers for the transitions.dev snippets: Tabs, Badge, PopNumber, TextSwap, useReveal, SuccessCheck, Toggle, SearchField, Check, IconSwap, Matrix and Reel.",
+      "description": "Small animated pieces: Tabs, Badge, AnimatedNumber, TextSwap, useReveal, SuccessCheck, Switch, SearchField, Checkbox, IconSwap, DotLoader and Odometer. Styles and motion included.",
       "files": [
         {
           "path": "registry/obvious/motion.tsx",

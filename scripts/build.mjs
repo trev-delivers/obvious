@@ -128,8 +128,7 @@ writeFileSync(
 
 writeFileSync(
   join(dist, "css", "transitions-bridge.css"),
-  stamp("obvious transitions bridge — transitions.dev's colour hooks, from the theme.") +
-    readFileSync(join(src, "transitions-bridge.css"), "utf8").replace(/^\/\*[\s\S]*?\*\/\n+/, ""),
+  readFileSync(join(src, "transitions-bridge.css"), "utf8"),
 );
 
 writeFileSync(

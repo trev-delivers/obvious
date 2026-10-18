@@ -1,10 +1,12 @@
-/* Sheet: bottom sheet on phones, centred dialog from 640px. The dialog
-   motion is transitions.dev's modal; the phone slide is its own, timed by
-   --ob-sheet-open-dur and --ob-sheet-close-dur. */
+/* Sheet: bottom sheet on phones, centred dialog from 640px. The phone slide
+   is timed by --ob-sheet-open-dur and --ob-sheet-close-dur, the dialog by
+   --ob-dialog-open-dur and --ob-dialog-close-dur. */
 
 :where(:root) {
   --ob-sheet-open-dur: 400ms;
   --ob-sheet-close-dur: 350ms;
+  --ob-dialog-open-dur: 240ms;
+  --ob-dialog-close-dur: 160ms;
   --ob-sheet-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ob-sheet-radius: 28px;
   --ob-sheet-bg: var(--ds-color-surface-raised);
@@ -53,17 +55,25 @@ html.ob-sheet-lock, html.ob-sheet-lock body { overflow: hidden; }
 }
 
 @media (max-width: 639px) {
-  .ob-sheet-panel.t-modal { opacity: 1; transform: translateY(100%); transition: transform var(--ob-sheet-close-dur) var(--ob-sheet-ease); }
-  .ob-sheet-panel.t-modal.is-open { transform: translateY(0); transition-duration: var(--ob-sheet-open-dur); }
-  .ob-sheet-panel.t-modal.is-closing { opacity: 1; transform: translateY(100%); transition: transform var(--ob-sheet-close-dur) var(--ob-sheet-ease); }
+  .ob-sheet-panel { transform: translateY(100%); transition: transform var(--ob-sheet-close-dur) var(--ob-sheet-ease); }
+  .ob-sheet-panel.is-open { transform: translateY(0); transition-duration: var(--ob-sheet-open-dur); }
+  .ob-sheet-panel.is-closing { transform: translateY(100%); transition: transform var(--ob-sheet-close-dur) var(--ob-sheet-ease); }
   .ob-sheet.is-dragging .ob-sheet-panel { transition: none; }
 }
 @media (min-width: 640px) {
   .ob-sheet { align-items: center; padding: 24px; }
-  .ob-sheet-panel { max-width: 480px; border-radius: var(--ob-sheet-radius); max-height: min(780px, calc(100dvh - 48px)); box-shadow: var(--ob-shadow-float, var(--ds-shadow-xl)); }
+  .ob-sheet-panel {
+    max-width: 480px; border-radius: var(--ob-sheet-radius); max-height: min(780px, calc(100dvh - 48px)); box-shadow: var(--ob-shadow-float, var(--ds-shadow-xl));
+    opacity: 0; scale: 0.96; translate: 0 8px;
+    transition: opacity var(--ob-dialog-close-dur) var(--ds-ease-in), scale var(--ob-dialog-close-dur) var(--ds-ease-in), translate var(--ob-dialog-close-dur) var(--ds-ease-in);
+  }
+  .ob-sheet-panel.is-open {
+    opacity: 1; scale: 1; translate: 0;
+    transition: opacity var(--ob-dialog-open-dur) var(--ds-ease-out), scale var(--ob-dialog-open-dur) var(--ds-ease-out), translate var(--ob-dialog-open-dur) var(--ds-ease-out);
+  }
   .ob-sheet-panel.is-tall { height: min(780px, calc(100dvh - 48px)); }
   .ob-sheet-grab { display: none; }
   .ob-sheet-head { padding-top: 20px; }
   .ob-sheet-actions { padding-bottom: 20px; border-radius: 0 0 var(--ob-sheet-radius) var(--ob-sheet-radius); }
 }
-@media (prefers-reduced-motion: reduce) { .ob-sheet-shade { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .ob-sheet-shade, .ob-sheet-panel { transition: none !important; } }
