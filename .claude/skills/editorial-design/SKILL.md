@@ -37,7 +37,7 @@ Two things matter more than everything else here. The content has to be ranked b
 
 - **Measure: 45 to 75 characters**, 66 ideal for one column; 40 to 50 in multi-column work. Never over 90. (Bringhurst 2.1.2; Butterick)
 - **Under about 40 characters, don't justify.** Set ragged right. (Bringhurst) For older readers, set ragged right everywhere and don't hyphenate automatically (RNIB clear print, via Sensory Trust).
-- **Body 10 to 12pt in print**, 15 to 25px on screen. For older readers, 12pt minimum with a large x-height, captions never under 11pt in print (about 14.7px).
+- **Body 10 to 12pt in print**, 15 to 25px on screen. For older readers, clear print guidance says 12pt minimum, 14pt ideal. When a fixed page count makes that impossible, 11pt with a large x-height is the floor, captions and fact blocks 10pt or more, and you tell the editor what full clear print would cost in content.
 - **Leading 120 to 145%** of the type size. More for longer lines and for older readers (1.35 or more).
 - **Indent or space paragraphs, never both.** No indent after a heading. In CSS: `p { margin: 0 } p + p { text-indent: 1em }`.
 - **Sentence case for headings.** All caps only for less than one line, letterspaced 5 to 10%.

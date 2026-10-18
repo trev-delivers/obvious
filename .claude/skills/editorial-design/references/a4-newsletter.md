@@ -17,8 +17,8 @@ For older readers, start at the larger set. The numbers in brackets are a tighte
 
 | Role | Size and leading | Notes |
 |---|---|---|
-| Body | 11/16pt, about 14.7/21px (10/12pt) | Ragged right, no automatic hyphens for older readers. Indent 1em, no paragraph space. |
-| Caption, fact block | 9/12pt minimum, 11pt for older readers | Sans companion is fine here. |
+| Body | 11/15pt, about 14.7/20px (10/12pt) | Ragged right, no automatic hyphens for older readers. Indent 1em, no paragraph space. Full clear print is 12pt, which costs about a fifth of the content on 4 pages. |
+| Caption, fact block | 9/12pt minimum, 10pt or more for older readers | Sans companion is fine here. |
 | Standfirst | 13 to 14pt italic | One or two sentences. |
 | Subhead in text | Body size, semibold, a line of space above | |
 | Notice headline | 16 to 18pt | |
