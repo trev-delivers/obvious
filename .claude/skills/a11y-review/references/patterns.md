@@ -155,10 +155,10 @@ obvious's.
   must be available elsewhere (2.2.1); tapping a toast dismisses it, and it
   isn't a button, so there's no keyboard way to dismiss one early (usually
   fine, since it goes by itself).
-- **`t-tt` tooltip** (`src/components/tooltip.css`): shows on hover and on
-  the trigger's `:focus-visible`. Check Escape and hovering the tooltip
+- **`ob-tooltip`** (`src/components/tooltip.css`): shows on hover and when
+  focus is inside its `ob-tooltip-host`. Check Escape and hovering the tooltip
   itself (1.4.13).
-- **`t-reveal`, `t-stagger`, `revealWords()`**: entrance animations. With
+- **`ob-reveal`, `ob-stagger`, `revealWords()`**: entrance animations. With
   `base.css` and the behaviours' own `prefersReducedMotion()` checks they
   stop under reduced motion; confirm content is visible straight away with
   the setting on, and with JavaScript failing.

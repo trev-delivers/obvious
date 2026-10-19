@@ -1,6 +1,6 @@
 ---
 name: design-system-guardian
-description: Keeps apps that use the obvious design system built from it. Finds the app's theme and its ds/ folder or npm pin, reaches for tokens, type roles, t-* components and ob-* registry items before writing any CSS, applies obvious's design rules, runs obvious's audit (audit-ds.mjs with --detail, --max and .ds-audit.json) and the ds/ sync check, and either fixes a value that goes around the system or records a measured exception. Also decides when a new token or component belongs in obvious itself and how to propose it safely. Use whenever you style, build or review UI in an app that has a ds/ folder, an obvious dependency or a .ds-audit.json, when the audit number goes up or CI fails on ds:audit or ds:check, and when someone asks for a design system check, "is this on-system", "why is this hard-coded", adding a token, adding a component, or changing a theme.
+description: Keeps apps that use the obvious design system built from it. Finds the app's theme and its ds/ folder or npm pin, reaches for tokens, type roles, ob-* components and registry items before writing any CSS, applies obvious's design rules, runs obvious's audit (audit-ds.mjs with --detail, --max and .ds-audit.json) and the ds/ sync check, and either fixes a value that goes around the system or records a measured exception. Also decides when a new token or component belongs in obvious itself and how to propose it safely. Use whenever you style, build or review UI in an app that has a ds/ folder, an obvious dependency or a .ds-audit.json, when the audit number goes up or CI fails on ds:audit or ds:check, and when someone asks for a design system check, "is this on-system", "why is this hard-coded", adding a token, adding a component, or changing a theme.
 ---
 
 # Design system guardian
@@ -75,13 +75,14 @@ Take the first rung that does the job. Each step down is more for someone to
 maintain.
 
 1. **Something the app already has** that's built on obvious. Reuse it.
-2. **An obvious component.** `t-*` classes from `ds/css/components/` (field,
-   chip, link, tooltip, badge, reveal, stagger and the rest), or a registry
+2. **An obvious component.** `ob-*` classes from `ds/css/components/` (button,
+   field, chip, link, tooltip, badge, reveal, stagger and the rest), or a registry
    item (Sheet, Toasts, PlusMenu, motion) installed with
    `npx shadcn add @obvious/<name>`. Retune them through their custom
-   properties (`--t-chip-radius`, `--ob-sheet-radius`, `--ob-shade`) on
-   `:root` or a parent. Never edit a registry file or restyle a `t-*`
-   selector.
+   properties (`--ob-chip-radius`, `--ob-sheet-radius`, `--ob-shade`) on
+   `:root` or a parent. Never edit a registry file or restyle an `ob-*`
+   selector. An app's ds/ from before 18 Oct 2026 has the old `t-*` names;
+   the obvious README maps them to the new ones.
 3. **A type role plus tokens.** Set a whole role at once
    (`--ds-type-label-size`, `-leading`, `-tracking`, `-weight`), colours from
    `--ds-color-*`, spacing from `--ds-space-*`, radius from `--ds-radius-*`,

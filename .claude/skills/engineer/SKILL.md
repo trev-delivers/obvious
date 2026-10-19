@@ -52,7 +52,8 @@ Route to the specialist skills; don't redo their work:
 - Words on screen, READMEs, commits, PRs: `write-like-trev`. Portfolio copy:
   `write-portfolio` too. Patterns for errors, empty states, labels and alt
   text: `ux-writing`.
-- Adding motion: `transitions-dev`. Tuning motion: `transitions-polish`.
+- Motion: obvious's components and registry first. New motion is written
+  by hand on the tokens. Never copy transitions.dev.
 - Design system tokens and rules: `design-system-guardian`, which runs
   obvious's audit (`node scripts/audit-ds.mjs <app>` from the obvious repo).
 - Building from a Figma frame: `figma-to-code`.

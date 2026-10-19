@@ -27,8 +27,8 @@ whether the designer drew it somewhere else.
    include Interaction, Accessibility and Content). Read any that come
    back with the design context, and ask the designer if the frame clearly
    has notes you can't see.
-4. The obvious component you're using. `t-input` already has its error
-   state and shake, `t-chip` its hover and selected state, `Sheet` its
+4. The obvious component you're using. `ob-field` already has its error
+   state and shake, `ob-chip` its hover and selected state, `Sheet` its
    focus handling. Don't redesign what the system already decided.
 
 Anything still missing, you design with the system's tokens and list in
@@ -53,10 +53,10 @@ size with a larger hit area from padding.
 
 | State | What to build |
 |---|---|
-| Loading | Nothing if it's usually under a second. A skeleton in the shape of the real content for a page that takes a few seconds; a spinner for one small part; a progress bar with a time estimate past about 10 seconds (NN/g). obvious has `t-boot-ring`, `t-think` and the registry `Matrix` for waits. Keep the page's layout stable as content arrives. |
+| Loading | Nothing if it's usually under a second. A skeleton in the shape of the real content for a page that takes a few seconds; a spinner for one small part; a progress bar with a time estimate past about 10 seconds (NN/g). obvious has `ob-spinner`, `ob-loading-text` and the registry `DotLoader` for waits. Keep the page's layout stable as content arrives. |
 | Empty | Say what will appear here and how to fill it, with the action that does it. Never a blank box, and never "No results" while it's still loading. |
 | Error | Say what went wrong and what to do, in plain words, next to the thing that failed. For forms: the message by the field, linked with `aria-describedby`, the field marked `aria-invalid`, nothing the person typed cleared, and on submit a summary at the top that links to each field (GOV.UK's pattern). Errors stay until fixed. Use the app's own error helper if it has one. |
-| Success | Confirm where the action happened: `t-check-badge` or `SuccessCheck` in place, or a toast for something that happened elsewhere. Announce it with a polite live region if focus doesn't move (WCAG 4.1.3). |
+| Success | Confirm where the action happened: `ob-inline-loading` or `SuccessCheck` in place, or a toast for something that happened elsewhere. Announce it with a polite live region if focus doesn't move (WCAG 4.1.3). |
 | Offline or partial | If the app has these states elsewhere, match them. If not, list it as not handled. |
 
 ## Content states
@@ -107,7 +107,7 @@ what each shape is.
   token values.
 - Hover or focus content (tooltips, previews) can be dismissed with
   Escape, can be hovered without vanishing, and stays until dismissed
-  (1.4.13). `t-tt` shows on hover and keyboard focus; link it with
+  (1.4.13). `ob-tooltip` shows on hover and keyboard focus; link it with
   `aria-describedby`.
 
 For a full audit, `a11y-review` (if present) or the `engineer` skill's
@@ -116,8 +116,8 @@ For a full audit, `a11y-review` (if present) or the `engineer` skill's
 ## Motion
 
 Figma prototypes can show transitions and Smart Animate. Rebuild them with
-`--ds-duration-*` and `--ds-ease-*`, or the registry and transitions.dev
-pieces via `transitions-dev`. Motion should explain a change: something appeared, moved or saved. Everything respects `prefers-reduced-motion`: `base.css` zeroes CSS
+`--ds-duration-*` and `--ds-ease-*`, or obvious's components and registry.
+Write any new motion by hand on the tokens; never copy transitions.dev. Motion should explain a change: something appeared, moved or saved. Everything respects `prefers-reduced-motion`: `base.css` zeroes CSS
 durations and delays, JS motion in React checks `reduced()` from the
 registry's `motion.tsx`, and obvious's `behaviours.js` checks the setting
 itself. When the frame has keyframe animation, `Figma:get_motion_context`

@@ -1,9 +1,37 @@
-/* House styling for the motion wrappers. The transitions themselves come
-   from transitions.dev; this is only what those snippets leave to the app:
-   colour, size and shape, all from --ds-* tokens. transitions.dev's own
-   colour hooks are set by obvious/css/transitions-bridge.css. */
+/* Styles and motion for the pieces in motion.tsx. Everything they need is
+   here: colours, sizes and timing come from the --ds-* tokens, and the knobs
+   below are set on :root at zero specificity so an app can retune any of them. */
 
-:where(.t-tab, .ob-switch, .ob-check, .t-clear-btn) {
+:where(:root) {
+  --ob-text-swap-dur: 160ms;
+  --ob-stagger-step: 40ms;
+  --ob-tabs-dur: 320ms;
+  --ob-number-dur: 420ms;
+  --ob-switch-dur: 260ms;
+  --ob-check-dur: 320ms;
+  --ob-success-dur: 560ms;
+  --ob-dot-loader-lap: 1200ms;
+  --ob-odometer-cell: 1.2em;
+  --ob-odometer-dur: 1400ms;
+  --ob-odometer-roll-dur: 600ms;
+  --ob-odometer-stagger: 90ms;
+  --ob-odometer-blur: 3;
+  --ob-odometer-ease: cubic-bezier(0.2, 0.9, 0.25, 1);
+  --ob-search-clear-dur: 900ms;
+  --ob-search-out-dur: 380ms;
+  --ob-search-in-dur: 380ms;
+  --ob-search-out-fly: 12;
+  --ob-search-in-fly: 10;
+  --ob-search-blur: 2;
+  --ob-search-out-ease: cubic-bezier(0.4, 0, 1, 1);
+  --ob-search-in-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ob-search-glow-delay: 40ms;
+  --ob-search-glow-peak: 0.18;
+  --ob-search-glow-opacity: 0.4;
+  --ob-search-glow-spread: 1.5;
+}
+
+:where(.ob-tab, .ob-switch, .ob-checkbox, .ob-search-clear) {
   font: inherit;
   color: inherit;
   border: 0;
@@ -14,69 +42,321 @@
   touch-action: manipulation;
 }
 
+/* ---------- AnimatedNumber ---------- */
+
+.ob-number { display: inline-flex; font-variant-numeric: tabular-nums; }
+.ob-number-digit { display: inline-block; }
+.ob-number.is-animating .ob-number-digit {
+  animation: ob-number-in var(--ob-number-dur) var(--ds-ease-out) both;
+}
+.ob-number.is-animating .ob-number-digit[data-stagger="1"] { animation-delay: 40ms; }
+.ob-number.is-animating .ob-number-digit[data-stagger="2"] { animation-delay: 80ms; }
+@keyframes ob-number-in {
+  from { opacity: 0; translate: 0 0.45em; filter: blur(2px); }
+  to { opacity: 1; translate: 0; filter: none; }
+}
+
+/* ---------- TextSwap ---------- */
+
+.ob-text-swap {
+  display: inline-block;
+  transition:
+    opacity var(--ob-text-swap-dur) var(--ds-ease-out),
+    translate var(--ob-text-swap-dur) var(--ds-ease-out),
+    filter var(--ob-text-swap-dur) var(--ds-ease-out);
+}
+.ob-text-swap.is-exit { opacity: 0; translate: 0 -0.3em; filter: blur(2px); }
+.ob-text-swap.is-enter-start { opacity: 0; translate: 0 0.3em; filter: blur(2px); transition: none; }
+
+/* ---------- Tabs ---------- */
+
+.ob-tabs {
+  position: relative;
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-bg-alt);
+}
+.ob-tabs-indicator {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 0;
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-surface);
+  box-shadow: var(--ds-shadow-sm);
+  transition:
+    transform var(--ob-tabs-dur) var(--ds-ease-out),
+    width var(--ob-tabs-dur) var(--ds-ease-out),
+    opacity var(--ds-duration-fast) var(--ds-ease-out);
+}
+.ob-tab {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-2xs);
+  min-height: var(--ds-control-height-sm);
+  padding: 0 var(--ds-space-sm);
+  border-radius: var(--ds-radius-full);
+  color: var(--ds-color-text-muted);
+  font-size: var(--ds-type-ui-size);
+  font-weight: var(--ds-type-ui-weight);
+  white-space: nowrap;
+  transition: color var(--ds-duration-fast) var(--ds-ease-out);
+}
+.ob-tab:hover,
+.ob-tab[aria-selected="true"] { color: var(--ds-color-text); }
+
 /* Tabs with an icon: the badge hangs off the icon's corner. */
 .ob-tab-icon { position: relative; display: inline-grid; }
 .ob-tab-icon svg { display: block; }
-.ob-tab-icon .t-badge { top: -7px; right: -11px; }
+.ob-tab-icon .ob-badge { position: absolute; top: -7px; right: -11px; }
 
-/* Notification badge dot with a count. */
-.t-badge-dot.ob-badge {
-  min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px;
-  background: var(--ob-badge-bg, var(--ds-color-danger)); color: #fff;
-  font-size: 11px; font-weight: 700; display: grid; place-items: center; font-variant-numeric: tabular-nums;
+/* ---------- Badge ---------- */
+/* The same badge as obvious/css/components/badge.css, so a React app
+   doesn't need the CSS layer as well. */
+
+.ob-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 var(--ds-space-2xs);
+  border-radius: var(--ds-radius-full);
+  background: var(--ob-badge-bg, var(--ds-color-danger));
+  color: var(--ds-color-accent-contrast);
+  font-size: var(--ds-text-micro);
+  font-weight: var(--ds-weight-bold);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 0 0 2px var(--ds-color-bg);
+  pointer-events: none;
+  transition: scale var(--ds-duration-slow) var(--ds-ease-spring), opacity var(--ds-duration-fast) var(--ds-ease-out);
+}
+.ob-badge[data-visible="false"] {
+  scale: 0;
+  opacity: 0;
+  transition: scale var(--ds-duration-fast) var(--ds-ease-in), opacity var(--ds-duration-fast) var(--ds-ease-in);
 }
 
-/* Toggle. */
+/* ---------- useReveal and staggerStyle ---------- */
+
+.ob-reveal-group > * {
+  opacity: 0;
+  translate: 0 8px;
+  transition: opacity var(--ds-duration-base) var(--ds-ease-out), translate var(--ds-duration-base) var(--ds-ease-out);
+}
+.ob-reveal-group.is-shown > * { opacity: 1; translate: 0; }
+.ob-reveal-group.is-hiding > * { opacity: 0; translate: 0; transition-delay: 0s !important; }
+
+/* ---------- SuccessCheck ---------- */
+
+.ob-success-check { display: inline-grid; place-items: center; color: var(--ds-color-success); }
+.ob-success-check svg { display: block; }
+.ob-success-check[data-state="in"] { animation: ob-success-pop var(--ob-success-dur) var(--ds-ease-spring) both; }
+.ob-success-check[data-state="in"] path {
+  stroke-dashoffset: 0 !important;
+  transition: stroke-dashoffset var(--ob-success-dur) var(--ds-ease-out) 80ms;
+}
+@keyframes ob-success-pop {
+  from { scale: 0.6; opacity: 0; }
+  to { scale: 1; opacity: 1; }
+}
+
+/* ---------- Switch ---------- */
+
 .ob-switch {
-  --toggle-travel: 18px;
-  width: 44px; height: 26px; padding: 2px; border-radius: var(--ds-radius-full);
-  background: var(--ds-color-border); display: inline-flex; align-items: center; flex: none;
+  width: 44px;
+  height: 26px;
+  padding: 2px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-border-strong);
+  transition: background-color var(--ob-switch-dur) var(--ds-ease-out);
 }
 .ob-switch[data-on="true"] { background: var(--ds-color-success); }
-.ob-switch .t-toggle-thumb {
-  display: block; width: 22px; height: 22px; border-radius: 50%;
-  background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+.ob-switch-thumb {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--ds-radius-full);
+  background: var(--ds-color-surface);
+  box-shadow: var(--ds-shadow-sm);
 }
+.ob-switch[data-on="true"] .ob-switch-thumb { translate: 18px 0; }
+/* No slide on first paint, only once someone has used it. */
+.ob-switch.is-init .ob-switch-thumb { transition: translate var(--ob-switch-dur) var(--ds-ease-spring); }
 
-/* Round check box. */
-.t-check.ob-check {
-  width: 28px; height: 28px; flex: none; border-radius: 50%;
-  border: 1.5px solid var(--ds-color-border); background: var(--ds-color-surface); color: #fff;
-  display: grid; place-items: center;
+/* ---------- Checkbox ---------- */
+
+.ob-checkbox {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: var(--ds-radius-full);
+  border: var(--ds-border-thick) solid var(--ds-color-border-strong);
+  background: var(--ds-color-surface);
+  color: var(--ds-color-accent-contrast);
+  transition:
+    background-color var(--ob-check-dur) var(--ds-ease-out),
+    border-color var(--ob-check-dur) var(--ds-ease-out),
+    scale var(--ds-duration-fast) var(--ds-ease-out);
 }
-.t-check.ob-check svg { width: 13px; height: 13px; }
-.t-check.ob-check[aria-checked="true"] { background: var(--ds-color-success); border-color: var(--ds-color-success); }
+.ob-checkbox:active { scale: 0.92; }
+.ob-checkbox svg { width: 13px; height: 13px; }
+.ob-checkbox path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset var(--ob-check-dur) var(--ds-ease-out);
+}
+.ob-checkbox[aria-checked="true"] { background: var(--ds-color-success); border-color: var(--ds-color-success); }
+.ob-checkbox[aria-checked="true"] path { stroke-dashoffset: 0; transition-delay: 60ms; }
 
-/* Search field with the clear dissolve. */
+/* ---------- IconSwap ---------- */
+
+.ob-icon-swap { display: inline-grid; place-items: center; }
+.ob-icon-swap-icon {
+  grid-area: 1 / 1;
+  display: grid;
+  place-items: center;
+  transition:
+    opacity var(--ds-duration-base) var(--ds-ease-out),
+    scale var(--ds-duration-base) var(--ds-ease-spring),
+    filter var(--ds-duration-base) var(--ds-ease-out);
+}
+.ob-icon-swap[data-state="a"] .ob-icon-swap-icon[data-icon="b"],
+.ob-icon-swap[data-state="b"] .ob-icon-swap-icon[data-icon="a"] { opacity: 0; scale: 0.5; filter: blur(2px); }
+
+/* ---------- DotLoader ---------- */
+
+.ob-dot-loader {
+  display: inline-grid;
+  grid-template-columns: repeat(4, 3px);
+  gap: 2px;
+  color: var(--ds-color-text);
+}
+.ob-dot-loader i {
+  width: 3px;
+  height: 3px;
+  border-radius: var(--ds-radius-full);
+  background: currentColor;
+  opacity: 0.18;
+  animation: ob-dot-chase var(--ob-dot-loader-lap) linear infinite;
+  animation-delay: calc(var(--d, 0) * 1ms - var(--ob-dot-loader-lap));
+}
+.ob-dot-loader i.is-gap { visibility: hidden; animation: none; }
+.ob-dot-loader[data-variant="scan"] i { animation-name: ob-dot-scan; }
+.ob-dot-loader[data-variant="twinkle"] i { animation-name: ob-dot-twinkle; animation-duration: calc(var(--ob-dot-loader-lap) * 1.6); }
+.ob-dot-loader[data-variant="pulse"] i { animation-name: ob-dot-pulse; animation-delay: 0s; }
+@keyframes ob-dot-chase { 0% { opacity: 1; } 60%, 100% { opacity: 0.18; } }
+@keyframes ob-dot-scan { 0%, 100% { opacity: 0.18; } 25% { opacity: 1; } }
+@keyframes ob-dot-twinkle { 0%, 100% { opacity: 0.18; scale: 0.8; } 15% { opacity: 1; scale: 1.15; } 40% { opacity: 0.18; scale: 1; } }
+@keyframes ob-dot-pulse { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+
+/* ---------- Odometer ---------- */
+
+.ob-odometer { display: inline-flex; font-variant-numeric: tabular-nums; line-height: 1; }
+.ob-odometer-col { position: relative; height: var(--ob-odometer-cell); overflow: hidden; }
+.ob-odometer-strip { display: flex; flex-direction: column; will-change: transform; }
+.ob-odometer-digit { height: var(--ob-odometer-cell); line-height: var(--ob-odometer-cell); text-align: center; }
+
+/* ---------- SearchField ---------- */
+
 .ob-search {
-  position: relative; height: 46px; flex: 1; min-width: 0;
-  border-radius: var(--ds-radius-md); background: var(--ds-color-bg-alt); color: var(--ds-color-text);
-  transition: box-shadow var(--ds-duration-fast) ease-out;
+  position: relative;
+  height: var(--ds-control-height-lg);
+  flex: 1;
+  min-width: 0;
+  border-radius: var(--ds-radius-md);
+  background: var(--ds-color-bg-alt);
+  color: var(--ds-color-text);
+  transition: box-shadow var(--ds-duration-fast) var(--ds-ease-out);
 }
-.ob-search:focus-within { box-shadow: inset 0 0 0 1.5px var(--ds-color-text); }
+.ob-search:focus-within { box-shadow: inset 0 0 0 var(--ds-border-thick) var(--ds-color-accent); }
 .ob-search > input {
-  position: absolute; inset: 0; width: 100%; height: 100%; margin: 0;
-  border: 0; outline: none; background: transparent; border-radius: inherit;
-  font: inherit; color: inherit; -webkit-appearance: none; appearance: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  border-radius: inherit;
+  font: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+  appearance: none;
 }
 .ob-search > input::-webkit-search-cancel-button { -webkit-appearance: none; display: none; }
-.ob-search > input, .ob-search .t-clear-mirror, .ob-search .t-clear-placeholder { padding: 0 44px 0 42px; font-size: 16px; }
-.ob-search .t-clear-placeholder { color: var(--ds-color-text-muted); }
-.ob-search-icon { position: absolute; left: 14px; top: 14px; color: var(--ds-color-text-muted); z-index: 4; pointer-events: none; }
-.ob-search .t-clear-btn {
-  position: absolute; right: 9px; top: 9px; z-index: 5; width: 28px; height: 28px; border-radius: 50%;
-  background: color-mix(in srgb, var(--ds-color-text-muted) 45%, transparent); color: var(--ds-color-surface);
-  display: grid; place-items: center;
-  opacity: 0; scale: 0.6; pointer-events: none;
-  transition: opacity var(--ds-duration-fast) ease-out, scale var(--ds-duration-base) cubic-bezier(0.34, 1.36, 0.64, 1);
+.ob-search > input,
+.ob-search-mirror,
+.ob-search-placeholder { padding: 0 44px 0 42px; font-size: max(16px, var(--ds-type-ui-size)); }
+.ob-search-mirror,
+.ob-search-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  pointer-events: none;
 }
-.ob-search.has-value .t-clear-btn { opacity: 1; scale: 1; pointer-events: auto; }
+.ob-search-placeholder { color: var(--ds-color-text-muted); }
+.ob-search-mirror { visibility: hidden; }
+.ob-search.has-value .ob-search-placeholder { visibility: hidden; }
+.ob-search.is-clearing > input { color: transparent; }
+.ob-search.is-clearing .ob-search-mirror,
+.ob-search.is-clearing .ob-search-placeholder { visibility: visible; }
+.ob-search-glow { position: absolute; inset: 0; border-radius: inherit; opacity: 0; pointer-events: none; }
+.ob-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 1;
+  color: var(--ds-color-text-muted);
+  pointer-events: none;
+}
+.ob-search-clear {
+  position: absolute;
+  right: 9px;
+  top: 50%;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--ds-radius-full);
+  background: color-mix(in srgb, var(--ds-color-text-muted) 45%, transparent);
+  color: var(--ds-color-surface);
+  translate: 0 -50%;
+  opacity: 0;
+  scale: 0.6;
+  pointer-events: none;
+  transition: opacity var(--ds-duration-fast) var(--ds-ease-out), scale var(--ds-duration-base) var(--ds-ease-spring);
+}
+/* The visible circle is 28px, but the tap area reaches 44px. */
+.ob-search-clear::before { content: ""; position: absolute; inset: -8px; }
+.ob-search.has-value .ob-search-clear { opacity: 1; scale: 1; pointer-events: auto; }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-ds-mode="light"]) .t-clear-glow { mix-blend-mode: screen; }
+  :root:not([data-ds-mode="light"]) .ob-search-glow { mix-blend-mode: screen; }
 }
-:root[data-ds-mode="dark"] .t-clear-glow { mix-blend-mode: screen; }
+:root[data-ds-mode="dark"] .ob-search-glow { mix-blend-mode: screen; }
 
 @media (prefers-reduced-motion: reduce) {
-  .ob-search, .ob-search .t-clear-btn { transition: none; }
+  .ob-number.is-animating .ob-number-digit,
+  .ob-success-check[data-state="in"],
+  .ob-dot-loader i { animation: none; }
+  .ob-dot-loader i { opacity: 0.6; }
+  .ob-text-swap, .ob-tabs-indicator, .ob-switch-thumb, .ob-checkbox, .ob-checkbox path,
+  .ob-icon-swap-icon, .ob-reveal-group > *, .ob-badge, .ob-search, .ob-search-clear { transition: none !important; }
 }

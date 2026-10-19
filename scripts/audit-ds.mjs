@@ -111,14 +111,15 @@ function componentsIn(root) {
     const family = basename(file, ".css");
     const css = readFileSync(join(dir, file), "utf8");
     /* Only the classes the component names itself after: a modifier like
-       .t-pro-btn--icon is the same family as .t-pro-btn. */
-    for (const m of css.matchAll(/\.(t-[a-z0-9-]+)/g)) {
+       .ob-button--icon is the same family as .ob-button. Components were
+       t- until 18 Oct 2026, and an app's ds/ may still be that old. */
+    for (const m of css.matchAll(/\.((?:ob|t)-[a-z0-9-]+)/g)) {
       const cls = m[1];
       if (cls.includes("--")) continue;
-      /* link.css styles .t-link.t-gradient-text, which doesn't make
+      /* link.css styles .ob-link.ob-gradient-text, which doesn't make
          gradient text part of the link family. The first file to mention a
          class owns it, unless another file is named after it. */
-      if (!map.has(cls) || cls.startsWith(`t-${family}`)) map.set(cls, family);
+      if (!map.has(cls) || cls.startsWith(`ob-${family}`) || cls.startsWith(`t-${family}`)) map.set(cls, family);
     }
   }
   return map;

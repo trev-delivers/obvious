@@ -1,41 +1,25 @@
-/* Scroll and load reveals.
+/* ob-reveal. Things that fade up as they scroll into view. revealOnScroll()
+ * adds .is-visible, staggering siblings so a list arrives in order. If the
+ * script never runs, nothing stays hidden: the hidden state only applies
+ * once the page has .ob-motion on <html>, which the script sets.
  *
- * Two names because they mean different things: .t-reveal is a group whose
- * children arrive one after another, .t-reveal--seq is a single element arriving on
- * its own. Both start hidden in CSS and are released by adding .in, so a
- * failure in the observer leaves content invisible — which is why
- * revealOnScroll() in the behaviours module releases everything immediately
- * when IntersectionObserver is missing.
- *
- * Words in a heading use .t-word. .t-word--tail is for punctuation that
- * followed the previous word with no space: kept inline rather than
- * inline-block so the browser applies line-breaking rules (which forbid a
- * break before it) instead of treating it as an atomic box it can strand at
- * the start of a line.
- */
+ * .ob-reveal-word is one word of a heading, from splitWords(). */
 
-.t-reveal,
-.t-reveal--seq{opacity:0;transform:translateY(10px)}
+.ob-motion .ob-reveal{
+  opacity:0;translate:0 12px;
+  transition:opacity var(--ds-duration-slower) var(--ds-ease-out),translate var(--ds-duration-slower) var(--ds-ease-out);
+}
+.ob-motion .ob-reveal.is-visible{opacity:1;translate:0}
 
-.t-reveal.in{
-  opacity:1;transform:none;
-  transition:opacity var(--ds-duration-slower) var(--ds-ease-out),transform var(--ds-duration-slower) var(--ds-ease-out);
+.ob-motion .ob-reveal-word{
+  display:inline-block;opacity:0;translate:0 .4em;
+  transition:opacity var(--ds-duration-slow) var(--ds-ease-out),translate var(--ds-duration-slow) var(--ds-ease-out);
 }
-.t-reveal--seq.in{
-  opacity:1;transform:none;
-  transition:opacity .7s var(--ds-ease-out),transform .7s var(--ds-ease-out);
-}
-
-.t-word{display:inline-block;opacity:0;transform:translateY(12px);filter:blur(3px)}
-.t-word--tail{display:inline;transform:none}
-.t-word.in{
-  opacity:1;transform:none;filter:none;
-  transition:
-    opacity var(--ds-duration-slower) var(--ds-ease-out),
-    transform var(--ds-duration-slower) var(--ds-ease-out),
-    filter var(--ds-duration-slower) var(--ds-ease-out);
-}
+.ob-motion .ob-reveal-word.is-visible{opacity:1;translate:0}
+/* Punctuation stuck to the word before stays inline, so a line can't break
+   in front of it. */
+.ob-reveal-word--tail{display:inline}
 
 @media (prefers-reduced-motion:reduce){
-  .t-reveal,.t-reveal--seq,.t-word{opacity:1;transform:none;filter:none}
+  .ob-motion .ob-reveal,.ob-motion .ob-reveal-word{opacity:1;translate:0;transition:none}
 }

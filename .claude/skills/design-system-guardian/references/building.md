@@ -85,8 +85,8 @@ proportions. `--ds-radius-full` for pills and circles. Borders:
 **Motion**: `--ds-duration-instant` (100ms) to `-slowest` (900ms);
 `--ds-ease-out` is the house curve, plus `-in`, `-in-out` and `-spring`.
 Anything longer than 900ms is a loop or choreography, which is a recorded
-exception. For adding or tuning motion, use the `transitions-dev` and
-`transitions-polish` skills with these tokens.
+exception. New motion is written by hand with these tokens. Never copy
+transitions.dev.
 
 **Controls and layers**: `--ds-control-height-sm/md/lg` and
 `--ds-control-pad-x-*` scale with the theme's `--ds-density`;
@@ -94,31 +94,32 @@ exception. For adding or tuning motion, use the `transitions-dev` and
 `--ds-z-base` to `--ds-z-toast`. Focus: `base.css` draws the one focus ring
 from `--ds-focus-*` and the accent. Don't restyle it per app.
 
-## Components: the interaction layer (`t-*`)
+## Components (`ob-*`)
 
 Plain CSS in `src/components/`, built to `css/components/<file>.css`, with
 the JS that CSS can't do in `js/behaviours.js` (each function returns a
-teardown, which suits a React effect). The header comment of each file says
-what it is and which knobs it has.
+teardown or a control object, which suits a React effect). They're
+obvious's own code, rewritten on 18 Oct 2026; an app's ds/ from before then
+has the old `t-*` names, which the obvious README maps to these.
 
 | File | Class | Knobs to retune |
 | --- | --- | --- |
-| `field.css` | `t-input` | `--t-input-height`, `--t-input-error`, `--shake-*` |
-| `chip.css` | `t-chip` | `--t-chip-radius`, `--t-chip-pad` |
-| `link.css` | `t-link`, `t-link--loud` | none; colours follow the theme |
-| `tooltip.css` | `t-tt` | none |
-| `badge.css` | `t-badge` | `--badge-*` |
-| `check-badge.css` | `t-check-badge` | `--check-*` (always green on purpose) |
-| `reveal.css` | `t-reveal` | none |
-| `stagger.css` | `t-stagger` | `--stagger-*` |
-| `think.css` | `t-think` | `--think-*` |
-| `boot-ring.css` | `t-boot-ring` | `--boot-*` |
-| `pro-button.css` | `t-pro-btn` | `--probtn-*` |
-| `gradient-text.css` | `t-gradient-text` | `--gradient-text-*` |
+| `button.css` | `ob-button`, `--secondary`, `--ghost`, `--icon`, `--sm`, `--lg` | `--ob-button-height`, `--ob-button-pad`, `--ob-button-radius`, `--ob-button-bg` |
+| `field.css` | `ob-field`, `ob-input`, `ob-select`, `ob-field-message` | `--ob-field-error`, `--ob-field-height`, `--ob-field-hold` |
+| `chip.css` | `ob-chip`, `ob-chip--outline` | `--ob-chip-radius`, `--ob-chip-pad` |
+| `link.css` | `ob-link`, `ob-link--strong` | none; colours follow the theme |
+| `tooltip.css` | `ob-tooltip-host`, `ob-tooltip` | none |
+| `badge.css` | `ob-badge`, `ob-badge-host` | none |
+| `inline-loading.css` | `ob-inline-loading` | `--ob-loading-size`, `--ob-loading-spin` |
+| `spinner.css` | `ob-spinner` | `--ob-spinner-size`, `--ob-spinner-lap` |
+| `loading-text.css` | `ob-loading-text` | `--ob-loading-text-hold`, `--ob-loading-text-swap` |
+| `reveal.css` | `ob-reveal`, `ob-reveal-word` | none |
+| `stagger.css` | `ob-stagger` | `--ob-stagger-step` |
+| `gradient-text.css` | `ob-gradient-text` | `--ob-gold-*` |
 
-`t-gradient-text` and `t-think` break the written rule against gradient
-text and are recorded as exceptions in obvious's own `.ds-audit.json`. Don't
-reach for them in new work without the owner asking.
+`ob-gradient-text` breaks the written rule against gradient text and is
+recorded as an exception in obvious's own `.ds-audit.json`. Don't reach for
+it in new work without the owner asking.
 
 ## Components: the registry (`ob-*`)
 
@@ -130,7 +131,7 @@ React components served as a shadcn registry. They're copied into
 | `sheet` | Bottom sheet on phones, centred dialog from 640px | `--ob-sheet-radius`, `--ob-sheet-bg`, `--ob-shade`, `--ob-sheet-open-dur`, `--ob-sheet-close-dur`, `--ob-sheet-ease` |
 | `toasts` | Stacked toasts, `useToasts()` | `--ob-toasts-bottom` |
 | `plus-menu` | A + that grows into its menu | `--ob-plus-size`, `--ob-plus-width`, `--ob-plus-row`, `--ob-plus-items` |
-| `motion` | Tabs, Badge, PopNumber, TextSwap, SuccessCheck, Toggle and more | `--ob-badge-bg`, `--ob-shadow-float` |
+| `motion` | Tabs, Badge, AnimatedNumber, TextSwap, SuccessCheck, Switch and more | `--ob-badge-bg`, `--ob-shadow-float`, `--ob-*-dur` timings |
 
 Install with the full URL, or the short name once the app's
 `components.json` has `"registries": { "@obvious": "https://obvious-nine.vercel.app/r/{name}.json" }`:
@@ -139,10 +140,9 @@ Install with the full URL, or the short name once the app's
 npx shadcn add @obvious/sheet
 ```
 
-Each item lists the transitions.dev snippets it needs, and shadcn prints the
-`npx transitions-dev add ...` command. Load order then is primitives and
-theme, the transitions.dev CSS, `css/transitions-bridge.css`, then the
-app's styles.
+Each item brings its own CSS. Load primitives and a theme first, then the
+app's styles. An app that still loads transitions.dev's CSS and
+`css/transitions-bridge.css` can drop both.
 
 The next `add` replaces the app's copy (shadcn's `add` has an `--overwrite`
 flag for exactly this). So any change made inside `components/obvious/` is
@@ -165,11 +165,11 @@ has the same problem obvious has: an app's changes must survive the next
 update.
 
 1. Use the component's own knobs first (tables above).
-2. Name the app's own classes with its own prefix. `t-` and `ob-` are
-   obvious's; a class like `.t-chip--big` defined in an app looks like part of
+2. Name the app's own classes with its own prefix. `ob-` (and the old `t-`)
+   are obvious's; a class like `.ob-chip--big` defined in an app looks like part of
    the system and collides with any later version.
-3. Don't restyle `t-*` or `ob-*` classes in app CSS beyond setting their
-   knobs. Overriding `padding` or `color` on `.t-chip` works until obvious
+3. Don't restyle `ob-*` classes in app CSS beyond setting their
+   knobs. Overriding `padding` or `color` on `.ob-chip` works until obvious
    changes the component, then breaks with no warning.
 4. If a knob is missing, that's a proposal to obvious (add the knob), staged
    in `ds-proposals/`. See `contributing.md`.

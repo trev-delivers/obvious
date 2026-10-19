@@ -65,7 +65,7 @@ const LINE_CHECKS = [
   { id: "mono", area: "design", label: "Monospace in use (rule: no monospace)", in: CODE, skipComment: true,
     re: /\bmonospace\b|font-mono\b|--ds-font-mono|var\(--mono\)|Geist_Mono|JetBrains|IBM Plex Mono|Fira Code|Roboto Mono/ },
   { id: "gradient-text", area: "design", label: "Gradient text (rule: none)", in: CODE, skipComment: true,
-    re: /background-clip:\s*text|bg-clip-text|t-gradient-text/ },
+    re: /background-clip:\s*text|bg-clip-text|(?:ob|t)-gradient-text/ },
   { id: "middle-dot", area: "design", label: "Middle-dot metadata string (rule: none)", in: new Set([".tsx", ".jsx", ".html", ".astro"]), skipComment: true,
     re: /\s·\s|&middot;|\\u00b7/ },
   { id: "link-arrow", area: "design", label: "Arrow tacked onto link or button text (rule: none)", in: new Set([".tsx", ".jsx", ".html", ".astro"]), skipComment: true,

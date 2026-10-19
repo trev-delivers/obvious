@@ -159,28 +159,27 @@ of these as going around the system.
 
 | The frame shows | Use |
 |---|---|
-| Text field, select, with an error line | `t-input-wrap`, `t-input`, `t-error-msg` (`field.css`) |
-| One-of-several pills, filters, nav items | `t-chip`, `.is-on` for the selected one |
-| Text link | `t-link` (`t-link--loud` for the stronger one) |
-| Tooltip | `t-tt-wrap`, `t-tt-trigger`, `t-tt` |
-| Count dot on a button | `t-badge` or the registry `Badge` |
-| Spinner that becomes a tick | `t-check-badge`, or `SuccessCheck` in React |
+| Button | `ob-button`, with `--secondary`, `--ghost`, `--icon`, `--sm` and `--lg` |
+| Text field, select, with an error line | `ob-field`, `ob-input` or `ob-select`, `ob-field-message--error` (`field.css`) |
+| One-of-several pills, filters, nav items | `ob-chip`, `aria-pressed="true"` (or `.is-selected`) for the selected one |
+| Text link | `ob-link` (`ob-link--strong` for the stronger one) |
+| Tooltip | `ob-tooltip-host`, `ob-tooltip` |
+| Count dot on a button | `ob-badge` on an `ob-badge-host`, or the registry `Badge` |
+| Spinner that becomes a tick | `ob-inline-loading`, or `SuccessCheck` in React |
+| Small loading spinner | `ob-spinner`, with `ob-loading-text` beside it for a longer wait |
 | Bottom sheet on phones, dialog on desktop | registry `Sheet` |
 | Toast or snackbar | registry `Toasts` with `useToasts()` |
 | A + that opens a menu | registry `PlusMenu` |
 | Segmented control or tabs | registry `Tabs` |
-| Switch | registry `Toggle` |
+| Switch | registry `Switch` |
 | Search box with a clear button | registry `SearchField` |
-| Checkbox | registry `Check` |
-| Changing number | registry `PopNumber` or `Reel` |
+| Checkbox | registry `Checkbox` |
+| Changing number | registry `AnimatedNumber` or `Odometer` |
 | Dialog, popover, select, menu in a Tailwind app | shadcn, themed by the bridge |
-| Button | The app's own button class or component. obvious has no general button; `t-pro-btn` is one specific white pill. |
 
 Registry components are added with `npx shadcn add @obvious/<name>` (or
 the full URL) and land in `components/obvious/`. Their size and timing
-knobs are `--ob-*` properties set on `:root`. Some need transitions.dev
-CSS, which shadcn prints after install; the obvious README has the load
-order.
+knobs are `--ob-*` properties set on `:root`. Each brings its own CSS.
 
 If an obvious piece and the frame disagree (the frame's chip has a
 different radius), use the piece as it is and list the difference.

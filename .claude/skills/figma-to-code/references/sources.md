@@ -151,7 +151,7 @@ itself, the file is named instead.
   furniture).
 - `README.md`: themes, dark sets and `data-ds-mode`, the Tailwind and
   shadcn bridges (and why spacing isn't mapped), the registry and
-  `--ob-*` knobs, transitions.dev load order, the audit's categories.
+  `--ob-*` knobs, the old-to-new component names, the audit's categories.
 - `src/primitives.json`: every primitive token and the "nearest step"
   rule for spacing; type roles as sets; the 44px tap minimum.
 - `src/themes/*.json`, `dist/js/tokens.json`: theme colours, faces and

@@ -42,11 +42,15 @@ jobs:
         with:
           node-version: 22
       - run: npm install --no-audit --no-fund
+      # Sheet and Toasts depend on motion by its live URL, so adding them
+      # fetches the deployed motion over the top of this PR's. motion goes
+      # last so this checkout's copy is the one that gets typechecked.
       - name: shadcn add every item
         run: |
           for item in ../../dist/r/*.json; do
-            [ "$(basename "$item")" = registry.json ] && continue
+            case "$(basename "$item")" in registry.json|motion.json) continue ;; esac
             npx shadcn add "$item" --yes --overwrite
           done
+          npx shadcn add ../../dist/r/motion.json --yes --overwrite
       - run: ls -R components
       - run: npx tsc --noEmit

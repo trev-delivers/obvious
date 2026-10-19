@@ -313,7 +313,7 @@ Hover and focus every tooltip, popover and hover card.
 - 1.4.13 (AA): it can be dismissed without moving the pointer or focus
   (Escape), the pointer can move onto it without it vanishing, and it stays
   until the user moves away or dismisses it.
-- obvious's `t-tt` tooltip shows on hover and on `:focus-visible`, has
+- obvious's `ob-tooltip` shows on hover and on focus within its host, has
   `pointer-events: none` and no Escape handling in the CSS. Check whether the
   app adds Escape, and whether its content can be hovered. If it holds
   anything more than a repeat of the visible label, both matter.

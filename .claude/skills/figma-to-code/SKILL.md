@@ -1,6 +1,6 @@
 ---
 name: figma-to-code
-description: Builds a screen from a Figma frame in an app that uses the obvious design system, using obvious's --ds-* tokens, type roles, t-* CSS components, ob-* registry components and the shadcn bridge instead of the frame's literal values. Maps Figma variables and styles to tokens and flags any value with no token, makes the fixed-width frame work at 390 and 1280 and everything between, adds the states and accessibility a frame can't show, then screenshots the build at the frame's width, compares it with Figma's render and reports the differences it kept. Use when given a figma.com/design link with a node-id, or asked to "build this from Figma", "implement this frame", "turn this design into code", "match the Figma", "design to code" or "handoff" in an app with a ds/ folder, an obvious dependency or a .ds-audit.json. Works alongside Figma's own figma-design-to-code skill, which handles the MCP calls.
+description: Builds a screen from a Figma frame in an app that uses the obvious design system, using obvious's --ds-* tokens, type roles, ob-* CSS components, ob-* registry components and the shadcn bridge instead of the frame's literal values. Maps Figma variables and styles to tokens and flags any value with no token, makes the fixed-width frame work at 390 and 1280 and everything between, adds the states and accessibility a frame can't show, then screenshots the build at the frame's width, compares it with Figma's render and reports the differences it kept. Use when given a figma.com/design link with a node-id, or asked to "build this from Figma", "implement this frame", "turn this design into code", "match the Figma", "design to code" or "handoff" in an app with a ds/ folder, an obvious dependency or a .ds-audit.json. Works alongside Figma's own figma-design-to-code skill, which handles the MCP calls.
 ---
 
 # Figma to code, on obvious
@@ -107,9 +107,10 @@ gradients, opacity and shadows are in [references/token-mapping.md](references/t
 Before writing markup, decide what each part of the frame is:
 
 1. A Code Connect mapping: use that component.
-2. An obvious piece that does the job: `t-input` field, `t-chip`, `t-link`,
-   `t-tt` tooltip, `t-badge`, `t-check-badge`; `Sheet`, `Toasts`,
-   `PlusMenu`, `Tabs`, `Toggle`, `SearchField`, `Check` from the registry.
+2. An obvious piece that does the job: `ob-button`, `ob-field`, `ob-chip`,
+   `ob-link`, `ob-tooltip`, `ob-badge`, `ob-inline-loading`, `ob-spinner`;
+   `Sheet`, `Toasts`, `PlusMenu`, `Tabs`, `Switch`, `SearchField`,
+   `Checkbox` from the registry.
 3. A component the app already has (search its components folder first).
 4. shadcn (dialog, popover, select) in a Tailwind app, through the bridge.
 5. Only then, new markup in the app, styled with tokens.

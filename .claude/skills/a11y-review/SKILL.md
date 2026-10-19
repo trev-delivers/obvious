@@ -122,7 +122,7 @@ and status messages, timing.
 Any dialog, sheet, menu, disclosure, tabs, combobox, tooltip or toast gets
 checked against its WAI-ARIA APG pattern: `references/patterns.md` has the
 keys, focus rules and roles for each, plus what to check in obvious's own
-registry pieces (`Sheet`, `PlusMenu`, `Toasts`) and the `t-tt` tooltip.
+registry pieces (`Sheet`, `PlusMenu`, `Toasts`) and the `ob-tooltip`.
 
 ### 6. Contrast
 

@@ -8,15 +8,10 @@
  *
  *   npx shadcn add https://obvious-nine.vercel.app/r/sheet.json
  *
- * Two things are ours rather than shadcn's:
- *
- * - `registryDependencies` can name another item here by its bare name, and
- *   is rewritten to that item's full URL. Any other bare name (dialog,
- *   popover) is left alone and resolves to shadcn's own.
- * - `transitions` lists the transitions.dev snippets an item's markup
- *   expects. The CSS for those can't live here (the transitions.dev licence
- *   doesn't allow republishing it), so it's turned into the `docs` note
- *   shadcn prints after install, with the command that pulls them in.
+ * One thing is ours rather than shadcn's: `registryDependencies` can name
+ * another item here by its bare name, and is rewritten to that item's full
+ * URL. Any other bare name (dialog, popover) is left alone and resolves to
+ * shadcn's own.
  */
 import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
 import { join, dirname } from "node:path";
@@ -32,22 +27,13 @@ rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
 
 for (const item of registry.items) {
-  const { transitions = [], ...rest } = item;
   const built = {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
-    ...rest,
+    ...item,
     registryDependencies: (item.registryDependencies ?? []).map((d) => (names.has(d) ? url(d) : d)),
     files: item.files.map((f) => ({ ...f, content: readFileSync(join(root, f.path), "utf8") })),
   };
   if (!built.registryDependencies.length) delete built.registryDependencies;
-  if (transitions.length) {
-    built.meta = { ...(built.meta ?? {}), transitions };
-    built.docs =
-      `${item.title} needs these transitions.dev snippets in the app:\n\n` +
-      `  npx transitions-dev add ${transitions.join(" ")}\n\n` +
-      `Load obvious's primitives and a theme first, then the transitions.dev CSS, then ` +
-      `obvious/css/transitions-bridge.css, so the colours come from the theme.`;
-  }
   writeFileSync(join(out, `${item.name}.json`), JSON.stringify(built, null, 2) + "\n");
 }
 
@@ -58,7 +44,7 @@ writeFileSync(
   JSON.stringify(
     {
       ...registry,
-      items: registry.items.map(({ transitions, ...i }) => ({
+      items: registry.items.map((i) => ({
         ...i,
         registryDependencies: i.registryDependencies?.map((d) => (names.has(d) ? url(d) : d)),
       })),

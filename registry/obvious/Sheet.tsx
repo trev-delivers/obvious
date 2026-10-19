@@ -44,7 +44,7 @@ export default function Sheet({
     p?.classList.remove("is-open");
     p?.classList.add("is-closing");
     r?.removeAttribute("data-open");
-    const ms = phone() ? readMs("--ob-sheet-close-dur", 350) : readMs("--modal-close-dur", 150);
+    const ms = phone() ? readMs("--ob-sheet-close-dur", 350) : readMs("--ob-dialog-close-dur", 160);
     window.setTimeout(() => {
       done.current();
       after?.();
@@ -151,7 +151,7 @@ export default function Sheet({
     <div className="ob-sheet" ref={root}>
       <div className="ob-sheet-shade" ref={shade} onClick={() => close()} />
       <div
-        className={"ob-sheet-panel t-modal" + (tall ? " is-tall" : "")}
+        className={"ob-sheet-panel" + (tall ? " is-tall" : "")}
         ref={panel}
         role="dialog"
         aria-modal="true"

@@ -157,13 +157,13 @@ Fix these on sight; they're the most common faults in real apps.
   obvious's `CLAUDE.md` under "Design rules for every app that uses this".
 - The app's copy of obvious is in `ds/` or `node_modules/obvious`. Copy
   lives in the app, not there.
-- Field errors go in the `t-input` component's `.t-error-msg`, under the
-  field, and stay until fixed.
+- Field errors go in the `ob-field` component's `.ob-field-message--error`,
+  under the field, and stay until fixed.
 - The `toasts` registry component removes an ok toast after 2.8 s and an
   error toast after 6 s. Use toasts for confirmations people don't have to
   act on. An error the person must fix belongs next to the thing that
   failed. The engineer skill's `design.md` says the same.
-- `Toggle`, `Tabs`, `Check` and `SearchField` in the `motion` registry
+- `Switch`, `Tabs`, `Checkbox` and `SearchField` in the `motion` registry
   item take a `label` prop that becomes the accessible name. Write it as
   you would a visible label.
 

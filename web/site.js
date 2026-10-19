@@ -1,7 +1,7 @@
 /* The site's behaviour: the theme picker, the values that change with the
    theme, copy buttons and the component demos. THEMES is prepended by
    build.mjs. */
-import { mountBootRing, checkMorph, shake, cycleThink, shuffle, revealOnScroll } from "/assets/obvious/js/behaviours.js";
+import { inlineLoading, shakeField, cycleLoadingText, shuffle, revealOnScroll } from "/assets/obvious/js/behaviours.js";
 
 const root = document.documentElement;
 const $ = (id) => document.getElementById(id);
@@ -83,91 +83,93 @@ const PHRASES = [
   "Thinking…", "Moving it 2px left…", "Renaming the layers…",
   "Checking the contrast…", "Asking why again…", "Undoing that…",
 ];
-if ($("think")) cycleThink($("think"), shuffle(PHRASES), { pool: PHRASES });
+if ($("think")) cycleLoadingText($("think"), shuffle(PHRASES), { pool: PHRASES });
 
 document.querySelectorAll("[data-chips]").forEach((row) => {
-  row.querySelectorAll(".t-chip").forEach((chip) =>
-    chip.addEventListener("click", () => {
-      row.querySelectorAll(".t-chip").forEach((c) => c.classList.remove("is-on"));
-      chip.classList.add("is-on");
-    }),
+  const chips = row.querySelectorAll(".ob-chip");
+  chips.forEach((chip) =>
+    chip.addEventListener("click", () => chips.forEach((c) => c.setAttribute("aria-pressed", String(c === chip)))),
   );
 });
 
-if ($("boot")) {
-  const el = $("boot");
-  let ring = mountBootRing(el);
-  $("replay-boot").addEventListener("click", () => {
-    el.classList.remove("is-running");
-    ring.destroy();
-    ring = mountBootRing(el, { start: false });
-    void el.offsetWidth;
-    ring.start();
+if ($("busyBtn")) {
+  const btn = $("busyBtn");
+  const loading = inlineLoading($("busyLoading"));
+  btn.addEventListener("click", () => {
+    if (btn.getAttribute("aria-busy") === "true") return;
+    btn.setAttribute("aria-busy", "true");
+    loading.start();
+    setTimeout(() => loading.finish(), 1200);
+    setTimeout(() => btn.removeAttribute("aria-busy"), 2400);
   });
 }
 
-if ($("gateWrap")) {
+if ($("gateForm")) {
   const pw = $("gatePw");
-  const morph = checkMorph($("gateBadge"), $("gateBlur"));
-  $("gateWrap").addEventListener("submit", (e) => {
+  const btn = $("gateBtn");
+  const loading = inlineLoading($("gateLoading"));
+  $("gateForm").addEventListener("submit", (e) => {
     e.preventDefault();
     if (pw.value.trim().toLowerCase() === "obvious") {
-      $("gateArrow").hidden = true;
-      $("gateBlur").hidden = false;
-      morph.spin();
-      setTimeout(() => morph.done(2400), 700);
+      $("gateField").classList.remove("is-invalid");
+      btn.setAttribute("aria-busy", "true");
+      loading.start();
+      setTimeout(() => loading.finish(), 700);
       setTimeout(() => {
-        $("gateBlur").hidden = true;
-        $("gateArrow").hidden = false;
+        btn.removeAttribute("aria-busy");
         pw.value = "";
-      }, 4200);
+      }, 2600);
     } else {
-      shake($("gateField"), $("gateWrap"));
+      shakeField($("gateField"));
       pw.select();
     }
   });
 }
 
-if ($("soloBadge")) {
-  const solo = checkMorph($("soloBadge"), $("soloBlur"));
+if ($("soloLoading")) {
+  const solo = inlineLoading($("soloLoading"));
   $("replay-check").addEventListener("click", () => {
-    solo.spin();
-    setTimeout(() => solo.done(2600), 650);
+    solo.start();
+    setTimeout(() => solo.finish(2600), 650);
   });
 }
 
 if ($("reveal-demo")) {
-  $("replay-reveal").addEventListener("click", () => {
-    const items = [...$("reveal-demo").querySelectorAll(".t-reveal")];
-    items.forEach((el) => el.classList.remove("in"));
+  const replay = () => {
+    const items = [...$("reveal-demo").querySelectorAll(".ob-reveal")];
+    items.forEach((el) => el.classList.remove("is-visible"));
     void items[0].offsetWidth;
     revealOnScroll($("reveal-demo"));
-  });
+  };
+  $("replay-reveal").addEventListener("click", replay);
+  replay();
 }
 
 if ($("stagger")) {
   const s = $("stagger");
   const btn = $("replay-stagger");
   btn.addEventListener("click", () => {
-    if (s.classList.contains("is-shown")) {
-      s.classList.replace("is-shown", "is-hiding");
-      btn.textContent = "Show";
-    } else {
-      s.classList.remove("is-hiding");
-      void s.offsetWidth;
-      s.classList.add("is-shown");
-      btn.textContent = "Hide";
-    }
+    const open = s.classList.toggle("is-open");
+    btn.textContent = open ? "Close" : "Open";
   });
   setTimeout(() => btn.click(), 400);
 }
 
 if ($("badge")) {
   const badge = $("badge");
+  const inbox = $("inbox");
+  let count = 0;
   const pop = () => {
-    badge.setAttribute("data-open", "false");
-    setTimeout(() => badge.setAttribute("data-open", "true"), 250);
+    count++;
+    badge.textContent = String(count);
+    badge.setAttribute("data-visible", "true");
+    inbox.setAttribute("aria-label", `Inbox, ${count} unread`);
   };
+  inbox.addEventListener("click", () => {
+    count = 0;
+    badge.setAttribute("data-visible", "false");
+    inbox.setAttribute("aria-label", "Inbox");
+  });
   $("replay-badge").addEventListener("click", pop);
   setTimeout(pop, 400);
 }
