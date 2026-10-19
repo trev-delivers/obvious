@@ -3,10 +3,13 @@
  * change src/ and re-run `npm run build`.
  */
 
-.ob-gradient-text{
+/* The golds are on :root so ob-confetti can use the same ones. */
+:where(:root){
   --ob-gold-dark:#A87428;
   --ob-gold:#E3B04E;
   --ob-gold-light:#F7DE9A;
+}
+.ob-gradient-text{
   --ob-gold-drift:7000ms;
   background-image:linear-gradient(
     110deg,

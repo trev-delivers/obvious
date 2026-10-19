@@ -27,6 +27,8 @@ Run these first. They're cheap and they're facts.
    code, missing safety nets). Its findings are leads; verify each one.
 3. `node <obvious>/scripts/audit-ds.mjs <repo>` for apps using obvious, and
    `node scripts/sync-ds.mjs --check` where the repo has a `ds/`.
+   Then `node <obvious>/.claude/skills/engineer/scripts/connected.mjs <repo>`:
+   is it still connected to obvious, or keeping its own copies?
 4. `npm audit --omit=dev` (or `pip-audit` if installed).
 5. For Supabase apps, `get_advisors` for security and performance on the
    project, if the Supabase tools are connected. Read only.

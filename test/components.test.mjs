@@ -13,11 +13,15 @@ const read = (f) => readFileSync(new URL(f, dir), "utf8").replace(/\/\*[\s\S]*?\
 /* tooltip.css and badge.css used to read the portfolio's own --line2, --dim,
    --mono and --bg, which nothing else defines, so outside the portfolio the
    tooltip had no border or colour and the badge lost its ring. */
+/* The golds are declared once, in gradient-text.css, and read by confetti
+   too, so a variable declared by any component counts as the system's. */
+const shared = new Set(files.flatMap((f) => [...read(f).matchAll(/(--ob-[\w-]+)\s*:/g)].map((m) => m[1])));
+
 test("components only read --ds-* tokens, their own knobs, runtime variables, or variables with a fallback", () => {
   const strays = [];
   for (const f of files) {
     const css = read(f);
-    const own = new Set([...css.matchAll(/(--[\w-]+)\s*:/g)].map((m) => m[1]));
+    const own = new Set([...[...css.matchAll(/(--[\w-]+)\s*:/g)].map((m) => m[1]), ...shared]);
     for (const m of css.matchAll(/var\(\s*(--[\w-]+)\s*(,)?/g)) {
       const [, name, fallback] = m;
       if (name.startsWith("--ds-") || own.has(name) || runtime.has(name) || fallback) continue;

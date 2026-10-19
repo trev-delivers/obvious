@@ -116,6 +116,7 @@ has the old `t-*` names, which the obvious README maps to these.
 | `reveal.css` | `ob-reveal`, `ob-reveal-word` | none |
 | `stagger.css` | `ob-stagger` | `--ob-stagger-step` |
 | `gradient-text.css` | `ob-gradient-text` | `--ob-gold-*` |
+| `confetti.css` | `ob-confetti` with `mountConfetti()` | `--ob-confetti-*` (golds from gradient-text) |
 
 `ob-gradient-text` breaks the written rule against gradient text and is
 recorded as an exception in obvious's own `.ds-audit.json`. Don't reach for
