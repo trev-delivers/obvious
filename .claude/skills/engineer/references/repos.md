@@ -81,7 +81,9 @@ authority for the design system, theme `core`. Has `write-portfolio`.
 
 - **Ships:** PR to `main`, CI, Vercel. Build sha in the footer.
 - **Checks:** `npm run check`: unit tests, build, CSP hash check, `ds:check`,
-  audit, smoke test (no JS, broken script, splash skip, stats gate).
+  `skills:check`, audit, smoke test (no JS, broken script, splash skip,
+  stats gate). `connected.mjs` passes: it imports obvious's behaviours
+  (including the confetti) from `ds/js/behaviours.js` and keeps no copies.
 - **Danger zones:** the inline head script whose hash is in the CSP (run
   `npm run csp` after touching it); the GitHub HTML scrape; `cssMs` timers.
   Portfolio claims follow `write-portfolio`'s truth rules.

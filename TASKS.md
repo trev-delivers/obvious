@@ -40,3 +40,6 @@ Everything outstanding across the portfolio and side projects. Tick things off h
 ## Tidying
 
 - [ ] Delete the old `public-gallery` branch on condiment-gallery (its last build failed and it's been replaced)
+- [ ] Delete the merged branches on obvious and designedbytrev (GitHub, Code, Branches). Claude can't delete branches from its sessions. Everything on them is already in `main`
+- [ ] Turn on Settings, General, "Automatically delete head branches" in every repo, so merged branches go by themselves
+- [ ] Move MorrisOS, daily-routine, time-dissonance, eye-for-type and condiment-gallery onto obvious's new `ob-` components when each is next worked on. The engineer skill's `connected.mjs` lists what each one needs: old `t-` names, transitions.dev code or CSS, its own copies of obvious's code, and stale skills
