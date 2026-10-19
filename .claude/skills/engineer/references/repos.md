@@ -28,7 +28,9 @@ bridge, shadcn bridge, JS), a shadcn registry in `registry/`, the docs site
 in `web/`, and the scripts apps copy in: `audit-ds.mjs`, `sync-ds.mjs` and
 `sync-skills.mjs`.
 
-- **Ships:** merge to `main`. Apps take it by npm tarball pinned to a commit
+- **Private repo.** Apps that copy it into `ds/` fetch it in CI with the
+  `OBVIOUS_TOKEN` secret; MorrisOS installs a packed copy from its `vendor/`.
+- **Ships:** merge to `main`. Apps take it by a packed tarball in `vendor/`
   (MorrisOS), by `sync-ds.mjs` into `ds/` (the rest), or by
   `npx shadcn add @obvious/<name>`. Skills reach apps through
   `sync-skills.mjs`.
@@ -44,6 +46,10 @@ in `web/`, and the scripts apps copy in: `audit-ds.mjs`, `sync-ds.mjs` and
      for the gold on 17 Oct 2026, so it's an excused exception.
   3. The audit doesn't check literal JS timings yet.
   4. No release tags. Proposed: semver, start at `v0.2.0`.
+  5. `Sheet` has no focus trap or `aria-labelledby`, `PlusMenu` has no arrow
+     keys or `aria-haspopup`, and `Toasts` clear an ok toast after 2.8s.
+  6. Muted text on the Condimental, Routine and Parchment theme cards on the
+     docs site fails 1.4.3 (already in `docs/contrast.md`).
 
 ## MorrisOS
 
@@ -100,6 +106,8 @@ Theme `routine`, whose palette follows the clock.
   1. No CSP header.
   2. Muted footer text is about 2.4:1.
   3. Step rows are a `role=checkbox` with a link and a button inside.
+  4. Its copy of `scripts/audit-ds.mjs` is out of date: it passes `--max 0`,
+     while obvious's current audit finds 52 (radii and px font sizes).
 
 ## condiment-gallery
 

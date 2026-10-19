@@ -3,7 +3,9 @@
  * Copies the shared Claude skills from obvious into an app's .claude/skills/.
  *
  * obvious keeps the master copy of the skills every repo should have: how
- * to work as the engineer on Trev's projects, and how to write like him.
+ * to work as the engineer on Trev's projects, how to write like him, and the
+ * design skills (design system, Figma to code, accessibility, critique, UX
+ * writing).
  * Each app keeps a copy of this script at scripts/sync-skills.mjs, the same
  * way it keeps sync-ds.mjs.
  *
@@ -21,7 +23,15 @@ import { pathToFileURL } from "node:url";
 import { tmpdir } from "node:os";
 import { execFileSync } from "node:child_process";
 
-export const SKILLS = ["engineer", "write-like-trev"];
+export const SKILLS = [
+  "engineer",
+  "write-like-trev",
+  "design-system-guardian",
+  "figma-to-code",
+  "a11y-review",
+  "design-critique",
+  "ux-writing",
+];
 
 const REPO = process.env.DS_REPO ?? "https://github.com/trev-delivers/obvious.git";
 

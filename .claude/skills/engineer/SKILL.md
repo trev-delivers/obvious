@@ -50,12 +50,15 @@ touches:
 Route to the specialist skills; don't redo their work:
 
 - Words on screen, READMEs, commits, PRs: `write-like-trev`. Portfolio copy:
-  `write-portfolio` too.
+  `write-portfolio` too. Patterns for errors, empty states, labels and alt
+  text: `ux-writing`.
 - Motion: obvious's components and registry first. New motion is written
   by hand on the tokens. Never copy transitions.dev.
-- Design system tokens and rules: `obvious` (its CLAUDE.md and README) and
-  its audit, `node scripts/audit-ds.mjs <app>` from the obvious repo.
-- Formal accessibility review: `design:accessibility-review`.
+- Design system tokens and rules: `design-system-guardian`, which runs
+  obvious's audit (`node scripts/audit-ds.mjs <app>` from the obvious repo).
+- Building from a Figma frame: `figma-to-code`.
+- Formal accessibility review: `a11y-review`.
+- A design review of a screen or flow: `design-critique`.
 - Diffs: `code-review` and `security-review` before you call anything done.
 
 Keep each change to what was asked. If you spot something else that's wrong,

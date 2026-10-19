@@ -73,13 +73,19 @@ or a new one appears.
 
 ## Using it
 
-The repo is public, so an app built with npm can install it straight from
-GitHub with no login. Pin a commit or tag, and use the tarball URL: npm writes
-`github:` into the lockfile as an SSH URL, which Vercel can't fetch.
+The repo is private, so an app built with npm installs a packed copy kept
+in the app itself. That way Vercel and CI never need a login to build it. Pack
+the commit you want, copy it into the app's `vendor/` and install from there:
 
 ```sh
-npm i https://codeload.github.com/trev-delivers/obvious/tar.gz/<commit-or-tag>
+# in obvious, at the commit you want
+npm pack && mv obvious-0.1.0.tgz ../app/vendor/obvious-0.1.0-$(git rev-parse --short HEAD).tgz
+# in the app
+npm i ./vendor/obvious-0.1.0-<sha>.tgz
 ```
+
+Apps that copy obvious into `ds/` fetch it with git, so their CI needs a
+read-only key in a secret called `OBVIOUS_TOKEN` (see their workflow).
 
 ```ts
 import "obvious/css/primitives.css";
