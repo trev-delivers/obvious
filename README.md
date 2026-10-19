@@ -198,6 +198,7 @@ use, with an `ob-` prefix.
 | `ob-spinner` | 8 dots in a ring, a line of text tall. CSS only. |
 | `ob-loading-text` | A line that says what's happening, with a brighter band passing through it. |
 | `ob-gradient-text` | The gold, with the light moving across it. |
+| `ob-confetti` | Gold confetti that pops off a button and settles on it. |
 | `ob-link` | Muted text with a fine underline. Both take the accent on hover. |
 | `ob-chip` | One of a row of options where one is on. |
 | `ob-reveal` | Things fading up as they scroll into view. |
@@ -215,7 +216,7 @@ returns a teardown or a control object, which is the shape a React effect
 wants:
 
 ```js
-import { inlineLoading, shakeField, cycleLoadingText, revealOnScroll } from "./ds/js/behaviours.js";
+import { inlineLoading, shakeField, cycleLoadingText, revealOnScroll, mountConfetti } from "./ds/js/behaviours.js";
 
 useEffect(() => cycleLoadingText(ref.current, phrases), []);
 ```

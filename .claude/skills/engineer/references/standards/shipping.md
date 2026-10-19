@@ -11,8 +11,8 @@ to add when you next work there.
 
 1. **One command that runs every check.** `npm run check` (or `./check.sh`
    for Python). It runs, in order: typecheck, lint, unit tests, build,
-   design system checks (`ds:check` and `ds:audit --max N` where the app
-   uses obvious), and the browser smoke test. It exits non-zero on any
+   design system checks (`ds:check`, `skills:check` and `ds:audit --max N`
+   where the app uses obvious), and the browser smoke test. It exits non-zero on any
    failure.
 2. **CI on every pull request and every push to `main`** running that same
    command. GitHub Actions, Node from `.nvmrc` or `package.json` engines,

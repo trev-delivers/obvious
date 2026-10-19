@@ -1,7 +1,7 @@
 /* The site's behaviour: the theme picker, the values that change with the
    theme, copy buttons and the component demos. THEMES is prepended by
    build.mjs. */
-import { inlineLoading, shakeField, cycleLoadingText, shuffle, revealOnScroll } from "/assets/obvious/js/behaviours.js";
+import { inlineLoading, shakeField, cycleLoadingText, shuffle, revealOnScroll, mountConfetti } from "/assets/obvious/js/behaviours.js";
 
 const root = document.documentElement;
 const $ = (id) => document.getElementById(id);
@@ -184,3 +184,5 @@ document.querySelectorAll(".skill-lock").forEach((btn) => {
     btn.classList.add("is-nudged");
   });
 });
+
+if ($("confetti")) mountConfetti($("confetti"));

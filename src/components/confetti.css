@@ -1,0 +1,24 @@
+/* ob-confetti. Gold confetti that pops off a button and settles on top of
+ * it, drawn on a canvas by mountConfetti(). The wrapper stays exactly the
+ * button's size, so it never moves anything around it; the canvas reaches
+ * above and out to the sides for the confetti to rise into. */
+
+.ob-confetti{
+  --ob-confetti-count:90;
+  --ob-confetti-room:220px;
+  --ob-confetti-side:140px;
+  --ob-confetti-gravity:1500;
+  --ob-confetti-hold:1800ms;
+  --ob-confetti-fade:700ms;
+  /* The golds from gradient-text.css, so the two always match. Load that
+     file too, or set these yourself. */
+  --ob-confetti-dark:var(--ob-gold-dark);
+  --ob-confetti-mid:var(--ob-gold);
+  --ob-confetti-light:var(--ob-gold-light);
+  position:relative;display:inline-block;
+}
+.ob-confetti > :not(.ob-confetti-canvas){position:relative;z-index:var(--ds-z-raised)}
+.ob-confetti-canvas{
+  position:absolute;left:0;top:0;z-index:calc(var(--ds-z-raised) + 1);
+  pointer-events:none;
+}

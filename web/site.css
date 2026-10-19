@@ -381,3 +381,6 @@ td{color:var(--ds-color-text-dim)}
   .version{display:none}
 }
 .matrix tbody th code{white-space:nowrap}
+
+/* The confetti rises above its button, so its demo needs the headroom. */
+.stage--demo:has(.ob-confetti){padding-top:240px;padding-left:160px;overflow:visible}

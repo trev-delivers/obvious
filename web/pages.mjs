@@ -180,6 +180,25 @@ const stop = cycleLoadingText(el, shuffle(phrases), { pool: phrases });`,
     usage: `<span class="ob-gradient-text">obvious</span>`,
   },
   {
+    slug: "confetti",
+    cls: "ob-confetti",
+    title: "Confetti",
+    what: "Gold confetti that pops off a button, tumbles back down and settles on top of it. Each flake catches the light as it turns.",
+    demo: `<span class="ob-confetti" id="confetti">
+  <canvas class="ob-confetti-canvas" aria-hidden="true"></canvas>
+  <button class="ob-button ob-button--lg" type="button" style="--ob-button-radius:var(--ds-radius-full)">Celebrate</button>
+</span>`,
+    hint: "Press it a few times.",
+    usage: `<span class="ob-confetti">
+  <canvas class="ob-confetti-canvas" aria-hidden="true"></canvas>
+  <a class="ob-button" href="mailto:…">Email me</a>
+</span>`,
+    js: `import { mountConfetti } from "obvious/behaviours";
+
+const stop = mountConfetti(el); // bursts on every click of the button inside`,
+    notes: "The golds are the same as Gradient text's. It needs room above the button to rise into, which the canvas takes without moving anything. Under reduced motion it doesn't play.",
+  },
+  {
     slug: "link",
     cls: "ob-link",
     title: "Link",
