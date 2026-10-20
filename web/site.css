@@ -393,3 +393,12 @@ td{color:var(--ds-color-text-dim)}
 .pixel-fig-scroll{overflow-x:auto;border-radius:var(--ds-radius-md)}
 .pixel-fig img{display:block;max-width:none;image-rendering:pixelated}
 .pixel-list{margin:0;padding-left:var(--ds-space-lg);max-width:var(--ds-measure);color:var(--ds-color-text-dim);display:flex;flex-direction:column;gap:var(--ds-space-2xs)}
+.sec h3{
+  margin:var(--ds-space-xs) 0 0;
+  font-family:var(--ds-font-display);
+  font-size:var(--ds-type-lead-size);
+  line-height:var(--ds-type-lead-leading);
+  font-weight:var(--ds-type-h3-weight);
+}
+/* Gaps in a case study that only Trev can fill. */
+.fill{background:var(--ds-color-selection-bg);color:var(--ds-color-selection-text);padding:0 var(--ds-space-3xs);border-radius:var(--ds-radius-xs)}

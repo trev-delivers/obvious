@@ -6,6 +6,7 @@
  * the line numbers still point at the right thing after the games move on.
  */
 import { esc, code, head, section, table } from "./html.mjs";
+import { smugglePage } from "./smuggle.mjs";
 
 const HP = "https://github.com/trev-delivers/holy-pixels/blob/8d85b11f3bc18b911b5c5a1f8f486fa8818eac64";
 const HP_SELECT = "https://github.com/trev-delivers/holy-pixels/blob/f7f88fe4c37247a9bc1d2c567070e364cbd026d0";
@@ -40,7 +41,7 @@ export function pixelPages() {
     body: `
 ${head(
   "Pixels",
-  `I've made 2 pixel-art games. Four Horsemen came first, and Smuggle Brawlers copied its loop, screen, font, input and feel code and kept going. These pages are what the 2 ended up doing, with links to the code, so the next one starts here. None of it is tokens or components: the games draw on a canvas.`,
+  `I've made 2 pixel-art games. Four Horsemen came first, and Smuggle Brawlers copied its loop, screen, font, input and feel code and kept going. These pages are what the 2 ended up doing, with links to the code, so the next one starts here. None of it is tokens or components: the games draw on a canvas. The story of the second game is in the <a class="ob-link" href="/pixel/smuggle-brawlers">Smuggle Brawlers case study</a>.`,
 )}
 ${section(
   "One pixel size",
@@ -446,9 +447,12 @@ ${section(
   "Same size",
   `<p>Most letters are 11 wide. E, F, I, J, L and 0 are 9, and M and W are 15. SMUGGLE BRAWLERS comes out at 207 pixels wide, the same as before, and the same 15 pixels tall, so the logo fits where it did at the same sizes and nothing around it moved. A test checks it still sets on 1 line at 2 times in the space it had.</p>
 <p>Other tests check every glyph is on the 15 row grid, sits on the baseline, keeps to a few standard widths, has no stray pixels or 1 pixel runs, and that B, P and R share a bowl, M and W share a shape, and 6 and 9 share a shape (${hp("src/ui/typeface.test.ts")}).</p>
-<p>It went into the game on 20 October 2026, in <a class="ob-link" href="${TYPE_COMMIT}">795d456</a>. The pictures here were drawn from the game's own code at that commit and the one before it.</p>`,
+<p>It went into the game on 20 October 2026, in <a class="ob-link" href="${TYPE_COMMIT}">795d456</a>. The pictures here were drawn from the game's own code at that commit and the one before it.</p>
+<p>The rest of the game is in the <a class="ob-link" href="/pixel/smuggle-brawlers">Smuggle Brawlers case study</a>.</p>`,
 )}`,
   });
+
+  out.push(smugglePage());
 
   return out;
 }
