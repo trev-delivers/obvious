@@ -400,5 +400,3 @@ td{color:var(--ds-color-text-dim)}
   line-height:var(--ds-type-lead-leading);
   font-weight:var(--ds-type-h3-weight);
 }
-/* Gaps in a case study that only Trev can fill. */
-.fill{background:var(--ds-color-selection-bg);color:var(--ds-color-selection-text);padding:0 var(--ds-space-3xs);border-radius:var(--ds-radius-xs)}
