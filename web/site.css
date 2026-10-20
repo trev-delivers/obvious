@@ -384,3 +384,12 @@ td{color:var(--ds-color-text-dim)}
 
 /* The confetti rises above its button, so its demo needs the headroom. */
 .stage--demo:has(.ob-confetti){padding-top:240px;padding-left:160px;overflow:visible}
+
+/* Pixel games ---------------------------------------------------------- */
+/* The lettering pictures are drawn at 4 screen pixels to one of theirs and
+   shown at half that, so they stay on whole pixels. A narrow phone scrolls
+   the picture sideways rather than squash it. */
+.pixel-fig{margin:0;display:flex;flex-direction:column;gap:var(--ds-space-2xs)}
+.pixel-fig-scroll{overflow-x:auto;border-radius:var(--ds-radius-md)}
+.pixel-fig img{display:block;max-width:none;image-rendering:pixelated}
+.pixel-list{margin:0;padding-left:var(--ds-space-lg);max-width:var(--ds-measure);color:var(--ds-color-text-dim);display:flex;flex-direction:column;gap:var(--ds-space-2xs)}
