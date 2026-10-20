@@ -22,6 +22,12 @@
         "web/pages.mjs"
       ],
       "note": "The Faces section says there's no monospace. That's the word in a sentence."
+    },
+    "colour": {
+      "ignore": [
+        "web/pixel.mjs"
+      ],
+      "note": "The pixel games pages quote the games' own code, and one sample has the flight's outline colour in it."
     }
   }
 }

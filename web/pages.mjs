@@ -5,25 +5,8 @@
  * nav label still get built, they just don't appear in the sidebar.
  */
 
-const esc = (s) =>
-  String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-
-/** A code sample with a copy button. The text is escaped here. */
-const code = (text) =>
-  `<div class="code"><pre><code>${esc(text.trim())}</code></pre><button class="copy" type="button">Copy</button></div>`;
-
-const head = (title, lead) =>
-  `<header class="page-head"><h1>${title}</h1>${lead ? `<p class="lead">${lead}</p>` : ""}</header>`;
-
-const section = (title, body, id) =>
-  `<section class="sec"${id ? ` id="${id}"` : ""}><h2>${title}</h2>${body}</section>`;
-
-const table = (cols, rows, cls = "") =>
-  `<div class="table-wrap"><table class="tokens ${cls}"><thead><tr>${cols
-    .map((c) => `<th scope="col">${c}</th>`)
-    .join("")}</tr></thead><tbody>${rows
-    .map((r) => `<tr>${r.map((c, i) => (i === 0 ? `<th scope="row">${c}</th>` : `<td>${c}</td>`)).join("")}</tr>`)
-    .join("")}</tbody></table></div>`;
+import { esc, code, head, section, table } from "./html.mjs";
+import { pixelPages } from "./pixel.mjs";
 
 const tok = (name) => `<code>${esc(name)}</code>`;
 const entries = (o) => Object.entries(o).filter(([k]) => k !== "$comment");
@@ -962,6 +945,8 @@ ${section(
   `<p>Ask me and I'll talk you through them. Figma to code is the one I'd start with.</p>`,
 )}`,
   });
+
+  out.push(...pixelPages());
 
   return out;
 }

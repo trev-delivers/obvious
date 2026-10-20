@@ -199,6 +199,7 @@ cpSync(join(root, "dist", "css"), join(out, "assets", "obvious", "css"), { recur
 cpSync(join(root, "dist", "js"), join(out, "assets", "obvious", "js"), { recursive: true });
 cpSync(join(root, "dist", "r"), join(out, "r"), { recursive: true });
 cpSync(join(root, "icons"), join(out, "icons"), { recursive: true });
+cpSync(join(root, "web", "img"), join(out, "img"), { recursive: true });
 
 /* site.js imports the behaviours module by URL, so the copy in assets is the
    one that runs. The theme list rides along for the switcher. */
