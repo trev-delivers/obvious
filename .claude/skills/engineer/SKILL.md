@@ -53,8 +53,9 @@ and that's how things rot. So, every time you work in a repo:
   edit an app's copy; change obvious and copy it over.
 - **The checks keep it that way.** `npm run check` runs `ds:check`
   (`sync-ds.mjs --check`), `skills:check` (`sync-skills.mjs --check`) and
-  `ds:audit` with a `--max` budget, and CI runs `npm run check`. Add
-  whichever is missing.
+  `ds:audit` with a `--max` budget. Add whichever is missing. CI is manual
+  in every repo (see `references/standards/shipping.md`), so run
+  `npm run check` locally before anything merges.
 - **No private copies.** If the app has its own version of something
   obvious ships (a token, a component, a behaviour like `cssMs`,
   `splitWords` or `cycleLoadingText`), use obvious's: import it from

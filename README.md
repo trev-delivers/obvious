@@ -170,7 +170,8 @@ npm test             # just the tests
 npm run site:serve   # the site on localhost:4321
 ```
 
-`npm run check` is what CI runs. It builds `dist/` (which checks every theme
+`npm run check` is what has to pass before merging, run locally. CI runs the
+same, but only when started by hand from the Actions tab ("Run workflow"). It builds `dist/` (which checks every theme
 has the same keys and that contrast hasn't got worse), the registry and the
 docs site, runs the tests in `test/`, audits obvious itself with a budget of
 113, and fails if the built files aren't committed.

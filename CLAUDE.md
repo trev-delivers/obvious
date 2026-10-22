@@ -64,9 +64,11 @@ takes a theme.
 `npm run check` runs everything: it builds `dist/` (which fails if a theme
 is missing a key or a contrast pair has got worse), the registry and the docs
 site, runs the tests in `test/`, audits obvious itself with `--max 44`, and
-fails if `dist/` or `docs/` isn't committed. CI runs the same, plus the
-registry smoke test with the shadcn and Next versions pinned in
-`scripts/registry-smoke/package.json`.
+fails if `dist/` or `docs/` isn't committed. Run it locally before merging;
+that's what has to pass. The CI workflow runs the same, plus the registry
+smoke test with the shadcn and Next versions pinned in
+`scripts/registry-smoke/package.json`, but only when started by hand from the
+repo's Actions tab ("Run workflow").
 
 It ships by merging to `main`. Vercel deploys the docs site, and apps pick up
 the change when they next sync or bump their pin.

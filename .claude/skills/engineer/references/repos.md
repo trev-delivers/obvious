@@ -9,6 +9,13 @@ for the code if a line doesn't match.
 All repos are `trev-delivers/<name>` on GitHub and deploy on Vercel from
 `main` unless noted.
 
+CI is manual everywhere. Since 22 Oct 2026 every workflow runs only when
+started by hand from the repo's Actions tab ("Run workflow"), to save
+Actions minutes. Nothing runs on a pull request, a push or a schedule, so
+"CI" under Ships below means `npm run check` run locally before merging, with
+the workflow triggered by hand when a clean runner matters. Dependabot still
+opens its pull requests.
+
 ## Read only
 
 | Repo | Why | What's worth copying |
@@ -28,8 +35,8 @@ bridge, shadcn bridge, JS), a shadcn registry in `registry/`, the docs site
 in `web/`, and the scripts apps copy in: `audit-ds.mjs`, `sync-ds.mjs` and
 `sync-skills.mjs`.
 
-- **Private repo.** Apps that copy it into `ds/` fetch it in CI with the
-  `OBVIOUS_TOKEN` secret; MorrisOS installs a packed copy from its `vendor/`.
+- **Private repo.** Apps that copy it into `ds/` fetch it in CI (when the
+  workflow is run) with the `OBVIOUS_TOKEN` secret; MorrisOS installs a packed copy from its `vendor/`.
 - **Ships:** merge to `main`. Apps take it by a packed tarball in `vendor/`
   (MorrisOS), by `sync-ds.mjs` into `ds/` (the rest), or by
   `npx shadcn add @obvious/<name>`. Skills reach apps through
@@ -75,22 +82,21 @@ Google sign-in, Vercel in Frankfurt.
 
 ## designedbytrev
 
-Trev's portfolio. Static HTML, CSS and JS through Vite, 2 Vercel functions
-(contribution graph, stats) and password middleware for the stats page. Type
-authority for the design system, theme `core`. Has `write-portfolio`.
+Trev's portfolio. Static HTML, CSS and JS through Vite, with 1 Vercel
+function (`api/gh-graph.js`, the contribution graph). No stats page and no
+middleware, once the stats removal merges (until then `main` still has them).
+Type authority for the design system, theme `core`. Has `write-portfolio`.
 
 - **Ships:** PR to `main`, CI, Vercel. Build sha in the footer.
 - **Checks:** `npm run check`: unit tests, build, CSP hash check, `ds:check`,
-  `skills:check`, audit, smoke test (no JS, broken script, splash skip,
-  stats gate). `connected.mjs` passes: it imports obvious's behaviours
+  `skills:check`, audit (budget 97), smoke test (no JS, broken script,
+  splash skip). `connected.mjs` passes: it imports obvious's behaviours
   (including the confetti) from `ds/js/behaviours.js` and keeps no copies.
 - **Danger zones:** the inline head script whose hash is in the CSP (run
   `npm run csp` after touching it); the GitHub HTML scrape; `cssMs` timers.
   Portfolio claims follow `write-portfolio`'s truth rules.
 - **Open issues:**
   1. Gold gradient on "obvious" is a recorded exception. Trev's call.
-  2. Needs `STATS_SECRET` in Vercel and a firewall rate limit on
-     `POST /api/stats-login`.
 
 ## daily-routine
 
@@ -163,10 +169,11 @@ Blob storage, an overnight job that applies Geoff's saved corrections. Read
 its CLAUDE.md in full before doing anything.
 
 - **Ships:** push to `main` once, then `deploy.sh` checks. The overnight job
-  also pushes to `main`.
+  also pushes to `main` when it runs; check its workflow for whether it is
+  still scheduled or now started by hand like the rest.
 - **Checks:** the strongest in the estate. `verify.py` (cells, fills and
-  fonts), `check_batch.py`, browser tests, API concurrency tests, CI that
-  fails on SKIP and on a stale build.
+  fonts), `check_batch.py`, browser tests, API concurrency tests, a CI
+  workflow that fails on SKIP and on a stale build.
 - **Danger zones:** Geoff's data (never altered); `nightly.sh`;
   `apply_corrections.py` and `_apply.js` must stay identical; row maps and
   `carry_over.py`; 2 pushes within a minute.
@@ -207,10 +214,12 @@ Trev's first pixel-art brawler with minigames. Same stack as holy-pixels.
 ## trev-delivers
 
 Trev's GitHub profile README. `build.js` draws `card.svg` from GitHub stats
-daily through a GitHub Action that commits to `main`.
+through a GitHub Action that commits to `main`.
 
-- **Ships:** the Action, daily at 06:17 UTC and on push.
+- **Ships:** the Action, only when started by hand from the Actions tab
+  (since 22 Oct 2026 it no longer runs daily or on push, so the card only
+  updates when someone runs it).
 - **Checks:** `npm run check` (tests against a saved response, `ds:check`,
-  audit) on PRs; the daily job fails if its push fails.
+  audit) run locally; the card job fails if its push fails.
 - **Danger zones:** the bot commits straight to `main`.
 - **Open issues:** none known.
