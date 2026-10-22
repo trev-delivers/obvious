@@ -14,16 +14,21 @@ to add when you next work there.
    design system checks (`ds:check`, `skills:check` and `ds:audit --max N`
    where the app uses obvious), and the browser smoke test. It exits non-zero on any
    failure.
-2. **CI on every pull request and every push to `main`** running that same
-   command. GitHub Actions, Node from `.nvmrc` or `package.json` engines,
-   `npm ci`. Template:
+2. **A CI workflow that runs that same command, started by hand.** Since
+   22 Oct 2026 no workflow in any repo runs on its own: every one has only
+   `workflow_dispatch`, so it runs when someone presses "Run workflow" on
+   the repo's Actions tab. Trev turned the automatic runs off because they
+   were costing Actions minutes. So `npm run check` run locally is what has
+   to pass before a PR merges. Trigger the workflow by hand when a clean
+   runner matters (a lockfile or Node change, a test that behaves
+   differently on GitHub's runners, or anything that only CI can reach,
+   like the private obvious fetch). GitHub Actions, Node from `.nvmrc` or
+   `package.json` engines, `npm ci`. Template:
 
    ```yaml
    name: check
    on:
-     pull_request:
-     push:
-       branches: [main]
+     workflow_dispatch: {}
    permissions:
      contents: read
    concurrency:
@@ -55,7 +60,9 @@ to add when you next work there.
    register down on 8 Oct 2026.
 4. **Skip locally, fail in CI.** A test that needs a tool that isn't
    installed prints `SKIP` and exits 0 on a laptop. CI greps the log for
-   `SKIP` and fails. (ground-frames-register `checks.yml`.)
+   `SKIP` and fails. (ground-frames-register `checks.yml`.) With CI manual,
+   read your local output for `SKIP` before merging, and run the workflow
+   by hand if anything was skipped.
 5. **The build in the footer.** Bake the git sha in at build time and show it
    somewhere quiet (4HM title screen, designedbytrev footer). That's how you
    prove what's live.
@@ -78,13 +85,16 @@ to add when you next work there.
   branch name in merge commits.
 - Commit messages follow `write-like-trev`: imperative subject under 60
   characters, a body that explains why when the reason isn't obvious.
-- If a PR is yours, it's yours until it's merged: fix CI, answer review,
-  keep it mergeable.
+- If a PR is yours, it's yours until it's merged: keep `npm run check`
+  passing, answer review, keep it mergeable. A PR won't show a check unless
+  someone ran the workflow by hand, so say in the report that the checks
+  passed locally.
 
 ## Before pushing
 
-- Run the full check locally and read the output. Don't trust exit codes
-  alone on scripts that might swallow errors.
+- Run the full check locally and read the output. Nothing runs it for you
+  on push. Don't trust exit codes alone on scripts that might swallow
+  errors.
 - Reproduce a CI failure locally before you fix it, then show it passing.
 - Fetch the base branch first on a shallow clone, or the push gets rejected
   as too big.
@@ -93,7 +103,9 @@ to add when you next work there.
 
 ## Unattended jobs (nightly builds, bots, cron)
 
-ground-frames-register's overnight update is the model:
+Since 22 Oct 2026 none of these run on a schedule: trev-delivers' stats card
+and every other job is started by hand from the Actions tab. If one is put
+back on a schedule, ground-frames-register's overnight update is the model:
 
 - A quiet period before acting (nothing saved in the last hour).
 - `concurrency` group and `timeout-minutes` on the workflow.
@@ -102,9 +114,8 @@ ground-frames-register's overnight update is the model:
 - Any failure puts nothing live, and GitHub emails Trev.
 - An independent check after the batch: exactly the intended things
   changed, everything else is untouched.
-- A failed push must fail the job. trev-delivers' retry loop exits green
-  after 3 failed pushes (`build.yml:44-48`), so the card can go stale behind
-  a green tick.
+- A failed push must fail the job. trev-delivers' retry loop does: after 3
+  failed pushes it exits 1.
 - Pushes made with `GITHUB_TOKEN` don't trigger other workflows, so CI
   checks on push won't run for the bot's own commits. Run the checks inside
   the job.
