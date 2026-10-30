@@ -102,6 +102,7 @@ const primitiveVars = [
   ...vars(primitives.ease, "--ds-ease"),
   ...vars(primitives.shadow, "--ds-shadow"),
   ...vars(primitives.control, "--ds-control"),
+  ...vars(primitives.blur, "--ds-blur"),
   ...vars(primitives.z, "--ds-z"),
 ];
 

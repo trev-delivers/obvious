@@ -351,6 +351,7 @@ each app owns its copy and takes updates when it re-runs `add`.
 | `sheet` | Bottom sheet on phones that drags down to close, centred dialog from 640px, or a drawer from the right with `side`. Named from its title (or `aria-label`), keeps Tab inside and gives focus back when it closes. |
 | `toasts` | Stacked toasts. `useToasts()` gives you `toast(text, tone)`. |
 | `plus-menu` | A + that grows into the menu it opens. |
+| `gradual-blur` | An edge where scrolling content blurs more towards the edge. Pick the edge, size, strength and layers; optional fade to the page colour. |
 | `motion` | Tabs, Badge, AnimatedNumber, TextSwap, useReveal, SuccessCheck, Switch, SearchField, Checkbox, IconSwap, DotLoader, Odometer. |
 | `effects` | HoloSurface, Holo, Guilloche, EncryptedText, GlowText, BorderLight and GlowCursor, from the Morris OS key card. For special moments only. |
 

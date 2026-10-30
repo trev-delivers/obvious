@@ -449,3 +449,13 @@ td{color:var(--ds-color-text-dim)}
 .ob-fx-demo-swatch{display:inline-block;width:12px;height:12px;margin-right:var(--ds-space-xs);vertical-align:-1px;border-radius:var(--ds-radius-xs);background:var(--c);box-shadow:inset 0 0 0 1px var(--ds-color-border)}
 .ob-fx-demo-swatch:not([style]){display:none}
 .ob-fx-demo-controls [hidden]{display:none}
+
+/* Gradual blur demo: two scrolling lists, one blurred at both ends, one
+   under a header. */
+.stage--demo:has(.demo-gb){align-items:stretch}
+.demo-gb{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--ds-space-md);width:100%}
+.demo-gb-scroll{height:260px;overflow:auto;position:relative;border:var(--ds-border-hairline) solid var(--ds-color-border);border-radius:var(--ds-radius-md);background:var(--ds-color-surface)}
+.demo-gb-list{list-style:none;margin:0;padding:0}
+.demo-gb-list li{display:flex;justify-content:space-between;padding:var(--ds-space-sm) var(--ds-space-md);border-bottom:var(--ds-border-hairline) solid var(--ds-color-border-subtle);font-size:var(--ds-type-ui-size);color:var(--ds-color-text)}
+.demo-gb-header{position:sticky;top:0;z-index:var(--ds-z-sticky);padding:var(--ds-space-sm) var(--ds-space-md);background:var(--ds-color-surface);font-weight:var(--ds-weight-semibold);border-bottom:var(--ds-border-hairline) solid var(--ds-color-border)}
+.demo-gb-header .ob-gradual-blur{top:100%;bottom:auto;--ob-gradual-blur-size:var(--ds-space-xl)}

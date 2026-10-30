@@ -39,6 +39,11 @@ const SPINNER = `<span class="ob-spinner" role="status" aria-label="Loading">
 
 const ARROW = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>`;
 
+const GB_LAYERS = "<span></span>".repeat(6);
+const GB_ROWS = ["Oat milk", "Plain flour", "Basmati rice", "Tinned tomatoes", "Olive oil", "Butter", "Red lentils", "Eggs", "Cheddar", "Spinach", "Greek yoghurt", "Porridge oats", "Bananas", "Pasta", "Coffee beans"]
+  .map((r, i) => `<li><span>${r}</span><span>${i + 1}</span></li>`)
+  .join("");
+
 const COMPONENTS = [
   {
     slug: "button",
@@ -278,6 +283,36 @@ revealWords(splitWords(heading)); // a heading, word by word`,
 </span>`,
     notes: "It sits above, centred. <code>.ob-tooltip--start</code> and <code>--end</code> line it up with an edge instead, for triggers near the side of the screen.",
   },
+  {
+    slug: "gradual-blur",
+    cls: "ob-gradual-blur",
+    title: "Gradual blur",
+    what: "An edge where content softens the closer it gets, for lists that scroll under a header or off the bottom of a card. It's pure CSS, so it works with no JavaScript.",
+    demo: `<div class="demo-gb">
+  <div class="demo-gb-scroll" tabindex="0" role="region" aria-label="Scrolling list with a blurred top and bottom">
+    <div class="ob-gradual-blur ob-gradual-blur--top ob-gradual-blur--sticky" aria-hidden="true">${GB_LAYERS}</div>
+    <ul class="demo-gb-list">${GB_ROWS}</ul>
+    <div class="ob-gradual-blur ob-gradual-blur--bottom ob-gradual-blur--sticky" aria-hidden="true">${GB_LAYERS}</div>
+  </div>
+  <div class="demo-gb-scroll demo-gb-scroll--header" tabindex="0" role="region" aria-label="Scrolling list under a header">
+    <header class="demo-gb-header">Stock
+      <div class="ob-gradual-blur ob-gradual-blur--top ob-gradual-blur--strong ob-gradual-blur--fade" aria-hidden="true">${GB_LAYERS}</div>
+    </header>
+    <ul class="demo-gb-list">${GB_ROWS}</ul>
+  </div>
+</div>`,
+    hint: "Scroll either list. The blur at the top goes when you're at the top, and the one at the bottom goes when you reach the end.",
+    usage: `<div class="scroller">
+  <div class="ob-gradual-blur ob-gradual-blur--top ob-gradual-blur--sticky" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  ...the list...
+  <div class="ob-gradual-blur ob-gradual-blur--bottom ob-gradual-blur--sticky" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+</div>`,
+    notes: "Each <code>span</code> is a layer with a stronger blur, masked to a band that starts further in from the edge. 6 is the default and 8 is the most, since every layer is a <code>backdrop-filter</code> and they cost the GPU. Edges are <code>--top</code>, <code>--bottom</code>, <code>--left</code> and <code>--right</code>. <code>--sticky</code> sticks to the scroller, <code>--fixed</code> to the screen, and without either it sits on the edge of its positioned parent. <code>--subtle</code> and <code>--strong</code> change the blur, <code>--fade</code> adds a fade to the page colour, and <code>--always</code> keeps it showing at the ends. Set <code>--ob-gradual-blur-size</code> for how far it reaches. Don't give the parent <code>overflow</code>, <code>opacity</code>, a mask or a filter, because any of them stops the layers seeing the content. It ignores the pointer and is hidden from screen readers. If someone has asked for less transparency, or the browser can't blur, it becomes a plain fade to the page colour.",
+  },
 ];
 
 /* ---- pages ----------------------------------------------------------- */
@@ -496,7 +531,7 @@ ${section(
     ["h1", "display", "I make complicated products feel obvious."],
     ["h2", "display", "How much of your time has gone missing?"],
     ["h3", "display", "A gallery of good taste"],
-    ["lead", "sans", "Case studies, side projects and the design systems work. 12 years across fintech, broadcast and consumer apps."],
+    ["lead", "sans", "Case studies, side projects and the design systems work. 13 years across fintech, broadcast and consumer apps."],
     ["body", "sans", "A calculator and a field guide to the hours that policy, physics and space weather have taken from you. Daylight saving takes an hour each spring and gives most of it back each autumn. Relativity takes much less, and keeps it."],
     ["ui", "sans", "Rate this condiment"],
     ["label", "sans", "Best before"],
@@ -614,6 +649,11 @@ ${section(
     ],
   ) +
     `<p>One focus ring everywhere. It takes the theme's accent, so it's the same ring on parchment as on near-black. Tab through this page to see it.</p>`,
+)}
+${section(
+  "Blur",
+  table(["Token", "Value"], entries(primitives.blur).map(([k, v]) => [tok(`--ds-blur-${k}`), esc(v)])) +
+    `<p>Backdrop blur steps, used by <a class="ob-link" href="/components/gradual-blur">gradual blur</a>. There are only 3 because every blur costs the GPU for each pixel it covers.</p>`,
 )}`,
   });
 
