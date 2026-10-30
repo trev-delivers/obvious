@@ -348,7 +348,7 @@ each app owns its copy and takes updates when it re-runs `add`.
 
 | Item | What it is |
 | --- | --- |
-| `sheet` | Bottom sheet on phones that drags down to close, centred dialog from 640px. |
+| `sheet` | Bottom sheet on phones that drags down to close, centred dialog from 640px, or a drawer from the right with `side`. Named from its title (or `aria-label`), keeps Tab inside and gives focus back when it closes. |
 | `toasts` | Stacked toasts. `useToasts()` gives you `toast(text, tone)`. |
 | `plus-menu` | A + that grows into the menu it opens. |
 | `motion` | Tabs, Badge, AnimatedNumber, TextSwap, useReveal, SuccessCheck, Switch, SearchField, Checkbox, IconSwap, DotLoader, Odometer. |

@@ -25,7 +25,7 @@
       "name": "sheet",
       "type": "registry:component",
       "title": "Sheet",
-      "description": "Bottom sheet on phones that drags down to close, centred dialog on bigger screens. Escape closes the top one; the page stays locked until all are gone.",
+      "description": "Bottom sheet on phones that drags down to close, centred dialog on bigger screens, or a drawer from the right with side. It's a modal dialog: named from its title, keeps Tab inside, hands focus back when it closes. Escape closes the top one; the page stays locked until all are gone.",
       "registryDependencies": [
         "https://obvious-nine.vercel.app/r/motion.json"
       ],
