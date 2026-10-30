@@ -7,6 +7,7 @@
 
 import { esc, code, head, section, table } from "./html.mjs";
 import { pixelPages } from "./pixel.mjs";
+import { effectsPage } from "./effects.mjs";
 
 const tok = (name) => `<code>${esc(name)}</code>`;
 const entries = (o) => Object.entries(o).filter(([k]) => k !== "$comment");
@@ -882,6 +883,8 @@ ${section(
   `<p>For dialogs, popovers and selects, use shadcn's own components. <code>obvious/shadcn/theme.css</code> points shadcn's variables at <code>--ds-*</code>, so they take the app's theme, dark set included. Import it after shadcn's globals. It needs a Tailwind app.</p>`,
 )}`,
   });
+
+  out.push(effectsPage());
 
   /* Audit ----------------------------------------------------------- */
   out.push({

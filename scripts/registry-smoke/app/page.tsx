@@ -8,9 +8,14 @@ import {
   Tabs, Badge, AnimatedNumber, TextSwap, SuccessCheck, Switch, Checkbox, SearchField, IconSwap, DotLoader, Odometer,
   Toggle, Check, Reel, Matrix, PopNumber,
 } from "@/components/obvious/motion";
+import {
+  HoloSurface, Holo, Guilloche, EncryptedText, GlowText, BorderLight, GlowCursor, useGyroPermission, seal,
+} from "@/components/obvious/effects";
 
 export default function Page() {
   const { list, toast, dismiss } = useToasts();
+  const gyro = useGyroPermission();
+  const s = seal("guest", { rings: 4 });
   return (
     <main>
       <Tabs label="t" value="a" onChange={() => {}} options={[{ value: "a", label: "A" }]} />
@@ -32,6 +37,18 @@ export default function Page() {
       <PopNumber value={1} />
       <PlusMenu items={[{ label: "New", icon: null, onSelect: () => toast("Saved") }]} />
       <Toasts list={list} dismiss={dismiss} />
+      <GlowCursor />
+      <HoloSurface className="card" tilt={6}>
+        <Guilloche seed="guest|2026-11-02" />
+        <Guilloche seed="guest" variant="field" />
+        <Holo paths={s.rings} viewBox={s.viewBox} />
+        <Holo viewBox="0 0 64 64"><path d="M2 32h60" stroke="black" /></Holo>
+        <GlowText as="h1">Welcome in</GlowText>
+        <EncryptedText text="Valid to Sun 2 Nov" />
+      </HoloSurface>
+      {gyro.needed && <button onClick={gyro.ask}>Tilt to see the hologram</button>}
+      <BorderLight radius="var(--ob-button-radius)"><button>Let yourself in</button></BorderLight>
+      <div data-fx-rim>Wifi</div>
       <Sheet title="Sheet" onClose={() => {}}>{(close) => <button onClick={() => close()}>Done</button>}</Sheet>
     </main>
   );

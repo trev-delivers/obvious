@@ -25,9 +25,10 @@
     },
     "colour": {
       "ignore": [
-        "web/pixel.mjs"
+        "web/pixel.mjs",
+        "registry/obvious/effects.css"
       ],
-      "note": "The pixel games pages quote the games' own code, and one sample has the flight's outline colour in it."
+      "note": "The pixel games pages quote the games' own code, and one sample has the flight's outline colour in it. The effects palette in registry/obvious/effects.css is the key card's hologram, the same blue-violet in every theme like the golds, so it's 9 fixed colours on :root."
     }
   }
 }
