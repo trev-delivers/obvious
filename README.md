@@ -352,6 +352,7 @@ each app owns its copy and takes updates when it re-runs `add`.
 | `toasts` | Stacked toasts. `useToasts()` gives you `toast(text, tone)`. |
 | `plus-menu` | A + that grows into the menu it opens. |
 | `motion` | Tabs, Badge, AnimatedNumber, TextSwap, useReveal, SuccessCheck, Switch, SearchField, Checkbox, IconSwap, DotLoader, Odometer. |
+| `effects` | HoloSurface, Holo, Guilloche, EncryptedText, GlowText, BorderLight and GlowCursor, from the Morris OS key card. For special moments only. |
 
 They came out of MorrisOS. Class names are `ob-*` and colours come from the
 theme, so they work in any app that loads one.
@@ -378,6 +379,13 @@ specificity, so an app sets them on `:root` to match itself. MorrisOS sets
 
 `npm run build` regenerates `dist/r/` from `registry.json` and
 `registry/obvious/`.
+
+`effects` is the odd one out. It's the craft from the guest key card in
+MorrisOS, and it bends the rules on glow and colour, so it's only for things
+like a key card, a welcome or one hero element (see "Effects" in CLAUDE.md).
+Its engine is in `fx.ts`, with no React in it, which is what the docs page
+runs too. Its colours are `--fx-*` on `:root`, the card's blue-violet by
+default.
 
 Every item brings its own CSS, so nothing else needs installing. They used
 to wrap transitions.dev snippets and needed its CSS in the app. That's gone:

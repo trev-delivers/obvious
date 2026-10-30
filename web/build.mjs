@@ -12,6 +12,7 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, cpSync, rmSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { stripTypeScriptTypes } from "node:module";
 import { pages } from "./pages.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -208,6 +209,13 @@ writeFileSync(
   `const THEMES = ${JSON.stringify(themes.map(({ name, label, family, app }) => ({ name, label, family, app })))};\n` +
     read("web", "site.js"),
 );
+
+/* The Effects page runs the registry's own engine. fx.ts only uses types
+   Node can strip, so the page gets the same code an app does. */
+if (typeof stripTypeScriptTypes !== "function") throw new Error("Building the site needs Node 22.13 or later, to strip the types from fx.ts");
+writeFileSync(join(out, "assets", "fx.js"), stripTypeScriptTypes(read("registry", "obvious", "fx.ts")));
+cpSync(join(root, "registry", "obvious", "effects.css"), join(out, "assets", "effects.css"));
+cpSync(join(root, "web", "effects.js"), join(out, "assets", "effects.js"));
 
 /* parchment's faces arrive through next/font variables in the real app. */
 writeFileSync(

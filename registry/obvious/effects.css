@@ -1,0 +1,241 @@
+/* Effects, from the Morris OS guest key card. Opt-in, for special moments only:
+   see "Effects" in obvious's CLAUDE.md.
+
+   The hologram is the same blue-violet in every theme, like the golds, so its
+   colours are fixed here. An app can set any --fx-* on :root to change them.
+   Anything that has to read against the page (the glow on letters, the
+   sheen, lit edges) is mixed with the theme's text colour where it's used,
+   so it works in light themes as well as dark. */
+
+:where(:root) {
+  /* Thin-film colour, pulled to the cool end: ice, periwinkle, orchid, cornflower, cyan, lilac. */
+  --fx-film-1: #9fd0ff;
+  --fx-film-2: #b3a4ff;
+  --fx-film-3: #e2a8ff;
+  --fx-film-4: #8fb0ff;
+  --fx-film-5: #86e8ff;
+  --fx-film-6: #c2b6ff;
+  /* The glows. */
+  --fx-blue: #698cff;
+  --fx-violet: #aa6eff;
+  /* Lines and highlights on a dark surface. */
+  --fx-light: #eef0ff;
+
+  --fx-border-width: var(--ds-border-heavy);
+  --fx-rim-width: var(--ds-border-hairline);
+  --fx-rim-reach: 160px;
+  --fx-cursor-size: 520px;
+
+  /* Slow things, slower than any duration token. */
+  --fx-glow-every: 11s;
+  --fx-sheen-every: 9s;
+  --fx-border-every: 6s;
+}
+
+@keyframes ob-fx-turn { to { transform: rotate(1turn); } }
+
+/* ---------- HoloSurface ---------- */
+
+/* The stage never moves; the pointer is read here. */
+.ob-fx-surface { position: relative; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+.ob-fx-surface-tilt {
+  position: relative;
+  transform:
+    perspective(var(--fx-perspective, 1100px))
+    rotateX(calc(var(--fx-y, 0) * var(--fx-tilt, 8deg) * -0.75))
+    rotateY(calc(var(--fx-x, 0) * var(--fx-tilt, 8deg)));
+  will-change: transform;
+}
+:where(.ob-fx-surface-tilt) { border-radius: var(--ds-radius-xl); }
+.ob-fx-surface-light, .ob-fx-surface-rim { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; }
+.ob-fx-surface-light { overflow: hidden; }
+.ob-fx-surface-light > span {
+  position: absolute; inset: -60%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--fx-light) 8%, transparent), color-mix(in srgb, var(--fx-light) 2%, transparent) 50%, transparent);
+  transform: translate3d(calc(var(--fx-x, 0) * 22%), calc(var(--fx-y, 0) * 22%), 0);
+}
+/* The edge facing the light: clear on the far side, bright on the near one. */
+.ob-fx-surface-rim {
+  padding: var(--ds-border-thick);
+  background: conic-gradient(from calc(var(--fx-a, -90deg) + 30deg), transparent, color-mix(in oklab, var(--fx-light) 80%, var(--fx-violet)) 60deg, transparent 120deg);
+  -webkit-mask: linear-gradient(black 0 0) content-box, linear-gradient(black 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(black 0 0) content-box exclude, linear-gradient(black 0 0);
+  opacity: calc(0.15 + var(--fx-m, 0) * 0.85);
+}
+
+/* ---------- Holo ---------- */
+
+.ob-fx-holo { position: relative; display: block; width: 100%; color: var(--fx-light); }
+.ob-fx-holo > div { position: absolute; inset: 0; }
+.ob-fx-holo:not(svg):not([data-ready]) > div { visibility: hidden; }
+/* Scoped to the div layers: on the SVG version this would override its mask attribute. */
+div.ob-fx-holo-base, div.ob-fx-holo-colour {
+  -webkit-mask: var(--fx-mask) center / 100% 100% no-repeat;
+  mask: var(--fx-mask) center / 100% 100% no-repeat;
+}
+/* The engraving, faint. */
+div.ob-fx-holo-base { background: currentColor; opacity: var(--fx-holo-base, 0.12); }
+/* The same lines over colour, so the colour only shows on the lines and where the light is. */
+div.ob-fx-holo-colour { overflow: hidden; }
+.ob-fx-holo-colour { opacity: var(--fx-holo-strength, 1); }
+.ob-fx-holo-counter { position: absolute; inset: 0; }
+.ob-fx-holo-film {
+  position: absolute; left: -80%; top: -80%; width: 260%; height: 260%;
+  -webkit-mask: radial-gradient(closest-side, black, color-mix(in srgb, black 60%, transparent) 18%, color-mix(in srgb, black 18%, transparent) 36%, transparent 52%);
+  mask: radial-gradient(closest-side, black, color-mix(in srgb, black 60%, transparent) 18%, color-mix(in srgb, black 18%, transparent) 36%, transparent 52%);
+  transform: translate3d(calc(var(--fx-x, 0) * 13%), calc(var(--fx-y, 0) * 8.5%), 0);
+  opacity: calc(0.4 + var(--fx-m, 0) * 0.6);
+  will-change: transform, opacity;
+}
+.ob-fx-holo-bands {
+  position: absolute; inset: -20%;
+  background: repeating-linear-gradient(104deg, var(--fx-film-1) 0, var(--fx-film-2) 3.5%, var(--fx-film-3) 7%, var(--fx-film-4) 10.5%, var(--fx-film-5) 14%, var(--fx-film-6) 17.5%, var(--fx-film-1) 21%);
+  transform: translate3d(calc((var(--fx-x, 0) * 0.9 + var(--fx-y, 0) * 0.5) * 9%), 0, 0);
+  will-change: transform;
+}
+
+/* SVG children: the same thing drawn with an SVG mask. */
+svg.ob-fx-holo { overflow: visible; }
+.ob-fx-holo-svg .ob-fx-holo-base { opacity: var(--fx-holo-base, 0.12); fill: currentColor; }
+.ob-fx-holo-svg .ob-fx-holo-base [stroke]:not([stroke="none"]) { stroke: currentColor; }
+.ob-fx-holo-svg .ob-fx-holo-base [fill]:not([fill="none"]) { fill: currentColor; }
+.ob-fx-holo-svg-bands, .ob-fx-holo-svg-light { transform-box: fill-box; transform-origin: center; }
+.ob-fx-holo-svg-bands { transform: translate(calc((var(--fx-x, 0) * 0.9 + var(--fx-y, 0) * 0.5) * 6%), 0); }
+.ob-fx-holo-svg-light {
+  transform: translate(calc(var(--fx-x, 0) * 13%), calc(var(--fx-y, 0) * 8.5%));
+  opacity: calc(0.4 + var(--fx-m, 0) * 0.6);
+}
+
+/* ---------- Guilloche ---------- */
+
+.ob-fx-guilloche { position: relative; display: block; width: 100%; }
+/* Outer rings slide further than inner ones as it tilts. */
+.ob-fx-guilloche-ring {
+  position: absolute; inset: 0;
+  translate: calc(var(--fx-x, 0) * var(--fx-depth, 0) * -1%) calc(var(--fx-y, 0) * var(--fx-depth, 0) * -0.75%);
+}
+.ob-fx-guilloche-ring > .ob-fx-holo { height: 100%; }
+/* Ring against ring, very slowly. The light is turned back against the spin, so it stays put. */
+.ob-fx-guilloche-ring[data-spin] { animation: ob-fx-turn var(--fx-spin) linear infinite; }
+.ob-fx-guilloche-ring[data-spin="reverse"] { animation-direction: reverse; }
+.ob-fx-guilloche-ring[data-spin] .ob-fx-holo-counter { animation: ob-fx-turn var(--fx-spin) linear infinite reverse; }
+.ob-fx-guilloche-ring[data-spin="reverse"] .ob-fx-holo-counter { animation-direction: normal; }
+
+/* ---------- EncryptedText ---------- */
+
+.ob-fx-enc { position: relative; }
+.ob-fx-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.ob-fx-enc-letters > span {
+  position: relative;
+  transition: color var(--ds-duration-slow) var(--ds-ease-out), text-shadow var(--ds-duration-slow) var(--ds-ease-out);
+}
+/* The letter stays where it is, invisible, holding its width; its symbol sits on top. */
+.ob-fx-enc-letters > [data-g] { color: transparent; text-shadow: none; transition: none; }
+.ob-fx-enc-letters > [data-g]::after {
+  content: attr(data-g);
+  position: absolute; left: 50%; top: 0;
+  transform: translateX(-50%) scale(0.66); transform-origin: 50% 60%;
+  color: color-mix(in oklab, var(--fx-violet) 55%, var(--fx-ink, var(--ds-color-text)));
+  text-shadow: 0 0 0.35em color-mix(in srgb, var(--fx-violet) 55%, transparent);
+}
+.ob-fx-enc-letters > [data-lit] { text-shadow: 0 0 0.3em color-mix(in srgb, var(--fx-blue) 80%, transparent); transition: none; }
+
+/* ---------- GlowText ---------- */
+
+.ob-fx-glow-text { position: relative; display: inline-block; max-width: 100%; isolation: isolate; overflow-x: clip; }
+.ob-fx-glow {
+  position: absolute; inset: -80% 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(38% 46% at 36% 52%, color-mix(in srgb, var(--fx-blue) 22%, transparent), transparent 72%),
+    radial-gradient(34% 44% at 66% 48%, color-mix(in srgb, var(--fx-violet) 20%, transparent), transparent 72%);
+  animation: ob-fx-glow var(--fx-glow-every) ease-in-out infinite alternate;
+}
+@keyframes ob-fx-glow { from { transform: translate3d(-4%, 3%, 0); } to { transform: translate3d(4%, -3%, 0); } }
+/* The words stay solid in the theme's text colour. The glow on them is thin. */
+.ob-fx-glow-ink {
+  color: var(--fx-ink, var(--ds-color-text));
+  text-shadow:
+    0 0 0.04em color-mix(in srgb, var(--fx-blue) 50%, transparent),
+    0 0 0.24em color-mix(in srgb, var(--fx-blue) 32%, transparent),
+    0 0 0.6em color-mix(in srgb, var(--fx-violet) 18%, transparent);
+}
+/* The sheen is a copy of the words in a lighter colour, seen through a band
+   that crosses them. The band moves one way and the copy the other, so the
+   letters stay still and only transform changes. */
+.ob-fx-sheen, .ob-fx-sheen-band { position: absolute; inset: 0; pointer-events: none; }
+.ob-fx-sheen { overflow: hidden; }
+.ob-fx-sheen-band {
+  -webkit-mask: linear-gradient(100deg, transparent 38%, black 50%, transparent 62%) no-repeat;
+  mask: linear-gradient(100deg, transparent 38%, black 50%, transparent 62%) no-repeat;
+  transform: translateX(-101%);
+  animation: ob-fx-sheen var(--fx-sheen-every) ease-in-out var(--ds-duration-slowest) infinite;
+}
+.ob-fx-sheen-text {
+  display: block;
+  color: color-mix(in oklab, var(--fx-light) 45%, color-mix(in oklab, var(--fx-violet) 35%, var(--fx-ink, var(--ds-color-text))));
+  transform: translateX(101%);
+  animation: ob-fx-sheen-back var(--fx-sheen-every) ease-in-out var(--ds-duration-slowest) infinite;
+}
+@keyframes ob-fx-sheen { 0% { transform: translateX(-101%); } 20%, 100% { transform: translateX(101%); } }
+@keyframes ob-fx-sheen-back { 0% { transform: translateX(101%); } 20%, 100% { transform: translateX(-101%); } }
+
+/* ---------- BorderLight ---------- */
+
+.ob-fx-border-light { position: relative; display: inline-block; border-radius: var(--fx-radius, var(--ds-radius-md)); isolation: isolate; }
+.ob-fx-border-light.is-block { display: block; }
+.ob-fx-border-light-ring {
+  position: absolute; inset: 0; border-radius: inherit; padding: var(--fx-border-width);
+  overflow: hidden; pointer-events: none; container-type: size;
+  -webkit-mask: linear-gradient(black 0 0) content-box, linear-gradient(black 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(black 0 0) content-box exclude, linear-gradient(black 0 0);
+}
+/* A square bigger than the diagonal, turning, with the light in one corner of it. */
+.ob-fx-border-light-ring > span {
+  position: absolute; left: 50%; top: 50%;
+  width: 150cqmax; height: 150cqmax; margin: -75cqmax 0 0 -75cqmax;
+  background: conic-gradient(
+    transparent 0deg 200deg,
+    color-mix(in srgb, var(--fx-violet) 60%, transparent) 290deg,
+    color-mix(in oklab, var(--fx-light) 65%, color-mix(in oklab, var(--fx-blue) 40%, var(--fx-ink, var(--ds-color-text)))) 345deg,
+    transparent 360deg
+  );
+  animation: ob-fx-turn var(--fx-border-every) linear infinite;
+}
+
+/* ---------- GlowCursor ---------- */
+
+.ob-fx-cursor { display: none; }
+:root[data-fx-cursor] .ob-fx-cursor {
+  display: block; position: fixed; z-index: var(--ds-z-toast);
+  left: calc(var(--fx-cursor-size) / -2); top: calc(var(--fx-cursor-size) / -2);
+  width: var(--fx-cursor-size); height: var(--fx-cursor-size);
+  border-radius: 50%; pointer-events: none; mix-blend-mode: screen;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--fx-blue) 13%, transparent), color-mix(in srgb, var(--fx-violet) 5%, transparent) 55%, transparent);
+  opacity: 0;
+  transition: opacity var(--ds-duration-slow) var(--ds-ease-out);
+}
+:root[data-fx-cursor="on"] .ob-fx-cursor { opacity: 1; }
+:where(:root[data-fx-cursor] [data-fx-rim]) { position: relative; }
+/* The rim is drawn over the element's own hairline border, lit where the mouse is. */
+:root[data-fx-cursor] [data-fx-rim]::after {
+  content: ""; position: absolute; inset: calc(-1 * var(--fx-rim-width)); border-radius: inherit;
+  padding: var(--fx-rim-width); pointer-events: none;
+  background: radial-gradient(var(--fx-rim-reach) circle at var(--fx-rx, -100vw) var(--fx-ry, -100vh), color-mix(in oklab, var(--fx-blue) 65%, var(--fx-ink, var(--ds-color-text))), transparent);
+  -webkit-mask: linear-gradient(black 0 0) content-box, linear-gradient(black 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(black 0 0) content-box exclude, linear-gradient(black 0 0);
+  opacity: var(--fx-ro, 0);
+}
+
+/* ---------- less motion ---------- */
+
+/* Everything stops in its final state: flat, lit evenly, the light on the
+   border parked at the top right. */
+@media (prefers-reduced-motion: reduce) {
+  .ob-fx-glow, .ob-fx-guilloche-ring, .ob-fx-holo-counter, .ob-fx-border-light-ring > span { animation: none !important; }
+  .ob-fx-sheen { display: none; }
+  .ob-fx-border-light-ring > span { transform: rotate(45deg); }
+  .ob-fx-surface-tilt, .ob-fx-holo-film, .ob-fx-holo-bands { will-change: auto; }
+}

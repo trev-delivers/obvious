@@ -80,6 +80,29 @@
           "target": "components/obvious/plus-menu.css"
         }
       ]
+    },
+    {
+      "name": "effects",
+      "type": "registry:component",
+      "title": "Effects",
+      "description": "For special moments only, like a guest's key card or a welcome: HoloSurface, Holo, Guilloche, EncryptedText, GlowText, BorderLight and GlowCursor, from the Morris OS key card. No more than 1 or 2 on a screen.",
+      "files": [
+        {
+          "path": "registry/obvious/effects.tsx",
+          "type": "registry:component",
+          "target": "components/obvious/effects.tsx"
+        },
+        {
+          "path": "registry/obvious/fx.ts",
+          "type": "registry:file",
+          "target": "components/obvious/fx.ts"
+        },
+        {
+          "path": "registry/obvious/effects.css",
+          "type": "registry:file",
+          "target": "components/obvious/effects.css"
+        }
+      ]
     }
   ]
 }

@@ -59,7 +59,28 @@ takes a theme.
   three by habit, no summary closer, no em dashes, UK spelling, numerals
   rather than words.
 
-# Working on it
+# Effects
+
+`effects` in the registry is the craft from the guest key card in Morris OS:
+a surface that tilts with the phone, holographic colour on fine lines, a seal
+made from a seed, words that encrypt and come back, a glow behind text, a
+light going round a border and a light that follows the mouse. An app only
+gets them if it adds that item.
+
+They're for special moments, like a guest's key card, a welcome screen or a
+single hero element. They don't go on everyday screens, and there are 1 or 2
+on a screen at most.
+
+They bend 2 of the rules above on purpose: they glow, and the hologram's
+colour shifts across its lines much like a gradient. Everything else still
+applies. Gradient text is still out, so the sheen in GlowText is solid
+letters seen through a moving band. Tracked capitals and monospace are still
+out as well. The key card's tracked capitals were my call for Morris OS and
+aren't part of obvious.
+
+Each effect has to sit still in its finished state when someone has asked
+for less motion, and text in them has to pass AA.
+
 
 `npm run check` runs everything: it builds `dist/` (which fails if a theme
 is missing a key or a contrast pair has got worse), the registry and the docs
