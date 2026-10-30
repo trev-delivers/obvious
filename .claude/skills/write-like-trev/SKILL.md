@@ -41,7 +41,7 @@ If a draft reads like documentation of itself ("The only one that moves: the pal
 - Name the thing. If the page has a dashboard, call it the dashboard every time. Don't rotate synonyms to sound varied.
 - Prefer the specific version. "Saves to this phone" beats "stored locally". "12 recipes" beats "a growing collection".
 - UK spelling: colour, organise, behaviour, centre, catalogue, licence (noun), practise (verb), programme (except computer program).
-- Numerals for numbers: "3 projects", "12 years", "1 tap". Spell out only when it starts a sentence and can't be rewritten.
+- Numerals for numbers: "3 projects", "13 years", "1 tap". Spell out only when it starts a sentence and can't be rewritten.
 - Define jargon and acronyms the first time, or swap them for plain words. Internal names stay internal.
 - No exclamation marks in UI. One in a whole marketing page, maximum.
 
@@ -135,7 +135,7 @@ Run through this on every piece of copy:
 
 **Portfolio hero**
 Before: "I'm a passionate product designer who crafts intuitive, delightful experiences that empower users and drive business value."
-After: "Staff product designer at Cleo. 12 years across fintech, broadcast and consumer apps."
+After: "Staff product designer at Cleo. 13 years across fintech, broadcast and consumer apps."
 
 **Side-project intro**
 Before: "Welcome to Squeezed, your ultimate destination for discovering and sharing condiment experiences. It's not just a review site; it's a community."

@@ -3,6 +3,7 @@
 /* Uses every registry item, so a broken import or prop type fails tsc. */
 import Sheet from "@/components/obvious/Sheet";
 import { Toasts, useToasts } from "@/components/obvious/Toasts";
+import GradualBlur from "@/components/obvious/GradualBlur";
 import PlusMenu from "@/components/obvious/PlusMenu";
 import {
   Tabs, Badge, AnimatedNumber, TextSwap, SuccessCheck, Switch, Checkbox, SearchField, IconSwap, DotLoader, Odometer,
@@ -37,6 +38,7 @@ export default function Page() {
       <PopNumber value={1} />
       <PlusMenu items={[{ label: "New", icon: null, onSelect: () => toast("Saved") }]} />
       <Toasts list={list} dismiss={dismiss} />
+      <GradualBlur edge="top" size="3rem" strength="strong" layers={5} fade position="sticky" always />
       <GlowCursor />
       <HoloSurface className="card" tilt={6}>
         <Guilloche seed="guest|2026-11-02" />

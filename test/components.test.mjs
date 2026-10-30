@@ -72,3 +72,37 @@ test("no component sets monospace or letter-spacing", () => {
     assert.doesNotMatch(css, /letter-spacing/, f);
   }
 });
+
+/* gradual-blur is a stack of backdrop-filter layers. These pin the parts that
+   are easy to lose: the cap, the fallbacks, and the opacity trap. */
+test("gradual blur caps its layers, falls back, and never fades its container", () => {
+  const css = read("gradual-blur.css");
+  assert.match(css, /:nth-child\(n\+9\)\s*\{\s*display:\s*none/);
+  assert.match(css, /prefers-reduced-transparency:\s*reduce/);
+  assert.match(css, /@supports not \(\(backdrop-filter/);
+  assert.match(css, /-webkit-backdrop-filter/);
+  assert.match(css, /pointer-events:\s*none/);
+  assert.match(css, /animation-timeline:\s*scroll\(/);
+  /* An opacity on the container would stop the layers seeing the page. */
+  for (const m of css.matchAll(/([^{}]+)\{([^{}]*animation:[^{}]*)\}/g)) {
+    assert.match(m[1], />\s*\*|::after/, `animation on ${m[1].trim()}`);
+  }
+  for (const edge of ["top", "bottom", "left", "right"]) assert.match(css, new RegExp(`\\.ob-gradual-blur--${edge}\\b`));
+});
+
+test("gradual blur is a registry item that ships the same CSS", () => {
+  const reg = JSON.parse(readFileSync(new URL("../registry.json", import.meta.url), "utf8"));
+  const item = reg.items.find((i) => i.name === "gradual-blur");
+  assert.ok(item);
+  assert.ok(item.files.some((f) => f.path === "src/components/gradual-blur.css" && f.target.endsWith("gradual-blur.css")));
+  const tsx = readFileSync(new URL("../registry/obvious/GradualBlur.tsx", import.meta.url), "utf8");
+  assert.match(tsx, /aria-hidden="true"/);
+  assert.match(tsx, /Math\.min\(8/);
+  const smoke = readFileSync(new URL("../scripts/registry-smoke/app/page.tsx", import.meta.url), "utf8");
+  assert.match(smoke, /GradualBlur/);
+});
+
+test("the blur steps are tokens", () => {
+  const p = JSON.parse(readFileSync(new URL("../src/primitives.json", import.meta.url), "utf8"));
+  assert.deepEqual(Object.keys(p.blur).filter((k) => k !== "$comment"), ["sm", "md", "lg"]);
+});

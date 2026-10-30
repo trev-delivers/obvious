@@ -147,6 +147,12 @@
     "pad-x-md": "calc(14px * var(--ds-density))",
     "pad-x-lg": "calc(20px * var(--ds-density))"
   },
+  "blur": {
+    "$comment": "Backdrop blur steps, for glass and edge blurs. A blur costs the GPU per pixel it covers, so there are three and no more.",
+    "sm": "2px",
+    "md": "4px",
+    "lg": "8px"
+  },
   "z": {
     "base": "0",
     "raised": "1",

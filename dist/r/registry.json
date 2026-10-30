@@ -103,6 +103,24 @@
           "target": "components/obvious/effects.css"
         }
       ]
+    },
+    {
+      "name": "gradual-blur",
+      "type": "registry:component",
+      "title": "Gradual blur",
+      "description": "An edge where content scrolls under a blur that gets stronger towards the edge. Pure CSS underneath, so it works without JavaScript. Pick the edge, size, strength and number of layers, and optionally fade to the page colour. It hides itself when the scroller is at that end.",
+      "files": [
+        {
+          "path": "registry/obvious/GradualBlur.tsx",
+          "type": "registry:component",
+          "target": "components/obvious/GradualBlur.tsx"
+        },
+        {
+          "path": "src/components/gradual-blur.css",
+          "type": "registry:file",
+          "target": "components/obvious/gradual-blur.css"
+        }
+      ]
     }
   ]
 }
