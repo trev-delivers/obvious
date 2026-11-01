@@ -1,0 +1,65 @@
+# Sources
+
+Everything here was looked at on 1 November 2026. "Read" means the page or file itself was read. "Secondary" means only a summary, excerpt or quote elsewhere was read, and the skill leans on it lightly. "Not reached" means it couldn't be opened, and nothing in the skill depends on it.
+
+Trev's own words and rules come first and win over all of these.
+
+## Trev
+
+- **obvious CLAUDE.md** (`/home/user/obvious/CLAUDE.md`). Read. His voice notes, the banned shapes, the purple limit, the design rules (no eyebrows, no tracked capitals, no middle dots).
+- **The old write-like-trev skill** (`/home/user/obvious/.claude/skills/write-like-trev/SKILL.md`). Read. His real lines, the skincare quotes, the UI microcopy rules, the approved theme note.
+- **write-portfolio** (`/home/user/designedbytrev/.claude/skills/write-portfolio/SKILL.md`). Read. Truth rules for anything on the portfolio.
+- **designedbytrev** `index.html`, `work/cleonardo.html`, `work/information-architecture.html`, and Trev's own commits there (6021db7 "Correct landing page copy against confirmed facts", cde3dbc). Read. How he edits: "2009 to 2013", "practise", "about 200", fixing credit.
+- **obvious commit e969dc3**, "Rewrite the Smuggle Brawlers case study in Trev's words". Read. His notes replacing a draft: cut dates, counts and stale numbers; "Claude wrote the code and I reviewed it"; the Jesse lines.
+- **READMEs and CLAUDE.md files** in condiment-gallery, daily-routine, eye-for-type, 4hm-the-game, holy-pixels, MorrisOS, brookwood-hunt. Read. Facts for the rewrites, commit rules for the games, UI strings from Morris OS `components/`.
+
+## AI writing
+
+- **[WP-AISIGNS]** Wikipedia: Signs of AI writing (WP:AISIGNS). https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing. Read (the raw wikitext, revision current on 1 Nov 2026). Most of the catalogue: vocabulary by era including the mid-2026 list, negative parallelism and "Y rather than X", copula avoidance, rule of three, trailing participles, puffery, vague attribution, challenges-and-outlook endings, title case, bold-label lists, emoji, curly quotes, chat phrases, em dashes and the newer even-punctuation tell, elegant variation, signs of human writing, ineffective indicators, and the caveat that fixing the surface hides the problem.
+- **[Kobak]** Kobak, González-Márquez, Horvát and Lause, "Delving into LLM-assisted writing in biomedical publications through excess vocabulary", arXiv 2406.07016 (Science Advances, 2025). https://arxiv.org/abs/2406.07016. Read (abstract and HTML). "delves" 28 times expected, "underscores" 13.8, "showcasing" 10.7; at least 13.5% of 2024 abstracts LLM-processed; excess words are style words. <!-- copy-ok: titles and quoted words -->
+- **[Reinhart]** Reinhart and others, "Do LLMs write like humans? Variation in grammatical and rhetorical styles", PNAS, February 2025. https://arxiv.org/html/2410.16107v2. Read the arXiv version (the PNAS page returned 403). Present participial clauses at 2 to 5 times the human rate, nominalisations 1.5 to 2 times, fewer agentless passives.
+- **[Russell]** Russell, Karpinska and Iyyer, "People who frequently use ChatGPT for writing tasks are accurate and robust detectors of AI-generated text", arXiv 2501.15654. https://arxiv.org/abs/2501.15654. Read. What expert detectors look for, with shares: vocabulary, structure, too-clean punctuation, originality, quotes, over-explaining; "Emily" and "Sarah"; formulaic endings. <!-- copy-ok: titles and quoted words -->
+- **[Kreuz]** Roger J. Kreuz, "Too many em dashes? Weird words like 'delves'?", The Conversation, 30 July 2025. https://theconversation.com/too-many-em-dashes-weird-words-like-delves-spotting-text-written-by-chatgpt-is-still-more-art-than-science-259629. Read. People are poor detectors; em dashes as a cue barely beat chance; no single sign is definitive. <!-- copy-ok: titles and quoted words -->
+- **[Kriss]** Sam Kriss, "Why Does A.I. Write Like ... That?", New York Times Magazine, 3 December 2025. https://www.nytimes.com/2025/12/03/magazine/chatbot-writing-style.html. Secondary: the Times wouldn't load, so this rests on Max Read's write-up (https://maxread.substack.com/p/will-ai-writing-ever-be-good) and the Longreads blurb (https://longreads.com/2025/12/04/why-does-a-i-write-like-that). Ghosts, quietness, "quiet" 10 times in 759 words, metaphors for abstractions, negation spreading into LinkedIn posts.
+- **[Econ-2026]** The Economist, "How to spot AI writing", 8 August 2026, via its Off the Charts newsletter. https://theeconomistoffthecharts.substack.com/p/how-to-spot-ai-writing. Secondary (paywalled after the method). Models tested; "There is no single style of AI writing"; single words are weak evidence. Its measured results weren't seen and aren't used.
+- **[Tropes]** tropes.fyi, a directory of AI writing tropes. https://tropes.fyi/. Read. Fragment stacks, magic adverbs, invented concept labels, stakes inflation, preamble. The old skill cited it too.
+- **[Antislop]** Paech and others, "Antislop", arXiv 2510.15061 (ICLR 2026). https://arxiv.org/abs/2510.15061. Secondary (search summary). Some patterns appear over 1,000 times more often in LLM output; mostly fiction, so not used for rules.
+
+## Newsrooms
+
+- **[Guardian]** Guardian and Observer style guide, letters A, C, D, E, I, N, O, P, Q, S. https://www.theguardian.com/guardian-observer-style-guide-a (and -c, -d and so on). Read. -ise; dashes "sparingly"; exclamation marks "like laughing at your own jokes"; numbers; Oxford comma only when it helps; double quotes; contractions; cliches; programme and program; per cent and percentage points; OK.
+- **[BBC-NSG]** BBC News style guide: "Grammar, spelling and punctuation" and "Numbers". https://www.bbc.co.uk/newsstyleguide/grammar-spelling-punctuation and https://www.bbc.co.uk/newsstyleguide/numbers. Read. -ise; judgement; licence and license, practice and practise; Americanisms (meet, talk to, power cut); hyphens; quotes; capitals; dates; no "yesterday"; words for 1 to 9 and the 24-hour clock (both overruled for Trev).
+- **BBC GEL "How to write for the web"** and BBC Academy writing guidance. https://www.bbc.co.uk/gel/features/how-to-write-for-the-web. Not reached (500 error; Academy pages 404).
+- **[Econ-intro]** The Economist Style Guide, 11th edition (2015), preface and introduction. http://cdn.static-economist.com/sites/default/files/store/Style_Guide_2015.pdf. Read (the sample PDF). "Clarity of writing usually follows clarity of thought"; Orwell's rules; don't clear your throat; don't be stuffy, hectoring, too pleased with yourself, too chatty or too didactic; one-sentence paragraphs only occasionally. The online guide (economist.com/style-guide) returned 403.
+- **The Times Style Guide** (Times Books, 3rd edition 2022). Not reached: print only.
+- **Reuters Handbook of Journalism.** Not reached (403).
+- **AP Stylebook.** Not reached (subscription). Not used: AP is US style and this skill is UK.
+
+## Plain language and brand voice
+
+- **[GOVUK-AZ]** GOV.UK A to Z style guide. https://guidance.publishing.service.gov.uk/writing-to-gov-uk-standards/style-guides/a-to-z-style-guide/. Read. Numerals including 2 to 9; "to" in date and time ranges; dates; times; eg, etc and ie; ampersands; bold; brackets; contractions (overruled for Trev); sign in; money; words to avoid and metaphors.
+- **[GOVUK-clear]** GOV.UK writing guidelines: clear language. https://guidance.publishing.service.gov.uk/writing-to-gov-uk-standards/writing-guidelines/clear-language/. Read. Split sentences over 25 words; paragraphs of 5 sentences or fewer; short words.
+- **[PEC]** Plain English Campaign, "How to write in plain English". https://www.plainenglish.co.uk/free-guides/how-to-write-in-plain-english. Read. Average 15 to 20 words, with "This does not mean making every sentence the same length"; active verbs; you and we; nominalisations; imperatives.
+- **[NHS]** NHS digital service manual, "How we write". https://service-manual.nhs.uk/content/how-we-write. Read. Sentences up to 20 words, paragraphs up to 3; no metaphors; claims need evidence.
+- **[NHS-tone]** NHS, "Voice and tone". https://service-manual.nhs.uk/content/voice-and-tone. Read. "Should" can sound patronising.
+- **[Mailchimp-VT]** Mailchimp content style guide, voice and tone. https://styleguide.mailchimp.com/voice-and-tone/. Read. Plainspoken, dry humour; "don't go out of your way to make a joke".
+- **[Mailchimp-GM]** Mailchimp, grammar and mechanics. https://styleguide.mailchimp.com/grammar-and-mechanics/. Read. No exclamation marks in failure messages or alerts; contractions; sentence case; serial comma (overruled). Its writing goals page returned 404.
+- **[Monzo]** Monzo writing principles. https://monzo.com/tone-of-voice/. Read. Ask what the reader cares about most; impact before reasoning; list what they need first; read it aloud; formal words sound cold; sorry once; avoid empty adjectives; humour as a "delicate seasoning", pick the best joke; smart asides in brackets; serious isn't formal; channel by channel, no wit in customer service.
+
+## Writers on writing
+
+- **[Orwell]** George Orwell, "Politics and the English Language" (1946). https://www.orwellfoundation.com/the-orwell-foundation/orwell/essays-and-other-works/politics-and-the-english-language/. Read. The 6 rules and the scrupulous writer's questions.
+- **[Gowers]** Sir Ernest Gowers, The Complete Plain Words (HMSO, 1954). https://archive.org/details/in.gov.ignca.28753. Read (the scanned text). Fowler's 5 vocabulary rules and Gowers' 3: no more words than necessary, familiar words, precise and concrete words.
+- **[Strunk]** William Strunk Jr, The Elements of Style (1918). https://www.gutenberg.org/ebooks/37134. Read. Rule 13, "Omit needless words", and rule 18, emphatic words at the end.
+- **[Pullum]** Geoffrey K. Pullum, "50 Years of Stupid Grammar Advice", Chronicle of Higher Education, 17 April 2009. https://www.lel.ed.ac.uk/~gpullum/50years.pdf. Read. Why the skill allows the passive where the doer doesn't matter and doesn't ban adjectives outright: Strunk and White's grammar rules are wrong in places, and their own examples break them.
+- **[Pinker]** Steven Pinker, "Why Academics Stink at Writing", Chronicle of Higher Education, 2014, read as reproduced at https://davidlabaree.com/2021/07/08/pinker-why-academics-stink-at-writing/. Read (reproduction). Classic style, metadiscourse, hedging as "a choice, not a tic", zombie nouns, the curse of knowledge and the fix (show a draft to someone). The Sense of Style itself wasn't read. <!-- copy-ok: titles and quoted words -->
+- **[PG-talk]** Paul Graham, "Write Like You Talk". https://paulgraham.com/talk.html. Read. The friend test; read essays aloud before publishing.
+- **[PG-simply]** Paul Graham, "Write Simply". https://paulgraham.com/simply.html. Read. Simple writing for readers whose English is a second language; "If you say nothing simply, it will be obvious".
+- **[Vonnegut]** Kurt Vonnegut, "How to Write With Style" (1980s), as reprinted by Lumen Learning. https://courses.lumenlearning.com/suny-introliterature/chapter/how-to-write-with-style/. Read. The 8 headings, including "Sound like yourself" and "Have the guts to cut".
+- **[Leonard]** Elmore Leonard's 10 rules, in "Ten rules for writing fiction", The Guardian, 20 February 2010. https://www.theguardian.com/books/2010/feb/20/ten-rules-for-writing-fiction-part-one. Read (the 2001 New York Times original wouldn't load). 2 or 3 exclamation marks per 100,000 words; "leave out the part that readers tend to skip"; "if it sounds like writing, I rewrite it". Diana Athill's read-aloud rule is on the same page.
+- **[Zinsser-ESL]** William Zinsser, "Writing English as a Second Language", The American Scholar, 2009. https://theamericanscholar.org/writing-english-as-a-second-language/. Read. Short words, -ion nouns as "the enemy", active verbs, clutter. On Writing Well itself wasn't read; its "Clutter is the disease of American writing" line was seen only quoted (https://www.publicationcoach.com/?p=5874).
+- **[Lamott]** Anne Lamott, "Shitty First Drafts", from Bird by Bird, as reprinted for a University of Kentucky course. https://wrd.as.uky.edu/sites/default/files/1-Shitty%20First%20Drafts.pdf. Read. Write the whole draft, then fix it (the "down draft" and "up draft"), which is the drafting order in SKILL.md.
+- **[Didion]** Joan Didion, "Why I Write", Literary Hub, 26 January 2021 (from Let Me Tell You What I Mean). https://lithub.com/joan-didion-why-i-write/. Read. Writing to find out what you think; changing a sentence's structure changes its meaning. Background only.
+- **Stephen King, On Writing.** Secondary (summaries only). Its editor's note, "2nd Draft = 1st Draft minus 10%", is behind "aim to lose a tenth", which the skill doesn't attribute to him.
+- **Ann Handley, Everybody Writes.** Secondary (summaries only). The ugly first draft idea agrees with Lamott; nothing is attributed to her.
+- **Harold Evans, Essential English.** Not reached.
