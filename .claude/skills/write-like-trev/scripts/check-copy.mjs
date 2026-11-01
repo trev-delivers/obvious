@@ -330,7 +330,8 @@ export function checkText(text, { type = "text", allow = [], soft = false } = {}
       if (m[0].startsWith("<") || m[0].endsWith(">")) return; // <dialog>
       const before = line.slice(0, m.index).trimEnd().split(/\s+/).pop().toLowerCase();
       const after = line.slice(m.index + m[0].length);
-      if (["a", "an", "the", "modal", "this", "that", "native", "confirm", "alert"].includes(before) || /^[- ]?box/i.test(after)) return; // the UI element
+      if (["a", "an", "the", "one", "each", "every", "any", "modal", "this", "that", "native", "confirm", "alert"].includes(before) || /^[- ]?box/i.test(after)) return; // the UI element
+      if (/[\/_.-]$/.test(line.slice(0, m.index)) || /^\.\w/.test(after)) return; // a file name: ui/dialog.ts
       add(n, m.index, "us-spelling", "tell", m[0], "dialogue for talk. 'dialog' is fine for the UI element (a dialog, dialog box)");
     });
     each(NUM_RE, line, (m) => {

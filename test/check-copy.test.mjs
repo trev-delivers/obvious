@@ -130,6 +130,7 @@ test("dialog as the UI element is fine", () => {
   assert.deepEqual(tells("The dialog box closes."), []);
   assert.deepEqual(tells("A modal dialog traps focus."), []);
   assert.deepEqual(tells("<p>Use the <dialog> element.</p>", { type: "html" }), []);
+  assert.deepEqual(tells("Everything opens through one dialog (src/ui/dialog.ts)."), []);
   assert.ok(tells("She wrote snappy dialog for the scene.").includes("us-spelling"));
 });
 
