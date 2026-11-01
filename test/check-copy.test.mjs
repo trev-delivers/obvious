@@ -118,3 +118,33 @@ test("the CLI exits 1 on findings, 0 when clean, 2 with nothing to do", () => {
   const json = JSON.parse(run("--json", join(dir, "bad.md")).stdout);
   assert.equal(json[0].findings[0].rule, "title-case");
 });
+
+test("meter is only US spelling after a number", () => {
+  assert.deepEqual(tells("A Hyper meter fills as you fight."), []);
+  assert.deepEqual(tells("The Hyper meter is full."), []);
+  assert.ok(tells("It is 5 meters long.").includes("us-spelling"));
+});
+
+test("dialog as the UI element is fine", () => {
+  assert.deepEqual(tells("Open a dialog and press Escape."), []);
+  assert.deepEqual(tells("The dialog box closes."), []);
+  assert.deepEqual(tells("A modal dialog traps focus."), []);
+  assert.deepEqual(tells("<p>Use the <dialog> element.</p>", { type: "html" }), []);
+  assert.ok(tells("She wrote snappy dialog for the scene.").includes("us-spelling"));
+});
+
+test("known names and <i> or <cite> don't trip title case", () => {
+  assert.deepEqual(tells("## The Grand Madre", { type: "md" }), []);
+  assert.deepEqual(tells("## Four Horsemen", { type: "md" }), []);
+  assert.deepEqual(tells("<h2>Smuggle Brawlers Stage Art</h2>", { type: "html" }), []);
+  assert.deepEqual(tells("<h2>Notes on <i>Jesus Two Collections</i> Today</h2>", { type: "html" }), []);
+  assert.deepEqual(tells("<h2>Notes on <cite>Jesus Two Collections Here</cite></h2>", { type: "html" }), []);
+  assert.deepEqual(tells("## Notes on <i>Jesus Two Collections</i> Today", { type: "md" }), []);
+  assert.ok(tells("## Our Approach To Design", { type: "md" }).includes("title-case"));
+});
+
+test("number words skip names and quoted words", () => {
+  assert.deepEqual(rules("They play as the Four Horsemen in it."), []);
+  assert.deepEqual(rules('Jesse said "there are four frames" in the deck.'), []);
+  assert.ok(rules("It has four frames.").includes("number-word"));
+});

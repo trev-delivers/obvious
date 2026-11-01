@@ -152,8 +152,8 @@ const US = {
   color: "colour", colors: "colours", colored: "coloured", colorful: "colourful",
   favorite: "favourite", favorites: "favourites", flavor: "flavour", flavors: "flavours",
   behavior: "behaviour", behaviors: "behaviours", honor: "honour", humor: "humour", neighbor: "neighbour",
-  center: "centre", centered: "centred", centers: "centres", theater: "theatre", meter: "metre (unit)",
-  gray: "grey", catalog: "catalogue", dialog: "dialogue (but 'dialog' for the UI element is fine)",
+  center: "centre", centered: "centred", centers: "centres", theater: "theatre",
+  gray: "grey", catalog: "catalogue",
   organize: "organise", organized: "organised", organizing: "organising", organization: "organisation",
   realize: "realise", realized: "realised", recognize: "recognise", recognized: "recognised",
   analyze: "analyse", analyzed: "analysed", optimize: "optimise", optimized: "optimised",
@@ -165,6 +165,11 @@ const US = {
   judgment: "judgement", defense: "defence", offense: "offence", toward: "towards",
   mom: "mum", aluminum: "aluminium", artifact: "artefact (except Claude 'artifacts')",
 };
+
+/** Proper names the title-case and number-word checks leave alone. Add to it as projects need. */
+const NAMES = ["The Grand Madre", "Four Horsemen", "Smuggle Brawlers", "Holy Pixels", "Morris OS",
+  "Eye for Type", "Time Dissonance", "Open Door Performance", "Ground Frames Register", "Brookwood News"];
+const NAMES_RE = new RegExp(`\\b(?:${NAMES.join("|")})\\b`, "gi");
 
 const NUMBER_WORDS = ["two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
   "eleven", "twelve", "twenty", "thirty", "forty", "fifty", "hundred"];
@@ -210,6 +215,7 @@ function prepMarkdown(text) {
     if (f) { fence = f[1]; return ""; }
     if (inComment) { const end = line.indexOf("-->"); if (end < 0) return ""; inComment = false; line = blank(line.slice(0, end + 3)) + line.slice(end + 3); }
     line = line.replace(/<!--[\s\S]*?-->/g, blank);
+    if (/^\s{0,3}#{1,6}\s/.test(line)) line = line.replace(/<(i|cite)\b[^>]*>[\s\S]*?<\/\1>/gi, blank); // a name or title in a heading
     const open = line.indexOf("<!--");
     if (open >= 0) { inComment = true; line = line.slice(0, open); }
     line = line
@@ -236,7 +242,7 @@ function prepHtml(text) {
   const headings = [];
   s.replace(/<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/gi, (m, level, inner, at) => {
     const line = s.slice(0, at).split("\n").length;
-    headings.push({ line, level: Number(level), text: decode(inner.replace(/<[^>]+>/g, "")).replace(/\s+/g, " ").trim() });
+    headings.push({ line, level: Number(level), text: decode(inner.replace(/<(i|cite)\b[^>]*>[\s\S]*?<\/\1>/gi, " ").replace(/<[^>]+>/g, "")).replace(/\s+/g, " ").trim() });
     return m;
   });
   s = s.replace(/<[a-z!\/][^>]*>/gi, (tag) => {
@@ -319,10 +325,22 @@ export function checkText(text, { type = "text", allow = [], soft = false } = {}
     });
     each(FILLER_RE, line, (m) => add(n, m.index, "filler", "check", m[0], "usually cut it"));
     each(US_RE, line, (m) => add(n, m.index, "us-spelling", "tell", m[0], US[m[1].toLowerCase()]));
+    each(/\b\d[\d,.]*\s?-?meters?\b/gi, line, (m) => add(n, m.index, "us-spelling", "tell", m[0], "metre (the unit). A meter that measures something is fine"));
+    each(/<?\bdialogs?\b>?/gi, line, (m) => {
+      if (m[0].startsWith("<") || m[0].endsWith(">")) return; // <dialog>
+      const before = line.slice(0, m.index).trimEnd().split(/\s+/).pop().toLowerCase();
+      const after = line.slice(m.index + m[0].length);
+      if (["a", "an", "the", "modal", "this", "that", "native", "confirm", "alert"].includes(before) || /^[- ]?box/i.test(after)) return; // the UI element
+      add(n, m.index, "us-spelling", "tell", m[0], "dialogue for talk. 'dialog' is fine for the UI element (a dialog, dialog box)");
+    });
     each(NUM_RE, line, (m) => {
       const before = line.slice(0, m.index);
       if (/(^|[.!?]\s+)$/.test(before) || /^\s*$/.test(before)) return; // starts a sentence: words are right
       if (/one or two|two or three/i.test(line.slice(Math.max(0, m.index - 8), m.index + 12))) return;
+      if (/^\p{Lu}/u.test(m[0]) && /^\s+\p{Lu}/u.test(line.slice(m.index + m[0].length))) return; // a name: Four Horsemen
+      const q = line.slice(0, m.index);
+      if ((q.match(/"/g) || []).length % 2 === 1 || (q.match(/“/g) || []).length > (q.match(/”/g) || []).length) return; // quoted words stay as said
+      for (const nm of line.matchAll(NAMES_RE)) if (m.index >= nm.index && m.index < nm.index + nm[0].length) return;
       add(n, m.index, "number-word", "check", m[0], "numerals: 2, 3, 10");
     });
 
@@ -353,7 +371,7 @@ export function checkText(text, { type = "text", allow = [], soft = false } = {}
 
   for (const h of headings) {
     if (h.level === 1) continue; // usually the thing's name
-    if (isTitleCase(h.text)) add(h.line, 0, "title-case", "tell", h.text, "sentence case: only the first word and names take capitals");
+    if (isTitleCase(h.text.replace(NAMES_RE, " "))) add(h.line, 0, "title-case", "tell", h.text, "sentence case: only the first word and names take capitals");
     if (/:$/.test(h.text)) add(h.line, 0, "heading-colon", "check", h.text, "headings don't end in a colon");
   }
 
