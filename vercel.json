@@ -3,5 +3,47 @@
   "buildCommand": "npm run build",
   "outputDirectory": "site",
   "framework": null,
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/pixel",
+      "destination": "https://designedbytrev.com/writing/pixel-rules",
+      "permanent": true
+    },
+    {
+      "source": "/pixel/loop",
+      "destination": "https://designedbytrev.com/writing/pixel-rules#loop-and-screen",
+      "permanent": true
+    },
+    {
+      "source": "/pixel/effects",
+      "destination": "https://designedbytrev.com/writing/pixel-rules#effects",
+      "permanent": true
+    },
+    {
+      "source": "/pixel/motion",
+      "destination": "https://designedbytrev.com/writing/pixel-rules#motion-and-hits",
+      "permanent": true
+    },
+    {
+      "source": "/pixel/access",
+      "destination": "https://designedbytrev.com/writing/pixel-rules#accessibility",
+      "permanent": true
+    },
+    {
+      "source": "/pixel/discord",
+      "destination": "https://designedbytrev.com/writing/pixel-rules#discord",
+      "permanent": true
+    },
+    {
+      "source": "/pixel/lettering",
+      "destination": "https://designedbytrev.com/writing/pixel-rules#lettering",
+      "permanent": true
+    },
+    {
+      "source": "/pixel/smuggle-brawlers",
+      "destination": "https://designedbytrev.com/writing/smuggle-brawlers",
+      "permanent": true
+    }
+  ]
 }

@@ -179,15 +179,11 @@ docs site, runs the tests in `test/`, audits obvious itself with a budget of
 The website lives in `web/`. `web/build.mjs` writes it to `site/`, which
 Vercel serves and git ignores. Pages link the real stylesheets from `dist/`,
 and the token tables and theme pages are generated from `src/`, so the site
-changes when the system does. Page content is in `web/pages.mjs`, apart
-from the pixel games pages, which are in `web/pixel.mjs` with their pictures
-in `web/img/`.
+changes when the system does. Page content is in `web/pages.mjs`.
 
-The pixel games pages are how my 2 games, Four Horsemen and Smuggle
-Brawlers, are built: the pixel rules, the loop, effects, motion, hits,
-accessibility and Discord. None of it is tokens. It's written down so the
-next game starts from there. There's also a case study on the Smuggle
-Brawlers lettering.
+The pixel games pages used to live here. They're a post on my site now, at
+[designedbytrev.com/writing/pixel-rules](https://designedbytrev.com/writing/pixel-rules),
+and `vercel.json` sends the old addresses there.
 
 `dist/` is committed because apps copy it from a shallow clone and have no
 build step of their own.

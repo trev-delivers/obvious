@@ -6,7 +6,6 @@
  */
 
 import { esc, code, head, section, table } from "./html.mjs";
-import { pixelPages } from "./pixel.mjs";
 import { effectsPage } from "./effects.mjs";
 
 const tok = (name) => `<code>${esc(name)}</code>`;
@@ -988,8 +987,6 @@ ${section(
   `<p>Ask me and I'll talk you through them. Figma to code is the one I'd start with.</p>`,
 )}`,
   });
-
-  out.push(...pixelPages());
 
   return out;
 }
