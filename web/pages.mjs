@@ -363,6 +363,13 @@ const SKILLS = [
     inside: "patterns for every common interface string, readability research, accessibility text, inclusive language, writing for translation, a term list and the string-finding script.",
     used: "Any app with words on screen",
   },
+  {
+    name: "site-review",
+    title: "Site review",
+    what: "A security and legal check by something that didn't build the site. Claude wrote my apps, so I don't want Claude marking its own homework: this one ignores what the notes and comments say is safe and reads the code, the database rules and what the live site sends back. It only reports what it can prove, with the file or the request that shows it, and keeps the rest under couldn't confirm. Live checks only look; anything that needs an attack is tried on a local copy.",
+    inside: "the 20 common ways sites like mine get hacked, the legal ones (cookies, Google Fonts, children, marketing email, subscriptions, uploads), a check for each stack I use, and a scanning script that needs nothing installed.",
+    used: "Before launch, and on any app with sign-in or a database",
+  },
 ];
 
 const PADLOCK = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>`;
@@ -969,7 +976,7 @@ ${section(
     title: "Claude skills",
     description: "The instructions I've written for Claude so the code it writes for my apps holds up.",
     body: `
-${head("Claude skills", "I can design but I can't code. These are the instructions I've written for Claude so what it builds for me holds up: the engineering, the handoff from Figma, the design system, accessibility, critique and the words. Every rule in them points to where it came from. They're set up for my own projects, so the downloads are locked.")}
+${head("Claude skills", "I can design but I can't code. These are the instructions I've written for Claude so what it builds for me holds up: the engineering, the handoff from Figma, the design system, accessibility, critique, security and the words. Every rule in them points to where it came from. They're set up for my own projects, so the downloads are locked.")}
 <ul class="skill-list">${SKILLS.map(
       (s) => `<li class="skill">
   <h2 class="skill-name">${esc(s.title)}</h2>

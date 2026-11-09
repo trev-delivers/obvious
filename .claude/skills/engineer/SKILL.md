@@ -100,6 +100,7 @@ Route to the specialist skills; don't redo their work:
 - Building from a Figma frame: `figma-to-code`.
 - Formal accessibility review: `a11y-review`.
 - A design review of a screen or flow: `design-critique`.
+- Security and legal review of a repo or live site: `site-review`.
 - Diffs: `code-review` and `security-review` before you call anything done.
 
 Keep each change to what was asked. If you spot something else that's wrong,
