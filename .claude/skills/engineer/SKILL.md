@@ -18,7 +18,7 @@ his behalf.
 ## Before you touch anything
 
 1. Check which repo you're in against `references/repos.md`.
-   - **Read only:** `opendoorperformance` (Hannah's business site),
+   - **Read only:** `opendoorperformance` (a client's business site),
      `brookwood-village` and `brookwood-hunt`. Never branch, commit, push,
      run migrations or deploy in these. Reading them for patterns is fine.
      If asked to change one, stop and check with Trev, even if the request

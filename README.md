@@ -73,8 +73,10 @@ or a new one appears.
 
 ## Using it
 
-The repo is private, so an app built with npm installs a packed copy kept
-in the app itself. That way Vercel and CI never need a login to build it. Pack
+The apps were set up as if this repo were private (on 9 Nov 2026 GitHub
+showed it as public, and whether it stays that way is still my call), so an
+app built with npm installs a packed copy kept in the app itself. That way
+Vercel and CI never need a login to build it. Pack
 the commit you want, copy it into the app's `vendor/` and install from there:
 
 ```sh
@@ -183,7 +185,8 @@ changes when the system does. Page content is in `web/pages.mjs`.
 
 The pixel games pages used to live here. They're a post on my site now, at
 [designedbytrev.com/writing/pixel-rules](https://designedbytrev.com/writing/pixel-rules),
-and `vercel.json` sends the old addresses there.
+and `vercel.json` sends the old addresses there. The writing on my site is
+hidden for now (9 Nov 2026), so until it's back those addresses end on a 404.
 
 `dist/` is committed because apps copy it from a shallow clone and have no
 build step of their own.

@@ -42,10 +42,11 @@ const FONT_VARS = {
   "var(--font-caveat)": "Caveat",
 };
 
-/* One request for every theme's pair. Google's CSS only declares the faces,
-   so a browser downloads just the ones a page uses. */
-const GOOGLE_FONTS =
-  "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IM+Fell+English&family=Instrument+Sans:wght@400;500;600&family=Caveat:wght@500&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Hanken+Grotesk:wght@400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Libre+Franklin:wght@400;500;600&family=Young+Serif&family=Figtree:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Source+Sans+3:wght@400;500;600&display=swap";
+/* Every theme's pair is served from the site (web/fonts, copied to
+   site/assets/fonts), so the docs never send a visitor to Google. fonts.css
+   only declares the faces, so a browser downloads just the ones a page uses.
+   To add a family, fetch its css2 CSS and woff2 files the same way, add its
+   OFL licence to web/fonts/licences and point the URLs at /assets/fonts. */
 
 /* System stacks open with keywords like ui-rounded. The first quoted name is
    the face people will recognise. */
@@ -154,9 +155,7 @@ function layout(page) {
 <meta name="description" content="${esc(page.description ?? "The design system behind Trev's apps: tokens, themes and a shared interaction layer.")}">
 <link rel="icon" href="/icons/core.svg" type="image/svg+xml">
 <script>${boot}</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="${GOOGLE_FONTS}">
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
 <link rel="stylesheet" href="/assets/obvious/css/primitives.css">
 <link rel="stylesheet" href="/assets/obvious/css/all-themes.css">
 <link rel="stylesheet" href="/assets/obvious/css/base.css">
@@ -200,6 +199,7 @@ cpSync(join(root, "dist", "css"), join(out, "assets", "obvious", "css"), { recur
 cpSync(join(root, "dist", "js"), join(out, "assets", "obvious", "js"), { recursive: true });
 cpSync(join(root, "dist", "r"), join(out, "r"), { recursive: true });
 cpSync(join(root, "icons"), join(out, "icons"), { recursive: true });
+cpSync(join(root, "web", "fonts"), join(out, "assets", "fonts"), { recursive: true });
 
 /* site.js imports the behaviours module by URL, so the copy in assets is the
    one that runs. The theme list rides along for the switcher. */

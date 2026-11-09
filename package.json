@@ -1,7 +1,7 @@
 {
   "name": "obvious",
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "description": "Design tokens, themes and the shared interaction layer behind Trev's apps.",
   "type": "module",
   "files": [

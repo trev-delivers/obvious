@@ -21,7 +21,7 @@ const ALL = args.includes("--all");
 const JSON_OUT = args.includes("--json");
 
 /* .claude and .agents hold vendored skills, ds is the synced design system,
-   and content-export / design-options are Hannah's archived material. None of
+   and content-export / design-options are a client's archived material. None of
    it is the app's own code. */
 const SKIP_DIRS = new Set([
   "node_modules", ".git", ".next", "dist", "build", "out", "coverage", ".vercel",

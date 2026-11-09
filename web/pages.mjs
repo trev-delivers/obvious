@@ -317,9 +317,9 @@ revealWords(splitWords(heading)); // a heading, word by word`,
 /* ---- pages ----------------------------------------------------------- */
 
 /* The Claude skills I build with. Written out by hand because most of them
-   live in other repos, and because their text stays private: it names the
-   family and the gaps still open in each app. The page shows what each one
-   is for and nothing else, so there's nothing in the page to download. */
+   live in other repos, and because their text is working notes on each app,
+   which don't belong on the docs site. The page shows what each one is for
+   and nothing else, so there's nothing in the page to download. */
 const SKILLS = [
   {
     name: "engineer",
