@@ -1,7 +1,7 @@
 # Data
 
 The worst thing these apps can do is lose or corrupt something a person
-cared about: Geoff's register, the family's stock list, someone's routine,
+cared about: someone's research register, the family's stock list, someone's routine,
 a player's unlocks. Treat saved data as the most fragile part of every app.
 
 ## Databases (Supabase, Postgres)
@@ -9,10 +9,9 @@ a player's unlocks. Treat saved data as the most fragile part of every app.
 - **The repo describes production.** Every table, policy, function, trigger
   and storage rule is in a migration file, and a fresh database can be built
   by running them in order. Name files with a full timestamp
-  (`20261017143000_guests.sql`) so same-day files sort correctly. MorrisOS
-  can't currently be rebuilt from its migrations: same-date files run in
-  the wrong order and `items` and the storage policies exist nowhere in the
-  repo. Fix by dumping the live schema into a baseline migration.
+  (`20261017143000_guests.sql`) so same-day files sort correctly. If the
+  live database has drifted from the files, dump the live schema into a
+  baseline migration (MorrisOS did on 17 Oct 2026).
 - **Write migrations as files, review them, then apply.** Prefer a Supabase
   branch to test against. Never apply to production without Trev saying yes
   to that change.
@@ -65,8 +64,9 @@ a player's unlocks. Treat saved data as the most fragile part of every app.
 
 ## Data someone else owns
 
-ground-frames-register shows Geoff's spreadsheet verbatim. Anything derived
-is kept visibly separate, suspected errors go to Geoff as queries, and an
+ground-frames-register shows the compiler's spreadsheet verbatim. Anything
+derived is kept visibly separate, suspected errors go to the compiler as
+queries, and an
 independent verifier compares every cell with the source. Apply the same
 idea anywhere the data belongs to someone else: show it as it is, and have
 a second, independent check that it got through unchanged.

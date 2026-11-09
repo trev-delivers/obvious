@@ -37,7 +37,7 @@ data. Build for that first.
 
 ## Next.js
 
-- condiment-gallery and Hannah's site use a recent Next with breaking
+- condiment-gallery and opendoorperformance use a recent Next with breaking
   changes. Read `node_modules/next/dist/docs/` before writing code there.
 - Pages stay thin; data loads on the server where possible.
 - `next/image` needs `images.remotePatterns` for every outside host (Google

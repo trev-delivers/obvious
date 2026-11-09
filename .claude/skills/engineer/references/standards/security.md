@@ -12,16 +12,16 @@ the realistic ones properly. Don't build a fortress around a static game.
   `is_family()` / `is_guest()`, the same `my_role()` used by the middleware,
   and guest limits checked again in `app/api/sonos/action/route.ts`.
 - **Every table has RLS on, with named policies, in a migration file.**
-  Hannah's site keeps its insert-only enquiry policy only in prose, which is
-  the gap to avoid. brookwood-hunt's `supabase/setup.sql` is the model.
-- **New tables default to the strictest role.** MorrisOS rewrites policies
-  from a hand-kept list in `20261017_guests.sql`. A table missing from that
-  list stays readable by guests. Prefer a test that asserts every public
-  table's policies, with an allowlist for exceptions.
+  A policy that only exists in prose or in the dashboard is the gap to
+  avoid. brookwood-hunt's `supabase/setup.sql` is the model.
+- **New tables default to the strictest role.** A hand-kept list of tables
+  to lock down misses the next table someone adds. Prefer a test that asserts
+  every public table's policies, with an allowlist for exceptions (MorrisOS
+  has one in `tests/db`).
 - **Guard against locking everyone out.** MorrisOS's last-adult trigger is
   the pattern.
-- **Allowlist who can sign in** when an app is for named people.
-  condiment-gallery lets any Google account in.
+- **Allowlist who can sign in** when an app is for named people. Signing in
+  with Google alone lets in any Google account.
 - **Middleware uses `getUser()`** (`getSession()` trusts the cookie) and fails closed
   when the role check errors.
 
@@ -32,14 +32,14 @@ the realistic ones properly. Don't build a fortress around a static game.
   with a 400 and a plain message.
 - Clamp numbers, cap string lengths, allow only `https:` for user-supplied
   links, and check types as well as shapes when loading shared or saved
-  data (daily-routine's share links can carry a hidden buy link).
+  data (a share link packed into the URL is untrusted input).
 - Escape everything that came from a person or a third party before it goes
-  into HTML. Never `innerHTML` a response from someone else's server
-  (designedbytrev inlines contribkit's SVG).
-- Forms that anyone can reach get a honeypot and length limits (Hannah's
-  site), and a rate limit if they send email or write data.
+  into HTML. Never `innerHTML` a response from someone else's server;
+  rebuild it from an allowlist, as designedbytrev does with its GitHub graph.
+- Forms that anyone can reach get a honeypot and length limits, and a rate
+  limit if they send email or write data.
 - Never show a query parameter back to the user as a message without an
-  allowlist (MorrisOS toasts `?error=` verbatim).
+  allowlist of known codes.
 
 ## Passwords and sessions
 
@@ -47,24 +47,34 @@ the realistic ones properly. Don't build a fortress around a static game.
 - Session cookies: `HttpOnly; Secure; SameSite=Lax`, an expiry that matches
   the comment, and a value that's an HMAC of an issued-at time with a
   separate secret. A hash of the password itself can't be revoked and can
-  be cracked offline (ground-frames-register, designedbytrev stats).
+  be cracked offline.
 - Rate-limit password forms (Vercel firewall rule or a counter in storage).
+  Limit per address; an overall limit lets a stranger lock the owner out.
+- A function behind a password checks the cookie itself as well as the
+  middleware. Vercel answers `/api/name.js` as well as `/api/name`, so a
+  middleware that matches exact paths can miss one.
 
 ## Secrets
 
 - Never commit secrets, passwords, tokens or personal data. Use Vercel env
   vars and `.env.local`. Commit a `.env.example` (check `.gitignore` doesn't
-  swallow it, as condiment-gallery's `.env*` rule does).
-- Don't derive an encryption key from a secret that might be rotated.
-  MorrisOS seals Sonos tokens with a key from `SONOS_CLIENT_SECRET`, so
-  rotating it breaks Music until someone reconnects.
+  swallow it: a `.env*` rule does).
+- Don't derive an encryption key from a secret that might be rotated
+  without writing down what rotating it breaks (a sealed sign-in that has
+  to be reconnected, say).
 - Server-only tokens stay server-only. Don't give the browser a policy that
-  can read them (MorrisOS guests can select `sonos_auth`).
+  can read them.
 
 ## Errors
 
 - Users get a plain message from `write-like-trev`. The detail goes to the
   server log. Never show a raw database, crypto or stack message.
+
+## Fonts
+
+- Serve fonts from the site. Loading them from Google Fonts sends every
+  visitor's address to Google before they've agreed to anything. Keep each
+  family's OFL licence next to its files, and allow `font-src 'self'`.
 
 ## Headers
 
@@ -83,8 +93,8 @@ MorrisOS and brookwood-village have good examples.
 ## Agents and automation
 
 - `.claude/settings.json` must not pre-approve tools that change live data
-  (`execute_sql`, `apply_migration`, deploys, deletes). MorrisOS currently
-  does. Every change to a live database needs Trev's yes for that change.
+  (`execute_sql`, `apply_migration`, deploys, deletes). Every change to a
+  live database needs Trev's yes for that change.
 - GitHub Actions: least `permissions:` at job level, actions pinned to a
   sha, untrusted event data passed through `env:` and never inlined into
   `run:` with `${{ }}`.

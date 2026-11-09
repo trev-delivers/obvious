@@ -22,7 +22,7 @@ to add when you next work there.
    to pass before a PR merges. Trigger the workflow by hand when a clean
    runner matters (a lockfile or Node change, a test that behaves
    differently on GitHub's runners, or anything that only CI can reach,
-   like the private obvious fetch). GitHub Actions, Node from `.nvmrc` or
+   like the obvious fetch with `OBVIOUS_TOKEN`). GitHub Actions, Node from `.nvmrc` or
    `package.json` engines, `npm ci`. Template:
 
    ```yaml

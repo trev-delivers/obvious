@@ -13,9 +13,9 @@
     },
     "font-loading": {
       "ignore": [
-        "web/build.mjs"
+        "web/fonts/"
       ],
-      "note": "The docs site shows every theme, so it loads every theme's faces in one request."
+      "note": "The docs site shows every theme, so web/fonts/fonts.css declares every theme's faces, served from the site."
     },
     "mono": {
       "ignore": [
@@ -28,6 +28,12 @@
         "registry/obvious/effects.css"
       ],
       "note": "The effects palette in registry/obvious/effects.css is the key card's hologram, the same blue-violet in every theme like the golds, so it's 9 fixed colours on :root."
+    },
+    "font": {
+      "ignore": [
+        "web/fonts/"
+      ],
+      "note": "Each @font-face in web/fonts/fonts.css has to name its family, so each one counts as a font stack. The pages use the faces through the theme tokens."
     }
   }
 }

@@ -6,6 +6,11 @@ most of what it found was fixed the same night. Fix an issue and remove it
 from here in the same change. Line numbers drift; search
 for the code if a line doesn't match.
 
+This file is in obvious, which is public on GitHub as of 9 Nov 2026, and it
+syncs into every app. So it names no people, no project ids or addresses,
+and no open security gaps. Keep those in the app's own private notes or tell
+Trev directly; here, only say what kind of check a repo needs.
+
 All repos are `trev-delivers/<name>` on GitHub and deploy on Vercel from
 `main` unless noted.
 
@@ -20,7 +25,7 @@ opens its pull requests.
 
 | Repo | Why | What's worth copying |
 |---|---|---|
-| `opendoorperformance` | Hannah's business site. She's not technical and publishing goes through Trev. | Lint, tsc and build gate. Honeypot and length limits on the enquiry form. Saves to the database before sending email. The handover doc for a non-technical owner. |
+| `opendoorperformance` | A client's business site. The owner isn't technical and publishing goes through Trev. | Lint, tsc and build gate. Honeypot and length limits on the enquiry form. Saves to the database before sending email. The handover doc for a non-technical owner. |
 | `brookwood-village` | Village community site with its own voice (`write-like-brookwood-news`). | `docs/security.md` in plain English. Strict headers. Form handler checks origin, strips CRLF, checks file types by content. Contrast ratios next to the tokens. |
 | `brookwood-hunt` | Built for people outside the family; takes primitives only. | RLS on every table in `supabase/setup.sql`. `.ds-audit.json` notes with measured reasons. |
 
@@ -35,8 +40,12 @@ bridge, shadcn bridge, JS), a shadcn registry in `registry/`, the docs site
 in `web/`, and the scripts apps copy in: `audit-ds.mjs`, `sync-ds.mjs` and
 `sync-skills.mjs`.
 
-- **Private repo.** Apps that copy it into `ds/` fetch it in CI (when the
-  workflow is run) with the `OBVIOUS_TOKEN` secret; MorrisOS installs a packed copy from its `vendor/`.
+- **Visibility.** The apps were set up as if obvious were private: those
+  that copy it into `ds/` fetch it in CI (when the workflow is run) with the
+  `OBVIOUS_TOKEN` secret, and MorrisOS installs a packed copy from its
+  `vendor/`. On 9 Nov 2026 GitHub showed the repo as public. Whether it
+  stays public is Trev's call; until he decides, write nothing here that a
+  stranger shouldn't read.
 - **Ships:** merge to `main`. Apps take it by a packed tarball in `vendor/`
   (MorrisOS), by `sync-ds.mjs` into `ds/` (the rest), or by
   `npx shadcn add @obvious/<name>`. Skills reach apps through
@@ -61,8 +70,8 @@ in `web/`, and the scripts apps copy in: `audit-ds.mjs`, `sync-ds.mjs` and
 ## MorrisOS
 
 The family's home app: Home, Stock, Shop, Meals, Admin, Music (Sonos) and a
-guest page for friends at Ty Bach. Next 15, React 19, Supabase with RLS and
-Google sign-in, Vercel in Frankfurt.
+guest page for friends who come to stay. Next 15, React 19, Supabase with RLS
+and Google sign-in, Vercel.
 
 - **Ships:** branch, PR to `main`, CI, Vercel.
 - **Checks:** `npm run check`: typecheck, lint, vitest (including database
@@ -76,21 +85,20 @@ Google sign-in, Vercel in Frankfurt.
   files are in `supabase/history`. Before anyone runs `supabase db push`, the
   other live versions need `supabase migration repair --status reverted`.
 - **Open issues:**
-  1. 3 `npm audit` highs (sharp, source-map-js).
-  2. `pg_trgm` is in the public schema (advisor warning).
-  3. Middle-dot strings in Stock and Shop.
+  1. Middle-dot strings in Stock and Shop.
+  Security findings are in the app's own notes, not here.
 
 ## designedbytrev
 
-Trev's portfolio. Static HTML, CSS and JS through Vite, with 1 Vercel
-function (`api/gh-graph.js`, the contribution graph). No stats page and no
-middleware, once the stats removal merges (until then `main` still has them).
-Type authority for the design system, theme `core`. Has `write-portfolio`.
+Trev's portfolio. Static HTML, CSS and JS through Vite, with a few Vercel
+functions in `api/` and a middleware that keeps a private page behind a
+password. Type authority for the design system, theme `core`. Has
+`write-portfolio`.
 
 - **Ships:** PR to `main`, CI, Vercel. Build sha in the footer.
 - **Checks:** `npm run check`: unit tests, build, CSP hash check, `ds:check`,
-  `skills:check`, audit (budget 97), smoke test (no JS, broken script,
-  splash skip). `connected.mjs` passes: it imports obvious's behaviours
+  `skills:check`, audit (budget in `package.json`), smoke test (no JS, broken
+  script, splash skip). `connected.mjs` passes: it imports obvious's behaviours
   (including the confetti) from `ds/js/behaviours.js` and keeps no copies.
 - **Danger zones:** the inline head script whose hash is in the CSP (run
   `npm run csp` after touching it); the GitHub HTML scrape; `cssMs` timers.
@@ -100,7 +108,7 @@ Type authority for the design system, theme `core`. Has `write-portfolio`.
 
 ## daily-routine
 
-Ritual: morning and night skincare checklist for Trev and his wife. Vite,
+Ritual: morning and night skincare checklist. Vite,
 React 19, Framer Motion, localStorage only, share links in the URL hash.
 Theme `routine`, whose palette follows the clock.
 
@@ -111,10 +119,9 @@ Theme `routine`, whose palette follows the clock.
   step IDs (default ones are fixed, `am-1` and so on); the 4am day boundary;
   the technique content.
 - **Open issues:**
-  1. No CSP header.
-  2. Muted footer text is about 2.4:1.
-  3. Step rows are a `role=checkbox` with a link and a button inside.
-  4. Its copy of `scripts/audit-ds.mjs` is out of date: it passes `--max 0`,
+  1. Muted footer text is about 2.4:1.
+  2. Step rows are a `role=checkbox` with a link and a button inside.
+  3. Its copy of `scripts/audit-ds.mjs` is out of date: it passes `--max 0`,
      while obvious's current audit finds 52 (radii and px font sizes).
 
 ## condiment-gallery
@@ -126,14 +133,11 @@ yet; work merges into `claude/condiment-gallery-setup-tspvdf`.
 
 - **Checks:** `npm run check`: typecheck, lint, vitest, build, `ds:check`,
   audit, Playwright.
-- **Danger zones:** the hand-written next-auth adapter; `ALLOWED_EMAILS`
-  (unset means nobody can sign in); the shared WebGL renderer for gallery
-  stills.
+- **Danger zones:** the hand-written next-auth adapter; the sign-in
+  allowlist; the shared WebGL renderer for gallery stills.
 - **Open issues:**
-  1. No security headers or CSP.
-  2. `npm audit` highs through Prisma's tooling.
-  3. The header still shows a removed user as signed in until reload.
-  4. Needs `ALLOWED_EMAILS` in Vercel before launch.
+  1. The header still shows a removed user as signed in until reload.
+  Anything to set in Vercel before launch is in the repo's own notes.
 
 ## time-dissonance
 
@@ -163,10 +167,10 @@ Theme `specimen`.
 
 ## ground-frames-register
 
-Geoff's (Trev's dad) register of Southern ground frames as a password-gated
-site. Python build, one self-contained page, Vercel functions with private
-Blob storage, an overnight job that applies Geoff's saved corrections. Read
-its CLAUDE.md in full before doing anything.
+A private research register, shown as a password-gated site. Python build,
+one self-contained page, Vercel functions with private Blob storage, an
+overnight job that applies the compiler's saved corrections. Read its
+CLAUDE.md in full before doing anything.
 
 - **Ships:** push to `main` once, then `deploy.sh` checks. The overnight job
   also pushes to `main` when it runs; check its workflow for whether it is
@@ -174,14 +178,11 @@ its CLAUDE.md in full before doing anything.
 - **Checks:** the strongest in the estate. `verify.py` (cells, fills and
   fonts), `check_batch.py`, browser tests, API concurrency tests, a CI
   workflow that fails on SKIP and on a stale build.
-- **Danger zones:** Geoff's data (never altered); `nightly.sh`;
+- **Danger zones:** the compiler's data (never altered); `nightly.sh`;
   `apply_corrections.py` and `_apply.js` must stay identical; row maps and
   `carry_over.py`; 2 pushes within a minute.
 - **Open issues:**
-  1. The fixes from 17 Oct are in PR #1, waiting on Trev.
-  2. Needs `SESSION_SECRET` in Vercel (signs everyone out once) and a
-     firewall rate limit on `POST /`.
-  3. "sheet row N" is in monospace.
+  1. "sheet row N" is in monospace.
 
 ## holy-pixels
 

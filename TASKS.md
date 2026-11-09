@@ -14,7 +14,7 @@ Everything outstanding across the portfolio and side projects. Tick things off h
 - [ ] Get Cleo's OK on the numbers marked "Check" in the case studies
 - [ ] Get the analyst to confirm the 43% to 46% figure
 - [ ] Find the source for the 5 tiers and the place-or-task rule
-- [ ] Decide which Eye for Type research changes to make (report: https://claude.ai/artifact/AnGY4ksmh7VHfBK2k65JYt)
+- [ ] Decide which Eye for Type research changes to make
 - [ ] Decide whether the Condiment Gallery demo should say its scores are made up
 - [ ] Confirm which missing Brookwood News months were double issues (July 2025 covered July and August), so the archive can say so instead of "Not available"
 

@@ -74,7 +74,7 @@ Never against a live site: posting forms, signing in or up, guessing
 passwords, sending a bypass header (`x-middleware-subrequest`), path
 traversal, fuzzing, anything in a loop, or calling the database's API to see
 what an anonymous user can read. Production holds the family's real data and
-Hannah's real enquiries.
+real people's enquiries.
 
 Anything that needs an attack to prove gets proved locally: the repo's own
 test server and fakes (MorrisOS has `tests/e2e/fake-supabase.mjs` and a
