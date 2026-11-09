@@ -188,6 +188,27 @@ and `vercel.json` sends the old addresses there.
 `dist/` is committed because apps copy it from a shallow clone and have no
 build step of their own.
 
+## Security and legal review
+
+Claude builds my apps, so I wanted a check that doesn't take Claude's word
+for it. The `site-review` skill reviews one repo, and its live site if it has
+one, for the usual holes in sites built this way (open Supabase tables,
+middleware-only sign-in, keys in the browser, exposed `.git`, dangling DNS)
+and the legal ones (Google Fonts, cookies, session replay, children,
+marketing email, subscriptions, uploads). It reads the code and what the
+live site sends back, ignores what the notes say is safe, and reports only
+what it can prove, worst first. It syncs into apps with the other skills.
+
+Its script does the mechanical part and needs nothing installed:
+
+```sh
+node .claude/skills/site-review/scripts/site-scan.mjs ../MorrisOS
+node .claude/skills/site-review/scripts/site-scan.mjs ../designedbytrev --url https://designedbytrev.com
+```
+
+It exits 1 on anything Critical or High. Against a live site it only makes a
+handful of GET requests and DNS lookups: no forms, no sign-in, no attacks.
+
 ## Components
 
 These are my own, written on the tokens. They used to be the portfolio's

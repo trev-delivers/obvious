@@ -5,7 +5,7 @@
  * obvious keeps the master copy of the skills every repo should have: how
  * to work as the engineer on Trev's projects, how to write like him, and the
  * design skills (design system, Figma to code, accessibility, critique, UX
- * writing).
+ * writing) and the security and legal review.
  * Each app keeps a copy of this script at scripts/sync-skills.mjs, the same
  * way it keeps sync-ds.mjs.
  *
@@ -31,6 +31,7 @@ export const SKILLS = [
   "a11y-review",
   "design-critique",
   "ux-writing",
+  "site-review",
 ];
 
 const REPO = process.env.DS_REPO ?? "https://github.com/trev-delivers/obvious.git";
